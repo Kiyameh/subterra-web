@@ -1,5 +1,6 @@
 import type {Metadata} from 'next'
 import './globals.css'
+import {ThemeProvider} from '@/components/theming/theme-provider'
 
 export const metadata: Metadata = {
   title: 'Subterra.app',
@@ -12,8 +13,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html
+      lang="es"
+      suppressHydrationWarning
+    >
+      <head />
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
