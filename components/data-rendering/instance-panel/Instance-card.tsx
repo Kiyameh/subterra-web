@@ -37,7 +37,7 @@ export default function InstanceCard({instance}: InstanceCardProps) {
   } = generalData
 
   return (
-    <Card className="w-80">
+    <Card className="w-80 max-w-[90%]">
       <CardHeader>
         <div className="flex items-center gap-2">
           <OnlineIndicator isOnline={is_online} />

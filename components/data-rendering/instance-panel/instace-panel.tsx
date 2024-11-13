@@ -1,17 +1,18 @@
 import getAllInstances from '@/database/read-actions/getAllInstances'
 import React from 'react'
 import InstanceCard from './Instance-card'
+import {Instance} from '@/models/Instance.model'
 
 export default async function InstancePanel() {
   const data = await getAllInstances()
-
+  const instances = data.content as Instance[]
   return (
     <section
       id="instance-panel"
-      className="max-w-5xl flex flex-wrap gap-2"
+      className="max-w-5xl flex flex-wrap gap-5 justify-center"
     >
-      {data.content &&
-        data.content.map((instance) => (
+      {instances &&
+        instances.map((instance) => (
           <InstanceCard
             key={instance.name}
             instance={instance}

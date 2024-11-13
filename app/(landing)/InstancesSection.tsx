@@ -11,7 +11,7 @@ export default function InstancesSection() {
       style={{backgroundImage: 'url(/backgrounds/topography.svg)'}}
     >
       <SolidCard
-        className="h-40"
+        className=" mb-5"
         title="Instancias"
         icon={<RiInstanceLine className="w-7 h-7" />}
         content="Aquí puedes encontrar las instancias desplegadas actualmente en Subterra."

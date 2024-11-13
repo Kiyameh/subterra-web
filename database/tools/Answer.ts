@@ -13,3 +13,5 @@ export default class Answer<T> {
     this.content = content
   }
 }
+
+export type AnswerType = Answer<unknown>

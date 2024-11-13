@@ -14,7 +14,7 @@ export default async function getAllInstances() {
     const allInstancesJSON = allInstances.map((instance) => {
       return instance.toJSON()
     })
-    return new Answer(200, 'Instancias obtenidos', allInstancesJSON)
+    return new Answer(200, 'Instancias obtenidas', allInstancesJSON)
   } catch (error) {
     console.error(error)
     return interpretDatabaseError(error)
