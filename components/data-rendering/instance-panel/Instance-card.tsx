@@ -24,9 +24,9 @@ interface InstanceCardProps {
   instance: Instance
 }
 export default function InstanceCard({instance}: InstanceCardProps) {
-  const {name, is_online, generalData} = instance
-  if (!generalData) return null
   const {
+    name,
+    is_online,
     territory,
     owner,
     admin,
@@ -34,7 +34,7 @@ export default function InstanceCard({instance}: InstanceCardProps) {
     public_edition,
     fullname,
     description,
-  } = generalData
+  } = instance
 
   return (
     <Card className="w-80 max-w-[90%]">

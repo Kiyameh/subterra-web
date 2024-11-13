@@ -1,22 +1,20 @@
 import mongoose, {InferSchemaType} from 'mongoose'
 
+//! 1. ESQUEMA:
 export const instanceSchema = new mongoose.Schema(
   {
-    name: {type: String, required: true, unique: true},
     is_online: {type: Boolean, default: true},
-    generalData: {
-      fullname: {type: String, required: true},
-      datatype: {type: String, enum: ['instance'], required: true},
-      acronym: {type: String},
-      description: {type: String},
-      territory: {type: String},
-      admin: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-      owner: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-      public_visibility: {type: Boolean},
-      public_edition: {type: Boolean},
-      main_image: {type: String},
-      map_image: {type: String},
-    },
+    name: {type: String, required: true, unique: true},
+    acronym: {type: String},
+    fullname: {type: String, required: true},
+    description: {type: String},
+    territory: {type: String},
+    admin: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    owner: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
+    public_visibility: {type: Boolean},
+    public_edition: {type: Boolean},
+    main_image: {type: String},
+    map_image: {type: String},
   },
   {timestamps: true}
 )
@@ -35,21 +33,18 @@ instanceSchema.set('toJSON', {
   },
 })
 
-// Middleware para poblar admin y owner:
-//TODO: Crear middleware para poblar los campos admin y owner
-
+//! 2. MODELO:
 const InstanceModel =
   mongoose.models.Instance || mongoose.model('Instance', instanceSchema)
 
 export default InstanceModel
-// Tipo con la estructura en la base de datos:
+
+//! 3. TIPOS:
 type InstanceDocument = InferSchemaType<typeof instanceSchema>
 
 // Tipo con los campos owner y admin poblados:
-type FieldsToRewrite = 'generalData.owner' | 'generalData.admin'
+type FieldsToRewrite = 'owner' | 'admin'
 export type Instance = Omit<InstanceDocument, FieldsToRewrite> & {
-  generalData: {
-    owner: {_id: string; name: string}
-    admin: {_id: string; name: string}
-  }
+  owner: {_id: string; name: string}
+  admin: {_id: string; name: string}
 }

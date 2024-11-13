@@ -5,11 +5,11 @@ import {Answer} from '@/database/types/answer.type'
 
 export default async function getAllInstances() {
   await connectToMongoDB()
-
-  // TODO: Add auxiliar functions
-
   try {
-    const allInstances = await InstanceModel.find().exec()
+    const allInstances = await InstanceModel.find()
+      .populate('admin')
+      .populate('owner')
+      .exec()
     const allInstancesJSON = allInstances.map((instance) => {
       return instance.toJSON()
     })

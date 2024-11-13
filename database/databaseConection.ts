@@ -26,8 +26,7 @@ export async function connectToMongoDB(): Promise<Connection> {
     console.log('<Mongoose> DB conectada')
     return cachedConnection
   } catch (error) {
-    // If an error occurs during connection, log the error and throw it
-    console.log(error)
+    console.error(error)
     throw error
   }
 }

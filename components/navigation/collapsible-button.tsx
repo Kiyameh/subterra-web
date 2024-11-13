@@ -4,14 +4,12 @@ import {Button, ButtonProps} from '../ui/button'
 interface CollapsibleButtonProps extends ButtonProps {
   icon: ReactNode
   text: string
-  openWidth?: 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64
 }
 
 /** Boton de icono que muestra el texto al hacer hover */
 export default function CollapsibleButton({
   icon,
   text,
-  openWidth = 20,
   ...props
 }: CollapsibleButtonProps) {
   //? Animación:
@@ -22,7 +20,7 @@ export default function CollapsibleButton({
   return (
     <Button
       {...props}
-      className={`group rounded-full flex flex-row justify-normal px-3 h-10 w-10 hover:w-${openWidth} transition-all duration-300 delay-500 hover:delay-0`}
+      className={`group rounded-full flex flex-row justify-normal px-3 h-10 w-10 hover:w-20 transition-all duration-300 delay-500 hover:delay-0`}
     >
       <span className="scale-125">{icon}</span>
       <span className="text-transparent group-hover:text-current animation-color duration-200 delay-200">
