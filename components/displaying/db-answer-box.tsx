@@ -1,10 +1,10 @@
-import {AnswerType} from '@/database/tools/Answer'
+import {Answer} from '@/database/types/answer.type'
 import React from 'react'
 import {FaExclamationTriangle} from 'react-icons/fa'
 import {FaCheckCircle} from 'react-icons/fa'
 
 interface AnswerBoxProps {
-  answer?: AnswerType
+  answer?: Answer | null
 }
 
 export default function DbAwnserBox({answer}: AnswerBoxProps) {

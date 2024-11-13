@@ -1,4 +1,4 @@
-import SignInCard from '@/components/authenticating/signin-card'
+import SignInCard from '@/app/signin/components/signin-card'
 import React from 'react'
 
 export default function SigInPage() {

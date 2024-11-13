@@ -6,7 +6,7 @@ import HowToSection from './(landing)/HowToSection'
 import InstancesSection from './(landing)/InstancesSection'
 import WelcomeSection from './(landing)/WelcomeSection'
 import {FaUserCircle} from 'react-icons/fa'
-import SignInControl from '@/components/authenticating/signin-control'
+import SignInControl from '@/app/signin/components/signin-control'
 import CollapsibleButton from '@/components/navigation/collapsible-button'
 
 //* Constantes:

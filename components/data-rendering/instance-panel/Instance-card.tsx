@@ -1,4 +1,4 @@
-import {Instance} from '@/models/Instance.model'
+import {Instance} from '@/database/models/Instance.model'
 import React from 'react'
 import {
   Card,

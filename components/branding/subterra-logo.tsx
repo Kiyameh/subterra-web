@@ -3,12 +3,12 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import logoSmallLight from '@/assets/logos/logo_small_light.svg'
-import logoMediumLight from '@/assets/logos/logo_medium_light.svg'
-import logoBigLight from '@/assets/logos/logo_big_light.svg'
-import logoSmallDark from '@/assets/logos/logo_small_dark.svg'
-import logoMediumDark from '@/assets/logos/logo_medium_dark.svg'
-import logoBigDark from '@/assets/logos/logo_big_dark.svg'
+import logoSmallLight from '@/public/logos/logo_small_light.svg'
+import logoMediumLight from '@/public/logos/logo_medium_light.svg'
+import logoBigLight from '@/public/logos/logo_big_light.svg'
+import logoSmallDark from '@/public/logos/logo_small_dark.svg'
+import logoMediumDark from '@/public/logos/logo_medium_dark.svg'
+import logoBigDark from '@/public/logos/logo_big_dark.svg'
 
 interface LogoProps {
   size?: 'small' | 'medium' | 'big'

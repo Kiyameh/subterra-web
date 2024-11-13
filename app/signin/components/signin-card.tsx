@@ -1,9 +1,10 @@
 import React from 'react'
-import SolidCard from '../containing/solid-card'
 import {MdLogin} from 'react-icons/md'
-import {Button} from '../ui/button'
 import {FcGoogle} from 'react-icons/fc'
-import Divider from '../displaying/divider'
+import SolidCard from '@/components/containing/solid-card'
+import Divider from '@/components/displaying/divider'
+import LinkButton from '@/components/navigation/link-button'
+import {Button} from '@/components/ui/button'
 import SignInForm from './signin-form'
 
 export default function SignInCard() {
@@ -11,8 +12,18 @@ export default function SignInCard() {
     <SolidCard
       className="w-[420px] max-w-[90%]"
       title="Iniciar sesión"
-      icon={<MdLogin />}
-      content={<SignInForm />}
+      icon={<MdLogin className="w-6 h-6" />}
+      content={
+        <div className="flex flex-col gap-2">
+          <SignInForm />
+          <LinkButton
+            className="text-slate-300"
+            label="¿No tienes cuenta?"
+            href="/signup"
+            variant="link"
+          />
+        </div>
+      }
       footer={
         <div className="w-full flex flex-col gap-3">
           <Divider text="o" />

@@ -16,11 +16,10 @@ export default function LinkButton({
   return (
     <Link
       href={href || ''}
-      className={disabled ? 'pointer-events-none' : ''}
+      className={disabled ? 'pointer-events-none w-fit' : 'w-fit'}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : undefined}
       style={{
-        placeSelf: 'center',
         textDecoration: 'none',
         color: 'inherit',
       }}

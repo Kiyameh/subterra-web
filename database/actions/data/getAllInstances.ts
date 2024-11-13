@@ -1,8 +1,7 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import InstanceModel from '@/models/Instance.model'
-import Answer from '../tools/Answer'
-import interpretDatabaseError from '../tools/interpretDatabaseError'
+import InstanceModel from '@/database/models/Instance.model'
+import {Answer} from '@/database/types/answer.type'
 
 export default async function getAllInstances() {
   await connectToMongoDB()
@@ -14,9 +13,13 @@ export default async function getAllInstances() {
     const allInstancesJSON = allInstances.map((instance) => {
       return instance.toJSON()
     })
-    return new Answer(200, 'Instancias obtenidas', allInstancesJSON)
+    return {
+      code: 200,
+      message: 'Instancias obtenidas',
+      content: allInstancesJSON,
+    } as Answer
   } catch (error) {
     console.error(error)
-    return interpretDatabaseError(error)
+    return {code: 500, message: 'Error desconocido'} as Answer
   }
 }
