@@ -7,8 +7,8 @@ export default async function getAllInstances() {
   await connectToMongoDB()
   try {
     const allInstances = await InstanceModel.find()
-      .populate('admin')
-      .populate('owner')
+      //.populate('admin') // TODO: Corregir
+      //.populate('owner')
       .exec()
     const allInstancesJSON = allInstances.map((instance) => {
       return instance.toJSON()

@@ -7,7 +7,7 @@ export default function InstancesSection() {
   return (
     <section
       id="instances-section"
-      className="w-full min-h-screen  p-5 flex flex-col justify-evenly items-center bg-gray-700  "
+      className="w-full min-h-screen  p-5 flex flex-col justify-evenly items-center bg-background "
       style={{backgroundImage: 'url(/backgrounds/topography.svg)'}}
     >
       <SolidCard

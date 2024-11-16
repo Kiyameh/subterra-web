@@ -21,6 +21,7 @@ export default function SignUpCard() {
         <div className="w-full flex flex-col gap-3">
           <Divider text="o" />
           <Button className="w-full text-gray-600 font-bold bg-white hover:bg-blue-200">
+            Continua con
             <FcGoogle className="h-8 w-8" />
             Google
           </Button>

@@ -4,8 +4,8 @@ import mongoose, {InferSchemaType} from 'mongoose'
 export const userSchema = new mongoose.Schema(
   {
     name: {type: String, required: true, unique: true},
-    email: {type: String, required: true, unique: true},
     fullname: {type: String},
+    email: {type: String, required: true, unique: true},
     email_verified: {type: Date, default: null},
     password: {type: String, required: true},
     groups: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
@@ -17,16 +17,6 @@ export const userSchema = new mongoose.Schema(
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Exploration',
       },
-    },
-    instance_roles: {
-      viewer: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
-      editor: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
-      owner: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
-    },
-    group_roles: {
-      viewer: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
-      editor: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
-      owner: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
     },
   },
   {timestamps: true}

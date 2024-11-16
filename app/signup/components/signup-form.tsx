@@ -92,7 +92,6 @@ export default function SignUpForm() {
           name="passwordConfirmation"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Confirmar contraseña</FormLabel>
               <FormControl>
                 <Input
                   {...field}

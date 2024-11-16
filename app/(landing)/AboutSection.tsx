@@ -9,7 +9,7 @@ export default function AboutSection() {
   return (
     <section
       id="about-section"
-      className="w-full min-h-screen  p-5 flex flex-col justify-evenly items-center bg-gray-700  "
+      className="w-full min-h-screen  p-5 flex flex-col justify-evenly items-center bg-background "
       style={{backgroundImage: 'url(/backgrounds/topography.svg)'}}
     >
       <div className="flex flex-wrap gap-5  justify-center">
