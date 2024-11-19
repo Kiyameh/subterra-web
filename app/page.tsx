@@ -24,7 +24,7 @@ export default function Home() {
       <nav className="block md:hidden">
         <MobileNav sections={sections} />
       </nav>
-      <nav className="fixed top-5 right-5 z-50 md:bottom-5 md:top-auto">
+      <nav className="fixed top-6 right-6 z-50 md:bottom-6 md:top-auto">
         <AccountNav />
       </nav>
       <main>

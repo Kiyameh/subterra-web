@@ -44,12 +44,12 @@ export default function RegisterForm() {
     startTransition(async () => {
       const answer = await signUp(values)
       setDbAnswer(answer)
+      if (answer?.code === 200) {
+        setTimeout(() => {
+          router.push('/auth/login')
+        }, 1000)
+      }
     })
-    if (dbAnswer?.code === 200) {
-      setTimeout(() => {
-        router.push('/auth/login')
-      }, 1000)
-    }
   }
 
   return (

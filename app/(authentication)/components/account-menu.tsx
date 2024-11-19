@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import {User} from '@/database/models/User.model'
 import {
   DropdownMenu,
@@ -15,6 +14,7 @@ import {BsFilePersonFill} from 'react-icons/bs'
 import {RiEyeCloseLine} from 'react-icons/ri'
 import {signOut} from 'next-auth/react'
 import {useRouter} from 'next/navigation'
+import AvatarButton from './avatar-button'
 
 interface AccountMenuProps {
   user: User
@@ -23,25 +23,15 @@ interface AccountMenuProps {
 export default function AccountMenu({user}: AccountMenuProps) {
   const router = useRouter()
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        asChild
-        className="cursor-pointer"
-      >
-        <Avatar>
-          {user?.avatar && (
-            <AvatarImage
-              src={user?.avatar}
-              alt="avatar"
-            />
-          )}
-          <AvatarFallback className="bg-primary">
-            {user?.name.slice(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger>
+        <AvatarButton user={user} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>{`@${name}`}</DropdownMenuLabel>
+      <DropdownMenuContent className="m-3">
+        <DropdownMenuLabel>
+          <span className="text-primary font-bold mr-1">@</span>
+          {user.name}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"

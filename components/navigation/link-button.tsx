@@ -3,7 +3,7 @@ import {Button, ButtonProps} from '../ui/button'
 
 interface LinkButtonProps extends ButtonProps {
   label: string
-  href?: string | null | undefined
+  href: string
   disabled?: boolean
 }
 /** Unión de Link de Next y button de Shadcn */
@@ -14,22 +14,23 @@ export default function LinkButton({
   ...props
 }: LinkButtonProps) {
   return (
-    <Link
-      href={href || ''}
-      className={disabled ? 'pointer-events-none w-full' : 'w-full'}
-      aria-disabled={disabled}
-      tabIndex={disabled ? -1 : undefined}
-      style={{
-        textDecoration: 'none',
-        color: 'inherit',
-      }}
+    <Button
+      asChild
+      disabled={disabled}
+      {...props}
     >
-      <Button
-        {...props}
-        disabled={disabled}
+      <Link
+        href={href}
+        className={disabled ? 'pointer-events-none w-full' : 'w-full'}
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : undefined}
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+        }}
       >
         {label}
-      </Button>
-    </Link>
+      </Link>
+    </Button>
   )
 }

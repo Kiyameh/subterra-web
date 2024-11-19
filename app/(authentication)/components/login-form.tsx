@@ -61,7 +61,7 @@ export default function LoginForm() {
         })
         // Redirigir a la página anterior con un retraso de un segundo
         setTimeout(() => {
-          router.back()
+          router.push('/')
         }, 1000)
       }
     })
