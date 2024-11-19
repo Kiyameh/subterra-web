@@ -1,11 +1,12 @@
 'use client'
 import React from 'react'
-import {Loader2} from 'lucide-react'
+import {useRouter} from 'next/navigation'
 
-import {useTransition} from 'react'
-import {useForm} from 'react-hook-form'
-import {SignInSchema, SignInValues} from '@/database/validation/auth.schemas'
+import {Loader2} from 'lucide-react'
 import {zodResolver} from '@hookform/resolvers/zod'
+
+import {useForm} from 'react-hook-form'
+
 import {
   Form,
   FormControl,
@@ -14,16 +15,19 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import signIn from '@/database/actions/auth/signin'
-import {Answer} from '@/database/types/answer.type'
-import DbAnswerBox from '@/components/displaying/db-answer-box'
-import LinkButton from '@/components/navigation/link-button'
-import {Button} from '@/components/ui/button'
-import {Input} from '@/components/ui/input'
 
-export default function SignInForm() {
+import {Input} from '@/components/ui/input'
+import {Button} from '@/components/ui/button'
+import DbAnswerBox from '@/components/displaying/db-answer-box'
+
+import {SignInSchema, SignInValues} from '@/database/validation/auth.schemas'
+import {Answer} from '@/database/types/answer.type'
+import {signIn} from 'next-auth/react'
+
+export default function LoginForm() {
+  const router = useRouter()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(SignInSchema),
@@ -34,12 +38,32 @@ export default function SignInForm() {
   })
 
   const onSubmit = (values: SignInValues) => {
-    // Vaciar el mensaje de la base de datos
+    console.log(values)
+    // Vaciar el mensaje de error
     setDbAnswer(null)
-    // Iniciar la transmisión a la base de datos
+    // Iniciar el inicio de sesión con next-auth
     startTransition(async () => {
-      const answer = await signIn(values)
-      setDbAnswer(answer)
+      const res = await signIn('credentials', {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      })
+
+      if (res?.error) {
+        setDbAnswer({
+          code: 401,
+          message: 'Credenciales incorrectas',
+        })
+      } else {
+        setDbAnswer({
+          code: 200,
+          message: 'Sesión iniciada',
+        })
+        // Redirigir a la página anterior con un retraso de un segundo
+        setTimeout(() => {
+          router.back()
+        }, 1000)
+      }
     })
   }
 
@@ -85,14 +109,8 @@ export default function SignInForm() {
             </FormItem>
           )}
         />
+
         <DbAnswerBox answer={dbAnswer} />
-        {dbAnswer?.code === 401 && (
-          <LinkButton
-            label="¿Olvidaste tu contraseña?"
-            href="/forgot-password"
-            variant="link"
-          />
-        )}
 
         <Button
           disabled={isPending}

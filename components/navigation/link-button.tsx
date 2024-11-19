@@ -16,7 +16,7 @@ export default function LinkButton({
   return (
     <Link
       href={href || ''}
-      className={disabled ? 'pointer-events-none w-fit' : 'w-fit'}
+      className={disabled ? 'pointer-events-none w-full' : 'w-full'}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : undefined}
       style={{

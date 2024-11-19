@@ -1,11 +1,12 @@
 'use client'
 import React from 'react'
-import {Loader2} from 'lucide-react'
-
+import {useRouter} from 'next/navigation'
 import {useTransition} from 'react'
 import {useForm} from 'react-hook-form'
-import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
 import {zodResolver} from '@hookform/resolvers/zod'
+
+import {Loader2} from 'lucide-react'
+import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
 import {
   Form,
   FormControl,
@@ -20,7 +21,8 @@ import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import signUp from '@/database/actions/auth/signup'
 
-export default function SignUpForm() {
+export default function RegisterForm() {
+  const router = useRouter()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -43,6 +45,11 @@ export default function SignUpForm() {
       const answer = await signUp(values)
       setDbAnswer(answer)
     })
+    if (dbAnswer?.code === 200) {
+      setTimeout(() => {
+        router.push('/auth/login')
+      }, 1000)
+    }
   }
 
   return (

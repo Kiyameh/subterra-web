@@ -1,13 +1,11 @@
 import AboutSection from './(landing)/AboutSection'
-import DesktopNav from '../components/navigation/nav-desktop'
+import DesktopNav from './(landing)/components/nav-desktop'
 import Footer from './(landing)/Footer'
-import MobileNav from '../components/navigation/nav-mobile'
+import MobileNav from './(landing)/components/nav-mobile'
 import HowToSection from './(landing)/HowToSection'
 import InstancesSection from './(landing)/InstancesSection'
 import WelcomeSection from './(landing)/WelcomeSection'
-import {FaUserCircle} from 'react-icons/fa'
-import SignInControl from '@/app/signin/components/signin-control'
-import CollapsibleButton from '@/components/navigation/collapsible-button'
+import AccountNav from './(authentication)/components/account-nav'
 
 //* Constantes:
 const sections = [
@@ -27,12 +25,7 @@ export default function Home() {
         <MobileNav sections={sections} />
       </nav>
       <nav className="fixed top-5 right-5 z-50 md:bottom-5 md:top-auto">
-        <SignInControl mode="redirect">
-          <CollapsibleButton
-            icon={<FaUserCircle />}
-            text="Login"
-          />
-        </SignInControl>
+        <AccountNav />
       </nav>
       <main>
         <WelcomeSection />

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import useCurrentSection from '@/hooks/useCurrentSection'
-import useScrollingVisibility from '@/hooks/useScrollingVisibility'
+import useCurrentSection from '@/app/(landing)/hooks/useCurrentSection'
+import useScrollingVisibility from '@/app/(landing)/hooks/useScrollingVisibility'
 import Link from 'next/link'
 
 interface MobileNavProps {

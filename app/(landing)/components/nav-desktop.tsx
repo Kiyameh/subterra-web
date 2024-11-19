@@ -1,7 +1,7 @@
 'use client'
 import SubterraLogo from '@/components/branding/subterra-logo'
 import {Button} from '@/components/ui/button'
-import useCurrentSection from '@/hooks/useCurrentSection'
+import useCurrentSection from '@/app/(landing)/hooks/useCurrentSection'
 import Link from 'next/link'
 import React from 'react'
 

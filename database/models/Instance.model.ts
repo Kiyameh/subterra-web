@@ -35,7 +35,7 @@ instanceSchema.set('toJSON', {
 
 //! 2. MODELO:
 const InstanceModel =
-  mongoose.models.Instance || mongoose.model('Instance', instanceSchema)
+  mongoose.models?.Instance || mongoose.model('Instance', instanceSchema)
 
 export default InstanceModel
 
