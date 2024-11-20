@@ -20,7 +20,6 @@ interface CustomCardProps {
   children?: React.ReactNode
   action1?: React.ReactNode
   action2?: React.ReactNode
-  defaultWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   glassmorphism?: boolean
   className?: string
 }
@@ -34,7 +33,6 @@ interface CustomCardProps {
  * @param children Contenido de la card
  * @param action1 Acción 1 de la card
  * @param action2 Acción 2 de la card
- * @param defaultWidth 'sm' | 'md' | 'lg' | 'xl' | '2xl'
  * @param glassmorphism Añadir efecto Glassmorphism
  * @param className Clases adicionales para componente Card
  *
@@ -48,16 +46,17 @@ export default function CustomCard({
   children,
   action1,
   action2,
-  defaultWidth = 'md',
   glassmorphism = false,
   className,
 }: CustomCardProps) {
-  const solid = `max-w-${defaultWidth} border border-gray-600`
-  const glass = `max-w-${defaultWidth} bg-black bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30`
-  const style: string = glassmorphism ? glass : solid
+  const solid = `max-w-md	 border border-gray-600`
+  const glass = `max-w-md	 bg-black bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30`
+  const background = glassmorphism ? glass : solid
+
+  const style = className ? cn(background, className) : background
 
   return (
-    <Card className={cn(style, className)}>
+    <Card className={style}>
       {image && (
         <div className="flex items-center justify-center h-48 overflow-hidden rounded-t-xl">
           <Image
