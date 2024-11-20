@@ -54,9 +54,10 @@ export default function CustomCard({
 }: CustomCardProps) {
   const solid = `max-w-${defaultWidth} border border-gray-600`
   const glass = `max-w-${defaultWidth} bg-black bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30`
+  const style: string = glassmorphism ? glass : solid
 
   return (
-    <Card className={cn(glassmorphism ? glass : solid, className)}>
+    <Card className={cn(style, className)}>
       {image && (
         <div className="flex items-center justify-center h-48 overflow-hidden rounded-t-xl">
           <Image

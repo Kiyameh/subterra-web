@@ -16,14 +16,16 @@ export default function InstanceDashboardLayout({
   return (
     <SidebarProvider>
       <InstanceSidebar />
-      <SidebarInset>
+      <SidebarInset className="bg-inherit">
         <header className="bg-card flex h-10 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10">
           <ShortcutTooltip shortcut="Ctrl+B">
             <SidebarTrigger className="mx-2" />
           </ShortcutTooltip>
           <NavigationBreadcrumb />
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+        <main className="h-full flex items-center justify-center">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   )
