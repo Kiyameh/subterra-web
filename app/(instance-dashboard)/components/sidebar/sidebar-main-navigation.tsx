@@ -17,15 +17,15 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
+import {usePathname} from 'next/navigation'
 
 interface Props {
   items: {
     title: string
-    url: string
     icon?: React.ReactElement
     items?: {
       title: string
-      url: string
+      href: string
     }[]
   }[]
 }
@@ -34,11 +34,12 @@ interface Props {
  * Panel de navegación principal para colocar en un sidebar
  * Recibe un arreglo de items con la siguiente estructura:
  * @param title: string - Título del item
- * @param url: string - URL a la que redirige el item
  * @param icon?: React.ReactElement - Icono del item
- * @param items?: {title: string, url: string}[] - Subitems del item
+ * @param items?: {title: string, href: string}[] - Subitems del item
  */
 export default function SidebarMainNavigation({items}: Props) {
+  const instanceName = usePathname().split('/').pop()
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Instancia</SidebarGroupLabel>
@@ -62,7 +63,7 @@ export default function SidebarMainNavigation({items}: Props) {
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <Link href={subItem.url}>
+                        <Link href={`${instanceName}/${subItem.href}`}>
                           <span>{subItem.title}</span>
                         </Link>
                       </SidebarMenuSubButton>

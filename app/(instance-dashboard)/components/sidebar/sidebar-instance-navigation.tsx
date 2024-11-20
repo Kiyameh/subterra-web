@@ -12,18 +12,17 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
 // Icons
 import {LuChevronsUpDown} from 'react-icons/lu'
-import {MdOutlineMap} from 'react-icons/md'
 import {LuBox} from 'react-icons/lu'
 
 import {usePathname} from 'next/navigation'
 import {Instance} from '@/database/models/Instance.model'
 import Link from 'next/link'
+import OnlineIndicator from '@/components/displaying/online-indicator'
 
 interface Props {
   instances: Instance[]
@@ -68,7 +67,7 @@ export default function SidebarInstanceNavigation({instances}: Props) {
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {currentInstance.name}
+                  {currentInstance.fullname}
                 </span>
                 <span className="truncate text-xs">
                   {currentInstance.territory}
@@ -89,14 +88,18 @@ export default function SidebarInstanceNavigation({instances}: Props) {
             {instances.map((item, index) => (
               <Link
                 key={index}
-                href={`/instance/${item.name}`}
+                href={item.is_online ? `/instance/${item.name}` : '#'}
               >
-                <DropdownMenuItem className="cursor-pointer">
-                  <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <MdOutlineMap className="size-4" />
+                <DropdownMenuItem className="cursor-pointer flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="flex size-6 items-center justify-center rounded-sm border">
+                      <OnlineIndicator isOnline={item.is_online} />
+                    </div>
+                    <span>{item.name}</span>
                   </div>
-                  {item.name}
-                  <DropdownMenuShortcut>{item.territory}</DropdownMenuShortcut>
+                  <span className="text-muted-foreground">
+                    {item.territory}
+                  </span>
                 </DropdownMenuItem>
               </Link>
             ))}

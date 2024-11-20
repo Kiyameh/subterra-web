@@ -20,7 +20,7 @@ body {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-
+    --emphasis: 216 100% 61%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -35,6 +35,8 @@ body {
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 346.8 77.2% 49.8%;
@@ -55,9 +57,9 @@ body {
   }
 
   .dark {
-    --background: 216 46% 14%; /* #132034 */
+    --background: 216 46% 14%;
     --foreground: 215 8.2% 97.2%;
-
+    --emphasis: 216 100% 61%;
     --card: 215 48.6% 5.72%;
     --card-foreground: 215 8.2% 97.2%;
     --popover: 215 48.6% 5.72%;
@@ -72,6 +74,8 @@ body {
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
+    --warning: 48 96% 89%;
+    --warning-foreground: 38 92% 50%;
     --border: 215 41% 13.2%;
     --input: 215 41% 13.2%;
     --ring: 346.8 77.2% 49.8%;

@@ -22,7 +22,7 @@ export default function HowToSection() {
           footer={
             <LinkButton
               label="Crea tu cuenta"
-              href="/signup"
+              href="/auth/register"
             />
           }
         />
@@ -34,7 +34,7 @@ export default function HowToSection() {
           footer={
             <LinkButton
               label="Despliega tu propia instancia"
-              href="/deploy"
+              href="/create-instance"
             />
           }
         />

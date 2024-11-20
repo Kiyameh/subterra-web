@@ -1,7 +1,7 @@
 import SolidCard from '@/components/containing/solid-card'
 import InstancePanel from '@/components/data-rendering/instance-panel/instace-panel'
 import React from 'react'
-import {RiInstanceLine} from 'react-icons/ri'
+import {LuBox} from 'react-icons/lu'
 
 export default function InstancesSection() {
   return (
@@ -13,7 +13,7 @@ export default function InstancesSection() {
       <SolidCard
         className=" mb-5"
         title="Instancias"
-        icon={<RiInstanceLine className="w-7 h-7" />}
+        icon={<LuBox className="w-7 h-7" />}
         content="Aquí puedes encontrar las instancias desplegadas actualmente en Subterra."
       />
       <InstancePanel />

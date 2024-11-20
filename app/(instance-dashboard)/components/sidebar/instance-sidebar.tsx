@@ -23,64 +23,61 @@ import {User} from '@/database/models/User.model'
 // Icons:
 import {PiCircleBold} from 'react-icons/pi'
 import {TbCircles} from 'react-icons/tb'
-import {CgFileDocument} from 'react-icons/cg'
+import {MdOutlineExplore} from 'react-icons/md'
 
 const NAV_ITEMS = [
   {
     title: 'Cavidades',
-    url: '#',
     icon: <PiCircleBold />,
     isActive: true,
     items: [
       {
         title: 'Listado completo',
-        url: '#',
+        href: 'list/caves',
       },
       {
         title: 'Crear cavidad',
-        url: '#',
+        href: 'create/cave',
       },
       {
         title: 'Buscar cavidad',
-        url: '#',
+        href: 'details',
       },
     ],
   },
   {
     title: 'Sistemas',
-    url: '#',
     icon: <TbCircles />,
     items: [
       {
         title: 'Listado completo',
-        url: '#',
+        href: 'list/systems',
       },
       {
         title: 'Crear sistema',
-        url: '#',
+        href: 'create/system',
       },
       {
         title: 'Buscar sistema',
-        url: '#',
+        href: 'details',
       },
     ],
   },
   {
     title: 'Exploraciones',
-    url: '#',
-    icon: <CgFileDocument />,
+    icon: <MdOutlineExplore />,
     items: [
       {
         title: 'Ultimas exploraciones',
-        url: '#',
+        href: 'list/explorations',
       },
       {
         title: 'Añadir exploración',
-        url: '#',
+        href: 'create/exploration',
       },
       {
         title: 'Buscar exploración',
-        url: '#',
+        href: 'details',
       },
     ],
   },
@@ -90,15 +87,15 @@ const NAV_ITEMS = [
 const FAKE_FAVOURITES = [
   {
     name: 'Cueva de los deseos',
-    url: '#',
+    href: '#',
   },
   {
     name: 'Sima Mapache',
-    url: '#',
+    href: '#',
   },
   {
     name: 'Torca de las saxifragas',
-    url: '#',
+    href: '#',
   },
 ]
 

@@ -11,13 +11,13 @@ import {FaRegStar} from 'react-icons/fa'
 interface Props {
   favs: {
     name: string
-    url: string
+    href: string
   }[]
 }
 
 /**
  * Panel de navegación de favoritos para colocar en un sidebar
- * @param {{name: string, url: string}[]} favs - Lista de favoritos //TODO: Actualizar si necesario
+ * @param {{name: string, href: string}[]} favs - Lista de favoritos //TODO: Actualizar si necesario
  */
 export default function SidebarFavNavigation({favs}: Props) {
   return (
@@ -27,7 +27,7 @@ export default function SidebarFavNavigation({favs}: Props) {
         {favs.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <Link href={item.url}>
+              <Link href={item.href}>
                 <FaRegStar />
                 <span>{item.name}</span>
               </Link>

@@ -13,13 +13,14 @@ interface SolidCardProps {
   title?: string
   description?: string
   icon?: React.ReactNode
-  content:
+  content?:
     | string
     | React.ReactNode
     | React.ReactNode[]
     | (string | React.ReactNode)[]
   footer?: React.ReactNode
   className?: string
+  children?: React.ReactNode
 }
 
 export default function SolidCard({
@@ -29,6 +30,7 @@ export default function SolidCard({
   content,
   footer,
   className,
+  children,
 }: SolidCardProps) {
   return (
     <Card className={cn('max-w-md', className)}>
@@ -40,6 +42,7 @@ export default function SolidCard({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
+        {children}
         <CardContent>{content}</CardContent>
       </CardContent>
       {footer && <CardFooter>{footer}</CardFooter>}
