@@ -6,7 +6,7 @@ export default function AuthenticationLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className="flex h-full flex-col items-center justify-center bg-gradient-to-br from-[#11366F] via-[#132034] to-[#000000]">
+    <main className="flex h-full flex-col items-center justify-center">
       {children}
     </main>
   )

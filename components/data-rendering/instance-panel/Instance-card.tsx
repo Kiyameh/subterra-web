@@ -37,7 +37,7 @@ export default function InstanceCard({instance}: InstanceCardProps) {
   } = instance
 
   return (
-    <Card className="w-80 max-w-[90%]">
+    <Card className="w-80 max-w-[90%] border border-gray-600">
       <CardHeader>
         <div className="flex items-center gap-2">
           <OnlineIndicator isOnline={is_online} />
@@ -104,7 +104,7 @@ export default function InstanceCard({instance}: InstanceCardProps) {
       </CardContent>
       <CardFooter>
         <LinkButton
-          href={`/dashboard/${name}`}
+          href={`/instance/${name}`}
           label="Acceder"
           disabled={!instance.is_online}
         />

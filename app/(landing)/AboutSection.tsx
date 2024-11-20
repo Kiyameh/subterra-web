@@ -3,7 +3,7 @@ import React from 'react'
 import {IoMdInformationCircleOutline} from 'react-icons/io'
 import {LuBox} from 'react-icons/lu'
 import {MdStorage} from 'react-icons/md'
-import SolidCard from '@/components/containing/solid-card'
+import CustomCard from '@/components/containing/custom-card'
 
 export default function AboutSection() {
   return (
@@ -13,9 +13,9 @@ export default function AboutSection() {
       style={{backgroundImage: 'url(/backgrounds/topography.svg)'}}
     >
       <div className="flex flex-wrap gap-5  justify-center">
-        <SolidCard
+        <CustomCard
           title="¿Que es Subterra?"
-          icon={<IoMdInformationCircleOutline className="w-7 h-7" />}
+          icon={<IoMdInformationCircleOutline className="text-3xl" />}
           className="text-center"
         >
           Subterra es una base de datos en la nube para la documentación de
@@ -25,10 +25,10 @@ export default function AboutSection() {
           Permite a los espeleólogos almacenar, compartir y consultar
           información sobre cavidades, complejos karsticos y otros elementos
           relacionados con la exploración subterránea.
-        </SolidCard>
-        <SolidCard
+        </CustomCard>
+        <CustomCard
           title="Instancias"
-          icon={<LuBox className="w-7 h-7" />}
+          icon={<LuBox className="text-3xl" />}
           className="text-center"
         >
           Subtera funciona mediante instancias. Cada instancia es una base de
@@ -39,10 +39,10 @@ export default function AboutSection() {
           Las instancias pueden ser
           <span className="text-emphasis mx-1">públicas o privadas</span>, y
           pueden ser consultadas por cualquier usuario de Subterra.
-        </SolidCard>
-        <SolidCard
+        </CustomCard>
+        <CustomCard
           title="Datos"
-          icon={<MdStorage className="w-7 h-7" />}
+          icon={<MdStorage className="text-3xl" />}
           className="text-center"
         >
           En subterra se almacenan datos de
@@ -54,7 +54,7 @@ export default function AboutSection() {
           <br />
           Todos esos datos se relacionan entre sí, permitiendo una trazabilidad
           completa de cada exploración.
-        </SolidCard>
+        </CustomCard>
       </div>
       <nav>
         <DownAnchor href="#start-section" />
