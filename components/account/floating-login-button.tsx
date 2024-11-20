@@ -4,7 +4,7 @@ import {useRouter} from 'next/navigation'
 import React from 'react'
 import {MdOutlineAdd} from 'react-icons/md'
 
-export default function LoginButton() {
+export default function FloatingLoginButton() {
   const router = useRouter()
   const onClick = () => {
     router.push('/auth/login')

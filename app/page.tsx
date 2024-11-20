@@ -5,7 +5,7 @@ import MobileNav from './(landing)/components/nav-mobile'
 import HowToSection from './(landing)/HowToSection'
 import InstancesSection from './(landing)/InstancesSection'
 import WelcomeSection from './(landing)/WelcomeSection'
-import AccountNav from './(authentication)/components/account-nav'
+import FloatingAccountControls from '@/components/account/floating-account-controls'
 
 //* Constantes:
 const sections = [
@@ -25,7 +25,7 @@ export default function Home() {
         <MobileNav sections={sections} />
       </nav>
       <nav className="fixed top-6 right-6 z-50 md:bottom-6 md:top-auto">
-        <AccountNav />
+        <FloatingAccountControls />
       </nav>
       <main>
         <WelcomeSection />
