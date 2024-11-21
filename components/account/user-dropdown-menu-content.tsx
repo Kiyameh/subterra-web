@@ -9,12 +9,12 @@ import {MdSettings} from 'react-icons/md'
 import {BsFilePersonFill} from 'react-icons/bs'
 import {RiEyeCloseLine} from 'react-icons/ri'
 
-import {User} from '@/database/models/User.model'
 import {useRouter} from 'next/navigation'
 import {signOut} from 'next-auth/react'
+import {Session} from 'next-auth'
 
 interface Props {
-  user: Partial<User>
+  user: Session['user']
 }
 
 export default function UserDropdownMenuContent({user}: Props) {

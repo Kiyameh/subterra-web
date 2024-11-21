@@ -1,17 +1,18 @@
 import React, {Suspense} from 'react'
-import {auth} from '@/app/(authentication)/auth'
-import {User} from '@/database/models/User.model'
 import FloatingUserNavigation from './floating-user-navigation'
 import FloatingLoginButton from './floating-login-button'
+import {auth} from '@/auth'
+import {Session} from 'next-auth'
 
 export default async function FloatingAccountControls() {
-  const session = await auth()
+  const session: Session | null = await auth()
+  const user = session?.user
 
   return (
     <div>
       <Suspense>
-        {session?.user ? (
-          <FloatingUserNavigation user={session.user as User} />
+        {user ? (
+          <FloatingUserNavigation user={user} />
         ) : (
           <FloatingLoginButton />
         )}

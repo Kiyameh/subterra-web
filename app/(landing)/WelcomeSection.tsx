@@ -16,7 +16,7 @@ export default function WelcomeSection() {
       />
       <GlassBox>
         <p className="text-[1.7rem] text-center">
-          Base de datos para almacenamiento de datos espeleológicos y de
+          Base de datos para el almacenamiento de información espeleológica y de
           exploración
         </p>
       </GlassBox>

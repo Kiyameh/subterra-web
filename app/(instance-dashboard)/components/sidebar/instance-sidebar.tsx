@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {auth} from '@/app/(authentication)/auth'
 
 // Componentes:
 import {
@@ -18,12 +17,13 @@ import SidebarInstanceNavigation from './sidebar-instance-navigation'
 // Database:
 import getAllInstances from '@/database/actions/data/getAllInstances'
 import {Instance} from '@/database/models/Instance.model'
-import {User} from '@/database/models/User.model'
 
 // Icons:
 import {PiCircleBold} from 'react-icons/pi'
 import {TbCircles} from 'react-icons/tb'
 import {MdOutlineExplore} from 'react-icons/md'
+import {auth} from '@/auth'
+import {Session} from 'next-auth'
 
 const NAV_ITEMS = [
   {
@@ -106,9 +106,8 @@ export async function InstanceSidebar({
   const instances = (await getAllInstances()).content as Instance[]
 
   // Obtener el usuario actual
-  const session = await auth()
-  const user = session?.user as User
-
+  const session: Session | null = await auth()
+  const user = session?.user
   return (
     <Sidebar
       collapsible="icon"

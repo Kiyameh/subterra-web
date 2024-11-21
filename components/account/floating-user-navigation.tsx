@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import {User} from '@/database/models/User.model'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,9 +7,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import AvatarButton from './avatar-button'
 import UserDropdownMenuContent from '@/components/account/user-dropdown-menu-content'
+import {Session} from 'next-auth'
 
 interface Props {
-  user: User
+  user: Session['user']
 }
 
 export default function FloatingUserNavigation({user}: Props) {

@@ -1,12 +1,13 @@
 import React from 'react'
 
-//* Hook que retorna la sección actual en la que se encuentra la pagina, basandose en su id.
-//* @param sections - Arreglo de objetos con al menos la propiedad id.
+/**
+ * Retorna la sección actual en la que se encuentra la página, basandose en su id.
+ * @param {{id:sring}[]} sections -  Arreglo de objetos con, al menos, la propiedad id.
+ * @returns {string} currentSectionId - Id de la sección actual
+ */
 
-type Section = {id: string}
-
-export default function useCurrentSection(sections: Array<Section>) {
-  const [currentSection, setCurrentSection] = React.useState(sections[0].id)
+const useCurrentSection = (sections: {id: string}[]) => {
+  const [currentSectionId, setCurrentSectionId] = React.useState(sections[0].id)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +20,7 @@ export default function useCurrentSection(sections: Array<Section>) {
           sectionElement.offsetTop + sectionElement.offsetHeight
         return currentScroll >= sectionTop && currentScroll < sectionBottom
       })
-      setCurrentSection(currentSection?.id || sections[0].id)
+      setCurrentSectionId(currentSection?.id || sections[0].id)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -27,5 +28,7 @@ export default function useCurrentSection(sections: Array<Section>) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [sections])
 
-  return currentSection
+  return currentSectionId
 }
+
+export default useCurrentSection

@@ -1,9 +1,9 @@
 import React from 'react'
-import {auth} from '@/app/(authentication)/auth'
 import BackButton from '@/components/navigation/back-button'
 import {FaUser} from 'react-icons/fa'
 
 import {Card, CardHeader, CardFooter, CardContent} from '@/components/ui/card'
+import {auth} from '@/auth'
 
 export default async function ProfilePage() {
   const session = await auth()

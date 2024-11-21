@@ -1,16 +1,14 @@
-'use client'
 import React from 'react'
 import {FcGoogle} from 'react-icons/fc'
 import {Button} from '@/components/ui/button'
 
-interface GoogleButtonProps {
-  onClick?: () => void
-}
-
-export default function GoogleButton({onClick}: GoogleButtonProps) {
+/**
+ * Botón de Google
+ */
+export default function GoogleButton() {
   return (
     <Button
-      onClick={onClick}
+      type="submit"
       className="w-full text-gray-600 font-bold bg-white hover:bg-blue-200"
     >
       Continua con

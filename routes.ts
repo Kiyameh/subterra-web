@@ -1,3 +1,8 @@
+/**
+ * Redirección por defecto después de iniciar sesión
+ */
+export const defaultAuthRedirect = '/'
+
 /** Rutas públicas:
  *  No requieren autenticación
  */

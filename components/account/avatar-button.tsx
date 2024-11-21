@@ -1,13 +1,13 @@
 'use client'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
-import {User} from '@/database/models/User.model'
+import {Session} from 'next-auth'
 
-interface AvatarProps {
-  user: User
+interface Props {
+  user: Session['user']
   onClick?: () => void
 }
-export default function AvatarButton({user, onClick}: AvatarProps) {
-  const image = user.avatar || null
+export default function AvatarButton({user, onClick}: Props) {
+  const image = user.image || null
   const name = user.name || 'US'
 
   return (

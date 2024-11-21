@@ -1,43 +1,41 @@
 'use client'
 import React from 'react'
-import useCurrentSection from '@/app/(landing)/hooks/useCurrentSection'
-import useScrollingVisibility from '@/app/(landing)/hooks/useScrollingVisibility'
+import useCurrentSection from '@/hooks/use-current-section'
+import useScrollingVisibility from '@/hooks/use-scrolling-visibility'
 import Link from 'next/link'
 
 interface MobileNavProps {
   sections: Array<{id: string; label: string}>
 }
 
+/**
+ * Componenten de navegación entre secciones para la versión mobile
+ * type Section = {id: string; label: string}
+ * @param {Section[]} sections - Array de secciones de la página
+ */
 export default function MobileNav({sections}: MobileNavProps) {
   const currentSection = useCurrentSection(sections)
   const isVisible = useScrollingVisibility(1000)
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: '15px',
-        right: '15px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        gap: '10px',
-        padding: '10px',
-        zIndex: 1000,
-        //* Animación junto con el uso de useScrollingVisibility:
-        opacity: isVisible ? 1 : 0,
-        transition: 'opacity 0.5s ease-in-out',
-      }}
-    >
-      {sections.map((section, i) => (
-        <SideNavItem
-          key={i}
-          section={section}
-          currentSection={currentSection}
-        />
-      ))}
-    </div>
+    <nav>
+      <ul
+        className="fixed bottom-4 right-4 flex flex-col items-end justify-end gap-3 p-3 z-50"
+        style={{
+          //* Animación junto con el uso de useScrollingVisibility:
+          opacity: isVisible ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
+        }}
+      >
+        {sections.map((section, i) => (
+          <SideNavItem
+            key={i}
+            section={section}
+            currentSection={currentSection}
+          />
+        ))}
+      </ul>
+    </nav>
   )
 }
 
@@ -46,22 +44,26 @@ interface SideNavItemProps {
   currentSection: string
 }
 
+/**
+ * Ítem de navegación para el componente MobileNav
+ * @param {Section} section - Sección de la página que representa el ítem
+ * @param {string} currentSection- Sección actual en el scroll
+ */
 function SideNavItem({section, currentSection}: SideNavItemProps) {
   return (
-    <Link
-      href={`#${section.id}`}
-      passHref
-      className="text-white flex items-center gap-2"
-    >
-      {currentSection === section.id && section.label}
-
-      <div>
-        <div
-          className={`w-3.5 h-3.5 rounded-full ml-1.5 ${
-            currentSection === section.id ? 'bg-rose-600' : 'bg-gray-500'
+    <li>
+      <Link
+        href={`#${section.id}`}
+        passHref
+        className="text-foreground flex items-center gap-2"
+      >
+        {currentSection === section.id && section.label}
+        <span
+          className={`w-4 h-4 rounded-full ${
+            currentSection === section.id ? 'bg-primary' : 'bg-foreground'
           }`}
         />
-      </div>
-    </Link>
+      </Link>
+    </li>
   )
 }

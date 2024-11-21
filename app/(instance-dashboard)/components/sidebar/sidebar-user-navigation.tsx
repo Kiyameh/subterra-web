@@ -13,13 +13,13 @@ import {
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import UserDropdownMenuContent from '@/components/account/user-dropdown-menu-content'
 import {LuChevronsUpDown} from 'react-icons/lu'
-import {User} from '@/database/models/User.model'
+import {Session} from 'next-auth'
 
 /**
  * Panel de navegación de usuario para colocar en un Sidebar
  * @param user - Usuario actual de la sesión
  */
-export default function SidebarUserNavigation({user}: {user: User}) {
+export default function SidebarUserNavigation({user}: {user: Session['user']}) {
   const {isMobile} = useSidebar()
 
   return (
@@ -33,10 +33,10 @@ export default function SidebarUserNavigation({user}: {user: User}) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                {user.avatar && (
+                {user.image && (
                   <AvatarImage
-                    src={user.avatar}
-                    alt={user.name}
+                    src={user.image}
+                    alt={'Avatar'}
                   />
                 )}
                 <AvatarFallback className="rounded-lg">

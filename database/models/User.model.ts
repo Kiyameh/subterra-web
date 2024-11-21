@@ -3,13 +3,22 @@ import mongoose, {InferSchemaType} from 'mongoose'
 //! 1. ESQUEMA:
 export const userSchema = new mongoose.Schema(
   {
+    OAuthId: {type: String},
     name: {type: String, required: true, unique: true},
     fullname: {type: String},
     email: {type: String, required: true, unique: true},
-    email_verified: {type: Date, default: null},
-    password: {type: String, required: true},
+    email_verified: {type: Date, default: false},
+    password: {type: String},
     groups: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
-    avatar: {type: String},
+    image: {type: String},
+    group_roles: {
+      admin: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
+      member: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
+    },
+    instance_roles: {
+      editor: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
+      viewer: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
+    },
     favourites: {
       caves: {type: [mongoose.Schema.Types.ObjectId], ref: 'Cave'},
       systems: {type: [mongoose.Schema.Types.ObjectId], ref: 'System'},
@@ -44,13 +53,14 @@ export default UserModel
 //! 3. TIPOS:
 type UserDocument = InferSchemaType<typeof userSchema>
 
-// Tipo con los campos groups, instance_roles y group_roles poblados:
+// Tipo con los campos groups, instance_roles y group_roles poblados y la _id añadida como string:
 type FieldsToRewrite =
   | 'groups'
   | 'favourites'
   | 'instance_roles'
   | 'group_roles'
 export type User = Omit<UserDocument, FieldsToRewrite> & {
+  _id: string
   groups: Array<{_id: string; name: string}>
   favourites: {
     caves: Array<{_id: string; name: string}>
@@ -60,11 +70,9 @@ export type User = Omit<UserDocument, FieldsToRewrite> & {
   instance_roles: {
     viewer: Array<{_id: string; name: string}>
     editor: Array<{_id: string; name: string}>
-    owner: Array<{_id: string; name: string}>
   }
   group_roles: {
-    viewer: Array<{_id: string; name: string}>
-    editor: Array<{_id: string; name: string}>
-    owner: Array<{_id: string; name: string}>
+    member: Array<{_id: string; name: string}>
+    admin: Array<{_id: string; name: string}>
   }
 }

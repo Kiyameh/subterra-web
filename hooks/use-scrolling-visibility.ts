@@ -1,9 +1,12 @@
 import React from 'react'
 
-//* Hook para detectar si el usuario está haciendo scroll, y mostrar u ocultar elementos en función de ello.
-//* @param timeout Tiempo en milisegundos que debe pasar para que se oculte el elemento.
+/**
+ * Hook para detectar si el usuario está haciendo scroll, y mostrar u ocultar elementos en función de ello.
+ * @param {number} timeout Tiempo en milisegundos que debe pasar para que se oculte el elemento.
+ * @returns {boolean} isVisible
+ */
 
-const useScrollingVisibility = (timeout: number = 1000) => {
+const useScrollingVisibility = (timeout: number = 1000): boolean => {
   const [isVisible, setIsVisible] = React.useState(false)
   const scrollTimeout = React.useRef<NodeJS.Timeout | null>(null)
 
