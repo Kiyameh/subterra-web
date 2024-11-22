@@ -14,7 +14,7 @@ export default async function signUp(values: SignUpValues) {
   //? safeParse evita generar errores. En su lugar devuelve un objeto con la propiedad success o error.
 
   if (!validationResult.success) {
-    return {code: 400, message: 'Datos inválidos'} as Answer
+    return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
   }
 
   //2. Añadir a la base de datos
@@ -32,6 +32,7 @@ export default async function signUp(values: SignUpValues) {
 
     //3. Devolver respuesta
     return {
+      ok: true,
       code: 200,
       message: 'Usuario creado',
     } as Answer

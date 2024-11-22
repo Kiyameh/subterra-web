@@ -6,29 +6,22 @@ import {DefaultJWT} from 'next-auth/jwt'
 import {checkCredentials} from '@/database/actions/auth/checkCredentials'
 import {SignInValues} from '@/database/validation/auth.schemas'
 
-// ? Extensión de las interfaces de User, token y session para añadir roles e ID
-//TODO: Cuando se haga la populación de roles, cambiar el tipo de los roles a un tipo correcto
-// Tipos de usuario extendidos con roles e ID:
+// ? Extensión de las interfaces de User, token y session para añadir ID
+// Tipos de usuario extendidos con ID:
 interface ExtendedUser extends User {
-  instance_roles: string[]
-  group_roles: string[]
   _id: string
 }
 
-// Tipos de token extendidos con roles e ID:
+// Tipos de token extendidos con ID:
 declare module 'next-auth/jwt' {
   interface JWT extends DefaultJWT {
-    group_roles?: string[]
-    instance_roles?: string[]
     _id?: string
   }
 }
-// Tipos de sesión extendidos con roles e ID:
+// Tipos de sesión extendidos con ID:
 declare module 'next-auth' {
   interface Session {
     user: {
-      instance_roles?: string[]
-      group_roles?: string[]
       _id?: string
     } & DefaultSession['user']
   }
@@ -53,8 +46,6 @@ export const authConfig: NextAuthConfig = {
             email: response.data.email,
             name: response.data.name,
             image: response.data.image,
-            group_roles: response.data.group_roles,
-            instance_roles: response.data.instance_roles,
             _id: response.data._id,
           }
         } else if (response.error) {
@@ -72,8 +63,6 @@ export const authConfig: NextAuthConfig = {
       const extendedUser = user as ExtendedUser
       // Introducir roles en el token:
       if (extendedUser) {
-        token.group_roles = extendedUser.group_roles
-        token.instance_roles = extendedUser.instance_roles
         token._id = extendedUser._id
       }
 
@@ -82,8 +71,6 @@ export const authConfig: NextAuthConfig = {
     async session({session, token}) {
       // Introducir roles e ID en la sesión:
       if (session?.user) {
-        session.user.group_roles = token.group_roles
-        session.user.instance_roles = token.instance_roles
         session.user._id = token._id
       }
 

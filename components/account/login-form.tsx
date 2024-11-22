@@ -51,11 +51,13 @@ export default function LoginForm() {
 
       if (res?.error) {
         setDbAnswer({
+          ok: false,
           code: 401,
           message: 'Credenciales incorrectas',
         })
       } else {
         setDbAnswer({
+          ok: true,
           code: 200,
           message: 'Sesión iniciada',
         })

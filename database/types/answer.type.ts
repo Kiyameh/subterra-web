@@ -1,5 +1,8 @@
 export interface Answer {
-  code: number
-  message: string
+  ok: boolean
+  code?: number
+  message?: string
+  error?: object
   content?: object
+  redirect?: string
 }

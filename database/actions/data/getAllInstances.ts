@@ -14,12 +14,13 @@ export default async function getAllInstances() {
       return instance.toJSON()
     })
     return {
+      ok: true,
       code: 200,
       message: 'Instancias obtenidas',
       content: allInstancesJSON,
     } as Answer
   } catch (error) {
     console.error(error)
-    return {code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
   }
 }

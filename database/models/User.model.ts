@@ -9,23 +9,14 @@ export const userSchema = new mongoose.Schema(
     email: {type: String, required: true, unique: true},
     email_verified: {type: Date, default: false},
     password: {type: String},
-    groups: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
     image: {type: String},
-    group_roles: {
-      admin: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
-      member: {type: [mongoose.Schema.Types.ObjectId], ref: 'Group'},
-    },
-    instance_roles: {
-      editor: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
-      viewer: {type: [mongoose.Schema.Types.ObjectId], ref: 'Instance'},
-    },
-    favourites: {
-      caves: {type: [mongoose.Schema.Types.ObjectId], ref: 'Cave'},
-      systems: {type: [mongoose.Schema.Types.ObjectId], ref: 'System'},
-      explorations: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Exploration',
-      },
+    instances: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'Instance'},
+    groups: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'Group'},
+    fav_caves: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'Cave'},
+    fav_systems: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'System'},
+    fav_explorations: {
+      type: Array<mongoose.Schema.Types.ObjectId>,
+      ref: 'Exploration',
     },
   },
   {timestamps: true}

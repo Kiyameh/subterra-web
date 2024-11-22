@@ -21,6 +21,14 @@ import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import signUp from '@/database/actions/auth/signup'
 
+const EMPTY_USER = {
+  email: '',
+  name: '',
+  fullname: '',
+  password: '',
+  passwordConfirmation: '',
+}
+
 export default function RegisterForm() {
   const router = useRouter()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
@@ -28,13 +36,7 @@ export default function RegisterForm() {
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(SignUpSchema),
-    defaultValues: {
-      email: '',
-      name: '',
-      fullname: '',
-      password: '',
-      passwordConfirmation: '',
-    },
+    defaultValues: EMPTY_USER,
   })
 
   const onSubmit = (values: SignUpValues) => {

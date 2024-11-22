@@ -20,6 +20,7 @@ export function decodeMongoError(error: unknown): Answer {
     }
   }
   return {
+    ok: false,
     code: errorCode,
     message: errorMessage,
   }
