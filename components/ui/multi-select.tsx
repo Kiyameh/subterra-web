@@ -231,7 +231,7 @@ const MultiSelectorTrigger = forwardRef<
     <div
       ref={ref}
       className={cn(
-        'flex flex-wrap gap-1 p-1 py-2 ring-1 ring-muted rounded-lg bg-background',
+        'flex flex-wrap gap-1 p-1 py-2 ring-1 ring-muted rounded-md bg-card',
         {
           'ring-1 focus-within:ring-ring': activeIndex === -1,
         },
@@ -330,7 +330,7 @@ const MultiSelectorList = forwardRef<
     <CommandList
       ref={ref}
       className={cn(
-        'p-2 flex flex-col gap-2 rounded-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg w-full absolute bg-background shadow-md z-10 border border-muted top-0',
+        'p-2 flex flex-col gap-2  rounded-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg w-full absolute shadow-md z-10 border border-muted top-0 bg-card',
         className
       )}
     >

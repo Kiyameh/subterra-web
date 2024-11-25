@@ -5,7 +5,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 
-import NavigationBreadcrumb from './components/breadcrumb/nav-breadcrumb'
+import NavigationBreadcrumb from '../../components/navigation/nav-breadcrumb'
 import ShortcutTooltip from '@/components/displaying/shortcut-tooltip'
 
 export default function InstanceDashboardLayout({

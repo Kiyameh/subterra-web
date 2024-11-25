@@ -1,5 +1,10 @@
 import {z} from 'zod'
-import {countries, groupCategories, provinces_ES} from '../models/Group.enums'
+import {groupCategories} from '../models/Group.enums'
+import countries from '@/database/data/countries.json'
+import states from '@/database/data/states.json'
+
+const countryNames = countries.map((country) => country.name)
+const stateNames = states.map((state) => state.name)
 
 export const GroupFormSchema = z.object({
   // Datos generales:
@@ -27,10 +32,18 @@ export const GroupFormSchema = z.object({
   door: z.string().optional(),
   postal_code: z.number().max(6, {message: 'Demasiado largo'}).optional(),
   city: z.string().optional(),
-  province: z.enum(provinces_ES).optional(),
-  country: z.enum(countries).optional(),
+  province: z
+    .string()
+    .refine((name) => stateNames.includes(name), {
+      message: 'El nombre de la provincia no es válido',
+    }),
+  country: z
+    .string()
+    .refine((name) => countryNames.includes(name), {
+      message: 'El nombre del país no es válido',
+    }),
   phone: z.string().optional(),
-  email: z.string().email().optional(),
+  email: z.string().email(),
   webpage: z.string().optional(),
 })
 

@@ -1,4 +1,5 @@
 import {CheckIcon, ChevronsUpDown} from 'lucide-react'
+import {FaPhone} from 'react-icons/fa'
 
 import * as React from 'react'
 
@@ -62,7 +63,8 @@ const InputComponent = React.forwardRef<
   React.ComponentProps<'input'>
 >(({className, ...props}, ref) => (
   <Input
-    className={cn('rounded-e-lg rounded-s-none', className)}
+    className={cn('rounded-e-lg rounded-s-none h-9 ', className)}
+    endContent={<FaPhone className="text-foreground/50" />}
     {...props}
     ref={ref}
   />
@@ -169,7 +171,7 @@ const FlagComponent = ({country, countryName}: RPNInput.FlagProps) => {
   const Flag = flags[country]
 
   return (
-    <span className="bg-foreground/20 flex h-4 w-6 overflow-hidden rounded-sm">
+    <span className="bg-foreground/20 flex h-4 w-6 items-center justify-center overflow-hidden rounded-sm">
       {Flag && <Flag title={countryName} />}
     </span>
   )

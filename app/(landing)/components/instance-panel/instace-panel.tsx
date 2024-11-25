@@ -1,7 +1,7 @@
-import getAllInstances from '@/database/actions/data/getAllInstances'
 import React from 'react'
 import InstanceCard from './Instance-card'
 import {Instance} from '@/database/models/Instance.model'
+import {getAllInstances} from '@/database/actions/data/getAll.actions'
 
 export default async function InstancePanel() {
   const data = await getAllInstances()

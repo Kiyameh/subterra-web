@@ -1,5 +1,5 @@
 import mongoose, {InferSchemaType} from 'mongoose'
-import {countries, groupCategories, provinces_ES} from './Group.enums'
+import {groupCategories} from './Group.enums'
 
 //! 1. ESQUEMA:
 export const groupSchema = new mongoose.Schema(
@@ -20,8 +20,8 @@ export const groupSchema = new mongoose.Schema(
     door: {type: String},
     postal_code: {type: Number},
     city: {type: String},
-    province: {type: String, enum: provinces_ES},
-    country: {type: String, enum: countries},
+    province: {type: String},
+    country: {type: String},
 
     phone: {type: String},
     email: {type: String},
@@ -29,8 +29,16 @@ export const groupSchema = new mongoose.Schema(
 
     // Relaciones:
     admin: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    editors: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'User'},
-    members: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'User'},
+    editors: {
+      type: Array<mongoose.Schema.Types.ObjectId>,
+      ref: 'User',
+      default: [],
+    },
+    members: {
+      type: Array<mongoose.Schema.Types.ObjectId>,
+      ref: 'User',
+      default: [],
+    },
     explorations: {
       type: Array<mongoose.Schema.Types.ObjectId>,
       ref: 'Exploration',
@@ -62,10 +70,7 @@ export default GroupModel
 //! 3. TIPOS:
 type GroupDocument = InferSchemaType<typeof groupSchema>
 
-// Tipo con los campos poblados y el _id:
-type FieldsToRewrite = 'members' | 'explorations'
-export type Group = Omit<GroupDocument, FieldsToRewrite> & {
+// Tipo con el _id:
+export type Group = GroupDocument & {
   _id: string
-  members: {_id: string; name: string}
-  explorations: {_id: string; name: string}
 }

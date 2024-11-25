@@ -15,7 +15,6 @@ import SidebarMainNavigation from './sidebar-main-navigation'
 import SidebarInstanceNavigation from './sidebar-instance-navigation'
 
 // Database:
-import getAllInstances from '@/database/actions/data/getAllInstances'
 import {Instance} from '@/database/models/Instance.model'
 
 // Icons:
@@ -24,6 +23,7 @@ import {TbCircles} from 'react-icons/tb'
 import {MdOutlineExplore} from 'react-icons/md'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
+import {getAllInstances} from '@/database/actions/data/getAll.actions'
 
 const NAV_ITEMS = [
   {

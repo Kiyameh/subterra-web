@@ -19,14 +19,24 @@ export default function HowToSection() {
           glassmorphism
           title="Espeleologo"
           icon={<FaPersonHiking className="w-7 h-7" />}
-          content="Si eres un espeleologo, puedes crear tu cuenta de usuario y consultar los datos de las instancias públicas. Tambien puedes inscribirte dentro de un club y colaborar con su propia base de datos."
           action1={
             <LinkButton
               label="Crea tu cuenta"
               href="/auth/register"
             />
           }
-        />
+          action2={
+            <LinkButton
+              variant="secondary"
+              label="Inicia sesión"
+              href="/auth/login"
+            />
+          }
+        >
+          Si eres un espeleologo, puedes consultar las instancias públicas que
+          ya existen, o solicitar el acceso a uno de los grupos y colaborar con
+          su propia base de datos.
+        </CustomCard>
 
         <CustomCard
           glassmorphism
@@ -35,7 +45,14 @@ export default function HowToSection() {
           content="Si eres un club, puedes crear un perfil de grupo, inscribir a los miembros y asignarles diferentes roles. Estos podran contribuir a la base de datos del grupo con cavidades exploradas, informes de exploración, y mucho más."
           action1={
             <LinkButton
-              label="Despliega tu propia instancia"
+              label="Registra tu grupo"
+              href="/create-group"
+            />
+          }
+          action2={
+            <LinkButton
+              variant="ghost"
+              label="Solicita tu propia instancia"
               href="/create-instance"
             />
           }
