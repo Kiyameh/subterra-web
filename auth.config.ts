@@ -3,8 +3,9 @@ import Credentials from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
 import {DefaultJWT} from 'next-auth/jwt'
 
-import {checkCredentials} from '@/database/actions/auth/checkCredentials'
 import {SignInValues} from '@/database/validation/auth.schemas'
+import {checkCredentials} from './database/services/user.services'
+import {UserDocument} from './database/models/User.model'
 
 // ? Extensión de las interfaces de User, token y session para añadir ID
 // Tipos de usuario extendidos con ID:
@@ -40,17 +41,18 @@ export const authConfig: NextAuthConfig = {
         // Comprobar credenciales:
         const response = await checkCredentials(credentials as SignInValues)
 
-        if (response.data) {
+        if (response.ok) {
           // Responder con los datos del usuario que se guardarán en el token:
+          const user = response.content as UserDocument
           return {
-            email: response.data.email,
-            name: response.data.name,
-            image: response.data.image,
-            _id: response.data._id,
+            email: user.email,
+            name: user.name,
+            image: user.image,
+            _id: user._id,
           }
-        } else if (response.error) {
+        } else {
           // Ir a la pantalla de SinginError
-          throw new Error(response.error)
+          throw new Error(response.message)
         }
 
         return null

@@ -17,7 +17,7 @@ import {
   GroupFormSchema,
   GroupFormValues,
 } from '@/database/validation/group.schema'
-import {createOneGroup} from '@/database/actions/create/create.actions'
+import {createOneGroup} from '@/database/services/group.services'
 import React from 'react'
 import {Answer} from '@/database/types/answer.type'
 import LinkButton from '@/components/navigation/link-button'

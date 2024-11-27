@@ -25,13 +25,6 @@ export default function HowToSection() {
               href="/auth/register"
             />
           }
-          action2={
-            <LinkButton
-              variant="secondary"
-              label="Inicia sesión"
-              href="/auth/login"
-            />
-          }
         >
           Si eres un espeleologo, puedes consultar las instancias públicas que
           ya existen, o solicitar el acceso a uno de los grupos y colaborar con
@@ -47,13 +40,6 @@ export default function HowToSection() {
             <LinkButton
               label="Registra tu grupo"
               href="/create-group"
-            />
-          }
-          action2={
-            <LinkButton
-              variant="ghost"
-              label="Solicita tu propia instancia"
-              href="/create-instance"
             />
           }
         />

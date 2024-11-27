@@ -15,6 +15,7 @@ interface CustomCardProps {
   image?: StaticImport
   icon?: React.ReactNode
   title: string
+  code?: string
   description?: string
   content?: React.ReactNode
   children?: React.ReactNode
@@ -28,6 +29,7 @@ interface CustomCardProps {
  * @param image Imagen superior
  * @param icon Icono
  * @param title Título de la card
+ * @param code Código que aparece a la derecha del título
  * @param description Descripción
  * @param content Contenido de la card
  * @param children Contenido de la card
@@ -41,6 +43,7 @@ export default function CustomCard({
   image,
   icon,
   title,
+  code,
   description,
   content,
   children,
@@ -66,9 +69,20 @@ export default function CustomCard({
         </div>
       )}
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-xl">
-          {icon}
-          {title}
+        <CardTitle className="flex justify-between items-center">
+          <div className="flex items-center gap-2 text-xl">
+            {icon}
+            {title}
+          </div>
+          {code && (
+            <a
+              href={`https://http.cat/status/${code}`}
+              target="_blank"
+              className="text-2xl text-foreground/20"
+            >
+              {code}
+            </a>
+          )}
         </CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>

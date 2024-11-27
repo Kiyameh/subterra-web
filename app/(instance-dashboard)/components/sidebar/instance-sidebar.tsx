@@ -12,113 +12,54 @@ import {SidebarLoginButton} from './sidebar-login-button'
 import SidebarFavNavigation from './sidebar-fav-navigation'
 import SidebarUserNavigation from './sidebar-user-navigation'
 import SidebarMainNavigation from './sidebar-main-navigation'
-import SidebarInstanceNavigation from './sidebar-instance-navigation'
-
-// Database:
-import {Instance} from '@/database/models/Instance.model'
+import SidebarInstanceSelector from './sidebar-instance-selector'
 
 // Icons:
-import {PiCircleBold} from 'react-icons/pi'
-import {TbCircles} from 'react-icons/tb'
-import {MdOutlineExplore} from 'react-icons/md'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
-import {getAllInstances} from '@/database/actions/data/getAll.actions'
+import {PopulatedInstance} from '@/database/models/Instance.model'
+import {getAllInstances} from '@/database/services/instance.services'
 
-const NAV_ITEMS = [
-  {
-    title: 'Cavidades',
-    icon: <PiCircleBold />,
-    isActive: true,
-    items: [
-      {
-        title: 'Listado completo',
-        href: 'list/caves',
-      },
-      {
-        title: 'Crear cavidad',
-        href: 'create/cave',
-      },
-      {
-        title: 'Buscar cavidad',
-        href: 'details',
-      },
-    ],
-  },
-  {
-    title: 'Sistemas',
-    icon: <TbCircles />,
-    items: [
-      {
-        title: 'Listado completo',
-        href: 'list/systems',
-      },
-      {
-        title: 'Crear sistema',
-        href: 'create/system',
-      },
-      {
-        title: 'Buscar sistema',
-        href: 'details',
-      },
-    ],
-  },
-  {
-    title: 'Exploraciones',
-    icon: <MdOutlineExplore />,
-    items: [
-      {
-        title: 'Ultimas exploraciones',
-        href: 'list/explorations',
-      },
-      {
-        title: 'Añadir exploración',
-        href: 'create/exploration',
-      },
-      {
-        title: 'Buscar exploración',
-        href: 'details',
-      },
-    ],
-  },
-]
-
-// TODO: Añadir fetch de favoritos reales:
-const FAKE_FAVOURITES = [
-  {
-    name: 'Cueva de los deseos',
-    href: '#',
-  },
-  {
-    name: 'Sima Mapache',
-    href: '#',
-  },
-  {
-    name: 'Torca de las saxifragas',
-    href: '#',
-  },
-]
+interface InstanceSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  instanceName: string
+}
 
 export async function InstanceSidebar({
+  instanceName,
   ...props
-}: React.ComponentProps<typeof Sidebar>) {
+}: InstanceSidebarProps) {
   // Obtener las intancias de la base de datos:
-  const instances = (await getAllInstances()).content as Instance[]
+  const answer = await getAllInstances()
+  const allInstances = answer.content as PopulatedInstance[] | null
+
+  // Obtener la instancia actual:
+  const currentInstance = allInstances?.find(
+    (instance) => instance.name === instanceName
+  ) as PopulatedInstance | null
 
   // Obtener el usuario actual
   const session: Session | null = await auth()
-  const user = session?.user
+  const user = session?.user as Session['user'] | null
+
   return (
     <Sidebar
       collapsible="icon"
       {...props}
     >
       <SidebarHeader>
-        <SidebarInstanceNavigation instances={instances} />
+        {/*? null manejado en el componente:*/}
+        <SidebarInstanceSelector
+          allInstances={allInstances}
+          currentInstance={currentInstance}
+        />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarMainNavigation items={NAV_ITEMS} />
-        <SidebarFavNavigation favs={FAKE_FAVOURITES} />
+        {/*? null manejado en el componente:*/}
+        <SidebarMainNavigation
+          currentInstance={currentInstance}
+          user={user}
+        />
+        {user && <SidebarFavNavigation user={user} />}
       </SidebarContent>
       <SidebarFooter>
         {user ? <SidebarUserNavigation user={user} /> : <SidebarLoginButton />}

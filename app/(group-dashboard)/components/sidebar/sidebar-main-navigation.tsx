@@ -9,19 +9,26 @@ import {
 import Link from 'next/link'
 import {Session} from 'next-auth'
 import {IoMdInformationCircleOutline} from 'react-icons/io'
-import {Group} from '@/database/models/Group.model'
 import {FaUserGroup} from 'react-icons/fa6'
 import {GrConfigure} from 'react-icons/gr'
+import {PopulatedGroup} from '@/database/models/Group.model'
 
 interface Props {
-  currentGroup: Group | undefined
-  user: Session['user'] | undefined
+  currentGroup: PopulatedGroup | null
+  user: Session['user'] | null
 }
 
+/**
+ * Panel de navegación principal de grupos para colocar en un sidebar
+ * @param currentGroup - Grupo actual <PopulatedGroup>
+ * @param user - Usuario actual <Session['user']>
+ * @returns
+ */
+
 export default function SidebarMainNavigation({currentGroup, user}: Props) {
-  const userId = user?._id
   let isMember = false
   let isAdmin = false
+  const userId = user?._id
 
   if (userId && currentGroup) {
     isMember = (currentGroup.members as unknown as string[]).includes(userId)
@@ -52,7 +59,9 @@ export default function SidebarMainNavigation({currentGroup, user}: Props) {
             <SidebarMenuItem>
               <Link href={`/group/${currentGroup.name}/members`}>
                 <SidebarMenuButton>
-                  <FaUserGroup />
+                  <span className="text-primary">
+                    <FaUserGroup />
+                  </span>
                   Miembros
                 </SidebarMenuButton>
               </Link>
@@ -61,7 +70,9 @@ export default function SidebarMainNavigation({currentGroup, user}: Props) {
               <SidebarMenuItem>
                 <Link href={`/group/${currentGroup.name}/edit`}>
                   <SidebarMenuButton>
-                    <GrConfigure />
+                    <span className="text-purple-700">
+                      <GrConfigure />
+                    </span>
                     Panel de administración
                   </SidebarMenuButton>
                 </Link>

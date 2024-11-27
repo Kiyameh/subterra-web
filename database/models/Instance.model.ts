@@ -1,7 +1,29 @@
-import mongoose, {InferSchemaType} from 'mongoose'
+import {Document, Schema, models, model, Types} from 'mongoose'
+import {UserObject} from './User.model'
+import {GroupObject} from './Group.model'
 
-//! 1. ESQUEMA:
-export const instanceSchema = new mongoose.Schema(
+//* INTERFACES:
+
+export interface InstanceDocument extends Document {
+  is_online: boolean
+  name: string
+  fullname: string
+  acronym: string
+  description: string
+  territory: string
+  admin: Types.ObjectId
+  owner: Types.ObjectId
+  editors: Types.ObjectId[]
+  viewers: Types.ObjectId[]
+  public_visibility: boolean
+  public_edition: boolean
+  main_image: string
+  map_image: string
+}
+
+//* ESQUEMA:
+
+const instanceSchema = new Schema<InstanceDocument>(
   {
     is_online: {type: Boolean, default: true},
     name: {type: String, required: true, unique: true},
@@ -9,10 +31,10 @@ export const instanceSchema = new mongoose.Schema(
     acronym: {type: String},
     description: {type: String},
     territory: {type: String},
-    admin: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    owner: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-    editors: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'User'},
-    viewers: {type: Array<mongoose.Schema.Types.ObjectId>, ref: 'User'},
+    admin: {type: Schema.Types.ObjectId, ref: 'User'},
+    owner: {type: Schema.Types.ObjectId, ref: 'Group'},
+    editors: {type: [Schema.Types.ObjectId], ref: 'User'},
+    viewers: {type: [Schema.Types.ObjectId], ref: 'User'},
     public_visibility: {type: Boolean, default: true},
     public_edition: {type: Boolean, default: false},
     main_image: {type: String},
@@ -21,33 +43,39 @@ export const instanceSchema = new mongoose.Schema(
   {timestamps: true}
 )
 
-// Método para obtener referencia de este item:
-instanceSchema.methods.getReference = function () {
-  return {
-    id: this._id.toString(),
-    name: this.name,
-  }
-}
-instanceSchema.set('toJSON', {
-  transform: function (doc, ret) {
-    // Serializar datos para evitar conflictos con client components de Next:
-    return JSON.parse(JSON.stringify(ret))
-  },
-})
+//* ÍNDICES:
 
-//! 2. MODELO:
-const InstanceModel =
-  mongoose.models?.Instance || mongoose.model('Instance', instanceSchema)
+//* MIDDLEWARES:
 
-export default InstanceModel
+//* MÉTODOS ESTATICOS:
 
-//! 3. TIPOS:
-type InstanceDocument = InferSchemaType<typeof instanceSchema>
+//* MÉTODOS DE INSTANCIA:
 
-// Tipo con los campos owner y admin poblados y el id:
-type FieldsToRewrite = 'owner' | 'admin'
-export type Instance = Omit<InstanceDocument, FieldsToRewrite> & {
+//* MODELO:
+
+const Instance =
+  models?.Instance || model<InstanceDocument>('Instance', instanceSchema)
+
+export default Instance
+
+//* INTERFACES EXTENDIDAS:
+
+export interface InstanceObject
+  extends Omit<InstanceDocument, 'admin' | 'owner' | 'editors' | 'viewers'> {
   _id: string
-  owner: {_id: string; name: string}
-  admin: {_id: string; name: string}
+  __v: number
+  createdAt: Date
+  updatedAt: Date
+  admin: string
+  owner: string
+  editors: string[]
+  viewers: string[]
+}
+
+export interface PopulatedInstance
+  extends Omit<InstanceObject, 'admin' | 'owner' | 'editors' | 'viewers'> {
+  admin: UserObject
+  owner: GroupObject
+  editors: UserObject[]
+  viewers: UserObject[]
 }

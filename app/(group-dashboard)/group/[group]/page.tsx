@@ -1,6 +1,6 @@
-import NotFoundCard from '@/components/displaying/not-found-card'
-import {connectToMongoDB} from '@/database/databaseConection'
-import GroupModel, {Group} from '@/database/models/Group.model'
+import NotFoundCard from '@/components/displaying/404-not-found'
+import {PopulatedGroup} from '@/database/models/Group.model'
+import {getOneGroup} from '@/database/services/group.services'
 
 interface Props {
   params: Promise<{group: string}>
@@ -8,10 +8,8 @@ interface Props {
 
 export default async function GroupLandingPage({params}: Props) {
   const groupName = (await params).group
-  connectToMongoDB()
-  const group: Group = await GroupModel.findOne({
-    name: groupName,
-  }).exec()
+
+  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
 
   if (!group) {
     return <NotFoundCard />

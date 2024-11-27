@@ -2,7 +2,7 @@ import {signIn} from '@/auth'
 import {defaultAuthRedirect} from '@/routes'
 
 /**
- * Conponente que envuelve a otros elementos y los convierte en un botón para iniciar sesión
+ * Componente que envuelve a otros elementos y los convierte en un botón para iniciar sesión
  */
 export function SignInController({
   children,

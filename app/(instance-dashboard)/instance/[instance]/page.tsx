@@ -1,6 +1,7 @@
-import NotFoundCard from '@/components/displaying/not-found-card'
-import {connectToMongoDB} from '@/database/databaseConection'
-import InstanceModel, {Instance} from '@/database/models/Instance.model'
+import NotFoundCard from '@/components/displaying/404-not-found'
+import {PopulatedInstance} from '@/database/models/Instance.model'
+import {getInstanceByName} from '@/database/services/instance.services'
+import Image from 'next/image'
 
 interface Props {
   params: Promise<{instance: string}>
@@ -8,19 +9,23 @@ interface Props {
 
 export default async function InstanceLandingPage({params}: Props) {
   const instanceName = (await params).instance
+  const answer = await getInstanceByName(instanceName)
 
-  connectToMongoDB()
-  const instance: Instance = await InstanceModel.findOne({
-    name: instanceName,
-  }).exec()
-
-  if (!instance) {
+  if (!answer.ok) {
     return <NotFoundCard />
   }
 
+  const instance = answer.content as PopulatedInstance
+
   return (
     <section className="w-full h-full flex items-center justify-center">
-      <h1>{`Bienvenido a la instancia ${instance.fullname}`}</h1>
+      <Image
+        src={instance.map_image}
+        alt={instance.name}
+        width={300}
+        height={300}
+        className="rounded-lg"
+      />
     </section>
   )
 }

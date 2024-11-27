@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-// Componentes:
 import {
   Sidebar,
   SidebarContent,
@@ -13,13 +12,10 @@ import SidebarUserMenu from './sidebar-user-menu'
 import SidebarMainNavigation from './sidebar-main-navigation'
 import SidebarGroupSelector from './sidebar-group-selector'
 
-// Database:
-import {Group} from '@/database/models/Group.model'
-
-// Icons:
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
-import {getAllGroups} from '@/database/actions/data/getAll.actions'
+import {getAllGroups} from '@/database/services/group.services'
+import {PopulatedGroup} from '@/database/models/Group.model'
 
 interface GroupSidebarProps extends React.ComponentProps<typeof Sidebar> {
   groupName: string
@@ -27,14 +23,17 @@ interface GroupSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export async function GroupSidebar({groupName, ...props}: GroupSidebarProps) {
   // Obtener todos los grupos de la base de datos:
-  const allGroups = (await getAllGroups()).content as Group[]
+  const answer = await getAllGroups()
+  const allGroups = answer.content as PopulatedGroup[] | null
 
   // Obtener el grupo actual:
-  const currentGroup = allGroups.find((group) => group.name === groupName)
+  const currentGroup = allGroups?.find(
+    (group) => group.name === groupName
+  ) as PopulatedGroup | null
 
   // Obtener el usuario actual
   const session: Session | null = await auth()
-  const user = session?.user
+  const user = session?.user as Session['user'] | null
 
   return (
     <Sidebar
@@ -42,12 +41,14 @@ export async function GroupSidebar({groupName, ...props}: GroupSidebarProps) {
       {...props}
     >
       <SidebarHeader>
+        {/*? null manejado en el componente:*/}
         <SidebarGroupSelector
           allGroups={allGroups}
           currentGroup={currentGroup}
         />
       </SidebarHeader>
       <SidebarContent>
+        {/*? null manejado en el componente:*/}
         <SidebarMainNavigation
           currentGroup={currentGroup}
           user={user}

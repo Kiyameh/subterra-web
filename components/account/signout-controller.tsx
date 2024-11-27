@@ -2,7 +2,7 @@ import {signOut} from '@/auth'
 import {defaultAuthRedirect} from '@/routes'
 
 /**
- * Conponente que envuelve a otros elementos y los convierte en un botón para cerrar sesión
+ * Componente que envuelve a otros elementos y los convierte en un botón para cerrar sesión
  */
 export function SignOutController({
   children,

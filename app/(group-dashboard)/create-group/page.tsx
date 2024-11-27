@@ -32,27 +32,29 @@ export default async function CreateGroupPage() {
   }
 
   return (
-    <section>
-      {userId ? (
-        <GroupForm
-          initialData={EMPTY_GROUP}
-          editor={userId}
-        />
-      ) : (
-        <CustomCard
-          icon={<FiAlertTriangle />}
-          title={'Inicia sesión'}
-          action1={<BackButton />}
-          action2={
-            <LinkButton
-              href="/auth/login"
-              label="Iniciar sesión"
-            />
-          }
-        >
-          Es necesario iniciar sesión para crear un grupo
-        </CustomCard>
-      )}
-    </section>
+    <main className="min-h-full p-8 flex items-center justify-center">
+      <section>
+        {userId ? (
+          <GroupForm
+            initialData={EMPTY_GROUP}
+            editor={userId}
+          />
+        ) : (
+          <CustomCard
+            icon={<FiAlertTriangle />}
+            title={'Inicia sesión'}
+            action1={<BackButton />}
+            action2={
+              <LinkButton
+                href="/auth/login"
+                label="Iniciar sesión"
+              />
+            }
+          >
+            Es necesario iniciar sesión para crear un grupo
+          </CustomCard>
+        )}
+      </section>
+    </main>
   )
 }

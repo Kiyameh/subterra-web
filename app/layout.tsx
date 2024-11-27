@@ -17,7 +17,6 @@ export default function RootLayout({
       lang="es"
       suppressHydrationWarning
     >
-      <head />
       <body className="bg-gradient-to-br from-[#11366F] via-[#132034] to-[#000000] bg-no-repeat bg-cover bg-fixed">
         <ThemeProvider
           attribute="class"

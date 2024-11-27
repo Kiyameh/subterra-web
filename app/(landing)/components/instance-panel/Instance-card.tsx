@@ -1,4 +1,3 @@
-import {Instance} from '@/database/models/Instance.model'
 import React from 'react'
 import {
   Card,
@@ -13,15 +12,16 @@ import LinkButton from '@/components/navigation/link-button'
 
 import {MdOutlineTravelExplore} from 'react-icons/md'
 import {RiAdminLine} from 'react-icons/ri'
-import {MdGroup} from 'react-icons/md'
 import {MdVisibility} from 'react-icons/md'
 import {MdModeEdit} from 'react-icons/md'
+import {MdMoreTime} from 'react-icons/md'
 
 import InfoBadge from '@/components/displaying/info-badge'
 import OnlineIndicator from '@/components/displaying/online-indicator'
+import {PopulatedInstance} from '@/database/models/Instance.model'
 
 interface InstanceCardProps {
-  instance: Instance
+  instance: PopulatedInstance
 }
 export default function InstanceCard({instance}: InstanceCardProps) {
   const {
@@ -29,11 +29,11 @@ export default function InstanceCard({instance}: InstanceCardProps) {
     is_online,
     territory,
     owner,
-    admin,
     public_visibility,
     public_edition,
     fullname,
     description,
+    createdAt,
   } = instance
 
   return (
@@ -54,16 +54,10 @@ export default function InstanceCard({instance}: InstanceCardProps) {
             </div>
           )}
 
-          {admin && (
-            <div className="flex items-center gap-2">
-              <RiAdminLine />
-              {admin?.name}
-            </div>
-          )}
           {owner && (
             <div className="flex items-center gap-2">
-              <MdGroup />
-              {owner?.name}
+              <RiAdminLine />
+              {owner.fullname}
             </div>
           )}
           {public_visibility && (
@@ -83,21 +77,25 @@ export default function InstanceCard({instance}: InstanceCardProps) {
               )}
             </div>
           )}
-          {public_edition && (
+          <div className="flex items-center gap-2">
+            <MdModeEdit />
+            Edición:{' '}
+            {public_edition ? (
+              <InfoBadge
+                label="Solo registrados"
+                description="Solo usarios registrados en Subterra"
+              />
+            ) : (
+              <InfoBadge
+                label="Privada"
+                description="Solo usuarios autorizados"
+              />
+            )}
+          </div>
+          {createdAt && (
             <div className="flex items-center gap-2">
-              <MdModeEdit />
-              Edición:{' '}
-              {public_edition ? (
-                <InfoBadge
-                  label="Solo registrados"
-                  description="Solo usarios registrados en Subterra"
-                />
-              ) : (
-                <InfoBadge
-                  label="Privada"
-                  description="Solo usuarios autorizados"
-                />
-              )}
+              <MdMoreTime />
+              {`Creado el ${new Date(createdAt).toLocaleDateString()}`}
             </div>
           )}
         </div>

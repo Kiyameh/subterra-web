@@ -1,8 +1,37 @@
-import mongoose, {InferSchemaType} from 'mongoose'
+import {model, models, Schema, Types} from 'mongoose'
 import {groupCategories} from './Group.enums'
+import {UserObject} from './User.model'
+import {InstanceObject} from './Instance.model'
 
-//! 1. ESQUEMA:
-export const groupSchema = new mongoose.Schema(
+//* INTERFACES:
+export interface GroupDocument extends Document {
+  name: string
+  fullname: string
+  acronym?: string
+  description?: string
+  group_categories: (typeof groupCategories)[number][]
+  main_image?: string
+  logo_image?: string
+  street?: string
+  portal_number?: string
+  floor?: string
+  door?: string
+  postal_code?: number
+  city?: string
+  province?: string
+  country?: string
+  phone?: string
+  email?: string
+  webpage?: string
+  admin: Types.ObjectId
+  members: Types.ObjectId[]
+  instances: Types.ObjectId[]
+  explorations: Types.ObjectId[]
+}
+
+//* ESQUEMA:
+
+const groupSchema = new Schema<GroupDocument>(
   {
     // Datos generales:
     name: {type: String, required: true, unique: true},
@@ -12,7 +41,6 @@ export const groupSchema = new mongoose.Schema(
     group_categories: {type: [String], enum: groupCategories},
     main_image: {type: String},
     logo_image: {type: String},
-
     // Datos de contacto:
     street: {type: String},
     portal_number: {type: String},
@@ -22,55 +50,65 @@ export const groupSchema = new mongoose.Schema(
     city: {type: String},
     province: {type: String},
     country: {type: String},
-
     phone: {type: String},
     email: {type: String},
     webpage: {type: String},
-
     // Relaciones:
-    admin: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    editors: {
-      type: Array<mongoose.Schema.Types.ObjectId>,
-      ref: 'User',
-      default: [],
-    },
+    admin: {type: Schema.Types.ObjectId, ref: 'User', required: true},
     members: {
-      type: Array<mongoose.Schema.Types.ObjectId>,
+      type: [Schema.Types.ObjectId],
       ref: 'User',
-      default: [],
+    },
+    instances: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Instance',
     },
     explorations: {
-      type: Array<mongoose.Schema.Types.ObjectId>,
+      type: [Schema.Types.ObjectId],
       ref: 'Exploration',
     },
   },
-  {timestamps: true}
-)
-
-// Método para obtener referencia de este item:
-groupSchema.methods.getReference = function () {
-  return {
-    id: this._id.toString(),
-    name: this.name,
+  {
+    timestamps: true,
   }
-}
-groupSchema.set('toJSON', {
-  transform: function (doc, ret) {
-    // Serializar datos para evitar conflictos con client components de Next:
-    return JSON.parse(JSON.stringify(ret))
-  },
-})
+)
+//* ÍNDICES:
 
-//! 2. MODELO:
-const GroupModel =
-  mongoose.models?.Group || mongoose.model('Group', groupSchema)
+//* MIDDLEWARES:
 
-export default GroupModel
+//* MÉTODOS ESTATICOS:
 
-//! 3. TIPOS:
-type GroupDocument = InferSchemaType<typeof groupSchema>
+//* MÉTODOS DE INSTANCIA:
 
-// Tipo con el _id:
-export type Group = GroupDocument & {
+//* MODELO:
+const Group = models?.Group || model<GroupDocument>('Group', groupSchema)
+
+export default Group
+
+//* INTERFACES EXTENDIDAS:
+
+export interface GroupObject
+  extends Omit<
+    GroupDocument,
+    'admin' | 'members' | 'explorations' | 'instances'
+  > {
   _id: string
+  __v: number
+  createdAt: Date
+  updatedAt: Date
+  admin: string
+  members: string[]
+  instances: string[]
+  explorations: string[]
+}
+
+export interface PopulatedGroup
+  extends Omit<
+    GroupObject,
+    'admin' | 'members' | 'instances' | 'explorations'
+  > {
+  admin: UserObject
+  members: UserObject[]
+  instances: InstanceObject[]
+  // explorations: ExplorationObject[] // TODO: Añadir cuando este el tipo hecho
 }

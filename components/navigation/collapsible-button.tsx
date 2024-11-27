@@ -1,15 +1,23 @@
 import {ReactNode} from 'react'
 import {Button, ButtonProps} from '../ui/button'
+import {cn} from '@/lib/utils'
 
 interface CollapsibleButtonProps extends ButtonProps {
   icon: ReactNode
   text: string
 }
 
-/** Boton de icono que muestra el texto al hacer hover */
+/**
+ * Botón con texto que se muestra y oculta al hacer hover
+ * @param icon Icono del botón
+ * @param text Texto del botón
+ * @param className Clases adicionales para el botón
+ */
+
 export default function CollapsibleButton({
   icon,
   text,
+  className = '',
   ...props
 }: CollapsibleButtonProps) {
   //? Animación:
@@ -20,7 +28,10 @@ export default function CollapsibleButton({
   return (
     <Button
       {...props}
-      className={`group rounded-full flex flex-row justify-normal px-3 h-10 w-10 hover:w-20 transition-all duration-300 delay-500 hover:delay-0`}
+      className={cn(
+        `group rounded-full flex flex-row justify-normal px-3 h-10 w-10 hover:w-20 transition-all duration-300 delay-500 hover:delay-0`,
+        className
+      )}
     >
       <span className="scale-125">{icon}</span>
       <span className="text-transparent group-hover:text-current animation-color duration-200 delay-200">

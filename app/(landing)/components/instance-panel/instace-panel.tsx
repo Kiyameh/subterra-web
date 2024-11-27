@@ -1,11 +1,20 @@
 import React from 'react'
 import InstanceCard from './Instance-card'
-import {Instance} from '@/database/models/Instance.model'
-import {getAllInstances} from '@/database/actions/data/getAll.actions'
+import {getAllInstances} from '@/database/services/instance.services'
+import {PopulatedInstance} from '@/database/models/Instance.model'
+import NotFoundCard from '@/components/displaying/404-not-found'
 
 export default async function InstancePanel() {
-  const data = await getAllInstances()
-  const instances = data.content as Instance[]
+  const answer = await getAllInstances()
+  if (!answer.ok)
+    return (
+      <NotFoundCard
+        title="Algo ha ido mal"
+        text="No se han podido cargar las instancias. Intentalo de nuevo más tarde."
+      />
+    )
+
+  const instances = answer.content as PopulatedInstance[]
   return (
     <section
       id="instance-panel"

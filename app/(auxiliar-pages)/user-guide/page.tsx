@@ -1,4 +1,4 @@
-import InDevelopmentCard from '@/components/displaying/in-development-card'
+import InDevelopmentCard from '@/components/displaying/501-not-implemented'
 
 export default function DocsLandingPage() {
   return (

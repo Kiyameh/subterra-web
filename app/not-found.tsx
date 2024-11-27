@@ -1,4 +1,4 @@
-import NotFoundCard from '@/components/displaying/not-found-card'
+import NotFoundCard from '@/components/displaying/404-not-found'
 
 export default function NotFound() {
   return (

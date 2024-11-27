@@ -2,6 +2,11 @@ import {MongoError} from 'mongodb'
 import {MongooseError} from 'mongoose'
 import {Answer} from '../types/answer.type'
 
+/** Función que interpreta un error de Mongo o Mongoose y devuelve un Answer apropiado
+ * @param error Error de Mongo o Mongoose
+ * @returns Answer con el código y mensaje de error
+ */
+
 export function decodeMongoError(error: unknown): Answer {
   let errorCode = 500
   let errorMessage = 'Error desconocido'
@@ -23,5 +28,5 @@ export function decodeMongoError(error: unknown): Answer {
     ok: false,
     code: errorCode,
     message: errorMessage,
-  }
+  } as Answer
 }

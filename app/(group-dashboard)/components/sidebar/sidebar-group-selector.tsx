@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react'
+import Link from 'next/link'
 
 import {
   SidebarMenu,
@@ -15,17 +16,21 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-// Icons
 import {LuChevronsUpDown} from 'react-icons/lu'
-
-import {Group} from '@/database/models/Group.model'
-import Link from 'next/link'
 import {FaUserGroup} from 'react-icons/fa6'
 
+import {PopulatedGroup} from '@/database/models/Group.model'
+
 interface Props {
-  allGroups: Group[]
-  currentGroup: Group | undefined
+  allGroups: PopulatedGroup[] | null
+  currentGroup: PopulatedGroup | null
 }
+
+/**
+ * Panel de selección de grupo para colocar en un Sidebar
+ * @param allGroups - Lista de grupos <PopulatedGroup[]>
+ * @param currentGroup - Grupo actual <PopulatedGroup>
+ */
 
 export default function SidebarGroupSelector({allGroups, currentGroup}: Props) {
   const {isMobile} = useSidebar()
@@ -62,22 +67,25 @@ export default function SidebarGroupSelector({allGroups, currentGroup}: Props) {
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               Grupos
             </DropdownMenuLabel>
-            {allGroups.map((item, index) => (
-              <Link
-                key={index}
-                href={`/group/${item.name}`}
-              >
-                <DropdownMenuItem className="cursor-pointer flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="flex size-6 items-center justify-center rounded-sm border">
-                      <FaUserGroup className="text-primary" />
+            {allGroups &&
+              allGroups.map((item, index) => (
+                <Link
+                  key={index}
+                  href={`/group/${item.name}`}
+                >
+                  <DropdownMenuItem className="cursor-pointer flex justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="flex size-6 items-center justify-center rounded-sm border">
+                        <FaUserGroup className="text-primary" />
+                      </div>
+                      <span>{item.name}</span>
                     </div>
-                    <span>{item.name}</span>
-                  </div>
-                  <span className="text-muted-foreground">{item.province}</span>
-                </DropdownMenuItem>
-              </Link>
-            ))}
+                    <span className="text-muted-foreground">
+                      {item.province}
+                    </span>
+                  </DropdownMenuItem>
+                </Link>
+              ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

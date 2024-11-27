@@ -19,7 +19,11 @@ import {Session} from 'next-auth'
  * Panel de navegación de usuario para colocar en un Sidebar
  * @param user - Usuario actual de la sesión
  */
-export default function SidebarUserMenu({user}: {user: Session['user']}) {
+interface SidebarMenuUserProps {
+  user: Session['user']
+}
+
+export default function SidebarUserMenu({user}: SidebarMenuUserProps) {
   const {isMobile} = useSidebar()
 
   return (

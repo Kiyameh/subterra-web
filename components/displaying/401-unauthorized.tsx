@@ -1,8 +1,8 @@
-import {FaLaptopCode} from 'react-icons/fa'
 import BackButton from '../navigation/back-button'
 import LinkButton from '../navigation/link-button'
-import programingImage from '@/public/programing.webp'
+import programingImage from '@/public/401.webp'
 import CustomCard from '../containing/custom-card'
+import {RiForbidFill} from 'react-icons/ri'
 
 interface InDevelopmentCardProps {
   title?: string
@@ -19,15 +19,16 @@ interface InDevelopmentCardProps {
  * "Funcionalidad en desarrollo. Próximamente estará disponible"
  */
 
-export default function InDevelopmentCard({
-  title = 'En desarrollo',
-  text = 'Funcionalidad en desarrollo. Próximamente estará disponible',
+export default function UnauthorizedCard({
+  title = 'No autorizado',
+  text = 'Ups, parece que no estas autorizado para esto. Contacta con el responsable para obtener acceso',
 }: InDevelopmentCardProps) {
   return (
     <CustomCard
       image={programingImage}
       title={title}
-      icon={<FaLaptopCode />}
+      code="401"
+      icon={<RiForbidFill />}
       content={text}
       action1={<BackButton />}
       action2={

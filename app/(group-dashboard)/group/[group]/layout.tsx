@@ -6,10 +6,11 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import {GroupSidebar} from '../../components/sidebar/group-sidebar'
+import React from 'react'
 
 interface GroupDashboardLayoutProps {
   params: Promise<{group: string}>
-  children: React.ReactNode
+  children: React.ReactElement
 }
 
 export default async function GroupDashboardLayout({
