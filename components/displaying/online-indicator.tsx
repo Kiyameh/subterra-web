@@ -9,11 +9,11 @@ export default function OnlineIndicator({isOnline}: OnlineIndicatorProps) {
     <>
       <ResponsiveTooltip
         content={isOnline ? 'Online' : 'Temporalmente Offline'}
-        className={isOnline ? 'text-lime-400' : 'text-orange-600'}
+        color={isOnline ? 'success' : 'destructive'}
       >
         <div
           className={`w-3 h-3 rounded-full border border-black border-opacity-50 ${
-            isOnline ? 'bg-lime-400' : 'bg-orange-600'
+            isOnline ? 'bg-success-foreground' : 'bg-destructive-foreground'
           }`}
         />
       </ResponsiveTooltip>

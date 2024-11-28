@@ -12,7 +12,7 @@ export default function DownAnchor({href, ...props}: LinkProps) {
       >
         <MdAnchor
           size={48}
-          className="text-gray-300 active:text-primary "
+          className="text-muted-foreground active:text-primary "
         />
       </Link>
     </div>

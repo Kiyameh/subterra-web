@@ -11,14 +11,29 @@ import {cn} from '@/lib/utils'
 interface ResponsiveTooltipProps {
   content: string
   className?: string
+  color?: 'info' | 'success' | 'warning' | 'destructive'
   children: React.ReactNode
 }
 export default function ResponsiveTooltip({
   content,
   className,
+  color = 'info',
   children,
 }: ResponsiveTooltipProps) {
   const [visible, setVisible] = useState(false)
+
+  let bgColor = 'bg-info'
+  switch (color) {
+    case 'success':
+      bgColor = 'bg-success'
+      break
+    case 'warning':
+      bgColor = 'bg-warning'
+      break
+    case 'destructive':
+      bgColor = 'bg-destructive'
+      break
+  }
 
   function handleTouch() {
     setVisible(true)
@@ -40,7 +55,8 @@ export default function ResponsiveTooltip({
         </TooltipTrigger>
         <TooltipContent
           className={cn(
-            'bg-slate-900 font-bold border border-white border-opacity-30',
+            ' font-bold border border-white border-opacity-30',
+            bgColor,
             className
           )}
         >

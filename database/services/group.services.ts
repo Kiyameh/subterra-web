@@ -2,6 +2,8 @@
 import {connectToMongoDB} from '@/database/databaseConection'
 import Group, {PopulatedGroup} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
+import {decodeMongoError} from '@/database/tools/decodeMongoError'
+
 import {
   GroupFormSchema,
   GroupFormValues,
@@ -21,7 +23,7 @@ export async function createOneGroup(
   try {
     // Validación:
     const validated = await GroupFormSchema.parseAsync(values)
-
+    console.log('PASAMOS LA VALIDACIÓN')
     // Creación de grupo:
     if (validated && editor) {
       await connectToMongoDB()
@@ -37,13 +39,8 @@ export async function createOneGroup(
       message: 'Group creado correctamente',
       redirect: `/group/${values.name}`,
     } as Answer
-  } catch (error) {
-    console.error(error)
-    return {
-      ok: false,
-      code: 500,
-      message: 'Error al crear el grupo',
-    } as Answer
+  } catch (e) {
+    return decodeMongoError(e)
   }
 }
 

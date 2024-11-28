@@ -1,31 +1,48 @@
 import {Badge} from '@/components/ui/badge'
 import {MdInfo} from 'react-icons/md'
 import ResponsiveTooltip from './responsive-tooltip'
+import {cn} from '@/lib/utils'
 
 interface InfoBadgeProps {
   label?: string
   withIcon?: boolean
+  color?: 'info' | 'success' | 'warning' | 'destructive'
   description: string
 }
 
 export default function InfoBadge({
   label,
   withIcon = true,
+  color = 'info',
   description,
 }: InfoBadgeProps) {
+  let iconColor = 'text-info-foreground'
+
+  switch (color) {
+    case 'success':
+      iconColor = 'text-success-foreground'
+      break
+    case 'warning':
+      iconColor = 'text-warning-foreground'
+      break
+    case 'destructive':
+      iconColor = 'text-destructive-foreground'
+      break
+  }
+
   return (
     <>
       <ResponsiveTooltip
         content={description}
-        className="text-blue-400"
+        color={color}
       >
         {label ? (
-          <Badge className="bg-gray-800 hover:bg-gray-600 cursor-help">
+          <Badge className="bg-muted hover:bg-gray-600 cursor-help">
             {label}
-            {withIcon && <MdInfo className="ml-2 h-4 w-4 text-blue-500" />}
+            {withIcon && <MdInfo className={cn('ml-2 text-base', iconColor)} />}
           </Badge>
         ) : (
-          <MdInfo className="h-4 w-4 text-blue-500" />
+          <MdInfo className={cn('text-base', iconColor)} />
         )}
       </ResponsiveTooltip>
     </>

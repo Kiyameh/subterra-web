@@ -14,8 +14,8 @@ export default function DbAwnserBox({answer}: AnswerBoxProps) {
     <div
       className={`p-3 rounded-md flex items-center gap-x-2 text-sm ${
         answer.ok
-          ? 'bg-green-500/15 text-green-500'
-          : 'bg-red-500/15 text-red-500'
+          ? 'bg-success text-success-foreground'
+          : 'bg-destructive text-destructive-foreground'
       }`}
     >
       {answer.ok ? (

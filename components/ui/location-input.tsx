@@ -120,19 +120,19 @@ const LocationSelector = ({
             {selectedCountry ? (
               <div className="flex items-center gap-2">
                 <span>{selectedCountry.emoji}</span>
-                <span>{selectedCountry.name}</span>
+                <span>{selectedCountry.native}</span>
               </div>
             ) : (
-              <span>Select Country...</span>
+              <span>Selecciona un estado</span>
             )}
             <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[300px] p-0">
           <Command>
-            <CommandInput placeholder="Search country..." />
+            <CommandInput placeholder="Buscar..." />
             <CommandList>
-              <CommandEmpty>No country found.</CommandEmpty>
+              <CommandEmpty>No se ha encontrado nada</CommandEmpty>
               <CommandGroup>
                 <ScrollArea className="h-[300px]">
                   {countriesData.map((country) => (
@@ -147,7 +147,7 @@ const LocationSelector = ({
                     >
                       <div className="flex items-center gap-2">
                         <span>{country.emoji}</span>
-                        <span>{country.name}</span>
+                        <span>{country.native}</span>
                       </div>
                       <Check
                         className={cn(
@@ -184,16 +184,16 @@ const LocationSelector = ({
               {selectedState ? (
                 <span>{selectedState.name}</span>
               ) : (
-                <span>Select State...</span>
+                <span>Selecciona una provincia</span>
               )}
               <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[300px] p-0">
             <Command>
-              <CommandInput placeholder="Search state..." />
+              <CommandInput placeholder="Buscar provincia..." />
               <CommandList>
-                <CommandEmpty>No state found.</CommandEmpty>
+                <CommandEmpty>No se ha encontrado nada</CommandEmpty>
                 <CommandGroup>
                   <ScrollArea className="h-[300px]">
                     {availableStates.map((state) => (

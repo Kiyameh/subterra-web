@@ -15,7 +15,7 @@ import {
 } from '../ui/form'
 import {UseFormReturn} from 'react-hook-form'
 import InfoBadge from '../displaying/info-badge'
-import OnlineIndicator from '../displaying/online-indicator'
+import {FaCheck} from 'react-icons/fa'
 
 interface ImageFieldProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -106,11 +106,13 @@ export default function ImageField({
                     >
                       <Paperclip className="h-4 w-4 stroke-current" />
                       <span>{file.name}</span>
-                      <OnlineIndicator isOnline={!!uploadedFiles[i]} />
+                      {uploadedFiles[i] && (
+                        <FaCheck className="text-green-600" />
+                      )}
                     </FileUploaderItem>
                   ))}
               </FileUploaderContent>
-              <FormMessage className="text-purple-600">
+              <FormMessage className="text-info-foreground">
                 *Funcionalidad en desarrollo
               </FormMessage>
             </FileUploader>

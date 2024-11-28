@@ -3,13 +3,7 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Button} from '@/components/ui/button'
 import {Form} from '@/components/ui/form'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card'
 import DbAwnserBox from '@/components/displaying/db-answer-box'
 
 import {Loader2} from 'lucide-react'
@@ -29,6 +23,9 @@ import CountryField from '@/components/fields/country-field'
 import MultipleSelectionField from '@/components/fields/multiple-selection-field'
 import PhoneField from '@/components/fields/phone-field'
 import ImageField from '@/components/fields/image-field'
+import BackButton from '@/components/navigation/back-button'
+import SubterraLogo from '@/components/branding/subterra-logo'
+import CollapsibleBox from '@/components/containing/collapsible-box'
 
 interface GroupFormProps {
   initialData: GroupFormValues
@@ -57,11 +54,23 @@ export default function MyForm({initialData, editor}: GroupFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Crear grupo</CardTitle>
-        <CardDescription>
-          Completa los siguientes datos para crear tu grupo
-        </CardDescription>
+        <div className="flex gap-4 items-center">
+          <SubterraLogo size="small" />
+          <div>
+            <CardTitle className="text-xl">Crear grupo</CardTitle>
+          </div>
+        </div>
       </CardHeader>
+      <CollapsibleBox
+        title="Los grupos en Subterra..."
+        color="info"
+      >
+        <p>● Cuando creas un grupo, te conviertes en su administrador.</p>
+        <p>● Los usuarios pueden enviarte solicitudes de miembro.</p>
+        <p>
+          ● Podras solicitar una instancia para almacenar datos espeleológicos.
+        </p>
+      </CollapsibleBox>
       <CardContent>
         <Form {...form}>
           <form
@@ -222,9 +231,10 @@ export default function MyForm({initialData, editor}: GroupFormProps) {
                 {isPending && <Loader2 className="animate-spin" />}
                 Crear grupo
               </Button>
-            )}{' '}
+            )}
           </form>
         </Form>
+        <BackButton />
       </CardContent>
     </Card>
   )
