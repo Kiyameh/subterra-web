@@ -1,5 +1,5 @@
 import CustomCard from '@/components/containing/custom-card'
-import InstancePanel from '@/app/(landing)/components/instance-panel/instace-panel'
+import InstancePanel from '@/components/panels/instance-panel/instace-panel'
 import React from 'react'
 import {LuBox} from 'react-icons/lu'
 

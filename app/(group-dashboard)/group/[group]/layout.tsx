@@ -1,11 +1,11 @@
 import ShortcutTooltip from '@/components/displaying/shortcut-tooltip'
 import NavigationBreadcrumb from '@/components/navigation/nav-breadcrumb'
+import {GroupSidebar} from '@/components/sidebar/group-sidebar'
 import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import {GroupSidebar} from '../../components/sidebar/group-sidebar'
 import React from 'react'
 
 interface GroupDashboardLayoutProps {

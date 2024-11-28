@@ -1,12 +1,12 @@
-import {InstanceSidebar} from '../../components/sidebar/instance-sidebar'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 
-import NavigationBreadcrumb from '../../../../components/navigation/nav-breadcrumb'
 import ShortcutTooltip from '@/components/displaying/shortcut-tooltip'
+import NavigationBreadcrumb from '@/components/navigation/nav-breadcrumb'
+import InstanceSidebar from '@/components/sidebar/instance-sidebar'
 
 interface InstanceDashboardLayoutProps {
   params: Promise<{instance: string}>

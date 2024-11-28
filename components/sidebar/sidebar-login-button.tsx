@@ -6,8 +6,11 @@ import {
 import Link from 'next/link'
 import {BiLogIn} from 'react-icons/bi'
 
-/** Botón que navega a /auth/login para colocar en un Sidebar */
-export const SidebarLoginButton = () => {
+/**
+ * Botón de inicio de sesión para colocar en un Sidebar
+ */
+
+export default function SidebarLoginButton() {
   return (
     <SidebarMenu>
       <SidebarMenuItem>

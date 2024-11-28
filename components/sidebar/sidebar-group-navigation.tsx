@@ -25,7 +25,7 @@ interface Props {
  * @returns
  */
 
-export default function SidebarMainNavigation({currentGroup, user}: Props) {
+export default function SidebarGroupNavigation({currentGroup, user}: Props) {
   let isMember = false
   let isAdmin = false
   const userId = user?._id

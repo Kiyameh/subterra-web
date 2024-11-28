@@ -7,10 +7,11 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import {SidebarLoginButton} from './sidebar-login-button'
-import SidebarUserMenu from './sidebar-user-menu'
-import SidebarMainNavigation from './sidebar-main-navigation'
-import SidebarGroupSelector from './sidebar-group-selector'
+
+import SidebarGroupSelector from '@/components/sidebar/sidebar-group-selector'
+import SidebarGroupNavigation from '@/components/sidebar/sidebar-group-navigation'
+import SidebarUserMenu from '@/components/sidebar/sidebar-user-menu'
+import SidebarLoginButton from '@/components/sidebar/sidebar-login-button'
 
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
@@ -49,7 +50,7 @@ export async function GroupSidebar({groupName, ...props}: GroupSidebarProps) {
       </SidebarHeader>
       <SidebarContent>
         {/*? null manejado en el componente:*/}
-        <SidebarMainNavigation
+        <SidebarGroupNavigation
           currentGroup={currentGroup}
           user={user}
         />

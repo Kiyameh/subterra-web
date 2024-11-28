@@ -1,4 +1,4 @@
-import MembersPanel from '@/app/(group-dashboard)/components/members-panel/members-panel'
+import MembersPanel from '@/components/panels/members-panel/members-panel'
 import {auth} from '@/auth'
 import UnauthorizedCard from '@/components/displaying/401-unauthorized'
 import NotFoundCard from '@/components/displaying/404-not-found'

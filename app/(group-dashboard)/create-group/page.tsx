@@ -4,7 +4,7 @@ import BackButton from '@/components/navigation/back-button'
 import LinkButton from '@/components/navigation/link-button'
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {FiAlertTriangle} from 'react-icons/fi'
-import GroupForm from '../components/group-form'
+import GroupForm from '../../../components/forms/group-form'
 
 export default async function CreateGroupPage() {
   const session = await auth()
