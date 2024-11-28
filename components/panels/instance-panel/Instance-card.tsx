@@ -1,4 +1,10 @@
-import React from 'react'
+import React from "react";
+import Link from "next/link";
+import LinkButton from "@/components/navigation/link-button";
+import InfoBadge from "@/components/displaying/info-badge";
+import OnlineIndicator from "@/components/displaying/online-indicator";
+import { PopulatedInstance } from "@/database/models/Instance.model";
+
 import {
   Card,
   CardDescription,
@@ -6,24 +12,19 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from "@/components/ui/card";
 
-import LinkButton from '@/components/navigation/link-button'
-
-import {MdOutlineTravelExplore} from 'react-icons/md'
-import {RiAdminLine} from 'react-icons/ri'
-import {MdVisibility} from 'react-icons/md'
-import {MdModeEdit} from 'react-icons/md'
-import {MdMoreTime} from 'react-icons/md'
-
-import InfoBadge from '@/components/displaying/info-badge'
-import OnlineIndicator from '@/components/displaying/online-indicator'
-import {PopulatedInstance} from '@/database/models/Instance.model'
+import { MdOutlineTravelExplore } from "react-icons/md";
+import { RiAdminLine } from "react-icons/ri";
+import { MdVisibility } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
+import { MdMoreTime } from "react-icons/md";
+import { HiLink } from "react-icons/hi";
 
 interface InstanceCardProps {
-  instance: PopulatedInstance
+  instance: PopulatedInstance;
 }
-export default function InstanceCard({instance}: InstanceCardProps) {
+export default function InstanceCard({ instance }: InstanceCardProps) {
   const {
     name,
     is_online,
@@ -34,7 +35,7 @@ export default function InstanceCard({instance}: InstanceCardProps) {
     fullname,
     description,
     createdAt,
-  } = instance
+  } = instance;
 
   return (
     <Card className="w-80 max-w-[90%] border border-gray-600">
@@ -55,15 +56,19 @@ export default function InstanceCard({instance}: InstanceCardProps) {
           )}
 
           {owner && (
-            <div className="flex items-center gap-2">
+            <Link
+              className="flex items-center gap-2"
+              href={`/group/${owner.name}`}
+            >
               <RiAdminLine />
               {owner.fullname}
-            </div>
+              <HiLink className="text-primary" />
+            </Link>
           )}
           {public_visibility && (
             <div className="flex items-center gap-2">
               <MdVisibility />
-              Visibilidad:{' '}
+              Visibilidad:{" "}
               {public_visibility ? (
                 <InfoBadge
                   label="Pública"
@@ -79,7 +84,7 @@ export default function InstanceCard({instance}: InstanceCardProps) {
           )}
           <div className="flex items-center gap-2">
             <MdModeEdit />
-            Edición:{' '}
+            Edición:{" "}
             {public_edition ? (
               <InfoBadge
                 label="Solo registrados"
@@ -108,5 +113,5 @@ export default function InstanceCard({instance}: InstanceCardProps) {
         />
       </CardFooter>
     </Card>
-  )
+  );
 }

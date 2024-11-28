@@ -1,91 +1,79 @@
-'use client'
+"use client";
+import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
+
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
-import Link from 'next/link'
-import {Session} from 'next-auth'
-import {IoMdInformationCircleOutline} from 'react-icons/io'
-import {FaUserGroup} from 'react-icons/fa6'
-import {GrConfigure} from 'react-icons/gr'
-import {PopulatedGroup} from '@/database/models/Group.model'
+} from "@/components/ui/sidebar";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { FaUserGroup } from "react-icons/fa6";
+import { FaGear } from "react-icons/fa6";
 
 interface Props {
-  currentGroup: PopulatedGroup | null
-  user: Session['user'] | null
+  isMember: boolean;
+  isAdmin: boolean;
 }
 
 /**
  * Panel de navegación principal de grupos para colocar en un sidebar
- * @param currentGroup - Grupo actual <PopulatedGroup>
- * @param user - Usuario actual <Session['user']>
- * @returns
+ * @param isMember - Si el usuario es miembro
+ * @param isAdmin - Si el usuario es administrador
  */
 
-export default function SidebarGroupNavigation({currentGroup, user}: Props) {
-  let isMember = false
-  let isAdmin = false
-  const userId = user?._id
-
-  if (userId && currentGroup) {
-    isMember = (currentGroup.members as unknown as string[]).includes(userId)
-    isAdmin = (currentGroup.admin as unknown as string) === userId
-  }
+export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
+  const { group } = useParams();
+  const pathName = usePathname();
 
   return (
     <>
-      {currentGroup && (
-        <SidebarGroup>
-          <SidebarGroupLabel>Área pública</SidebarGroupLabel>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <Link href={`/group/${currentGroup.name}`}>
-                <SidebarMenuButton>
-                  <IoMdInformationCircleOutline />
-                  <span>Página de presentación</span>
-                </SidebarMenuButton>
+      <SidebarGroup>
+        <SidebarGroupLabel>Área pública</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href={`/group/${group}`}>
+                <IoMdInformationCircleOutline />
+                <span>Página de presentación</span>
               </Link>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
-      )}
-      {currentGroup && isMember && (
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+      {isMember && (
         <SidebarGroup>
           <SidebarGroupLabel>Área miembros</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <Link href={`/group/${currentGroup.name}/members`}>
-                <SidebarMenuButton>
-                  <span className="text-primary">
-                    <FaUserGroup />
-                  </span>
-                  Miembros
-                </SidebarMenuButton>
-              </Link>
+              <SidebarMenuButton
+                asChild
+                isActive={pathName.includes(`${group}/members`)}
+              >
+                <Link href={`/group/${group}/members`}>
+                  <FaUserGroup className="text-editor" />
+                  <span>Miembros</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
             {isAdmin && (
               <SidebarMenuItem>
-                <Link href={`/group/${currentGroup.name}/edit`}>
-                  <SidebarMenuButton>
-                    <span className="text-purple-700">
-                      <GrConfigure />
-                    </span>
-                    Panel de administración
-                  </SidebarMenuButton>
-                </Link>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathName.includes(`${group}/edit`)}
+                >
+                  <Link href={`/group/${group}/edit`}>
+                    <FaGear className="text-admin" />
+                    <span>Panel de administración</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             )}
           </SidebarMenu>
         </SidebarGroup>
       )}
     </>
-  )
+  );
 }
-
-/* 
-
-
-*/
