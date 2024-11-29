@@ -1,9 +1,9 @@
-import InstancesSection from '@/app/(landing)/InstancesSection'
+import InstancesBoard from "@/components/boards/all-instances-board/instances-board";
 
 export default function InstanceListPage() {
   return (
-    <section className="w-full h-full flex items-center justify-center">
-      <InstancesSection />
+    <section className="flex h-full w-full items-center justify-center">
+      <InstancesBoard />
     </section>
-  )
+  );
 }

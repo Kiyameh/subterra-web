@@ -1,14 +1,15 @@
-'use server'
+"use server";
 import {
   SignInSchema,
   SignInValues,
   SignUpSchema,
   SignUpValues,
-} from '@/database/validation/auth.schemas'
-import {Answer} from '@/database/types/answer.type'
-import {connectToMongoDB} from '@/database/databaseConection'
-import User, {UserDocument, UserObject} from '@/database/models/User.model'
-import {decodeMongoError} from '@/database/tools/decodeMongoError'
+} from "@/database/validation/auth.schemas";
+import { Answer } from "@/database/types/answer.type";
+import { connectToMongoDB } from "@/database/databaseConection";
+import User, { UserDocument, UserObject } from "@/database/models/User.model";
+import { decodeMongoError } from "@/database/tools/decodeMongoError";
+import Group from "../models/Group.model";
 
 /**
  * Función de registro de nuevo usuario
@@ -23,34 +24,34 @@ import {decodeMongoError} from '@/database/tools/decodeMongoError'
  */
 export async function signUp(values: SignUpValues) {
   //1. Validación de datos
-  const validationResult = SignUpSchema.safeParse(values)
+  const validationResult = SignUpSchema.safeParse(values);
 
   //? safeParse evita generar errores. En su lugar devuelve un objeto con la propiedad success o error.
 
   if (!validationResult.success) {
-    return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
+    return { ok: false, code: 400, message: "Datos inválidos" } as Answer;
   }
   //2. Añadir a la base de datos
-  const {name, fullname, email, password} = validationResult.data
+  const { name, fullname, email, password } = validationResult.data;
   try {
     const newUser = new User({
       name,
       fullname,
       email,
       password,
-    })
-    connectToMongoDB()
-    await newUser.save()
+    });
+    connectToMongoDB();
+    await newUser.save();
 
     //3. Devolver respuesta
     return {
       ok: true,
       code: 200,
-      message: 'Usuario creado',
-      redirect: '/auth/login',
-    } as Answer
+      message: "Usuario creado",
+      redirect: "/auth/login",
+    } as Answer;
   } catch (e) {
-    return decodeMongoError(e)
+    return decodeMongoError(e);
   }
 }
 
@@ -67,40 +68,48 @@ export async function signUp(values: SignUpValues) {
  * }
  */
 export async function checkCredentials(
-  credentials: SignInValues
+  credentials: SignInValues,
 ): Promise<Answer> {
   try {
     //1. Validación de datos (ZOD)
-    const validationResult = SignInSchema.safeParse(credentials)
+    const validationResult = SignInSchema.safeParse(credentials);
     //? safeParse evita generar errores. En su lugar devuelve un objeto con la propiedad success o error.
     if (!validationResult.success) {
-      return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
+      return { ok: false, code: 400, message: "Datos inválidos" } as Answer;
     }
 
     // 2. Buscar usuario en base de datos (MONGOOSE
-    const {email, password} = validationResult.data
-    await connectToMongoDB()
+    const { email, password } = validationResult.data;
+    await connectToMongoDB();
     const user = await User.findOne({
       email: email,
-    }).select('+password')
+    }).select("+password");
     if (!user)
-      return {ok: false, code: 400, message: 'Usuario no encontrado'} as Answer
+      return {
+        ok: false,
+        code: 400,
+        message: "Usuario no encontrado",
+      } as Answer;
 
     // 3. Comprobar credenciales
     if (!user.comparePassword(password))
-      return {ok: false, code: 401, message: 'Credenciales invalidas'} as Answer
+      return {
+        ok: false,
+        code: 401,
+        message: "Credenciales invalidas",
+      } as Answer;
 
     // 4. Devolver respuesta con usuario:
     return {
       ok: true,
       code: 200,
-      message: 'Credenciales correctas',
+      message: "Credenciales correctas",
       content: user as UserObject,
-      redirect: '/',
-    } as Answer
+      redirect: "/",
+    } as Answer;
   } catch (error) {
-    console.log(error)
-    return {ok: false, code: 500, message: 'Error en el servidor'} as Answer
+    console.log(error);
+    return { ok: false, code: 500, message: "Error en el servidor" } as Answer;
   }
 }
 
@@ -118,25 +127,25 @@ export async function checkCredentials(
 
 export async function getUserById(id: string) {
   try {
-    await connectToMongoDB()
+    await connectToMongoDB();
     const user: UserDocument = await User.findOne({
       _id: id,
     })
-      .populate({path: 'instances', model: 'Instance'})
-      .populate({path: 'groups', model: 'Group'})
-      // .populate({path: 'fav_caves', model: 'Cave'}) //TODO: Añadir cuando este el tipo hecho
-      // .populate({path: 'fav_systems', model: 'System'}) //TODO: Añadir cuando este el tipo hecho
-      // .populate({path: 'fav_explorations', model: 'Exploration'}) //TODO: Añadir cuando este el tipo hecho
-      .exec()
-    const userPOJO = user.toJSON()
+      .populate({ path: "instances", model: "Instance" })
+      .populate({ path: "groups", model: Group })
+      // .populate({path: 'fav_caves', model: Cave}) //TODO: Añadir cuando este el tipo hecho
+      // .populate({path: 'fav_systems', model: System}) //TODO: Añadir cuando este el tipo hecho
+      // .populate({path: 'fav_explorations', model: Exploration}) //TODO: Añadir cuando este el tipo hecho
+      .exec();
+    const userPOJO = user.toJSON();
     return {
       ok: true,
       code: 200,
-      message: 'Usuario obtenido',
+      message: "Usuario obtenido",
       content: userPOJO as UserObject,
-    } as Answer
+    } as Answer;
   } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    console.error(error);
+    return { ok: false, code: 500, message: "Error desconocido" } as Answer;
   }
 }

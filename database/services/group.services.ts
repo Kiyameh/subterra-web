@@ -1,13 +1,15 @@
-'use server'
-import {connectToMongoDB} from '@/database/databaseConection'
-import Group, {PopulatedGroup} from '@/database/models/Group.model'
-import {Answer} from '@/database/types/answer.type'
-import {decodeMongoError} from '@/database/tools/decodeMongoError'
+"use server";
+import { connectToMongoDB } from "@/database/databaseConection";
+import Group, { PopulatedGroup } from "@/database/models/Group.model";
+import { Answer } from "@/database/types/answer.type";
+import { decodeMongoError } from "@/database/tools/decodeMongoError";
 
 import {
   GroupFormSchema,
   GroupFormValues,
-} from '@/database/validation/group.schema'
+} from "@/database/validation/group.schema";
+import User from "@/database/models/User.model";
+import Instance from "@/database/models/Instance.model";
 
 /**
  * Función para crear un grupo
@@ -18,29 +20,28 @@ import {
  */
 export async function createOneGroup(
   values: GroupFormValues,
-  editor: string
+  editor: string,
 ): Promise<Answer> {
   try {
     // Validación:
-    const validated = await GroupFormSchema.parseAsync(values)
-    console.log('PASAMOS LA VALIDACIÓN')
+    const validated = await GroupFormSchema.parseAsync(values);
     // Creación de grupo:
     if (validated && editor) {
-      await connectToMongoDB()
-      // Insertar el creador como admin
-      const requestedGroup = {...values, admin: editor}
-      const newGroup = new Group(requestedGroup)
-      await newGroup.save()
+      await connectToMongoDB();
+      //? El creador del grupo insertado como admin y como miembro:
+      const requestedGroup = { ...values, admin: editor, members: [editor] };
+      const newGroup = new Group(requestedGroup);
+      await newGroup.save();
     }
 
     return {
       ok: true,
       code: 200,
-      message: 'Group creado correctamente',
+      message: "Group creado correctamente",
       redirect: `/group/${values.name}`,
-    } as Answer
+    } as Answer;
   } catch (e) {
-    return decodeMongoError(e)
+    return decodeMongoError(e);
   }
 }
 
@@ -56,26 +57,26 @@ export async function createOneGroup(
 
 export async function getAllGroups() {
   try {
-    await connectToMongoDB()
+    await connectToMongoDB();
     const allGroups = await Group.find()
-      .populate({path: 'admin', model: 'User'})
-      .populate({path: 'members', model: 'User'})
-      .populate({path: 'instances', model: 'Instance'})
-      //.populate({path: 'explorations', model: 'Exploration'})//TODO: Añadir cuando este el tipo hecho
-      .exec()
+      .populate({ path: "admin", model: User })
+      .populate({ path: "members", model: User })
+      .populate({ path: "instances", model: Instance })
+      //.populate({path: 'explorations', model: Exploration})//TODO: Añadir cuando este el tipo hecho
+      .exec();
     const allGroupsPOJO = allGroups.map((group) => {
       //? Transforma a objeto plano para poder pasar a componentes cliente de Next
-      return JSON.parse(JSON.stringify(group))
-    })
+      return JSON.parse(JSON.stringify(group));
+    });
     return {
       ok: true,
       code: 200,
-      message: 'Grupos obtenidos',
+      message: "Grupos obtenidos",
       content: allGroupsPOJO as PopulatedGroup[],
-    } as Answer
+    } as Answer;
   } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    console.error(error);
+    return { ok: false, code: 500, message: "Error desconocido" } as Answer;
   }
 }
 
@@ -88,21 +89,21 @@ export async function getAllGroups() {
 
 export async function getOneGroup(name: string) {
   try {
-    await connectToMongoDB()
-    const group = await Group.findOne({name: name})
-      .populate({path: 'admin', model: 'User'})
-      .populate({path: 'members', model: 'User'})
-      .populate({path: 'instances', model: 'Instance'})
+    await connectToMongoDB();
+    const group = await Group.findOne({ name: name })
+      .populate({ path: "admin", model: "User" })
+      .populate({ path: "members", model: "User" })
+      .populate({ path: "instances", model: "Instance" });
     //.populate({path: 'explorations', model: 'Exploration'})//TODO: Añadir cuando este el tipo hecho
-    const groupPOJO = JSON.parse(JSON.stringify(group))
+    const groupPOJO = JSON.parse(JSON.stringify(group));
     return {
       ok: true,
       code: 200,
-      message: 'Grupo obtenido',
+      message: "Grupo obtenido",
       content: groupPOJO as PopulatedGroup,
-    } as Answer
+    } as Answer;
   } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    console.error(error);
+    return { ok: false, code: 500, message: "Error desconocido" } as Answer;
   }
 }
