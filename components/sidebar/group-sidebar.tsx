@@ -62,19 +62,21 @@ export default async function GroupSidebar({
         />
       </SidebarHeader>
 
-      {currentGroup && (
-        <SidebarContent>
-          <SidebarRoleIndicator
-            isEditor={isMember}
-            editorTag="Miembro"
-            editorText="Eres miembro de este grupo"
-            isAdmin={isAdmin}
-            adminText="Eres administrador de este grupo"
-          />
+      <SidebarContent>
+        {currentGroup && (
+          <>
+            <SidebarRoleIndicator
+              isEditor={isMember}
+              editorTag="Miembro"
+              editorText="Eres miembro de este grupo"
+              isAdmin={isAdmin}
+              adminText="Eres administrador de este grupo"
+            />
 
-          <SidebarGroupNavigation isMember={isMember} isAdmin={isAdmin} />
-        </SidebarContent>
-      )}
+            <SidebarGroupNavigation isMember={isMember} isAdmin={isAdmin} />
+          </>
+        )}
+      </SidebarContent>
       <SidebarFooter>
         {user ? <SidebarUserMenu user={user} /> : <SidebarLoginButton />}
       </SidebarFooter>

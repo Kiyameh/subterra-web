@@ -1,6 +1,12 @@
 "use server";
 import { connectToMongoDB } from "@/database/databaseConection";
-import Group, { PopulatedGroup } from "@/database/models/Group.model";
+import User from "@/database/models/User.model";
+import Instance from "@/database/models/Instance.model";
+
+import Group, {
+  GroupDocument,
+  PopulatedGroup,
+} from "@/database/models/Group.model";
 import { Answer } from "@/database/types/answer.type";
 import { decodeMongoError } from "@/database/tools/decodeMongoError";
 
@@ -8,8 +14,6 @@ import {
   GroupFormSchema,
   GroupFormValues,
 } from "@/database/validation/group.schema";
-import User from "@/database/models/User.model";
-import Instance from "@/database/models/Instance.model";
 
 /**
  * Función para crear un grupo
@@ -58,12 +62,13 @@ export async function createOneGroup(
 export async function getAllGroups() {
   try {
     await connectToMongoDB();
-    const allGroups = await Group.find()
+    const allGroups: GroupDocument[] | null = await Group.find()
       .populate({ path: "admin", model: User })
       .populate({ path: "members", model: User })
       .populate({ path: "instances", model: Instance })
-      //.populate({path: 'explorations', model: Exploration})//TODO: Añadir cuando este el tipo hecho
+      .populate({ path: "member_requests.user", model: User })
       .exec();
+    //.populate({path: 'explorations', model: Exploration})//TODO: Añadir cuando este el tipo hecho
     const allGroupsPOJO = allGroups.map((group) => {
       //? Transforma a objeto plano para poder pasar a componentes cliente de Next
       return JSON.parse(JSON.stringify(group));
@@ -90,10 +95,12 @@ export async function getAllGroups() {
 export async function getOneGroup(name: string) {
   try {
     await connectToMongoDB();
-    const group = await Group.findOne({ name: name })
-      .populate({ path: "admin", model: "User" })
-      .populate({ path: "members", model: "User" })
-      .populate({ path: "instances", model: "Instance" });
+    const group: GroupDocument | null = await Group.findOne({ name: name })
+      .populate({ path: "admin", model: User })
+      .populate({ path: "members", model: User })
+      .populate({ path: "instances", model: Instance })
+      .populate({ path: "member_requests.user", model: User })
+      .exec();
     //.populate({path: 'explorations', model: 'Exploration'})//TODO: Añadir cuando este el tipo hecho
     const groupPOJO = JSON.parse(JSON.stringify(group));
     return {
@@ -102,6 +109,116 @@ export async function getOneGroup(name: string) {
       message: "Grupo obtenido",
       content: groupPOJO as PopulatedGroup,
     } as Answer;
+  } catch (error) {
+    console.error(error);
+    return { ok: false, code: 500, message: "Error desconocido" } as Answer;
+  }
+}
+
+export async function addMemberRequest(
+  groupId: string,
+  request: { user: string; message: string },
+) {
+  try {
+    await connectToMongoDB();
+    const group = await Group.findById(groupId);
+    if (!group) {
+      return { ok: false, code: 404, message: "Grupo no encontrado" } as Answer;
+    }
+
+    const existingRequest = group.member_requests.find(
+      (req: { user: string; message: string }) => req.user === request.user,
+    );
+
+    if (existingRequest) {
+      return {
+        ok: false,
+        code: 400,
+        message: "Ya existe una solicitud",
+      } as Answer;
+    }
+
+    group.member_requests.push(request);
+    const updatedGroup = await group.save();
+    if (!updatedGroup) {
+      return { ok: false, code: 404, message: "Error desconocido" } as Answer;
+    }
+    return {
+      ok: true,
+      code: 200,
+      message: "Solicitud de miembro añadida",
+    } as Answer;
+  } catch (error) {
+    console.error(error);
+    return { ok: false, code: 500, message: "Error desconocido" } as Answer;
+  }
+}
+
+export async function acceptMemberRequest(groupId: string, requestId: string) {
+  try {
+    await connectToMongoDB();
+    const group: GroupDocument | null = await Group.findById(groupId)
+      .populate({ path: "member_requests.user", model: User })
+      .exec();
+
+    if (!group) {
+      return { ok: false, code: 404, message: "Grupo no encontrado" } as Answer;
+    }
+
+    const requestIndex = group.member_requests.findIndex(
+      (request) => request._id.toString() === requestId,
+    );
+
+    if (requestIndex === -1) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Solicitud no encontrada",
+      } as Answer;
+    }
+
+    // Transferir id aceptada al array de members
+
+    group.members.push(group.member_requests[requestIndex].user._id);
+    group.member_requests.splice(requestIndex, 1);
+    await group.save();
+
+    return {
+      ok: true,
+      code: 200,
+      message: "Solicitud aceptada y miembro añadido",
+    } as Answer;
+  } catch (error) {
+    console.error(error);
+    return { ok: false, code: 500, message: "Error desconocido" } as Answer;
+  }
+}
+
+export async function rejectMemberRequest(groupId: string, requestId: string) {
+  try {
+    await connectToMongoDB();
+    const group: GroupDocument | null = await Group.findById(groupId);
+    if (!group) {
+      return { ok: false, code: 404, message: "Grupo no encontrado" } as Answer;
+    }
+
+    const requestIndex = group.member_requests.findIndex(
+      (request) => request._id.toString() === requestId,
+    );
+
+    if (requestIndex === -1) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Solicitud no encontrada",
+      } as Answer;
+    }
+
+    // Eliminar solicitud del array de member_requests
+    group.member_requests.splice(requestIndex, 1);
+    await group.save();
+
+    return { ok: true, code: 200, message: "Solicitud rechazada" } as Answer;
   } catch (error) {
     console.error(error);
     return { ok: false, code: 500, message: "Error desconocido" } as Answer;

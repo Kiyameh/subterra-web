@@ -19,7 +19,14 @@ export default function MultiChipSlot({
       </div>
       <span className="flex flex-wrap items-center gap-1 text-sm">
         {chips.map((chip, index) => {
-          return <Badge key={index}>{chip.toString()}</Badge>;
+          return (
+            <Badge
+              className="border border-muted-foreground bg-secondary"
+              key={index}
+            >
+              {chip.toString()}
+            </Badge>
+          );
         })}
       </span>
     </div>
