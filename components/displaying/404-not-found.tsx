@@ -2,7 +2,7 @@ import {TbError404} from 'react-icons/tb'
 import BackButton from '../navigation/back-button'
 import LinkButton from '../navigation/link-button'
 import catImage from '@/public/404.webp'
-import CustomCard from '../containing/custom-card'
+import SimpleCard from '../containing/simple-card'
 
 interface NotFoundCardProps {
   title?: string
@@ -24,7 +24,7 @@ export default function NotFoundCard({
   text = 'No encontramos lo que buscas. ¿Estás seguro de que debería estar aquí?',
 }: NotFoundCardProps) {
   return (
-    <CustomCard
+    <SimpleCard
       image={catImage}
       title={title}
       code="404"

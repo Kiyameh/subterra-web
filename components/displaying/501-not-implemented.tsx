@@ -2,7 +2,7 @@ import {FaLaptopCode} from 'react-icons/fa'
 import BackButton from '../navigation/back-button'
 import LinkButton from '../navigation/link-button'
 import programingImage from '@/public/501.webp'
-import CustomCard from '../containing/custom-card'
+import SimpleCard from '../containing/simple-card'
 
 interface InDevelopmentCardProps {
   title?: string
@@ -24,7 +24,7 @@ export default function InDevelopmentCard({
   text = 'Funcionalidad en desarrollo. Próximamente estará disponible',
 }: InDevelopmentCardProps) {
   return (
-    <CustomCard
+    <SimpleCard
       image={programingImage}
       title={title}
       code="501"

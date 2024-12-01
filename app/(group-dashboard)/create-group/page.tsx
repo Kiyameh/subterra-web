@@ -1,10 +1,12 @@
 import {auth} from '@/auth'
-import CustomCard from '@/components/containing/custom-card'
+import CustomCard from '@/components/containing/simple-card'
+import CreateGroupForm from '@/components/forms/create-group-form'
 import BackButton from '@/components/navigation/back-button'
 import LinkButton from '@/components/navigation/link-button'
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {FiAlertTriangle} from 'react-icons/fi'
-import GroupForm from '../../../components/forms/group-form'
+import PageContainer from '@/components/containing/page-container'
+import CardWithHeader from '@/components/containing/card-with-header'
 
 export default async function CreateGroupPage() {
   const session = await auth()
@@ -32,29 +34,29 @@ export default async function CreateGroupPage() {
   }
 
   return (
-    <main className="min-h-full p-8 flex items-center justify-center">
-      <section>
-        {userId ? (
-          <GroupForm
+    <PageContainer className="justify-center">
+      {userId ? (
+        <CardWithHeader defaultWidth="xl">
+          <CreateGroupForm
             initialData={EMPTY_GROUP}
             editor={userId}
           />
-        ) : (
-          <CustomCard
-            icon={<FiAlertTriangle />}
-            title={'Inicia sesión'}
-            action1={<BackButton />}
-            action2={
-              <LinkButton
-                href="/auth/login"
-                label="Iniciar sesión"
-              />
-            }
-          >
-            Es necesario iniciar sesión para crear un grupo
-          </CustomCard>
-        )}
-      </section>
-    </main>
+        </CardWithHeader>
+      ) : (
+        <CustomCard
+          icon={<FiAlertTriangle />}
+          title={'Inicia sesión'}
+          action1={<BackButton />}
+          action2={
+            <LinkButton
+              href="/auth/login"
+              label="Iniciar sesión"
+            />
+          }
+        >
+          Es necesario iniciar sesión para crear un grupo
+        </CustomCard>
+      )}
+    </PageContainer>
   )
 }

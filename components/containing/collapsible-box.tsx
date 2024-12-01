@@ -8,18 +8,11 @@ import {
 } from '@/components/ui/accordion'
 import {BsQuestionCircleFill} from 'react-icons/bs'
 
-interface CollapsibleBoxProps {
-  title: string
-  color?: 'info' | 'success' | 'warning' | 'destructive'
-  icon?: React.ReactNode
-  children?: React.ReactNode
-  className?: string
-}
 /**
  * Componente que muestra un contenido colapsable con un título y un icono.
  * @param title Título del contenido colapsable.
  * @param color Color del icono <info | success | warning | destructive> default: info
- * @param icon Icono a mostrar. default: <BsQuestionCircleFill />
+ * @param icon Icono a mostrar. default: Simbolo interrogación.
  * @param children Contenido del componente.
  * @param className Clases adicionales para el componente.
  */
@@ -29,7 +22,13 @@ export default function CollapsibleBox({
   icon = <BsQuestionCircleFill />,
   children,
   className,
-}: CollapsibleBoxProps) {
+}: {
+  title: string
+  color?: 'info' | 'success' | 'warning' | 'destructive'
+  icon?: React.ReactNode
+  children?: React.ReactNode
+  className?: string
+}) {
   let iconColor = 'text-info-foreground'
   switch (color) {
     case 'success':

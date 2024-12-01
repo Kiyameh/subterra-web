@@ -1,5 +1,5 @@
 import SubterraLogo from '@/components/branding/subterra-logo'
-import GlassBox from '@/components/containing/glass-box'
+import SimpleBox from '@/components/containing/simple-box'
 import DownAnchor from '@/components/navigation/down-anchor'
 import React from 'react'
 
@@ -14,12 +14,12 @@ export default function WelcomeSection() {
         size="big"
         customWidth={300}
       />
-      <GlassBox>
+      <SimpleBox glassmorphism>
         <p className="text-[1.7rem] text-center">
           Base de datos para el almacenamiento de información espeleológica y de
           exploración
         </p>
-      </GlassBox>
+      </SimpleBox>
       <nav>
         <DownAnchor href="#about-section" />
       </nav>

@@ -1,22 +1,29 @@
-import CustomCard from "@/components/containing/custom-card";
-import InstancesBoard from "@/components/boards/all-instances-board/instances-board";
-import React from "react";
-import { LuBox } from "react-icons/lu";
+import InstancesBoard from '@/components/boards/all-instances-board'
+import React from 'react'
+import {LuBox} from 'react-icons/lu'
+import PageContainer from '@/components/containing/page-container'
+import BasicCard from '@/components/containing/basic-card'
 
 export default function InstancesSection() {
   return (
-    <section
+    <PageContainer
+      className="justify-center"
       id="instances-section"
-      className="flex min-h-screen w-full flex-col items-center justify-evenly bg-background p-5"
-      style={{ backgroundImage: "url(/backgrounds/topography.svg)" }}
     >
-      <CustomCard
-        className="mb-5"
-        title="Instancias"
-        icon={<LuBox className="text-3xl" />}
-        content="Aquí puedes encontrar las instancias desplegadas actualmente en Subterra."
-      />
+      <BasicCard
+        cardHeader={
+          <div className="flex gap-4">
+            <LuBox className="text-3xl" />
+            <h2 className="text-2xl font-bold">Instancias</h2>
+          </div>
+        }
+      >
+        <p>
+          Aquí puedes encontrar las instancias desplegadas actualmente en
+          Subterra.
+        </p>
+      </BasicCard>
       <InstancesBoard />
-    </section>
-  );
+    </PageContainer>
+  )
 }

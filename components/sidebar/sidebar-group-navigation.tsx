@@ -62,9 +62,9 @@ export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathName.includes(`${group}/edit`)}
+                  isActive={pathName.includes(`${group}/admin`)}
                 >
-                  <Link href={`/group/${group}/edit`}>
+                  <Link href={`/group/${group}/admin`}>
                     <FaGear className="text-admin" />
                     <span>Panel de administración</span>
                   </Link>

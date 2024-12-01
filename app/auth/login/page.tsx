@@ -1,30 +1,25 @@
 import React from 'react'
-import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card'
 import LoginForm from '@/components/forms/login-form'
 import GoogleButton from '@/components/account/google-button'
 import Divider from '@/components/displaying/divider'
-import SubterraLogo from '@/components/branding/subterra-logo'
 import LinkButton from '@/components/navigation/link-button'
+import CardWithHeader from '@/components/containing/card-with-header'
+import PageContainer from '@/components/containing/page-container'
 
 export default function LoginPage() {
   return (
-    <Card className="w-[420px] max-w-[90%]">
-      <CardHeader>
-        <SubterraLogo size="medium" />
-      </CardHeader>
-      <CardContent>
+    <PageContainer className="justify-center">
+      <CardWithHeader>
         <LoginForm />
-        <Divider text="o" />
-      </CardContent>
-      <CardFooter className="flex flex-col items-start gap-2">
         <LinkButton
           className="w-full"
           href="/auth/register"
           label="Crea una cuenta"
           variant="ghost"
         />
+        <Divider text="o" />
         <GoogleButton />
-      </CardFooter>
-    </Card>
+      </CardWithHeader>
+    </PageContainer>
   )
 }

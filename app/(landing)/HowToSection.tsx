@@ -5,7 +5,7 @@ import {FaPersonHiking} from 'react-icons/fa6'
 import {MdGroup} from 'react-icons/md'
 
 import LinkButton from '@/components/navigation/link-button'
-import CustomCard from '@/components/containing/custom-card'
+import BasicCard from '@/components/containing/basic-card'
 
 export default function HowToSection() {
   return (
@@ -15,34 +15,48 @@ export default function HowToSection() {
       style={{backgroundImage: 'url(/stock/h7.jpg)'}}
     >
       <div className="flex flex-wrap gap-5 justify-center">
-        <CustomCard
-          glassmorphism
-          title="Espeleologo"
-          icon={<FaPersonHiking className="w-7 h-7" />}
-          action1={
+        <BasicCard
+          cardHeader={
+            <div className="flex items-center gap-4">
+              <MdGroup className="text-3xl" />
+              <h2 className="text-xl">Grupo de espeleología</h2>
+            </div>
+          }
+          cardFooter={
+            <LinkButton
+              label="Registra tu grupo"
+              href="/create-group"
+            />
+          }
+        >
+          <p className="text-center">
+            Si eres un club, puedes crear un perfil de grupo, inscribir a los
+            miembros y asignarles diferentes roles. Estos podran contribuir a la
+            base de datos del grupo con cavidades exploradas, informes de
+            exploración, y mucho más.
+          </p>
+        </BasicCard>
+
+        <BasicCard
+          cardHeader={
+            <div className="flex items-center gap-4">
+              <FaPersonHiking className="text-3xl" />
+              <h2 className="text-xl">Espeleólogo</h2>
+            </div>
+          }
+          cardFooter={
             <LinkButton
               label="Crea tu cuenta"
               href="/auth/register"
             />
           }
         >
-          Si eres un espeleologo, puedes consultar las instancias públicas que
-          ya existen, o solicitar el acceso a uno de los grupos y colaborar con
-          su propia base de datos.
-        </CustomCard>
-
-        <CustomCard
-          glassmorphism
-          title="Grupo de espeleología"
-          icon={<MdGroup className="w-7 h-7" />}
-          content="Si eres un club, puedes crear un perfil de grupo, inscribir a los miembros y asignarles diferentes roles. Estos podran contribuir a la base de datos del grupo con cavidades exploradas, informes de exploración, y mucho más."
-          action1={
-            <LinkButton
-              label="Registra tu grupo"
-              href="/create-group"
-            />
-          }
-        />
+          <p className="text-center">
+            Si eres un espeleólogo, puedes consultar las instancias públicas que
+            ya existen, o solicitar el acceso a uno de los grupos y colaborar
+            con su propia base de datos.
+          </p>
+        </BasicCard>
       </div>
       <nav>
         <DownAnchor href="#instances-section" />

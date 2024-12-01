@@ -1,7 +1,7 @@
 import BackButton from '../navigation/back-button'
 import LinkButton from '../navigation/link-button'
 import programingImage from '@/public/401.webp'
-import CustomCard from '../containing/custom-card'
+import SimpleCard from '../containing/simple-card'
 import {RiForbidFill} from 'react-icons/ri'
 
 interface InDevelopmentCardProps {
@@ -24,7 +24,7 @@ export default function UnauthorizedCard({
   text = 'Ups, parece que no estas autorizado para esto. Contacta con el responsable para obtener acceso',
 }: InDevelopmentCardProps) {
   return (
-    <CustomCard
+    <SimpleCard
       image={programingImage}
       title={title}
       code="401"
