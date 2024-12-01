@@ -88,12 +88,11 @@ body {
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 216.2 67% 21.4%;
+    --accent-foreground: 216.4 66.8% 51.6%;
 
     /* Text decoration */
-    --emphasis: 346.8 77.2% 49.8%;
-
+    --emphasis: 216.4 66.8% 51.6%;
     --editor: 172.5 66% 50.4%;
     --admin: 270.7 91% 65.1%;
 

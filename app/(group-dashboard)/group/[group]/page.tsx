@@ -9,6 +9,7 @@ import {PopulatedGroup} from '@/database/models/Group.model'
 import {getOneGroup} from '@/database/services/group.services'
 import {Session} from 'next-auth'
 import PageContainer from '@/components/containing/page-container'
+import InstanceCard from '@/components/boards/_cards/instance-card'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -64,28 +65,40 @@ export default async function GroupLandingPage({params}: PageProps) {
           hasPendingRequest={hasPendingRequest}
         />
       )}
+
       <ImageCard />
-      <GroupInfoCard
-        fullname={group.fullname}
-        name={group.name}
-        acronym={group.acronym}
-        _id={group._id}
-        group_categories={group.group_categories}
-      />
-      <DescriptionCard description={group.description} />
-      <ContactCard
-        street={group.street}
-        portal_number={group.portal_number}
-        floor={group.floor}
-        door={group.door}
-        postal_code={group.postal_code}
-        city={group.city}
-        province={group.province}
-        country={group.country}
-        phone={group.phone}
-        email={group.email}
-        webpage={group.webpage}
-      />
+      <div className="flex gap-4 flex-wrap justify-center">
+        {group.instances.map((instance) => {
+          return (
+            <InstanceCard
+              glassmorphism={false}
+              key={instance.name}
+              instance={instance}
+            />
+          )
+        })}
+        <GroupInfoCard
+          fullname={group.fullname}
+          name={group.name}
+          acronym={group.acronym}
+          _id={group._id}
+          group_categories={group.group_categories}
+        />
+        <ContactCard
+          street={group.street}
+          portal_number={group.portal_number}
+          floor={group.floor}
+          door={group.door}
+          postal_code={group.postal_code}
+          city={group.city}
+          province={group.province}
+          country={group.country}
+          phone={group.phone}
+          email={group.email}
+          webpage={group.webpage}
+        />
+        <DescriptionCard description={group.description} />
+      </div>
     </PageContainer>
   )
 }

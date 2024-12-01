@@ -1,5 +1,8 @@
 import React from 'react'
-import {PopulatedInstance} from '@/database/models/Instance.model'
+import {
+  InstanceObject,
+  PopulatedInstance,
+} from '@/database/models/Instance.model'
 import Link from 'next/link'
 import LinkButton from '@/components/navigation/link-button'
 import InfoBadge from '@/components/displaying/info-badge'
@@ -13,13 +16,15 @@ import {MdModeEdit} from 'react-icons/md'
 import {MdMoreTime} from 'react-icons/md'
 import {HiLink} from 'react-icons/hi'
 import {CardDescription, CardTitle} from '@/components/ui/card'
+import {GroupObject} from '@/database/models/Group.model'
+import {LuBox} from 'react-icons/lu'
 
 export default function InstanceCard({
   instance,
   glassmorphism = true,
   className,
 }: {
-  instance: PopulatedInstance
+  instance: PopulatedInstance | InstanceObject
   glassmorphism?: boolean
   className?: string
 }) {
@@ -35,13 +40,27 @@ export default function InstanceCard({
     createdAt,
   } = instance
 
+  const isGroupObject = (owner: unknown): owner is GroupObject => {
+    return typeof owner === 'object' && owner !== null && 'groupName' in owner
+  }
+
   const cardHeader = (
     <>
-      <div className="flex items-center gap-2">
-        <OnlineIndicator isOnline={is_online} />
-        <CardTitle>{fullname}</CardTitle>
+      <div className="flex justify-between items-center gap-6">
+        <div>
+          <div className="flex items-center gap-2">
+            <OnlineIndicator isOnline={is_online} />
+            <CardTitle>{fullname}</CardTitle>
+          </div>
+          <CardDescription>{description}</CardDescription>
+        </div>
+        <div className="flex flex-col items-center">
+          <span className="text-primary text-xl">
+            <LuBox />
+          </span>
+          <span className="text-muted-foreground">Instancia</span>
+        </div>
       </div>
-      <CardDescription>{description}</CardDescription>
     </>
   )
   const cardFooter = (
@@ -66,7 +85,7 @@ export default function InstanceCard({
         </div>
       )}
 
-      {owner && (
+      {isGroupObject(owner) && (
         <Link
           className="flex items-center gap-2"
           href={`/group/${owner.name}`}
@@ -76,6 +95,7 @@ export default function InstanceCard({
           <HiLink className="text-primary" />
         </Link>
       )}
+
       {public_visibility && (
         <div className="flex items-center gap-2">
           <MdVisibility />

@@ -1,20 +1,20 @@
-import React from "react";
-import CardTitleSlot from "../_slots/card-title-slot";
-import TextSlot from "../_slots/text-slot";
-import LinkSlot from "../_slots/link-slot";
+import React from 'react'
+import BasicCard from '@/components/containing/basic-card'
+import {LinkSlot} from '../_slots/link-slots'
+import {TextSlot} from '../_slots/text-slots'
 
 interface ContactCardProps {
-  street?: string;
-  portal_number?: string;
-  floor?: string;
-  door?: string;
-  postal_code?: number;
-  city?: string;
-  province?: string;
-  country?: string;
-  phone?: string;
-  email?: string;
-  webpage?: string;
+  street?: string
+  portal_number?: string
+  floor?: string
+  door?: string
+  postal_code?: number
+  city?: string
+  province?: string
+  country?: string
+  phone?: string
+  email?: string
+  webpage?: string
 }
 
 export default function ContactCard({
@@ -32,20 +32,45 @@ export default function ContactCard({
 }: ContactCardProps) {
   const address = [street, portal_number, floor, door]
     .filter(Boolean)
-    .join(", ");
-  return (
-    <div className="flex min-h-96 flex-col gap-3 rounded-lg bg-card p-4">
-      <CardTitleSlot title="Datos de contacto" />
-      <TextSlot label="Dirección" text={address} />
-      <div className="grid grid-cols-2 gap-2">
-        <TextSlot label="CP" text={postal_code?.toString()} />
-        <TextSlot label="Ciudad" text={city} />
-      </div>
+    .join(', ')
 
-      <TextSlot label="Provincia" text={`${province}, ${country}`} />
-      <TextSlot label="Teléfono" text={phone} />
-      {email && <LinkSlot label="Email" href={email} type="email" />}
-      {webpage && <LinkSlot label="Web" href={webpage} />}
-    </div>
-  );
+  return (
+    <BasicCard cardHeader="Datos de contacto">
+      <TextSlot
+        label="Dirección"
+        value={address}
+      />
+      <TextSlot
+        label="Código postal"
+        value={postal_code}
+      />
+      <TextSlot
+        label="Ciudad"
+        value={city}
+      />
+      <TextSlot
+        label="Provincia"
+        value={province}
+      />
+      <TextSlot
+        label="País"
+        value={country}
+      />
+      <LinkSlot
+        label="Teléfono"
+        type="phone"
+        value={phone}
+      />
+      <LinkSlot
+        label="Email"
+        type="email"
+        value={email}
+      />
+      <LinkSlot
+        label="Web"
+        type="external"
+        value={webpage}
+      />
+    </BasicCard>
+  )
 }

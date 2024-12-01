@@ -1,16 +1,14 @@
-import React from "react";
-import CardTitleSlot from "../_slots/card-title-slot";
-import TextSlot from "../_slots/text-slot";
-import LinkSlot from "../_slots/link-slot";
-import MultiChipSlot from "../_slots/multi-chip-slot";
-import { MdNumbers } from "react-icons/md";
+import BasicCard from '@/components/containing/basic-card'
+import React from 'react'
+import {TextSlot} from '../_slots/text-slots'
+import {MultiChipSlot} from '../_slots/chip-slots'
 
 interface GroupInfoCardProps {
-  fullname: string;
-  name: string;
-  _id: string;
-  acronym?: string;
-  group_categories?: string[];
+  fullname: string
+  name: string
+  _id: string
+  acronym?: string
+  group_categories?: string[]
 }
 
 export default function GroupInfoCard({
@@ -21,16 +19,27 @@ export default function GroupInfoCard({
   group_categories,
 }: GroupInfoCardProps) {
   return (
-    <div className="flex min-h-96 flex-col gap-3 rounded-lg bg-card p-4">
-      <CardTitleSlot title={fullname} />
-      <TextSlot label="ID" text={_id} icon={<MdNumbers />} />
-      <TextSlot label="Ácronimo" text={acronym} />
-      <LinkSlot
-        label="URL"
-        href={`/group/${name}`}
-        placeholder={`https://subterra.app/group/${name}`}
+    <BasicCard cardHeader="Información del grupo">
+      <TextSlot
+        label="ID"
+        value={_id}
       />
-      <MultiChipSlot label="Categorias" chips={group_categories || []} />
-    </div>
-  );
+      <TextSlot
+        label="Ácronimo"
+        value={acronym}
+      />
+      <TextSlot
+        label="Nombre completo"
+        value={fullname}
+      />
+      <TextSlot
+        label="Nombre corto"
+        value={name}
+      />
+      <MultiChipSlot
+        label="Categorias"
+        values={group_categories}
+      />
+    </BasicCard>
+  )
 }
