@@ -1,42 +1,55 @@
-import {FaLaptopCode} from 'react-icons/fa'
-import BackButton from '../navigation/back-button'
-import LinkButton from '../navigation/link-button'
+import BasicCard from '@/components/containing/basic-card'
+import LinkButton from '@/components/navigation/link-button'
+import BackButton from '@/components/navigation/back-button'
 import programingImage from '@/public/501.webp'
-import SimpleCard from '../containing/simple-card'
-
-interface InDevelopmentCardProps {
-  title?: string
-  text?: string
-}
+import {FaLaptopCode} from 'react-icons/fa'
 
 /**
- * Card personalizada para mostrar que una funcionalidad está en desarrollo
- * @param {string} title Título de la card
- * @param {string} text Texto de la card
- *
- * Textos por defecto:
- * "En desarrollo"
- * "Funcionalidad en desarrollo. Próximamente estará disponible"
+ * @version 1
+ * @description Card personalizada para mostrar que una funcionalidad está en desarrollo
+ * @param title Título de la card
+ * @param text Texto de la card
+ * @default
+ * 'En desarrollo'
+ * 'Funcionalidad en desarrollo. Próximamente estará disponible'
  */
 
 export default function InDevelopmentCard({
   title = 'En desarrollo',
   text = 'Funcionalidad en desarrollo. Próximamente estará disponible',
-}: InDevelopmentCardProps) {
+}: {
+  title?: string
+  text?: string
+}) {
   return (
-    <SimpleCard
+    <BasicCard
       image={programingImage}
-      title={title}
-      code="501"
-      icon={<FaLaptopCode />}
-      content={text}
-      action1={<BackButton />}
-      action2={
-        <LinkButton
-          label="Enviar comentarios"
-          href="/contact"
-        />
+      cardHeader={
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2 text-xl">
+            <FaLaptopCode />
+            {title}
+          </div>
+          <a
+            href={'https://http.cat/status/501'}
+            target="_blank"
+            className="text-2xl text-foreground/20"
+          >
+            501
+          </a>
+        </div>
       }
-    />
+      cardFooter={
+        <div className="w-full gap-2 flex justify-between">
+          <BackButton />
+          <LinkButton
+            label="Enviar comentarios"
+            href="/contact"
+          />
+        </div>
+      }
+    >
+      {text}
+    </BasicCard>
   )
 }

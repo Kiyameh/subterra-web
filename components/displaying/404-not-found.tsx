@@ -1,42 +1,55 @@
-import {TbError404} from 'react-icons/tb'
-import BackButton from '../navigation/back-button'
-import LinkButton from '../navigation/link-button'
+import BasicCard from '@/components/containing/basic-card'
+import BackButton from '@/components/navigation/back-button'
+import LinkButton from '@/components/navigation/link-button'
 import catImage from '@/public/404.webp'
-import SimpleCard from '../containing/simple-card'
-
-interface NotFoundCardProps {
-  title?: string
-  text?: string
-}
+import {TbError404} from 'react-icons/tb'
 
 /**
- * Card personalizada para mostrar que una página no se ha encontrado
+ * @version 1
+ * @description Card personalizada para mostrar que una página no se ha encontrado
  * @param title Título de la card
  * @param text Texto de la card
- *
- * Textos por defecto:
- * "Aquí no hay nada"
- * "No encontramos lo que buscas. ¿Estás seguro de que debería estar aquí?"
+ * @default
+ * 'Aquí no hay nada'
+ * 'No encontramos lo que buscas. ¿Estás seguro de que debería estar aquí?'
  */
 
 export default function NotFoundCard({
   title = 'Aquí no hay nada',
   text = 'No encontramos lo que buscas. ¿Estás seguro de que debería estar aquí?',
-}: NotFoundCardProps) {
+}: {
+  title?: string
+  text?: string
+}) {
   return (
-    <SimpleCard
+    <BasicCard
       image={catImage}
-      title={title}
-      code="404"
-      icon={<TbError404 />}
-      content={text}
-      action1={<BackButton />}
-      action2={
-        <LinkButton
-          label="Dinos algo"
-          href="/contact"
-        />
+      cardHeader={
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2 text-xl">
+            <TbError404 />
+            {title}
+          </div>
+          <a
+            href={'https://http.cat/status/404'}
+            target="_blank"
+            className="text-2xl text-foreground/20"
+          >
+            404
+          </a>
+        </div>
       }
-    />
+      cardFooter={
+        <div className="w-full gap-2 flex justify-between">
+          <BackButton />
+          <LinkButton
+            label="Enviar comentarios"
+            href="/contact"
+          />
+        </div>
+      }
+    >
+      {text}
+    </BasicCard>
   )
 }

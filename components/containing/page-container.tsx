@@ -2,10 +2,12 @@ import React, {HTMLAttributes} from 'react'
 import {cn} from '@/lib/utils'
 
 /**
- * Componente para envolver las páginas con el patrón de curvas de nivel y un flex vertical
+ * @version 1
+ * @description Componente para envolver las páginas con el patrón de curvas de nivel y un flex vertical
  * @param className Clases adicionales para el contenedor
  * @param withPattern Indica si se debe mostrar el patrón de curvas de nivel
  * @param children Contenido de la página
+ * @default withPattern true
  */
 export default function PageContainer({
   className,
@@ -24,7 +26,7 @@ export default function PageContainer({
   return (
     <main
       className={cn(
-        'flex min-h-screen w-full flex-col items-center gap-4 p-4',
+        'flex min-h-screen w-full flex-col items-center justify-center gap-4 p-4',
         className
       )}
       style={style}

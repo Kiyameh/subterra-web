@@ -1,17 +1,19 @@
 import React from 'react'
 import {cn} from '@/lib/utils'
-import {Card, CardContent, CardFooter, CardHeader} from '../ui/card'
-import SubterraLogo from '../branding/subterra-logo'
-import BackButton from '../navigation/back-button'
+import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card'
+import SubterraLogo from '@/components/branding/subterra-logo'
+import BackButton from '@/components/navigation/back-button'
 
 /**
- * Componente card personalizado con cabecera de navegación y branding
- * @param defaultWidth Ancho por defecto [md: 460, lg: 600, xl: 800, xxl: 1024]
+ * @version 1
+ * @description Componente card personalizado con cabecera de navegación y branding
+ * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 800, "xxl": 1024]
  * @param cardSubHeader Cabecera de la card
  * @param cardFooter Pie de la card
  * @param children Contenido de la card
  * @param glassmorphism Añadir efecto Glassmorphism
  * @param className Clases adicionales para componente Card
+ * @default defaultWidth "md"
  */
 export default function CardWithHeader({
   defaultWidth = 'md',

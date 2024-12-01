@@ -1,21 +1,29 @@
+import {cn} from '@/lib/utils'
+import ResponsiveTooltip from '@/components/displaying/responsive-tooltip'
 import {Badge} from '@/components/ui/badge'
 import {MdInfo} from 'react-icons/md'
-import ResponsiveTooltip from './responsive-tooltip'
-import {cn} from '@/lib/utils'
 
-interface InfoBadgeProps {
-  label?: string
-  withIcon?: boolean
-  color?: 'info' | 'success' | 'warning' | 'destructive'
-  description: string
-}
+/**
+ * @version 1
+ * @description Badge de información con tooltip responsivo. Opcion solo icono o con texto
+ * @param label Texto del badge
+ * @param withIcon Mostrar icono
+ * @param color Color del badge ['info', 'success', 'warning', 'destructive']
+ * @param description Descripción del tooltip
+ * @default color: 'info' withIcon: true
+ */
 
 export default function InfoBadge({
   label,
   withIcon = true,
   color = 'info',
   description,
-}: InfoBadgeProps) {
+}: {
+  label?: string
+  withIcon?: boolean
+  color?: 'info' | 'success' | 'warning' | 'destructive'
+  description: string
+}) {
   let iconColor = 'text-info-foreground'
 
   switch (color) {

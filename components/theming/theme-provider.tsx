@@ -1,10 +1,9 @@
 'use client'
-
 import * as React from 'react'
 import {ThemeProvider as NextThemesProvider} from 'next-themes'
 
 /**
- * Proveedor de tema para la aplicación del paquete Next-Themes
+ * @description Proveedor de tema para la aplicación del paquete Next-Themes
  */
 export function ThemeProvider({
   children,

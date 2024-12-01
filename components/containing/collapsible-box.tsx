@@ -9,12 +9,15 @@ import {
 import {BsQuestionCircleFill} from 'react-icons/bs'
 
 /**
- * Componente que muestra un contenido colapsable con un título y un icono.
+ * @version 1
+ * @description Componente que muestra un contenido colapsable con un título y un icono.
  * @param title Título del contenido colapsable.
- * @param color Color del icono <info | success | warning | destructive> default: info
- * @param icon Icono a mostrar. default: Simbolo interrogación.
+ * @param color Color del icono <"info" | "success" | "warning" | "destructive">
+ * @param icon Icono a mostrar.
  * @param children Contenido del componente.
  * @param className Clases adicionales para el componente.
+ * @default
+ * color "info" icon-Icono de interrogación
  */
 export default function CollapsibleBox({
   title,

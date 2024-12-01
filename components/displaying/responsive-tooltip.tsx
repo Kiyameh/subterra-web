@@ -1,26 +1,34 @@
 'use client'
-import React, {useState} from 'react'
+import React from 'react'
+import {cn} from '@/lib/utils'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../ui/tooltip'
-import {cn} from '@/lib/utils'
+} from '@/components/ui/tooltip'
 
-interface ResponsiveTooltipProps {
-  content: string
-  className?: string
-  color?: 'info' | 'success' | 'warning' | 'destructive'
-  children: React.ReactNode
-}
+/**
+ * @version 1
+ * @description Tooltip responsivo (onTouch en mobile se muestra por 2 segundos)
+ * @param content Contenido del tooltip
+ * @param className Clases adicionales
+ * @param color Color del tooltip ['info', 'success', 'warning', 'destructive']
+ * @param children Elemento que activa el tooltip
+ * @default color: 'info'
+ */
 export default function ResponsiveTooltip({
   content,
   className,
   color = 'info',
   children,
-}: ResponsiveTooltipProps) {
-  const [visible, setVisible] = useState(false)
+}: {
+  content: string
+  className?: string
+  color?: 'info' | 'success' | 'warning' | 'destructive'
+  children: React.ReactNode
+}) {
+  const [visible, setVisible] = React.useState(false)
 
   let bgColor = 'bg-info'
   switch (color) {
@@ -55,7 +63,7 @@ export default function ResponsiveTooltip({
         </TooltipTrigger>
         <TooltipContent
           className={cn(
-            ' font-bold border border-white border-opacity-30',
+            ' font-bold border border-muted-foreground',
             bgColor,
             className
           )}

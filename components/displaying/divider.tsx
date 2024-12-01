@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * @version 1
+ * @description Componente para mostrar un divisor horizontal con texto opcional
+ * @param text Texto opcional a mostrar en el centro del divisor
+ */
 export default function Divider({text}: {text?: string}) {
   return (
     <div className="flex items-center my-3">

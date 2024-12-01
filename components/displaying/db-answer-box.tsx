@@ -1,13 +1,15 @@
-import {Answer} from '@/database/types/answer.type'
 import React from 'react'
+import {Answer} from '@/database/types/answer.type'
 import {FaExclamationTriangle} from 'react-icons/fa'
 import {FaCheckCircle} from 'react-icons/fa'
 
-interface AnswerBoxProps {
-  answer?: Answer | null
-}
+/**
+ * @version 1
+ * @description Componente para mostrar mensajes de respuesta de la base de datos
+ * @param answer Respuesta de la base de datos
+ */
 
-export default function DbAwnserBox({answer}: AnswerBoxProps) {
+export default function DbAwnserBox({answer}: {answer?: Answer | null}) {
   if (!answer) return null
 
   return (

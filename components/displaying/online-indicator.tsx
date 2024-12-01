@@ -1,14 +1,28 @@
-import ResponsiveTooltip from './responsive-tooltip'
+import ResponsiveTooltip from '@/components/displaying/responsive-tooltip'
 
-interface OnlineIndicatorProps {
+/**
+ * @version 1
+ * @description Indicador de conexión online con tooltip responsivo
+ * @param isOnline Estado de conexión
+ * @param onlineText Texto a mostrar si está online
+ * @param offlineText Texto a mostrar si está offline
+ * @default
+ * onlineText: 'Online' offlineText: 'Temporalmente Offline'
+ */
+
+export default function OnlineIndicator({
+  isOnline,
+  onlineText = 'Online',
+  offlineText = 'Temporalmente Offline',
+}: {
   isOnline: boolean
-}
-
-export default function OnlineIndicator({isOnline}: OnlineIndicatorProps) {
+  onlineText?: string
+  offlineText?: string
+}) {
   return (
     <>
       <ResponsiveTooltip
-        content={isOnline ? 'Online' : 'Temporalmente Offline'}
+        content={isOnline ? onlineText : offlineText}
         color={isOnline ? 'success' : 'destructive'}
       >
         <div

@@ -1,19 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
-import {StaticImport} from 'next/dist/shared/lib/get-img-props'
 import {cn} from '@/lib/utils'
-import {Card, CardContent, CardFooter, CardHeader} from '../ui/card'
+import {StaticImport} from 'next/dist/shared/lib/get-img-props'
+import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card'
 
 /**
- * Componente card personalizado
- * @param defaultWidth Ancho por defecto [md: 460, lg: 600, xl: 800, xxl: 1024]
+ * @version 1
+ * @description Card con slots para imagen, heaedr, footer y children. Opción glassmorphism.
+ * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 800, "xxl": 1024]
  * @param image Imagen superior
  * @param cardHeader Cabecera de la card
  * @param cardFooter Pie de la card
  * @param children Contenido de la card
  * @param glassmorphism Añadir efecto Glassmorphism
  * @param className Clases adicionales para componente Card
+ * @default defaultWidth "md"
  */
+
 export default function BasicCard({
   defaultWidth = 'md',
   image,
