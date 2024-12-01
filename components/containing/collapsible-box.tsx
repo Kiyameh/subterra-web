@@ -51,7 +51,7 @@ export default function CollapsibleBox({
         type="single"
         collapsible
         className={cn(
-          'w-[640px] max-w-[90vw] m-auto bg-muted text-muted-foreground px-4  rounded-lg',
+          'w-full m-auto bg-muted text-muted-foreground px-4  rounded-lg',
           className
         )}
       >

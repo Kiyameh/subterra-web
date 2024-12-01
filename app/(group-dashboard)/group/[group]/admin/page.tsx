@@ -12,11 +12,11 @@ import GroupEditForm from '@/components/forms/group-edit-form'
 import PageContainer from '@/components/containing/page-container'
 import BasicCard from '@/components/containing/basic-card'
 
-interface GroupEditionPageProps {
+interface PageProps {
   params: Promise<{group: string}>
 }
 
-export default async function GroupAdminPage({params}: GroupEditionPageProps) {
+export default async function GroupAdminPage({params}: PageProps) {
   // Obtener el nombre del grupo
   const groupName = (await params).group
 

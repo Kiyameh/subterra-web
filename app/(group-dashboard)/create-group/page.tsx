@@ -1,5 +1,5 @@
 import {auth} from '@/auth'
-import CustomCard from '@/components/containing/simple-card'
+import BasicCard from '@/components/containing/basic-card'
 import CreateGroupForm from '@/components/forms/create-group-form'
 import BackButton from '@/components/navigation/back-button'
 import LinkButton from '@/components/navigation/link-button'
@@ -43,19 +43,25 @@ export default async function CreateGroupPage() {
           />
         </CardWithHeader>
       ) : (
-        <CustomCard
-          icon={<FiAlertTriangle />}
-          title={'Inicia sesión'}
-          action1={<BackButton />}
-          action2={
-            <LinkButton
-              href="/auth/login"
-              label="Iniciar sesión"
-            />
+        <BasicCard
+          cardHeader={
+            <div className="flex items-center gap-4 flex-wrap">
+              <FiAlertTriangle className="text-2xl" />
+              <h1 className="text-lg">Inicia sesión</h1>
+            </div>
+          }
+          cardFooter={
+            <div className="flex items-center gap-2 w-full">
+              <BackButton />
+              <LinkButton
+                href="/auth/login"
+                label="Iniciar sesión"
+              />
+            </div>
           }
         >
           Es necesario iniciar sesión para crear un grupo
-        </CustomCard>
+        </BasicCard>
       )}
     </PageContainer>
   )

@@ -14,6 +14,7 @@ import {
   GroupFormSchema,
   GroupFormValues,
 } from '@/database/validation/group.schema'
+import mongoose from 'mongoose'
 
 /**
  * Función para crear un grupo
@@ -185,13 +186,13 @@ export async function addMemberRequest(
 ) {
   try {
     await connectToMongoDB()
-    const group = await Group.findById(groupId)
+    const group: GroupDocument | null = await Group.findById(groupId)
     if (!group) {
       return {ok: false, code: 404, message: 'Grupo no encontrado'} as Answer
     }
 
     const existingRequest = group.member_requests.find(
-      (req: {user: string; message: string}) => req.user === request.user
+      (groupRequest) => groupRequest.user.toString() === request.user
     )
 
     if (existingRequest) {
@@ -201,8 +202,11 @@ export async function addMemberRequest(
         message: 'Ya existe una solicitud',
       } as Answer
     }
-
-    group.member_requests.push(request)
+    group.member_requests.push({
+      _id: new mongoose.Types.ObjectId(),
+      message: request.message,
+      user: new mongoose.Types.ObjectId(request.user),
+    })
     const updatedGroup = await group.save()
     if (!updatedGroup) {
       return {ok: false, code: 404, message: 'Error desconocido'} as Answer

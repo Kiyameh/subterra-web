@@ -5,6 +5,7 @@ Componentes contenedores
 ## Componentes revisados (nov24)
 
 - BasicCard
+- BasicDialog
 - CardWithHeader
 - CollapsibleBox
 - PageContainer

@@ -11,11 +11,11 @@ import {getSomeInstances} from '@/database/services/instance.services'
 import {PopulatedInstance} from '@/database/models/Instance.model'
 import PageContainer from '@/components/containing/page-container'
 
-interface Props {
+interface PageProps {
   params: Promise<{group: string}>
 }
 
-export default async function GroupMembersPage({params}: Props) {
+export default async function GroupMembersPage({params}: PageProps) {
   // Obtener el nombre del grupo
   const groupName = (await params).group
 

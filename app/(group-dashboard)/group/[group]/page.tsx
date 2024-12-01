@@ -10,11 +10,11 @@ import {getOneGroup} from '@/database/services/group.services'
 import {Session} from 'next-auth'
 import PageContainer from '@/components/containing/page-container'
 
-interface Props {
+interface PageProps {
   params: Promise<{group: string}>
 }
 
-export default async function GroupLandingPage({params}: Props) {
+export default async function GroupLandingPage({params}: PageProps) {
   // Obtener el nombre del grupo
   const groupName = (await params).group
 
@@ -25,6 +25,15 @@ export default async function GroupLandingPage({params}: Props) {
   const session: Session | null = await auth()
   const userId = session?.user?._id
 
+  // Verificar si el usurio tiene petición pendiente
+  let hasPendingRequest = false
+  if (userId && group) {
+    group.member_requests.map((request) => {
+      if (request.user._id.toString() == userId) {
+        hasPendingRequest = true
+      }
+    })
+  }
   // Validar roles de usuario:
   let isMember = false
   if (userId && group) {
@@ -52,6 +61,7 @@ export default async function GroupLandingPage({params}: Props) {
         <MembershipRequestBanner
           groupId={group._id}
           userId={userId}
+          hasPendingRequest={hasPendingRequest}
         />
       )}
       <ImageCard />
