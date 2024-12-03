@@ -10,6 +10,12 @@ body {
   height: 100vh;
 }
 
+/* Propiedad que solo funciona en algunos navegadores, pero se
+ira implementando en el futuro. Amplia las text-area segun su contenido. No es relevante para la funcionalidad, pero es comodo */
+textarea {
+  field-sizing: content;
+}
+
 /* Omolon CSS Linear Gradient Background */
 .gradient {
   background: #091e3a;

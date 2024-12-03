@@ -1,11 +1,9 @@
 'use client'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {Button} from '@/components/ui/button'
 import {Form} from '@/components/ui/form'
-import DbAwnserBox from '@/components/displaying/db-answer-box'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 
-import {Loader2} from 'lucide-react'
 import {
   GroupFormSchema,
   GroupFormValues,
@@ -23,17 +21,18 @@ import MultipleSelectionField from '@/components/fields/multiple-selection-field
 import PhoneField from '@/components/fields/phone-field'
 import ImageField from '@/components/fields/image-field'
 import {PopulatedGroup} from '@/database/models/Group.model'
+import SubmitButton from './ui/submit-button'
 
 interface GroupEditFormProps {
   initialData: PopulatedGroup
-  editorId: string
+  commanderId: string
 }
 
 // TODO: Documentar componente
 
 export default function GroupEditForm({
   initialData,
-  editorId,
+  commanderId,
 }: GroupEditFormProps) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -46,9 +45,7 @@ export default function GroupEditForm({
   function onSubmit(values: GroupFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      console.log(values)
-      console.log(editorId)
-      const answer = await updateOneGroup(initialData._id, editorId, values)
+      const answer = await updateOneGroup(initialData._id, commanderId, values)
       setDbAnswer(answer)
     })
   }
@@ -61,7 +58,7 @@ export default function GroupEditForm({
       >
         <div className="text-xl">Editar grupo</div>
         <TextField
-          form={form}
+          control={form.control}
           name="fullname"
           label="Nombre completo"
           placeholder="Grupo espeleológico Arcaute"
@@ -69,7 +66,7 @@ export default function GroupEditForm({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="acronym"
               label="Acrónimo"
               placeholder="GEA"
@@ -77,7 +74,7 @@ export default function GroupEditForm({
           </div>
           <div className="col-span-8">
             <TextField
-              form={form}
+              control={form.control}
               name="name"
               label="Nombre corto"
               placeholder="arcaute"
@@ -93,13 +90,13 @@ export default function GroupEditForm({
           placeholder="Selecciona categorías"
         />
         <TextAreaField
-          form={form}
+          control={form.control}
           name="description"
           label="Texto de presentación"
           placeholder="El grupo lleva el apellido del famoso espeleólogo belga Félix Ruiz de Arcaute..."
         />
         <TextField
-          form={form}
+          control={form.control}
           name="street"
           label="Calle"
           placeholder="Calle de la exploración"
@@ -107,7 +104,7 @@ export default function GroupEditForm({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="portal_number"
               label="Numero"
               placeholder="13"
@@ -116,7 +113,7 @@ export default function GroupEditForm({
 
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="floor"
               label="Piso"
               placeholder="4º"
@@ -125,7 +122,7 @@ export default function GroupEditForm({
 
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="door"
               label="Puerta"
               placeholder="D"
@@ -135,7 +132,7 @@ export default function GroupEditForm({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="postal_code"
               label="Código postal"
               placeholder="31178"
@@ -144,7 +141,7 @@ export default function GroupEditForm({
 
           <div className="col-span-8">
             <TextField
-              form={form}
+              control={form.control}
               name="city"
               label="Ciudad"
               placeholder="Cuevas de la sierra"
@@ -165,7 +162,7 @@ export default function GroupEditForm({
           placeholder="123 456 789"
         />
         <TextField
-          form={form}
+          control={form.control}
           name="webpage"
           label="Página web"
           placeholder="www.arcaute.com"
@@ -173,7 +170,7 @@ export default function GroupEditForm({
           endContent={<TbWorld />}
         />
         <TextField
-          form={form}
+          control={form.control}
           name="email"
           label="Email"
           placeholder="arcaute@mail.com"
@@ -206,14 +203,10 @@ export default function GroupEditForm({
             label="Ir al panel de grupo"
           />
         ) : (
-          <Button
-            disabled={isPending}
-            className="w-full"
-            type="submit"
-          >
-            {isPending && <Loader2 className="animate-spin" />}
-            Actualizar
-          </Button>
+          <SubmitButton
+            label="Actualizar datos"
+            isPending={isPending}
+          />
         )}
       </form>
     </Form>

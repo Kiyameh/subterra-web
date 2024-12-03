@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import {Answer} from '@/database/types/answer.type'
-import DbAnswerBox from '@/components/displaying/db-answer-box'
+import DbAnswerBox from '@/components/forms/ui/db-answer-box'
 import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import {signUp} from '@/database/services/user.services'

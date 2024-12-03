@@ -65,9 +65,11 @@ export default function MembershipRequestBanner({
 
   return (
     <>
-      <div className="w-full flex items-center justify-between rounded-lg bg-card p-1 text-muted-foreground">
+      <div className="w-full flex items-center justify-between rounded-lg bg-card p-1">
         <div className="flex grow gap-3 items-center md:justify-center">
-          <span className="text-sm">¿Te gustaría formar parte del grupo?</span>
+          <span className="text-sm text-muted-foreground">
+            ¿Te gustaría formar parte del grupo?
+          </span>
           {chooseAction(userId, hasPendingRequest)}
         </div>
         <Button

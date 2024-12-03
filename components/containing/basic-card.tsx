@@ -35,16 +35,16 @@ export default function BasicCard({
   className?: string
 }) {
   const sizeMap = {
-    md: 'w-[460px]',
-    lg: 'w-[600px]',
-    xl: 'w-[800px]',
-    xxl: 'w-[1024px]',
+    md: 'w-[460px] max-w-[90vw]',
+    lg: 'w-[600px] max-w-[90vw]',
+    xl: 'w-[800px] max-w-[90vw]',
+    xxl: 'w-[1024px] max-w-[90vw]',
   }
   const width = sizeMap[defaultWidth]
   const glass = glassmorphism ? 'bg-black bg-opacity-20 backdrop-blur-sm' : ''
 
   const style = cn(
-    'max-w-[90%]	border border-muted-foreground flex flex-col justify-between',
+    'border border-muted-foreground flex flex-col justify-between',
     glass,
     width,
     className

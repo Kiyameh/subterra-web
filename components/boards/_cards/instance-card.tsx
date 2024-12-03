@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  InstanceObject,
-  PopulatedInstance,
-} from '@/database/models/Instance.model'
+import {PopulatedInstance} from '@/database/models/Instance.model'
 import Link from 'next/link'
 import LinkButton from '@/components/navigation/link-button'
 import InfoBadge from '@/components/displaying/info-badge'
@@ -16,15 +13,14 @@ import {MdModeEdit} from 'react-icons/md'
 import {MdMoreTime} from 'react-icons/md'
 import {HiLink} from 'react-icons/hi'
 import {CardDescription, CardTitle} from '@/components/ui/card'
-import {GroupObject} from '@/database/models/Group.model'
 import {LuBox} from 'react-icons/lu'
 
 export default function InstanceCard({
   instance,
-  glassmorphism = true,
+  glassmorphism = false,
   className,
 }: {
-  instance: PopulatedInstance | InstanceObject
+  instance: PopulatedInstance
   glassmorphism?: boolean
   className?: string
 }) {
@@ -39,10 +35,6 @@ export default function InstanceCard({
     description,
     createdAt,
   } = instance
-
-  const isGroupObject = (owner: unknown): owner is GroupObject => {
-    return typeof owner === 'object' && owner !== null && 'groupName' in owner
-  }
 
   const cardHeader = (
     <>
@@ -85,7 +77,7 @@ export default function InstanceCard({
         </div>
       )}
 
-      {isGroupObject(owner) && (
+      {owner && (
         <Link
           className="flex items-center gap-2"
           href={`/group/${owner.name}`}

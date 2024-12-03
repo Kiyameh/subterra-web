@@ -7,7 +7,6 @@ Componentes que muestran una información breve en la interfaz.
 - 401
 - 404
 - 501
-- DbAnswerBox
 - Divider
 - InfoBadge
 - OnlineIndicator

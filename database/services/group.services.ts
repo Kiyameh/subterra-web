@@ -19,30 +19,63 @@ import mongoose from 'mongoose'
 /**
  * Función para crear un grupo
  * @param values <GroupFormValues> datos del formulario
- * @param editor _id del creador del grupo
+ * @param commander _id del creador del grupo
  * @returns <Answer> respuesta de la petición
  * Redirect: /group/:name
  */
 export async function createOneGroup(
   values: GroupFormValues,
-  editor: string
+  commander: string
 ): Promise<Answer> {
   try {
     // Validación:
     const validated = await GroupFormSchema.parseAsync(values)
-    // Creación de grupo:
-    if (validated && editor) {
-      await connectToMongoDB()
-      //? El creador del grupo insertado como admin y como miembro:
-      const requestedGroup = {...values, admin: editor, members: [editor]}
-      const newGroup = new Group(requestedGroup)
-      await newGroup.save()
+    if (!validated || !commander) {
+      return {ok: false, message: 'Datos no válidos'} as Answer
     }
 
+    // Crear nuevo grupo con los valores de miembro y admin asignados:
+    const newGroup = new Group({
+      ...values,
+      admin: commander,
+      members: [commander],
+    })
+
+    // Iniciar transacción para garantizar la integridad de los datos
+    //? https://mongoosejs.com/docs/transactions.html
+
+    const conection = await connectToMongoDB()
+    const session = await conection.startSession()
+    session.startTransaction()
+
+    console.log('Transacción iniciada')
+
+    // Insertar el grupo en el usuario como memberOf y adminOf:
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: commander},
+      {
+        $push: {memberOf: newGroup._id, adminOf: newGroup._id},
+      },
+      {session: session}
+    )
+    console.log(updatedUser)
+
+    // Guardar el nuevo grupo:
+    const savedGroup = await newGroup.save({session: session})
+    console.log(savedGroup)
+
+    if (!savedGroup || !updatedUser) {
+      session.endSession()
+      return {ok: false, message: 'Algo ha ido mal'} as Answer
+    }
+
+    await session.commitTransaction()
+    session.endSession()
+
+    console.log('todo ok')
     return {
       ok: true,
-      code: 200,
-      message: 'Group creado correctamente',
+      message: 'Grupo creado correctamente',
       redirect: `/group/${values.name}`,
     } as Answer
   } catch (e) {
@@ -59,7 +92,7 @@ export async function createOneGroup(
 
 export async function updateOneGroup(
   groupId: string,
-  editorId: string,
+  commanderId: string,
   values: GroupFormValues
 ): Promise<Answer> {
   try {
@@ -84,9 +117,9 @@ export async function updateOneGroup(
       } as Answer
     }
 
-    // Comprobar si el editor es el admin del grupo:
-    const editorIsAdmin = groupToUpdate.admin.toString() === editorId
-    if (!editorIsAdmin) {
+    // Comprobar si el ordenante es el admin del grupo:
+    const commanderIsAdmin = groupToUpdate.admin.toString() === commanderId
+    if (!commanderIsAdmin) {
       return {
         ok: false,
         code: 403,

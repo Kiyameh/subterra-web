@@ -18,7 +18,7 @@ import {
 
 import {Input} from '@/components/ui/input'
 import {Button} from '@/components/ui/button'
-import DbAnswerBox from '@/components/displaying/db-answer-box'
+import DbAnswerBox from '@/components/forms/ui/db-answer-box'
 
 import {SignInSchema, SignInValues} from '@/database/validation/auth.schemas'
 import {Answer} from '@/database/types/answer.type'

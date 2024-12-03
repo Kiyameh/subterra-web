@@ -1,3 +1,5 @@
+import {Control, FieldValues, Path} from 'react-hook-form'
+import {Textarea} from '../ui/textarea'
 import {
   FormControl,
   FormField,
@@ -5,29 +7,37 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import {UseFormReturn} from 'react-hook-form'
-import InfoBadge from '../displaying/info-badge'
-import {Textarea} from '../ui/textarea'
+import InfoBadge from '@/components/displaying/info-badge'
 
-interface TextFieldProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form: UseFormReturn<any>
-  name: string
-  label?: string
-  description?: string
-  placeholder?: string
-}
+/**
+ * @version 1
+ * @description Input de texto grande controlado por RHF. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
+ * @param control Controlador de RHF
+ * @param name Path del campo
+ * @param label Etiqueta del campo
+ * @param description Descripción del campo
+ * @param placeholder Placeholder del campo
+ * @param maxCharacters Número máximo de caracteres
+ */
 
-export default function TextAreaField({
-  form,
+export default function TextField<T extends FieldValues>({
+  control,
   name,
   label,
   description,
   placeholder,
-}: TextFieldProps) {
+  maxCharacters,
+}: {
+  control: Control<T>
+  name: Path<T>
+  label?: string
+  description?: string
+  placeholder?: string
+  maxCharacters?: number | null
+}) {
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({field, fieldState}) => (
         <>
@@ -39,16 +49,22 @@ export default function TextAreaField({
             <FormControl>
               <Textarea
                 className={
-                  fieldState.isDirty
-                    ? 'border border-purple-500 resize-none'
-                    : 'resize-none'
+                  fieldState.isDirty && !fieldState.error
+                    ? 'border border-emphasis'
+                    : ''
                 }
                 id={name}
                 placeholder={placeholder}
                 {...field}
               />
             </FormControl>
-            <FormMessage />
+            <div className="flex flex-row-reverse justify-between">
+              <span className="text-muted-foreground text-xs">
+                {maxCharacters &&
+                  control._getWatch(name).length + '/' + maxCharacters}
+              </span>
+              <FormMessage />
+            </div>
           </FormItem>
         </>
       )}

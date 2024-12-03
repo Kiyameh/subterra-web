@@ -58,18 +58,19 @@ const groupSchema = new Schema<GroupDocument>(
     phone: {type: String},
     email: {type: String},
     webpage: {type: String},
-    // Relaciones:
+    // Roles:
     admin: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    members: {
+      type: [Schema.Types.ObjectId],
+      ref: 'User',
+    },
     member_requests: [
       {
         user: {type: Schema.Types.ObjectId, ref: 'User'},
         message: {type: String},
       },
     ],
-    members: {
-      type: [Schema.Types.ObjectId],
-      ref: 'User',
-    },
+    // Propietario de:
     instances: {
       type: [Schema.Types.ObjectId],
       ref: 'Instance',
@@ -108,8 +109,8 @@ export interface GroupObject
   createdAt: Date
   updatedAt: Date
   admin: string
-  member_requests: {_id: string; user: string; message: string}[]
   members: string[]
+  member_requests: {_id: string; user: string; message: string}[]
   instances: string[]
   explorations: string[]
 }

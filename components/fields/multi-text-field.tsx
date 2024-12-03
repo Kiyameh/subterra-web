@@ -20,12 +20,10 @@ import InfoBadge from '@/components/displaying/info-badge'
  * @param placeholder Placeholder del campo
  * @param startContent Contenido al inicio del campo
  * @param endContent Contenido al final del campo
- * @param maxCharacters Número máximo de caracteres
  * @default type 'text'
- *
  */
 
-export default function TextField<T extends FieldValues>({
+export default function MultiTextField<T extends FieldValues>({
   control,
   name,
   label,
@@ -34,7 +32,6 @@ export default function TextField<T extends FieldValues>({
   placeholder,
   startContent,
   endContent,
-  maxCharacters,
 }: {
   control: Control<T>
   name: Path<T>
@@ -44,7 +41,6 @@ export default function TextField<T extends FieldValues>({
   placeholder?: string
   startContent?: React.ReactNode
   endContent?: React.ReactNode
-  maxCharacters?: number | null
 }) {
   return (
     <FormField
@@ -72,13 +68,7 @@ export default function TextField<T extends FieldValues>({
                 {...field}
               />
             </FormControl>
-            <div className="flex flex-row-reverse justify-between">
-              <span className="text-muted-foreground text-xs">
-                {maxCharacters &&
-                  control._getWatch(name).length + '/' + maxCharacters}
-              </span>
-              <FormMessage />
-            </div>
+            <FormMessage />
           </FormItem>
         </>
       )}

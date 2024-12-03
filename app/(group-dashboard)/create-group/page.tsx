@@ -39,7 +39,7 @@ export default async function CreateGroupPage() {
         <CardWithHeader defaultWidth="xl">
           <CreateGroupForm
             initialData={EMPTY_GROUP}
-            editor={userId}
+            commander={userId}
           />
         </CardWithHeader>
       ) : (

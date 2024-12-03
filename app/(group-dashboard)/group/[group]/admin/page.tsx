@@ -70,7 +70,7 @@ export default async function GroupAdminPage({params}: PageProps) {
       <BasicCard defaultWidth="xl">
         <GroupEditForm
           initialData={group}
-          editorId={userId}
+          commanderId={userId}
         />
       </BasicCard>
     </PageContainer>

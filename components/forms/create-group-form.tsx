@@ -1,11 +1,9 @@
 'use client'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {Button} from '@/components/ui/button'
 import {Form} from '@/components/ui/form'
-import DbAwnserBox from '@/components/displaying/db-answer-box'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 
-import {Loader2} from 'lucide-react'
 import {
   GroupFormSchema,
   GroupFormValues,
@@ -23,17 +21,18 @@ import MultipleSelectionField from '@/components/fields/multiple-selection-field
 import PhoneField from '@/components/fields/phone-field'
 import ImageField from '@/components/fields/image-field'
 import CollapsibleBox from '@/components/containing/collapsible-box'
+import SubmitButton from '@/components/forms/ui/submit-button'
 
 interface CreateGroupFormProps {
   initialData: GroupFormValues
-  editor: string
+  commander: string
 }
 
 // TODO: Documentar componente
 
 export default function CreateGroupForm({
   initialData,
-  editor,
+  commander,
 }: CreateGroupFormProps) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -46,7 +45,7 @@ export default function CreateGroupForm({
   function onSubmit(values: GroupFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createOneGroup(values, editor)
+      const answer = await createOneGroup(values, commander)
       setDbAnswer(answer)
     })
   }
@@ -70,7 +69,7 @@ export default function CreateGroupForm({
           </p>
         </CollapsibleBox>
         <TextField
-          form={form}
+          control={form.control}
           name="fullname"
           label="Nombre completo"
           placeholder="Grupo espeleológico Arcaute"
@@ -78,7 +77,7 @@ export default function CreateGroupForm({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="acronym"
               label="Acrónimo"
               placeholder="GEA"
@@ -86,7 +85,7 @@ export default function CreateGroupForm({
           </div>
           <div className="col-span-8">
             <TextField
-              form={form}
+              control={form.control}
               name="name"
               label="Nombre corto"
               placeholder="arcaute"
@@ -102,13 +101,13 @@ export default function CreateGroupForm({
           placeholder="Selecciona categorías"
         />
         <TextAreaField
-          form={form}
+          control={form.control}
           name="description"
           label="Texto de presentación"
           placeholder="El grupo lleva el apellido del famoso espeleólogo belga Félix Ruiz de Arcaute..."
         />
         <TextField
-          form={form}
+          control={form.control}
           name="street"
           label="Calle"
           placeholder="Calle de la exploración"
@@ -116,7 +115,7 @@ export default function CreateGroupForm({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="portal_number"
               label="Numero"
               placeholder="13"
@@ -125,7 +124,7 @@ export default function CreateGroupForm({
 
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="floor"
               label="Piso"
               placeholder="4º"
@@ -134,7 +133,7 @@ export default function CreateGroupForm({
 
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="door"
               label="Puerta"
               placeholder="D"
@@ -144,7 +143,7 @@ export default function CreateGroupForm({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
             <TextField
-              form={form}
+              control={form.control}
               name="postal_code"
               label="Código postal"
               placeholder="31178"
@@ -153,7 +152,7 @@ export default function CreateGroupForm({
 
           <div className="col-span-8">
             <TextField
-              form={form}
+              control={form.control}
               name="city"
               label="Ciudad"
               placeholder="Cuevas de la sierra"
@@ -174,7 +173,7 @@ export default function CreateGroupForm({
           placeholder="123 456 789"
         />
         <TextField
-          form={form}
+          control={form.control}
           name="webpage"
           label="Página web"
           placeholder="www.arcaute.com"
@@ -182,7 +181,7 @@ export default function CreateGroupForm({
           endContent={<TbWorld />}
         />
         <TextField
-          form={form}
+          control={form.control}
           name="email"
           label="Email"
           placeholder="arcaute@mail.com"
@@ -215,14 +214,10 @@ export default function CreateGroupForm({
             label="Ir al panel de grupo"
           />
         ) : (
-          <Button
-            disabled={isPending}
-            className="w-full"
-            type="submit"
-          >
-            {isPending && <Loader2 className="animate-spin" />}
-            Crear grupo
-          </Button>
+          <SubmitButton
+            label="Crear grupo"
+            isPending={isPending}
+          />
         )}
       </form>
     </Form>

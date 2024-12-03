@@ -10,6 +10,8 @@ import {getOneGroup} from '@/database/services/group.services'
 import {Session} from 'next-auth'
 import PageContainer from '@/components/containing/page-container'
 import InstanceCard from '@/components/boards/_cards/instance-card'
+import {getSomeInstances} from '@/database/services/instance.services'
+import {PopulatedInstance} from '@/database/models/Instance.model'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -21,6 +23,15 @@ export default async function GroupLandingPage({params}: PageProps) {
 
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+
+  // Obtener instancias populadas del grupo
+  const instancesIds = group?.instances.map((instance) => instance._id)
+  let groupInstaces: PopulatedInstance[] | null = null
+  if (instancesIds) {
+    groupInstaces = (await getSomeInstances(instancesIds)).content as
+      | PopulatedInstance[]
+      | null
+  }
 
   // Obtener la sesión de usuario
   const session: Session | null = await auth()
@@ -57,7 +68,7 @@ export default async function GroupLandingPage({params}: PageProps) {
   }
 
   return (
-    <PageContainer>
+    <PageContainer className="justify-start">
       {!isMember && (
         <MembershipRequestBanner
           groupId={group._id}
@@ -68,15 +79,16 @@ export default async function GroupLandingPage({params}: PageProps) {
 
       <ImageCard />
       <div className="flex gap-4 flex-wrap justify-center">
-        {group.instances.map((instance) => {
-          return (
-            <InstanceCard
-              glassmorphism={false}
-              key={instance.name}
-              instance={instance}
-            />
-          )
-        })}
+        {groupInstaces &&
+          groupInstaces.map((instance) => {
+            return (
+              <InstanceCard
+                glassmorphism={false}
+                key={instance.name}
+                instance={instance}
+              />
+            )
+          })}
         <GroupInfoCard
           fullname={group.fullname}
           name={group.name}

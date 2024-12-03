@@ -1,12 +1,30 @@
-import InDevelopmentCard from '@/components/displaying/501-not-implemented'
+import {auth} from '@/auth'
+import CardWithHeader from '@/components/containing/card-with-header'
+import CollapsibleBox from '@/components/containing/collapsible-box'
+import PageContainer from '@/components/containing/page-container'
+import ContactForm from '@/components/forms/contact-form'
+import {BiSolidMessage} from 'react-icons/bi'
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const session = await auth()
+  const user = session?.user
+
   return (
-    <section className="w-full h-full flex items-center justify-center">
-      <InDevelopmentCard
-        title="Contacto"
-        text="Página en desarrollo. Próximamente estará disponible"
-      />
-    </section>
+    <PageContainer>
+      <CardWithHeader
+        cardSubHeader={
+          <CollapsibleBox
+            title="Contacto"
+            icon={<BiSolidMessage />}
+            color="info"
+          >
+            <p>● Envía un mensaje a los administradores de la plataforma.</p>
+            <p>● Ten paciencia, responderán lo más pronto posible.</p>
+          </CollapsibleBox>
+        }
+      >
+        <ContactForm commander={user || undefined} />
+      </CardWithHeader>
+    </PageContainer>
   )
 }

@@ -6,7 +6,7 @@ import {Form} from '@/components/ui/form'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {z} from 'zod'
-import DbAwnserBox from '@/components/displaying/db-answer-box'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 import {Answer} from '@/database/types/answer.type'
 import {addMemberRequest} from '@/database/services/group.services'
 
@@ -106,7 +106,7 @@ export default function MembershipRequestDialog({
                 </p>
               </CollapsibleBox>
               <TextAreaField
-                form={form}
+                control={form.control}
                 name="message"
                 label="Mensaje"
                 placeholder="Escribe un mensaje para el administrador"

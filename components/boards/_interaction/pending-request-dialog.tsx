@@ -4,7 +4,7 @@ import {useRouter} from 'next/navigation'
 
 import {PopulatedGroup} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
-import DbAwnserBox from '@/components/displaying/db-answer-box'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 import {
   acceptMemberRequest,
   rejectMemberRequest,
