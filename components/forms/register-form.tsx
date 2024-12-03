@@ -1,27 +1,19 @@
 'use client'
 import React from 'react'
-import {useRouter} from 'next/navigation'
-import {useTransition} from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
+import {useRouter} from 'next/navigation'
 
-import {Loader2} from 'lucide-react'
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import {Answer} from '@/database/types/answer.type'
-import DbAnswerBox from '@/components/forms/ui/db-answer-box'
-import {Button} from '@/components/ui/button'
-import {Input} from '@/components/ui/input'
 import {signUp} from '@/database/services/user.services'
+import {Answer} from '@/database/types/answer.type'
 
-const EMPTY_USER = {
+import {Form} from '@/components/ui/form'
+import TextField from '@/components/fields/text-field'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
+import SubmitButton from '@/components/forms/ui/submit-button'
+
+const EMPTY_USER: SignUpValues = {
   email: '',
   name: '',
   fullname: '',
@@ -29,27 +21,31 @@ const EMPTY_USER = {
   passwordConfirmation: '',
 }
 
+/**
+ * @version 1
+ * @description Formulario de registro
+ */
+
 export default function RegisterForm() {
   const router = useRouter()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<SignUpValues>({
+  const form = useForm({
     resolver: zodResolver(SignUpSchema),
     defaultValues: EMPTY_USER,
   })
 
   const onSubmit = (values: SignUpValues) => {
-    // Vaciar el mensaje de la base de datos
     setDbAnswer(null)
-    // Iniciar la transmisión a la base de datos
     startTransition(async () => {
       const answer = await signUp(values)
       setDbAnswer(answer)
-      if (answer?.code === 200) {
+      if (answer.ok) {
         setTimeout(() => {
-          router.push('/auth/login')
-        }, 1000)
+          // Redirigir a login
+          router.replace('/auth/login')
+        }, 500)
       }
     })
   }
@@ -60,103 +56,41 @@ export default function RegisterForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <FormField
+        <TextField
           control={form.control}
           name="email"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="arcaute@mail.com"
-                  type="email"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Correo electrónico"
+          placeholder="arcaute@mail.com"
+          type="email"
         />
-        <FormField
+        <TextField
           control={form.control}
           name="password"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Contraseña</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="******"
-                  type="password"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Contraseña"
+          placeholder="******"
+          type="password"
         />
-        <FormField
+        <TextField
           control={form.control}
           name="passwordConfirmation"
-          render={({field}) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="******"
-                  type="password"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="******"
+          type="password"
         />
-        <FormField
+        <TextField
           control={form.control}
           name="name"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Nombre de usuario</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Arcaute"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Nombre de usuario"
+          placeholder="Arcaute"
         />
-        <FormField
+        <TextField
           control={form.control}
           name="fullname"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Nombre completo</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Félix Ruiz de Arcaute"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Nombre completo"
+          placeholder="Félix Ruiz de Arcaute"
         />
-        <DbAnswerBox answer={dbAnswer} />
 
-        <Button
-          disabled={isPending}
-          className="w-full"
-          type="submit"
-        >
-          {isPending && <Loader2 className="animate-spin" />}
-          Crear usuario
-        </Button>
+        <DbAwnserBox answer={dbAnswer} />
+        <SubmitButton isPending={isPending} />
       </form>
     </Form>
   )

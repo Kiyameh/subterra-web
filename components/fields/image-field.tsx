@@ -45,16 +45,13 @@ export default function ImageField({
   async function handleChange(value: File[] | null) {
     value?.map((file) => {
       if (uploadedFiles.includes(file.name)) {
-        console.log('archivo ya subido')
       } else {
-        console.log('subiendo archivo', file.name) // Awating uploadFile(file)
         setFiles((previousFiles) => [...(previousFiles || []), file])
         setUploadedFiles((prev) => [...prev, file.name])
       }
     })
     uploadedFiles.map((filename) => {
       if (value?.find((file) => file.name === filename) === undefined) {
-        console.log('borrando archivo', filename) // Awating deleteFile(filename)
         setUploadedFiles((prev) => prev.filter((file) => file !== filename))
         setFiles((prev) =>
           prev ? prev.filter((file) => file.name !== filename) : null

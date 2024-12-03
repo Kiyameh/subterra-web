@@ -1,21 +1,18 @@
 'use client'
+import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {Form} from '@/components/ui/form'
-import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 
-import {
-  GroupFormSchema,
-  GroupFormValues,
-} from '@/database/validation/group.schema'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
+import {GroupFormValues} from '@/database/validation/group.schema'
+import {GroupFormSchema} from '@/database/validation/group.schema'
 import {createOneGroup} from '@/database/services/group.services'
-import React from 'react'
 import {Answer} from '@/database/types/answer.type'
+
+import {Form} from '@/components/ui/form'
 import LinkButton from '@/components/navigation/link-button'
 import TextField from '@/components/fields/text-field'
 import TextAreaField from '@/components/fields/text-area-field'
-import {MdOutlineAlternateEmail} from 'react-icons/md'
-import {TbWorld} from 'react-icons/tb'
 import CountryField from '@/components/fields/country-field'
 import MultipleSelectionField from '@/components/fields/multiple-selection-field'
 import PhoneField from '@/components/fields/phone-field'
@@ -23,23 +20,43 @@ import ImageField from '@/components/fields/image-field'
 import CollapsibleBox from '@/components/containing/collapsible-box'
 import SubmitButton from '@/components/forms/ui/submit-button'
 
-interface CreateGroupFormProps {
-  initialData: GroupFormValues
-  commander: string
+import {TbWorld} from 'react-icons/tb'
+import {MdOutlineAlternateEmail} from 'react-icons/md'
+
+/**
+ * @version 1
+ * @description Formulario para crear un grupo
+ * @param commander usuario que crea el grupo
+ */
+
+const EMPTY_GROUP: GroupFormValues = {
+  name: '',
+  fullname: '',
+  acronym: '',
+  description: '',
+  group_categories: [],
+  main_image: '',
+  logo_image: '',
+  street: '',
+  portal_number: '',
+  floor: '',
+  door: '',
+  postal_code: 0,
+  city: '',
+  province: '',
+  country: '',
+  phone: '',
+  email: '',
+  webpage: '',
 }
 
-// TODO: Documentar componente
-
-export default function CreateGroupForm({
-  initialData,
-  commander,
-}: CreateGroupFormProps) {
+export default function CreateGroupForm({commander}: {commander: string}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<GroupFormValues>({
     resolver: zodResolver(GroupFormSchema),
-    defaultValues: initialData,
+    defaultValues: EMPTY_GROUP,
   })
 
   function onSubmit(values: GroupFormValues) {

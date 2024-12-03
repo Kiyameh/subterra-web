@@ -18,7 +18,7 @@ import mongoose from 'mongoose'
 
 /**
  * Función para crear un grupo
- * @param values <GroupFormValues> datos del formulario
+ * @param values datos del formulario
  * @param commander _id del creador del grupo
  * @returns <Answer> respuesta de la petición
  * Redirect: /group/:name
@@ -48,8 +48,6 @@ export async function createOneGroup(
     const session = await conection.startSession()
     session.startTransaction()
 
-    console.log('Transacción iniciada')
-
     // Insertar el grupo en el usuario como memberOf y adminOf:
     const updatedUser = await User.findOneAndUpdate(
       {_id: commander},
@@ -58,11 +56,9 @@ export async function createOneGroup(
       },
       {session: session}
     )
-    console.log(updatedUser)
 
     // Guardar el nuevo grupo:
     const savedGroup = await newGroup.save({session: session})
-    console.log(savedGroup)
 
     if (!savedGroup || !updatedUser) {
       session.endSession()
@@ -72,7 +68,6 @@ export async function createOneGroup(
     await session.commitTransaction()
     session.endSession()
 
-    console.log('todo ok')
     return {
       ok: true,
       message: 'Grupo creado correctamente',
@@ -85,15 +80,16 @@ export async function createOneGroup(
 
 /**
  * Función para editar un grupo
- * @param groupId <string> _id del grupo
- * @param values <GroupFormValues> datos del formulario
+ * @param values datos del formulario
+ * @param groupId_id del grupo
+ * @param commanderId _id del usuario que edita
  * @returns <Answer> respuesta de la petición
  */
 
 export async function updateOneGroup(
+  values: GroupFormValues,
   groupId: string,
-  commanderId: string,
-  values: GroupFormValues
+  commanderId: string
 ): Promise<Answer> {
   try {
     // Validación:

@@ -16,6 +16,9 @@ import {Answer} from '@/database/types/answer.type'
  * @prop dbAnswer: Respuesta del servidor
  * @prop isPending: Estado de transición
  */
+
+//! Hook no usado por ahora. Guardado para futuras referencias
+
 export function useFormsLogic<T extends ZodSchema>(
   formSchema: T,
   defaultValues: z.infer<T>,

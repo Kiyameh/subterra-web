@@ -1,39 +1,42 @@
 'use client'
+import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {Form} from '@/components/ui/form'
-import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 
-import {
-  GroupFormSchema,
-  GroupFormValues,
-} from '@/database/validation/group.schema'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
+import {PopulatedGroup} from '@/database/models/Group.model'
+import {GroupFormValues} from '@/database/validation/group.schema'
+import {GroupFormSchema} from '@/database/validation/group.schema'
 import {updateOneGroup} from '@/database/services/group.services'
-import React from 'react'
 import {Answer} from '@/database/types/answer.type'
+
+import {Form} from '@/components/ui/form'
 import LinkButton from '@/components/navigation/link-button'
 import TextField from '@/components/fields/text-field'
 import TextAreaField from '@/components/fields/text-area-field'
-import {MdOutlineAlternateEmail} from 'react-icons/md'
-import {TbWorld} from 'react-icons/tb'
-import CountryField from '@/components/fields/country-field'
 import MultipleSelectionField from '@/components/fields/multiple-selection-field'
 import PhoneField from '@/components/fields/phone-field'
 import ImageField from '@/components/fields/image-field'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import SubmitButton from './ui/submit-button'
+import CountryField from '@/components/fields/country-field'
+import SubmitButton from '@/components/forms/ui/submit-button'
 
-interface GroupEditFormProps {
-  initialData: PopulatedGroup
-  commanderId: string
-}
+import {TbWorld} from 'react-icons/tb'
+import {MdOutlineAlternateEmail} from 'react-icons/md'
 
-// TODO: Documentar componente
+/**
+ * @version 1
+ * @description Formulario para editar los datos de un grupo
+ * @param initialData datos iniciales del grupo
+ * @param commanderId _id del usuario que edita el grupo
+ */
 
 export default function GroupEditForm({
   initialData,
   commanderId,
-}: GroupEditFormProps) {
+}: {
+  initialData: PopulatedGroup
+  commanderId: string
+}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -45,7 +48,7 @@ export default function GroupEditForm({
   function onSubmit(values: GroupFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await updateOneGroup(initialData._id, commanderId, values)
+      const answer = await updateOneGroup(values, initialData._id, commanderId)
       setDbAnswer(answer)
     })
   }
