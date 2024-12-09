@@ -9,25 +9,27 @@ import {
   InstanceRequestFormValues,
 } from '@/database/validation/platform.schemas'
 import {addNewInstanceRequest} from '@/database/services/platform.services'
+import {PopulatedGroup} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
 import TextAreaField from '@/components/fields/text-area-field'
 import UserCard from '@/components/account/user-card'
 import DbAwnserBox from '@/components/forms/ui/db-answer-box'
+import GroupCard from '@/components/account/group-card'
+import CollapsibleBox from '@/components/containing/collapsible-box'
 import SubmitButton from '@/components/forms/ui/submit-button'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import GroupCard from '../account/group-card'
-import {maxCharacterLimits} from './hooks/use-max-character-limits'
-import CollapsibleBox from '../containing/collapsible-box'
+import BackButton from '@/components/navigation/back-button'
+
+import {maxCharacterLimits} from '@/components/forms/hooks/use-max-character-limits'
+
 import {FaInfoCircle} from 'react-icons/fa'
-import BackButton from '../navigation/back-button'
 
 /**
  * @version 1
  * @description Formulario de solicitud de instancia
- * @param commander usuario que envía el mensaje
- * @param group grupo
+ * @param commander usuario que solicita la instancia
+ * @param group grupo al que representa
  */
 
 export default function InstanceRequestForm({

@@ -5,8 +5,14 @@ import Instance, {
   PopulatedInstance,
 } from '@/database/models/Instance.model'
 import {Answer} from '@/database/types/answer.type'
-import Group from '../models/Group.model'
-import User from '../models/User.model'
+import Group from '@/database/models/Group.model'
+import User from '@/database/models/User.model'
+import {
+  InstanceFormSchema,
+  InstanceFormValues,
+} from '@/database/validation/instance.schemas'
+import {decodeMongoError} from '@/database/tools/decodeMongoError'
+import Platform, {PlatformDocument} from '../models/Platform.model'
 
 /**
  * Función para obtener todas las instancias
@@ -141,5 +147,72 @@ export async function getInstanceById(id: string) {
   } catch (error) {
     console.error(error)
     return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * Función para crear una instancia
+ * @param values datos del formulario
+ * @returns <Answer> respuesta de la petición
+ */
+
+export async function createOneInstance(
+  values: InstanceFormValues,
+  commander: string
+): Promise<Answer> {
+  try {
+    // Validación:
+    const validated = await InstanceFormSchema.parseAsync(values)
+    if (!validated) {
+      return {ok: false, message: 'Datos no validos'} as Answer
+    }
+
+    // Validar staff
+    //! REVISAR
+    await connectToMongoDB()
+    const subterra: PlatformDocument | null = await Platform.findOne({
+      name: 'subterra',
+    })
+    const commanderIsStaff = subterra?.staff.toString().includes(commander)
+
+    if (!commanderIsStaff) {
+      return {ok: false, message: 'No estas autorizado para esto'} as Answer
+    }
+
+    // Crear nueva instancia con los valores:
+    const newInstance = new Instance(values)
+
+    // Iniciar transacción para garantizar la integridad de los datos
+    //? https://mongoosejs.com/docs/transactions.html
+
+    const conection = await connectToMongoDB()
+    const session = await conection.startSession()
+    session.startTransaction()
+
+    // Insertar instancia en el usuario como coordinatorOf y editorOf:
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: values.coordinator},
+      {
+        $push: {editorOf: newInstance._id, coordinatorOf: newInstance._id},
+      },
+      {session: session}
+    )
+
+    // Guardar la nueva instancia:
+    const savedInstance = await newInstance.save({session: session})
+    if (!savedInstance || !updatedUser) {
+      session.endSession()
+      return {ok: false, message: 'transacción fallida'} as Answer
+    }
+
+    await session.commitTransaction()
+    session.endSession()
+
+    return {
+      ok: true,
+      message: 'Instancia creada correctamente',
+    } as Answer
+  } catch (e) {
+    return decodeMongoError(e)
   }
 }

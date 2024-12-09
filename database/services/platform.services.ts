@@ -1,18 +1,26 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import Platform, {
-  PlatformDocument,
-  PlatformObject,
-} from '../models/Platform.model'
-import {Answer} from '../types/answer.type'
-import {
-  contactFormSchema,
-  ContactFormValues,
-  instanceRequestFormSchema,
-  InstanceRequestFormValues,
-} from '../validation/platform.schemas'
+import {Answer} from '@/database/types/answer.type'
 
-export async function getOnePlatform(name: string) {
+import Platform from '@/database/models/Platform.model'
+import {PlatformObject} from '@/database/models/Platform.model'
+import {PlatformDocument} from '@/database/models/Platform.model'
+
+import {contactFormSchema} from '@/database/validation/platform.schemas'
+import {ContactFormValues} from '@/database/validation/platform.schemas'
+
+import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
+import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
+
+//* 1. Funciones generales */
+
+/**
+ * @version 1
+ * @description Función para obtener una plataforma
+ * @param name Nombre de la plataforma (por defecto 'subterra')
+ */
+
+export async function getOnePlatform(name: string = 'subterra') {
   try {
     // Obtener la plataforma:
     await connectToMongoDB()
@@ -32,6 +40,14 @@ export async function getOnePlatform(name: string) {
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
+
+//* 2. Gestión de mensajes de contacto */
+
+/**
+ * @version 1
+ * @description Función para añadir un nuevo mensaje de contacto
+ * @param message Cuerpo del mensaje (valores de formulario)
+ */
 
 export async function addNewContactMessage(message: ContactFormValues) {
   try {
@@ -65,6 +81,13 @@ export async function addNewContactMessage(message: ContactFormValues) {
   }
 }
 
+//* 3. Gestión de solicitudes de instancias */
+
+/**
+ * @description Función para añadir una nueva solicitud de creación de instancia
+ * @param request Cuerpo de la solicitud (valores de formulario)
+ * @returns
+ */
 export async function addNewInstanceRequest(
   request: InstanceRequestFormValues
 ) {

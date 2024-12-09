@@ -11,7 +11,7 @@ export default function InstanceMessagesBoard({
   return (
     <BasicCard
       defaultWidth="xl"
-      cardHeader="Mensajes de contacto"
+      cardHeader="Solicitudes de instancia"
     >
       {messages.map((request, index) => (
         <div
