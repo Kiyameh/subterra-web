@@ -8,8 +8,8 @@ export interface PlatformDocument extends Document {
   url: string
   staff: Types.ObjectId[]
   instance_requests: {
-    user: Types.ObjectId
-    group: Types.ObjectId
+    user: string
+    group: string
     fullname: string
     description: string
     territory: string
@@ -32,8 +32,8 @@ const platformSchema = new Schema<PlatformDocument>({
   staff: {type: [Schema.Types.ObjectId], ref: 'User'},
   instance_requests: [
     {
-      user: {type: Schema.Types.ObjectId, ref: 'User'},
-      group: {type: Schema.Types.ObjectId, ref: 'Group'},
+      user: {type: String, required: true},
+      group: {type: String, required: true},
       fullname: {type: String},
       description: {type: String},
       territory: {type: String},

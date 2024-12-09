@@ -8,6 +8,8 @@ import {Answer} from '../types/answer.type'
 import {
   contactFormSchema,
   ContactFormValues,
+  instanceRequestFormSchema,
+  InstanceRequestFormValues,
 } from '../validation/platform.schemas'
 
 export async function getOnePlatform(name: string) {
@@ -57,6 +59,40 @@ export async function addNewContactMessage(message: ContactFormValues) {
 
     // Devolver respuesta exitosa:
     return {ok: true, message: 'Mensaje enviado'} as Answer
+  } catch (error) {
+    console.log(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+export async function addNewInstanceRequest(
+  request: InstanceRequestFormValues
+) {
+  try {
+    // Validar los datos:
+    const validated = await instanceRequestFormSchema.parseAsync(request)
+    if (!validated) {
+      return {ok: false, message: 'Datos no válidos'} as Answer
+    }
+
+    // Buscar la plataforma subterra:
+    await connectToMongoDB()
+    const platform: PlatformDocument | null = await Platform.findOne({
+      name: 'subterra',
+    })
+    if (!platform) {
+      return {ok: false, message: 'Algo ha ido mal'} as Answer
+    }
+
+    // Introducir la solicitud en la plataforma:
+    platform.instance_requests.push(request)
+    const updatedPlatform = await platform.save()
+    if (!updatedPlatform) {
+      return {ok: false, message: 'Algo ha ido mal'} as Answer
+    }
+
+    // Devolver respuesta exitosa:
+    return {ok: true, message: 'Solicitud enviada'} as Answer
   } catch (error) {
     console.log(error)
     return {ok: false, message: 'Error desconocido'} as Answer

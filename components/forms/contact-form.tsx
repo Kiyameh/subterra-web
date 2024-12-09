@@ -16,8 +16,8 @@ import TextAreaField from '@/components/fields/text-area-field'
 import SelectionField from '@/components/fields/selection-field'
 import UserCard from '@/components/account/user-card'
 import DbAwnserBox from '@/components/forms/ui/db-answer-box'
-import {maxCharacterLimit} from '@/components/forms/hooks/use-max-character-limit'
 import SubmitButton from '@/components/forms/ui/submit-button'
+import {maxCharacterLimits} from './hooks/use-max-character-limits'
 
 /**
  * @version 1
@@ -51,7 +51,7 @@ export default function ContactForm({
     } as ContactFormValues,
   })
 
-  const max = maxCharacterLimit(contactFormSchema, 'message')
+  const maxCharacters = maxCharacterLimits(contactFormSchema)
   return (
     <Form {...form}>
       <form
@@ -80,7 +80,7 @@ export default function ContactForm({
           name="message"
           label="Mensaje"
           placeholder="Escribe tu mensaje aquí"
-          maxCharacters={max}
+          maxCharacters={maxCharacters.message}
         />
         <DbAwnserBox answer={dbAnswer} />
         <SubmitButton isPending={isPending} />

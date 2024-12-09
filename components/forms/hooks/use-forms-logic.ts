@@ -78,7 +78,6 @@ export function useFormsLogic<T extends ZodSchema>(
     } as ContactFormValues,
   })
 
-  const max = maxCharacterLimit(contactFormSchema, 'message')
   return (
     <Form {...form}>
       <form
@@ -107,7 +106,6 @@ export function useFormsLogic<T extends ZodSchema>(
           name="message"
           label="Mensaje"
           placeholder="Escribe tu mensaje aquí"
-          maxCharacters={max}
         />
         <SubmitButton isPending={isPending} />
         <DbAwnserBox answer={dbAnswer} />
