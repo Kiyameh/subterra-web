@@ -3,19 +3,17 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 import {Answer} from '@/database/types/answer.type'
+import {InstanceFormValues} from '@/database/validation/instance.schemas'
+import {InstanceFormSchema} from '@/database/validation/instance.schemas'
+import {createOneInstance} from '@/database/services/instance.services'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/fields/text-field'
 import SubmitButton from '@/components/forms/ui/submit-button'
-
-import {
-  InstanceFormSchema,
-  InstanceFormValues,
-} from '@/database/validation/instance.schemas'
-import {createOneInstance} from '@/database/services/instance.services'
-import TextAreaField from '../fields/text-area-field'
+import DbAwnserBox from '@/components/forms/ui/db-answer-box'
+import TextAreaField from '@/components/fields/text-area-field'
+import BooleanField from '../fields/boolean-field'
 
 const EMPTY_INSTANCE: InstanceFormValues = {
   name: '',
@@ -93,8 +91,16 @@ export default function CreateInstanceForm({commander}: {commander: string}) {
           name="coordinator"
           label="Usuario coordinador"
         />
-        {/* //TODO: Añadir campos de visibilidad
-         */}
+        <BooleanField
+          control={form.control}
+          name="public_visibility"
+          label="Visibilidad pública"
+        />
+        <BooleanField
+          control={form.control}
+          name="public_edition"
+          label="Edición pública"
+        />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
           <p>Instancia creadad</p>

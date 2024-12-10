@@ -2,26 +2,33 @@ import {model, models, Schema, Types, Document} from 'mongoose'
 import {contactSubjects} from './Platform.enums'
 
 //* INTERFACES:
+
+export interface ContactMessage extends Document {
+  user: string
+  email: string
+  message: string
+  subject: (typeof contactSubjects)[number]
+  _id: Types.ObjectId
+}
+
+export interface InstanceRequest extends Document {
+  user: string
+  group: string
+  fullname: string
+  description: string
+  territory: string
+  roles: string
+  message: string
+  _id: Types.ObjectId
+}
+
 export interface PlatformDocument extends Document {
   name: string
   description: string
   url: string
   staff: Types.ObjectId[]
-  instance_requests: {
-    user: string
-    group: string
-    fullname: string
-    description: string
-    territory: string
-    roles: string
-    message: string
-  }[]
-  contact_messages: {
-    user: string
-    email: string
-    message: string
-    subject: (typeof contactSubjects)[number]
-  }[]
+  instance_requests: InstanceRequest[]
+  contact_messages: ContactMessage[]
 }
 
 //* ESQUEMA:
