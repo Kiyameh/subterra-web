@@ -168,7 +168,6 @@ export async function createOneInstance(
     }
 
     // Validar staff
-    //! REVISAR
     await connectToMongoDB()
     const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
@@ -189,6 +188,13 @@ export async function createOneInstance(
     const session = await conection.startSession()
     session.startTransaction()
 
+    // Insertar instancia en el grupo en instances[]:
+    const updatedGroup = await Group.findOneAndUpdate(
+      {_id: values.owner},
+      {$push: {instances: newInstance._id}},
+      {session: session}
+    )
+
     // Insertar instancia en el usuario como coordinatorOf y editorOf:
     const updatedUser = await User.findOneAndUpdate(
       {_id: values.coordinator},
@@ -200,7 +206,7 @@ export async function createOneInstance(
 
     // Guardar la nueva instancia:
     const savedInstance = await newInstance.save({session: session})
-    if (!savedInstance || !updatedUser) {
+    if (!savedInstance || !updatedUser || !updatedGroup) {
       session.endSession()
       return {ok: false, message: 'transacción fallida'} as Answer
     }

@@ -11,11 +11,11 @@ import InstanceMessagesBoard from '@/components/staff/instance-messages-board'
 import {LuBox} from 'react-icons/lu'
 
 export default async function CreateInstancePage() {
-  const session = await auth()
-  const userId = session?.user?._id
-
   const subterra = (await getOnePlatform('subterra'))
     .content as PlatformObject | null
+
+  const session = await auth()
+  const userId = session?.user?._id
 
   return (
     <PageContainer className="flex flex-row gap-4">

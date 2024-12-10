@@ -29,6 +29,10 @@ export interface PlatformDocument extends Document {
   staff: Types.ObjectId[]
   instance_requests: InstanceRequest[]
   contact_messages: ContactMessage[]
+  pushContactMessage(newMessage: ContactMessage): Promise<PlatformDocument>
+  removeContactMessage(messageId: string): Promise<PlatformDocument>
+  pushInstanceRequest(newRequest: InstanceRequest): Promise<PlatformDocument>
+  removeInstanceRequest(requestId: string): Promise<PlatformDocument>
 }
 
 //* ESQUEMA:
@@ -58,13 +62,41 @@ const platformSchema = new Schema<PlatformDocument>({
   ],
 })
 
+//* MÉTODOS:
+platformSchema.methods.pushContactMessage = function (
+  newMessage: ContactMessage
+) {
+  this.contact_messages.push(newMessage)
+  return this.save()
+}
+
+platformSchema.methods.removeContactMessage = function (messageId: string) {
+  this.contact_messages = this.contact_messages.filter(
+    (message: ContactMessage) => message._id.toString() !== messageId
+  )
+  return this.save()
+}
+
+platformSchema.methods.pushInstanceRequest = function (
+  newRequest: InstanceRequest
+) {
+  this.instance_requests.push(newRequest)
+  return this.save()
+}
+
+platformSchema.methods.removeInstanceRequest = function (requestId: string) {
+  this.instance_requests = this.instance_requests.filter(
+    (request: InstanceRequest) => request._id.toString() !== requestId
+  )
+  return this.save()
+}
+
 //* MODELO:
 const Platform =
   models?.Platform || model<PlatformDocument>('Platform', platformSchema)
 export default Platform
 
 //* INTERFACES EXTENDIDAS:
-
 export interface PlatformObject extends Omit<PlatformDocument, 'staff'> {
   staff: string[]
   _id: string

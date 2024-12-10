@@ -8,7 +8,7 @@ import {
   instanceRequestFormSchema,
   InstanceRequestFormValues,
 } from '@/database/validation/platform.schemas'
-import {addNewInstanceRequest} from '@/database/services/platform.services'
+import {addInstanceRequest} from '@/database/services/platform.services'
 import {PopulatedGroup} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
 
@@ -45,7 +45,7 @@ export default function InstanceRequestForm({
   function onSubmit(values: InstanceRequestFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await addNewInstanceRequest(values)
+      const answer = await addInstanceRequest(values)
       setDbAnswer(answer)
     })
   }

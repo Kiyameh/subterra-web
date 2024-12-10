@@ -5,12 +5,13 @@ import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
 
 export default async function Layout({children}: {children: React.ReactNode}) {
-  let isStaff = false
   const subterra = (await getOnePlatform('subterra'))
     .content as PlatformObject | null
+
   const session = await auth()
   const userId = session?.user._id
 
+  let isStaff = false
   if (subterra && userId) {
     isStaff = subterra.staff.includes(userId)
   }

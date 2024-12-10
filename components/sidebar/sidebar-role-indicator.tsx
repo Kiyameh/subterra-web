@@ -1,8 +1,7 @@
 'use client'
 import React from 'react'
-import ResponsiveTooltip from '@/components/displaying/responsive-tooltip'
-import {Badge} from '@/components/ui/badge'
 import {SidebarGroup, useSidebar} from '@/components/ui/sidebar'
+import {AdminBadge, EditorBadge} from '../boards/_slots/user-slots'
 
 interface SidebarRoleIndicatorProps {
   isEditor: boolean
@@ -34,18 +33,16 @@ export default function SidebarRoleIndicator({
   return (
     <SidebarGroup className="flex flex-row gap-2">
       {isEditor && isOpen && (
-        <ResponsiveTooltip content={editorText}>
-          <Badge className="w-fit cursor-help border-2 border-editor/70 bg-sidebar text-editor/70 hover:bg-card">
-            {editorTag}
-          </Badge>
-        </ResponsiveTooltip>
+        <EditorBadge
+          label={editorTag}
+          helperText={editorText}
+        />
       )}
       {isAdmin && isOpen && (
-        <ResponsiveTooltip content={adminText}>
-          <Badge className="w-fit cursor-help border-2 border-admin/70 bg-sidebar text-admin/70 hover:bg-card">
-            {adminTag}
-          </Badge>
-        </ResponsiveTooltip>
+        <AdminBadge
+          label={adminTag}
+          helperText={adminText}
+        />
       )}
     </SidebarGroup>
   )

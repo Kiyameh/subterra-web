@@ -1,6 +1,6 @@
-"use client";
-import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+'use client'
+import Link from 'next/link'
+import {useParams, usePathname} from 'next/navigation'
 
 import {
   SidebarGroup,
@@ -8,14 +8,14 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import { FaUserGroup } from "react-icons/fa6";
-import { FaGear } from "react-icons/fa6";
+} from '@/components/ui/sidebar'
+import {IoMdInformationCircleOutline} from 'react-icons/io'
+import {FaUserGroup} from 'react-icons/fa6'
+import {FaGear} from 'react-icons/fa6'
 
 interface Props {
-  isMember: boolean;
-  isAdmin: boolean;
+  isMember: boolean
+  isAdmin: boolean
 }
 
 /**
@@ -24,9 +24,9 @@ interface Props {
  * @param isAdmin - Si el usuario es administrador
  */
 
-export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
-  const { group } = useParams();
-  const pathName = usePathname();
+export default function SidebarGroupNavigation({isMember, isAdmin}: Props) {
+  const {group} = useParams()
+  const pathName = usePathname()
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
       </SidebarGroup>
       {isMember && (
         <SidebarGroup>
-          <SidebarGroupLabel>Área miembros</SidebarGroupLabel>
+          <SidebarGroupLabel>Área privada</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
@@ -54,7 +54,7 @@ export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
               >
                 <Link href={`/group/${group}/members`}>
                   <FaUserGroup className="text-editor" />
-                  <span>Miembros</span>
+                  <span>Miembros del grupo</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -66,7 +66,7 @@ export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
                 >
                   <Link href={`/group/${group}/admin`}>
                     <FaGear className="text-admin" />
-                    <span>Panel de administración</span>
+                    <span>Área de administración</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -75,5 +75,5 @@ export default function SidebarGroupNavigation({ isMember, isAdmin }: Props) {
         </SidebarGroup>
       )}
     </>
-  );
+  )
 }

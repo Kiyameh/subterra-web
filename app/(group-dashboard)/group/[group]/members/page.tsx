@@ -4,7 +4,9 @@ import NotFoundCard from '@/components/displaying/404-not-found'
 import {PopulatedGroup} from '@/database/models/Group.model'
 import {getOneGroup} from '@/database/services/group.services'
 import {Session} from 'next-auth'
-import MembersCard from '@/components/boards/_cards/members-card'
+import MembersTable, {
+  MembersTableRows,
+} from '@/components/boards/_tables/members-table'
 
 import PageContainer from '@/components/containing/page-container'
 
@@ -50,9 +52,17 @@ export default async function GroupMembersPage({params}: PageProps) {
     )
   }
 
+  // Generar las filas de la tabla
+  const rows: MembersTableRows[] = group.members.map((member) => ({
+    user: {name: member.name, image: member.image},
+    fullname: member.fullname,
+    email: member.email,
+    isAdmin: group.admin._id.toString() === member._id,
+  }))
+
   return (
     <PageContainer className="justify-start">
-      <MembersCard group={group} />
+      <MembersTable rows={rows} />
     </PageContainer>
   )
 }

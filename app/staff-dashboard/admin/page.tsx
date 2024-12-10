@@ -7,6 +7,7 @@ import ContactMessagesBoard from '@/components/staff/contact-messages-board'
 export default async function StaffDashboardPage() {
   const subterra = (await getOnePlatform('subterra'))
     .content as PlatformObject | null
+
   return (
     <PageContainer>
       {subterra && (

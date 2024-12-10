@@ -53,7 +53,7 @@ export async function getOnePlatform(name: string = 'subterra') {
  * @answer {ok, message}
  */
 
-export async function addNewContactMessage(message: ContactFormValues) {
+export async function addContactMessage(message: ContactFormValues) {
   try {
     // Validar los datos:
     const validated = await contactFormSchema.parseAsync(message)
@@ -63,25 +63,24 @@ export async function addNewContactMessage(message: ContactFormValues) {
 
     // Buscar la plataforma subterra:
     await connectToMongoDB()
-    const platform: PlatformDocument | null = await Platform.findOne({
+    const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!platform) {
+    if (!subterra) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
     // Introducir el mensaje en la plataforma:
-    platform.contact_messages.push(message as ContactMessage)
-    const updatedPlatform = await platform.save()
-    if (!updatedPlatform) {
+    const updated = subterra.pushContactMessage(message as ContactMessage)
+
+    if (!updated) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
     // Devolver respuesta exitosa:
     return {ok: true, message: 'Mensaje enviado'} as Answer
   } catch (error) {
-    console.log(error)
-    return {ok: false, message: 'Error desconocido'} as Answer
+    return {ok: false, content: error} as Answer
   }
 }
 
@@ -96,19 +95,17 @@ export async function deleteContactMessage(messageId: string) {
   try {
     // Buscar la plataforma subterra:
     await connectToMongoDB()
-    const platform: PlatformDocument | null = await Platform.findOne({
+    const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!platform) {
+    if (!subterra) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
     // Eliminar el mensaje de la plataforma:
-    platform.contact_messages = platform.contact_messages.filter(
-      (message) => message._id.toString() !== messageId
-    )
-    const updatedPlatform = await platform.save()
-    if (!updatedPlatform) {
+
+    const updated = subterra.removeContactMessage(messageId)
+    if (!updated) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
@@ -128,9 +125,7 @@ export async function deleteContactMessage(messageId: string) {
  * @returns
  */
 
-export async function addNewInstanceRequest(
-  request: InstanceRequestFormValues
-) {
+export async function addInstanceRequest(request: InstanceRequestFormValues) {
   try {
     // Validar los datos:
     const validated = await instanceRequestFormSchema.parseAsync(request)
@@ -140,17 +135,16 @@ export async function addNewInstanceRequest(
 
     // Buscar la plataforma subterra:
     await connectToMongoDB()
-    const platform: PlatformDocument | null = await Platform.findOne({
+    const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!platform) {
+    if (!subterra) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
     // Introducir la solicitud en la plataforma:
-    platform.instance_requests.push(request as InstanceRequest)
-    const updatedPlatform = await platform.save()
-    if (!updatedPlatform) {
+    const updated = subterra.pushInstanceRequest(request as InstanceRequest)
+    if (!updated) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
@@ -173,19 +167,16 @@ export async function deleteInstanceRequest(requestId: string) {
   try {
     // Buscar la plataforma subterra:
     await connectToMongoDB()
-    const platform: PlatformDocument | null = await Platform.findOne({
+    const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!platform) {
+    if (!subterra) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 
     // Eliminar la solicitud de la plataforma:
-    platform.instance_requests = platform.instance_requests.filter(
-      (request) => request._id.toString() !== requestId
-    )
-    const updatedPlatform = await platform.save()
-    if (!updatedPlatform) {
+    const updated = subterra.removeInstanceRequest(requestId)
+    if (!updated) {
       return {ok: false, message: 'Algo ha ido mal'} as Answer
     }
 

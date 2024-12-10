@@ -7,7 +7,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {contactFormSchema} from '@/database/validation/platform.schemas'
 import {ContactFormValues} from '@/database/validation/platform.schemas'
 import {contactSubjects} from '@/database/models/Platform.enums'
-import {addNewContactMessage} from '@/database/services/platform.services'
+import {addContactMessage} from '@/database/services/platform.services'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
@@ -36,7 +36,7 @@ export default function ContactForm({
   function onSubmit(values: ContactFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await addNewContactMessage(values)
+      const answer = await addContactMessage(values)
       setDbAnswer(answer)
     })
   }
