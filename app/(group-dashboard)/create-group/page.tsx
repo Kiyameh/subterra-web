@@ -1,13 +1,13 @@
 import {auth} from '@/auth'
 import BasicCard from '@/components/containing/basic-card'
-import CreateGroupForm from '@/components/forms/create-group-form'
+import GroupCreationForm from '@/components/forms/group-creation-form'
 import BackButton from '@/components/navigation/back-button'
 import LinkButton from '@/components/navigation/link-button'
 import {FiAlertTriangle} from 'react-icons/fi'
 import PageContainer from '@/components/containing/page-container'
 import CardWithHeader from '@/components/containing/card-with-header'
 
-export default async function CreateGroupPage() {
+export default async function GroupCreationPage() {
   const session = await auth()
   const userId = session?.user?._id
 
@@ -15,7 +15,7 @@ export default async function CreateGroupPage() {
     <PageContainer className="justify-center">
       {userId ? (
         <CardWithHeader defaultWidth="xl">
-          <CreateGroupForm commander={userId} />
+          <GroupCreationForm commander={userId} />
         </CardWithHeader>
       ) : (
         <BasicCard

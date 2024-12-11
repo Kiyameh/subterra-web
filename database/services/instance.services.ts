@@ -50,7 +50,7 @@ export async function getAllInstances() {
   }
 }
 
-export async function getSomeInstances(ids: string[]) {
+export async function getSomeInstances(ids: string[] | undefined) {
   try {
     await connectToMongoDB()
     const someInstances = await Instance.find({

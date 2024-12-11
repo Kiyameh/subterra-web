@@ -6,8 +6,7 @@ import ImageCard from '@/components/boards/_cards/image-card'
 import NotFoundCard from '@/components/displaying/404-not-found'
 import MembershipRequestBanner from '@/components/boards/_interaction/membership-request-banner'
 import {PopulatedGroup} from '@/database/models/Group.model'
-import {getOneGroup} from '@/database/services/group.services'
-import {Session} from 'next-auth'
+import {checkIsMember, getOneGroup} from '@/database/services/group.services'
 import PageContainer from '@/components/containing/page-container'
 import InstanceCard from '@/components/boards/_cards/instance-card'
 import {getSomeInstances} from '@/database/services/instance.services'
@@ -19,42 +18,26 @@ interface PageProps {
 
 export default async function GroupLandingPage({params}: PageProps) {
   // Obtener el nombre del grupo
-  const groupName = (await params).group
+  const groupName: string = (await params).group
 
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
 
   // Obtener instancias populadas del grupo
-  const instancesIds = group?.instances.map((instance) => instance._id)
-  let groupInstaces: PopulatedInstance[] | null = null
-  if (instancesIds) {
-    groupInstaces = (await getSomeInstances(instancesIds)).content as
-      | PopulatedInstance[]
-      | null
-  }
+  const instances = (await getSomeInstances(group?.instances)).content as
+    | PopulatedInstance[]
+    | null
 
-  // Obtener la sesión de usuario
-  const session: Session | null = await auth()
-  const userId = session?.user?._id
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
+
+  // Validar roles de usuario
+  const isMember = (await checkIsMember(groupName, userId)).ok as boolean
 
   // Verificar si el usurio tiene petición pendiente
-  let hasPendingRequest = false
-  if (userId && group) {
-    group.member_requests.map((request) => {
-      if (request.user._id.toString() == userId) {
-        hasPendingRequest = true
-      }
-    })
-  }
-  // Validar roles de usuario:
-  let isMember = false
-  if (userId && group) {
-    group.members.map((member) => {
-      if (member._id === userId) {
-        isMember = true
-      }
-    })
-  }
+  const hasPendingRequest: boolean | undefined = group?.member_requests.some(
+    (request) => request.user._id.toString() === userId
+  )
 
   if (!group) {
     return (
@@ -79,8 +62,8 @@ export default async function GroupLandingPage({params}: PageProps) {
 
       <ImageCard />
       <div className="flex gap-4 flex-wrap justify-center">
-        {groupInstaces &&
-          groupInstaces.map((instance) => {
+        {instances &&
+          instances.map((instance) => {
             return (
               <InstanceCard
                 glassmorphism={false}

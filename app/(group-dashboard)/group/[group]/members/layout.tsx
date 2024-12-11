@@ -1,6 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {checkIsAdmin} from '@/database/services/group.services'
+import {checkIsMember} from '@/database/services/group.services'
 import UnauthorizedCard from '@/components/displaying/401-unauthorized'
 
 interface LayoutProps {
@@ -8,7 +8,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-export default async function AdminLayout({params, children}: LayoutProps) {
+export default async function MemberLayout({params, children}: LayoutProps) {
   // Obtener el nombre del grupo
   const groupName = (await params).group
 
@@ -16,9 +16,9 @@ export default async function AdminLayout({params, children}: LayoutProps) {
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isAdmin = (await checkIsAdmin(groupName, userId)).ok as boolean
+  const isMember = (await checkIsMember(groupName, userId)).ok as boolean
 
-  if (!isAdmin) return <UnauthorizedCard />
+  if (!isMember) return <UnauthorizedCard />
 
   return <>{children}</>
 }

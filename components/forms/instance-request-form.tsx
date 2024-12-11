@@ -9,14 +9,13 @@ import {
   InstanceRequestFormValues,
 } from '@/database/validation/platform.schemas'
 import {addInstanceRequest} from '@/database/services/platform.services'
-import {PopulatedGroup} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
 import TextAreaField from '@/components/fields/text-area-field'
 import UserCard from '@/components/account/user-card'
 import DbAwnserBox from '@/components/forms/ui/db-answer-box'
-import GroupCard from '@/components/account/group-card'
 import CollapsibleBox from '@/components/containing/collapsible-box'
 import SubmitButton from '@/components/forms/ui/submit-button'
 import BackButton from '@/components/navigation/back-button'
@@ -24,20 +23,21 @@ import BackButton from '@/components/navigation/back-button'
 import {maxCharacterLimits} from '@/components/forms/hooks/use-max-character-limits'
 
 import {FaInfoCircle} from 'react-icons/fa'
+import {GroupCard} from '../boards/_slots/group-slots'
 
 /**
  * @version 1
  * @description Formulario de solicitud de instancia
  * @param commander usuario que solicita la instancia
- * @param group grupo al que representa
+ * @param groupIndex Índice del grupo al que representa
  */
 
 export default function InstanceRequestForm({
   commander,
-  group,
+  groupIndex,
 }: {
   commander: Session['user']
-  group: PopulatedGroup
+  groupIndex: GroupIndex
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -54,7 +54,7 @@ export default function InstanceRequestForm({
     resolver: zodResolver(instanceRequestFormSchema),
     defaultValues: {
       user: commander._id,
-      group: group._id,
+      group: groupIndex._id,
       fullname: '',
       description: '',
       territory: '',
@@ -78,7 +78,7 @@ export default function InstanceRequestForm({
           </div>
           <div className="w-full">
             <span className="text-muted-foreground text-sm">En nombre de:</span>
-            <GroupCard group={group} />
+            <GroupCard groupIndex={groupIndex} />
           </div>
         </div>
         <TextAreaField

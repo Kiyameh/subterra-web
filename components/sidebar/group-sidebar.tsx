@@ -1,8 +1,7 @@
 import * as React from 'react'
 import {auth} from '@/auth'
-import {Session} from 'next-auth'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import {getAllGroups} from '@/database/services/group.services'
+import {GroupIndex} from '@/database/models/Group.model'
+import {checkIsAdmin, getGroupsIndex} from '@/database/services/group.services'
 
 import {
   Sidebar,
@@ -26,31 +25,22 @@ export default async function GroupSidebar({
   groupName,
   ...props
 }: GroupSidebarProps) {
-  // Obtener todos los grupos de la base de datos:
-  const answer = await getAllGroups()
-  const allGroups = answer.content as PopulatedGroup[] | null
+  // Obtener el usuario actual:
+  const user = (await auth())?.user
 
-  // Obtener el grupo actual:
-  const currentGroup = allGroups?.find(
+  // Obtener índice de grupos de la base de datos:
+  const groupsIndex = (await getGroupsIndex()).content as GroupIndex[] | null
+
+  // Obtener Índice del gropu actual:
+  const currentGroupIndex = groupsIndex?.find(
     (group) => group.name === groupName
-  ) as PopulatedGroup | null
+  ) as GroupIndex | null
 
-  // Obtener el usuario actual
-  const session: Session | null = await auth()
-  const user = session?.user as Session['user'] | null
+  // Comprobar si el usuario es miembro del grupo:
+  const isMember = (await checkIsAdmin(groupName, user?._id)).ok as boolean
 
-  // Validar roles de usuario:
-  let isMember = false
-  let isAdmin = false
-  const userId = user?._id
-  if (userId && currentGroup) {
-    currentGroup.members.map((member) => {
-      if (member._id === userId) {
-        isMember = true
-      }
-    })
-    isAdmin = currentGroup.admin._id === userId
-  }
+  // Comprobar si el usuario es admin del grupo:
+  const isAdmin = (await checkIsAdmin(groupName, user?._id)).ok as boolean
 
   return (
     <Sidebar
@@ -60,29 +50,26 @@ export default async function GroupSidebar({
       <SidebarHeader>
         {/*? null manejado en el componente:*/}
         <SidebarGroupSelector
-          allGroups={allGroups}
-          currentGroup={currentGroup}
+          groupsIndex={groupsIndex}
+          currentGroupIndex={currentGroupIndex}
         />
       </SidebarHeader>
 
       <SidebarContent>
-        {currentGroup && (
-          <>
-            <SidebarRoleIndicator
-              isEditor={
-                isMember
-              } /* En grupos, los "editores" se llaman members.  */
-              editorTag="Miembro"
-              editorText="Eres miembro de este grupo"
-              isAdmin={isAdmin}
-              adminText="Eres administrador de este grupo"
-            />
-
-            <SidebarGroupNavigation
-              isMember={isMember}
-              isAdmin={isAdmin}
-            />
-          </>
+        <SidebarRoleIndicator
+          isEditor={
+            isMember
+          } /* En grupos, los "editores" se llaman members.  */
+          editorTag="Miembro"
+          editorText="Eres miembro de este grupo"
+          isAdmin={isAdmin}
+          adminText="Eres administrador de este grupo"
+        />
+        {currentGroupIndex && (
+          <SidebarGroupNavigation
+            isMember={isMember}
+            isAdmin={isAdmin}
+          />
         )}
       </SidebarContent>
       <SidebarFooter>

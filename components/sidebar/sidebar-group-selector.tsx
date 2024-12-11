@@ -19,20 +19,23 @@ import {
 import {LuChevronsUpDown} from 'react-icons/lu'
 import {FaUserGroup} from 'react-icons/fa6'
 
-import {PopulatedGroup} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/models/Group.model'
 
 interface Props {
-  allGroups: PopulatedGroup[] | null
-  currentGroup: PopulatedGroup | null
+  groupsIndex: GroupIndex[] | null
+  currentGroupIndex: GroupIndex | null
 }
 
 /**
  * Panel de selección de grupo para colocar en un Sidebar
- * @param allGroups - Lista de grupos <PopulatedGroup[]>
- * @param currentGroup - Grupo actual <PopulatedGroup>
+ * @param groupsIndex - Lista de grupos <PopulatedGroup[]>
+ * @param currentGroupIndex - Grupo actual <PopulatedGroup>
  */
 
-export default function SidebarGroupSelector({allGroups, currentGroup}: Props) {
+export default function SidebarGroupSelector({
+  groupsIndex,
+  currentGroupIndex,
+}: Props) {
   const {isMobile} = useSidebar()
 
   return (
@@ -49,10 +52,12 @@ export default function SidebarGroupSelector({allGroups, currentGroup}: Props) {
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {currentGroup ? currentGroup.fullname : 'Selecciona un grupo'}
+                  {currentGroupIndex
+                    ? currentGroupIndex.fullname
+                    : 'Selecciona un grupo'}
                 </span>
                 <span className="truncate text-xs">
-                  {currentGroup && currentGroup.province}
+                  {currentGroupIndex && currentGroupIndex.province}
                 </span>
               </div>
               <LuChevronsUpDown className="ml-auto" />
@@ -67,8 +72,8 @@ export default function SidebarGroupSelector({allGroups, currentGroup}: Props) {
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               Grupos
             </DropdownMenuLabel>
-            {allGroups &&
-              allGroups.map((item, index) => (
+            {groupsIndex &&
+              groupsIndex.map((item, index) => (
                 <Link
                   key={index}
                   href={`/group/${item.name}`}

@@ -4,20 +4,20 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import DbAwnserBox from '@/components/forms/ui/db-answer-box'
-import {PopulatedGroup} from '@/database/models/Group.model'
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {updateOneGroup} from '@/database/services/group.services'
+import {createGroup} from '@/database/services/group.services'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
 import LinkButton from '@/components/navigation/link-button'
 import TextField from '@/components/fields/text-field'
 import TextAreaField from '@/components/fields/text-area-field'
+import CountryField from '@/components/fields/country-field'
 import MultipleSelectionField from '@/components/fields/multiple-selection-field'
 import PhoneField from '@/components/fields/phone-field'
 import ImageField from '@/components/fields/image-field'
-import CountryField from '@/components/fields/country-field'
+import CollapsibleBox from '@/components/containing/collapsible-box'
 import SubmitButton from '@/components/forms/ui/submit-button'
 
 import {TbWorld} from 'react-icons/tb'
@@ -25,30 +25,44 @@ import {MdOutlineAlternateEmail} from 'react-icons/md'
 
 /**
  * @version 1
- * @description Formulario para editar los datos de un grupo
- * @param initialData datos iniciales del grupo
- * @param commanderId _id del usuario que edita el grupo
+ * @description Formulario para crear un grupo
+ * @param commander usuario que crea el grupo
  */
 
-export default function GroupEditForm({
-  initialData,
-  commanderId,
-}: {
-  initialData: PopulatedGroup
-  commanderId: string
-}) {
+const EMPTY_GROUP: GroupFormValues = {
+  name: '',
+  fullname: '',
+  acronym: '',
+  description: '',
+  group_categories: [],
+  main_image: '',
+  logo_image: '',
+  street: '',
+  portal_number: '',
+  floor: '',
+  door: '',
+  postal_code: 0,
+  city: '',
+  province: '',
+  country: '',
+  phone: '',
+  email: '',
+  webpage: '',
+}
+
+export default function GroupCreationForm({commander}: {commander: string}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<GroupFormValues>({
     resolver: zodResolver(GroupFormSchema),
-    defaultValues: initialData,
+    defaultValues: EMPTY_GROUP,
   })
 
   function onSubmit(values: GroupFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await updateOneGroup(values, initialData._id, commanderId)
+      const answer = await createGroup(values, commander)
       setDbAnswer(answer)
     })
   }
@@ -57,9 +71,20 @@ export default function GroupEditForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-3xl space-y-8 py-10"
+        className="mx-auto space-y-6"
       >
-        <div className="text-xl">Editar grupo</div>
+        <div className="text-xl">Crear grupo</div>
+        <CollapsibleBox
+          title="Los grupos en Subterra..."
+          color="info"
+        >
+          <p>● Cuando creas un grupo, te conviertes en su administrador.</p>
+          <p>● Los usuarios pueden enviarte solicitudes de miembro.</p>
+          <p>
+            ● Podras solicitar una instancia para almacenar datos
+            espeleológicos.
+          </p>
+        </CollapsibleBox>
         <TextField
           control={form.control}
           name="fullname"
@@ -207,7 +232,7 @@ export default function GroupEditForm({
           />
         ) : (
           <SubmitButton
-            label="Actualizar datos"
+            label="Crear grupo"
             isPending={isPending}
           />
         )}

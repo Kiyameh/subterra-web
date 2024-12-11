@@ -4,8 +4,8 @@ import CollapsibleBox from '@/components/containing/collapsible-box'
 import PageContainer from '@/components/containing/page-container'
 import NotFoundCard from '@/components/displaying/404-not-found'
 import InstanceRequestForm from '@/components/forms/instance-request-form'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import {getOneGroup} from '@/database/services/group.services'
+import {GroupIndex} from '@/database/models/Group.model'
+import {getOneGroupIndex} from '@/database/services/group.services'
 import {BiSolidMessage} from 'react-icons/bi'
 
 interface PageProps {
@@ -16,16 +16,16 @@ export default async function InstanceRequestPage({params}: PageProps) {
   // Obtener el nombre del grupo
   const groupName = (await params).group
 
-  // Obtener el grupo
-  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+  // Obtener el Índice del grupo
+  const groupIndex = (await getOneGroupIndex(groupName))
+    .content as GroupIndex | null
 
   // Obtener el usuario
-  const session = await auth()
-  const user = session?.user
+  const user = (await auth())?.user
 
   return (
     <PageContainer>
-      {user && group ? (
+      {user && groupIndex ? (
         <CardWithHeader
           defaultWidth="xl"
           cardSubHeader={
@@ -51,7 +51,7 @@ export default async function InstanceRequestPage({params}: PageProps) {
         >
           <InstanceRequestForm
             commander={user}
-            group={group}
+            groupIndex={groupIndex}
           />
         </CardWithHeader>
       ) : (

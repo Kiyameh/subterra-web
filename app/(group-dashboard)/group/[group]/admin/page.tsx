@@ -5,9 +5,8 @@ import {PopulatedGroup} from '@/database/models/Group.model'
 
 import NotFoundCard from '@/components/displaying/404-not-found'
 import PendingRequestBanner from '@/components/boards/_interaction/pending-request-banner'
-import {Session} from 'next-auth'
 import MembersAdminCard from '@/components/boards/_cards/members-admin-card'
-import GroupEditForm from '@/components/forms/group-edit-form'
+import GroupEditionForm from '@/components/forms/group-edition-form'
 import PageContainer from '@/components/containing/page-container'
 import BasicCard from '@/components/containing/basic-card'
 import LinkButton from '@/components/navigation/link-button'
@@ -18,17 +17,16 @@ interface PageProps {
 
 export default async function GroupAdminPage({params}: PageProps) {
   // Obtener el nombre del grupo
-  const groupName = (await params).group
+  const groupName = (await params).group as string
+
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
 
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
 
   // Peticiones de membresía pendientes
   const request = group?.member_requests
-
-  // Obtener la sesión de usuario
-  const session: Session | null = await auth()
-  const userId = session?.user?._id
 
   if (!group) {
     return (
@@ -53,14 +51,7 @@ export default async function GroupAdminPage({params}: PageProps) {
         defaultWidth="xl"
         cardHeader="Instancias"
       >
-        {group.instances?.map((instance) => (
-          <div key={instance._id}>
-            <LinkButton
-              href={`/instance/${instance.name}`}
-              label={instance.name}
-            />
-          </div>
-        ))}
+        <p>TODO: PANEL DE INSTANCIAS</p>
         <LinkButton
           label="Solitica una nueva instancia"
           href={'admin/instance-request'}
@@ -72,7 +63,7 @@ export default async function GroupAdminPage({params}: PageProps) {
       />
       <BasicCard defaultWidth="xl">
         {userId && (
-          <GroupEditForm
+          <GroupEditionForm
             initialData={group}
             commanderId={userId}
           />

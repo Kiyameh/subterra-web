@@ -19,7 +19,7 @@ export default function MembershipRequestBanner({
   hasPendingRequest,
 }: {
   groupId: string
-  userId?: string
+  userId: string | null
   hasPendingRequest?: boolean
 }) {
   const [bannerOpen, setBannerOpen] = React.useState(true)
@@ -28,7 +28,7 @@ export default function MembershipRequestBanner({
   if (!bannerOpen) return null
 
   function chooseAction(
-    userId: string | undefined,
+    userId: string | null,
     hasPendingRequest: boolean | undefined
   ) {
     if (userId && hasPendingRequest) {

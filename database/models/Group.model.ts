@@ -1,7 +1,6 @@
 import {model, models, Schema, Types, Document, mongo} from 'mongoose'
 import {groupCategories} from './Group.enums'
 import {UserObject} from './User.model'
-import {InstanceObject} from './Instance.model'
 
 //* INTERFACES:
 
@@ -182,13 +181,15 @@ export interface GroupObject
 }
 
 export interface PopulatedGroup
-  extends Omit<
-    GroupObject,
-    'admin' | 'members' | 'instances' | 'explorations' | 'member_requests'
-  > {
+  extends Omit<GroupObject, 'admin' | 'members' | 'member_requests'> {
   admin: UserObject
   members: UserObject[]
   member_requests: {_id: string; user: UserObject; message: string}[]
-  instances: InstanceObject[]
-  // explorations: ExplorationObject[] // TODO: Añadir cuando este el tipo hecho
+}
+
+export interface GroupIndex {
+  _id: string
+  name: string
+  fullname: string
+  province: string
 }
