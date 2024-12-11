@@ -1,6 +1,6 @@
-import {Document, Schema, models, model, Types} from 'mongoose'
-import {UserObject} from './User.model'
-import {GroupObject} from './Group.model'
+import {Document, Schema, models, model, Types, ClientSession} from 'mongoose'
+import {UserIndex} from '@/database/models/User.model'
+import {GroupIndex} from '@/database/models/Group.model'
 
 //* INTERFACES:
 
@@ -19,12 +19,27 @@ export interface InstanceDocument extends Document {
   public_edition: boolean
   main_image: string
   map_image: string
-  pushEditor(editorId: string): Promise<InstanceDocument>
-  removeEditor(editorId: string): Promise<InstanceDocument>
-  pushViewer(viewerId: string): Promise<InstanceDocument>
-  removeViewer(viewerId: string): Promise<InstanceDocument>
-  setOwner(ownerId: string): Promise<InstanceDocument>
-  setCoordinator(coordinatorId: string): Promise<InstanceDocument>
+  pushEditor(
+    editorId: string,
+    session?: ClientSession
+  ): Promise<InstanceDocument>
+  removeEditor(
+    editorId: string,
+    session?: ClientSession
+  ): Promise<InstanceDocument>
+  pushViewer(
+    viewerId: string,
+    session?: ClientSession
+  ): Promise<InstanceDocument>
+  removeViewer(
+    viewerId: string,
+    session?: ClientSession
+  ): Promise<InstanceDocument>
+  setOwner(ownerId: string, session?: ClientSession): Promise<InstanceDocument>
+  setCoordinator(
+    coordinatorId: string,
+    session?: ClientSession
+  ): Promise<InstanceDocument>
 }
 
 //* ESQUEMA:
@@ -51,38 +66,56 @@ const instanceSchema = new Schema<InstanceDocument>(
 
 //* MÉTODOS DE INSTANCIA:
 
-instanceSchema.methods.pushEditor = async function (editorId: string) {
+instanceSchema.methods.pushEditor = async function (
+  editorId: string,
+  session?: ClientSession
+) {
   this.editors.push(editorId)
-  return this.save()
+  return this.save(session)
 }
 
-instanceSchema.methods.removeEditor = async function (editorId: string) {
+instanceSchema.methods.removeEditor = async function (
+  editorId: string,
+  session?: ClientSession
+) {
   this.editors = this.editors.filter(
     (editor: Types.ObjectId) => editor.toString() !== editorId
   )
-  return this.save()
+  return this.save(session)
 }
 
-instanceSchema.methods.pushViewer = async function (viewerId: string) {
+instanceSchema.methods.pushViewer = async function (
+  viewerId: string,
+  session?: ClientSession
+) {
   this.viewers.push(viewerId)
-  return this.save()
+  return this.save(session)
 }
 
-instanceSchema.methods.removeViewer = async function (viewerId: string) {
+instanceSchema.methods.removeViewer = async function (
+  viewerId: string,
+  session?: ClientSession
+) {
   this.viewers = this.viewers.filter(
     (viewer: Types.ObjectId) => viewer.toString() !== viewerId
   )
-  return this.save()
+  return this.save(session)
 }
 
-instanceSchema.methods.setOwner = async function (ownerId: string) {
+instanceSchema.methods.setOwner = async function (
+  ownerId: string,
+  session?: ClientSession
+) {
   this.owner = ownerId
-  return this.save()
+  return this.save(session)
 }
 
-instanceSchema.methods.setCoordinator = async function (coordinatorId: string) {
+instanceSchema.methods.setCoordinator = async function (
+  coordinatorId: string,
+  session?: ClientSession
+) {
   this.coordinator = coordinatorId
-  return this.save()
+  return this.save(session)
 }
 
 //* MODELO:
@@ -114,8 +147,16 @@ export interface PopulatedInstance
     InstanceObject,
     'coordinator' | 'owner' | 'editors' | 'viewers'
   > {
-  owner: GroupObject
-  coordinator: UserObject
-  editors: UserObject[]
-  viewers: UserObject[]
+  owner: GroupIndex
+  coordinator: UserIndex
+  editors: UserIndex[]
+  viewers: UserIndex[]
+}
+
+export interface InstanceIndex {
+  _id: string
+  name: string
+  fullname: string
+  territory: string
+  is_online: boolean
 }

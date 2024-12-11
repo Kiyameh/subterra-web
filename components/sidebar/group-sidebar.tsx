@@ -1,7 +1,11 @@
 import * as React from 'react'
 import {auth} from '@/auth'
+import {Session} from 'next-auth'
+
 import {GroupIndex} from '@/database/models/Group.model'
-import {checkIsAdmin, getGroupsIndex} from '@/database/services/group.services'
+import {checkIsAdmin} from '@/database/services/group.services'
+import {checkIsMember} from '@/database/services/group.services'
+import {getGroupsIndex} from '@/database/services/group.services'
 
 import {
   Sidebar,
@@ -26,18 +30,18 @@ export default async function GroupSidebar({
   ...props
 }: GroupSidebarProps) {
   // Obtener el usuario actual:
-  const user = (await auth())?.user
+  const user = (await auth())?.user as Session['user'] | null
 
   // Obtener índice de grupos de la base de datos:
   const groupsIndex = (await getGroupsIndex()).content as GroupIndex[] | null
 
-  // Obtener Índice del gropu actual:
+  // Obtener Índice del grupo actual:
   const currentGroupIndex = groupsIndex?.find(
     (group) => group.name === groupName
   ) as GroupIndex | null
 
   // Comprobar si el usuario es miembro del grupo:
-  const isMember = (await checkIsAdmin(groupName, user?._id)).ok as boolean
+  const isMember = (await checkIsMember(groupName, user?._id)).ok as boolean
 
   // Comprobar si el usuario es admin del grupo:
   const isAdmin = (await checkIsAdmin(groupName, user?._id)).ok as boolean
@@ -57,9 +61,7 @@ export default async function GroupSidebar({
 
       <SidebarContent>
         <SidebarRoleIndicator
-          isEditor={
-            isMember
-          } /* En grupos, los "editores" se llaman members.  */
+          isEditor={isMember}
           editorTag="Miembro"
           editorText="Eres miembro de este grupo"
           isAdmin={isAdmin}

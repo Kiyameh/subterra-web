@@ -1,8 +1,11 @@
 import * as React from 'react'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
-import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getAllInstances} from '@/database/services/instance.services'
+
+import {InstanceIndex} from '@/database/models/Instance.model'
+import {checkIsCoordinator} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.services'
+import {getInstancesIndex} from '@/database/services/instance.services'
 
 import {
   Sidebar,
@@ -28,31 +31,25 @@ export default async function InstanceSidebar({
   instanceName,
   ...props
 }: InstanceSidebarProps) {
-  // Obtener las intancias de la base de datos:
-  const answer = await getAllInstances()
-  const allInstances = answer.content as PopulatedInstance[] | null
+  // Obtener el usuario actual:
+  const user = (await auth())?.user as Session['user'] | null
 
-  // Obtener la instancia actual:
-  const currentInstance = allInstances?.find(
+  // Obtener el índice de instancias:
+  const instancesIndex = (await getInstancesIndex()).content as
+    | InstanceIndex[]
+    | null
+
+  // Obtener el índice de la instancia actual:
+  const currentInstanceIndex = instancesIndex?.find(
     (instance) => instance.name === instanceName
-  ) as PopulatedInstance | null
+  ) as InstanceIndex | null
 
-  // Obtener el usuario actual
-  const session: Session | null = await auth()
-  const user = session?.user as Session['user'] | null
+  // Comprobar si el usuario es editor de la instancia:
+  const isEditor = (await checkIsEditor(instanceName, user?._id)).ok as boolean
 
-  // Validar roles de usuario:
-  let isEditor = false
-  let isCoordinator = false
-  const userId = user?._id
-  if (userId && currentInstance) {
-    currentInstance.editors.map((editor) => {
-      if (editor._id === userId) {
-        isEditor = true
-      }
-    })
-    isCoordinator = currentInstance.coordinator._id === userId
-  }
+  // Comprobar si el usuario es coordinador de la instancia:
+  const isCoordinator = (await checkIsCoordinator(instanceName, user?._id))
+    .ok as boolean
 
   return (
     <Sidebar
@@ -62,27 +59,31 @@ export default async function InstanceSidebar({
       <SidebarHeader>
         {/*? null manejado en el componente:*/}
         <SidebarInstanceSelector
-          allInstances={allInstances}
-          currentInstance={currentInstance}
+          instancesIndex={instancesIndex}
+          currentInstanceIndex={currentInstanceIndex}
         />
       </SidebarHeader>
       <SidebarContent>
-        {currentInstance && (
-          <>
-            <SidebarRoleIndicator
-              isEditor={isEditor}
-              isAdmin={
-                isCoordinator
-              } /* En instancia el administrador se llama coordinator.  */
-            />
-            <SidebarSearchBar baseUrl={`/instance/${instanceName}`} />
-            <SidebarInstanceNavigation
-              isEditor={isEditor}
-              isCoordinator={isCoordinator}
-            />
-            {user && <SidebarFavNavigation user={user} />}
-          </>
-        )}
+        <>
+          <SidebarRoleIndicator
+            isEditor={isEditor}
+            editorTag="Editor"
+            editorText="Eres editor de esta instancia"
+            isAdmin={isCoordinator}
+            adminTag="Coordinador"
+            adminText="Eres coordinador de esta instancia"
+          />
+          {currentInstanceIndex && (
+            <>
+              <SidebarSearchBar baseUrl={`/instance/${instanceName}`} />
+              <SidebarInstanceNavigation
+                isEditor={isEditor}
+                isCoordinator={isCoordinator}
+              />
+            </>
+          )}
+          {user && <SidebarFavNavigation user={user} />}
+        </>
       </SidebarContent>
       <SidebarFooter>
         {user ? <SidebarUserMenu user={user} /> : <SidebarLoginButton />}

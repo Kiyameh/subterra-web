@@ -1,7 +1,7 @@
 import NotFoundCard from '@/components/displaying/404-not-found'
+import InDevelopmentCard from '@/components/displaying/501-not-implemented'
 import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getInstanceByName} from '@/database/services/instance.services'
-import Image from 'next/image'
+import {getOneInstance} from '@/database/services/instance.services'
 
 interface Props {
   params: Promise<{instance: string}>
@@ -9,23 +9,18 @@ interface Props {
 
 export default async function InstanceLandingPage({params}: Props) {
   const instanceName = (await params).instance
-  const answer = await getInstanceByName(instanceName)
+  const answer = await getOneInstance(instanceName)
 
   if (!answer.ok) {
     return <NotFoundCard />
   }
 
   const instance = answer.content as PopulatedInstance
+  console.log(instance)
 
   return (
     <section className="w-full h-full flex items-center justify-center">
-      <Image
-        src={instance.map_image}
-        alt={instance.name}
-        width={300}
-        height={300}
-        className="rounded-lg"
-      />
+      <InDevelopmentCard title="LandingPage de instancia" />
     </section>
   )
 }

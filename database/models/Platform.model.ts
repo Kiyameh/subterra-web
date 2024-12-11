@@ -29,6 +29,7 @@ export interface PlatformDocument extends Document {
   staff: Types.ObjectId[]
   instance_requests: InstanceRequest[]
   contact_messages: ContactMessage[]
+  checkIsStaff(userId: string): boolean
   pushContactMessage(newMessage: ContactMessage): Promise<PlatformDocument>
   removeContactMessage(messageId: string): Promise<PlatformDocument>
   pushInstanceRequest(newRequest: InstanceRequest): Promise<PlatformDocument>
@@ -63,6 +64,12 @@ const platformSchema = new Schema<PlatformDocument>({
 })
 
 //* MÉTODOS:
+platformSchema.methods.checkIsStaff = function (userId: string) {
+  return this.staff.some(
+    (staffId: Types.ObjectId) => staffId.toString() === userId
+  )
+}
+
 platformSchema.methods.pushContactMessage = async function (
   newMessage: ContactMessage
 ) {

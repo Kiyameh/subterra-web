@@ -21,22 +21,22 @@ import {LuBox} from 'react-icons/lu'
 
 import Link from 'next/link'
 import OnlineIndicator from '@/components/displaying/online-indicator'
-import {PopulatedInstance} from '@/database/models/Instance.model'
+import {InstanceIndex} from '@/database/models/Instance.model'
 
 interface Props {
-  allInstances: PopulatedInstance[] | null
-  currentInstance: PopulatedInstance | null
+  instancesIndex: InstanceIndex[] | null
+  currentInstanceIndex: InstanceIndex | null
 }
 
 /**
  * Panel de selección de instancias para colocar en un Sidebar
- * @param allInstances - Lista de instancias <PopulatedInstance[]>
- * @param currentInstance - Instancia actual <PopulatedInstance>
+ * @param instancesIndex - Lista de instancias <PopulatedInstance[]>
+ * @param currentInstanceIndex - Instancia actual <PopulatedInstance>
  */
 
 export default function SidebarInstanceSelector({
-  allInstances,
-  currentInstance,
+  instancesIndex,
+  currentInstanceIndex,
 }: Props) {
   const {isMobile} = useSidebar()
 
@@ -54,12 +54,12 @@ export default function SidebarInstanceSelector({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {currentInstance
-                    ? currentInstance.fullname
+                  {currentInstanceIndex
+                    ? currentInstanceIndex.fullname
                     : 'Selecciona una instancia'}
                 </span>
                 <span className="truncate text-xs">
-                  {currentInstance && currentInstance.territory}
+                  {currentInstanceIndex && currentInstanceIndex.territory}
                 </span>
               </div>
               <LuChevronsUpDown className="ml-auto" />
@@ -74,8 +74,8 @@ export default function SidebarInstanceSelector({
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               Instancias
             </DropdownMenuLabel>
-            {allInstances &&
-              allInstances.map((item, index) => (
+            {instancesIndex &&
+              instancesIndex.map((item, index) => (
                 <Link
                   key={index}
                   href={item.is_online ? `/instance/${item.name}` : '#'}

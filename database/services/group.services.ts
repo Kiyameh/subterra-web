@@ -1,25 +1,28 @@
 'use server'
-import mongoose from 'mongoose'
-
 import {connectToMongoDB} from '@/database/databaseConection'
 import {Answer} from '@/database/types/answer.type'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 
 import User from '@/database/models/User.model'
-import Group from '@/database/models/Group.model'
+import {UserDocument} from '@/database/models/User.model'
 
+import Group from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
 import {PopulatedGroup} from '@/database/models/Group.model'
 import {GroupIndex} from '@/database/models/Group.model'
+
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
+import {MemberRequestValues} from '@/components/boards/_interaction/membership-request-dialog'
+
+//* 1. Funciones de escritura */
 
 /**
  * @version 1
  * @description Función para crear un grupo
  * @param values datos del formulario
  * @param commanderId _id del usuario que crea el grupo
- * @return  redirect: `/group/[groupName]`
+ * @returns  redirect: `/group/[groupName]`
  */
 export async function createGroup(
   values: GroupFormValues,
@@ -95,7 +98,6 @@ export async function updateGroup(
     if (!validated) {
       return {
         ok: false,
-        code: 400,
         message: 'Datos no válidos',
       } as Answer
     }
@@ -106,7 +108,6 @@ export async function updateGroup(
     if (!groupToUpdate) {
       return {
         ok: false,
-        code: 404,
         message: 'Grupo no encontrado',
       } as Answer
     }
@@ -116,7 +117,6 @@ export async function updateGroup(
     if (!commanderIsAdmin) {
       return {
         ok: false,
-        code: 403,
         message: 'No tienes permisos para editar este grupo',
       } as Answer
     }
@@ -126,7 +126,6 @@ export async function updateGroup(
     await groupToUpdate.save()
     return {
       ok: true,
-      code: 200,
       message: 'Grupo actualizado correctamente',
     } as Answer
   } catch (e) {
@@ -134,10 +133,12 @@ export async function updateGroup(
   }
 }
 
+//* 2. Funciones de consulta */
+
 /**
  * @version 1
  * @description Función para obtener el índice de todos los grupos
- * @return content: Índice de grupos con los campos name, fullname, _id y province
+ * @returns content: Índice de grupos con los campos name, fullname, _id y province
  *
  */
 
@@ -155,13 +156,12 @@ export async function getGroupsIndex() {
 
     return {
       ok: true,
-      code: 200,
       message: 'Índice de grupos obtenido',
       content: groupsIndexPOJO as GroupIndex[],
     } as Answer
-  } catch (e) {
-    console.log(e)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
@@ -169,7 +169,7 @@ export async function getGroupsIndex() {
  * @version 1
  * @description Función para obtener el índice de un grupo
  * @param name nombre del grupo
- * @return content: Índice de grupo con los campos name, fullname, _id y province
+ * @returns content: Índice de grupo con los campos name, fullname, _id y province
  */
 
 export async function getOneGroupIndex(name: string) {
@@ -182,7 +182,6 @@ export async function getOneGroupIndex(name: string) {
     if (!groupIndex) {
       return {
         ok: false,
-        code: 404,
         message: 'Grupo no encontrado',
       } as Answer
     }
@@ -192,13 +191,12 @@ export async function getOneGroupIndex(name: string) {
 
     return {
       ok: true,
-      code: 200,
       message: 'Índice de grupo obtenido',
       content: groupIndexPOJO as GroupIndex,
     } as Answer
   } catch (e) {
     console.log(e)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
@@ -206,7 +204,7 @@ export async function getOneGroupIndex(name: string) {
  * @version 2
  * @description Función para obtener un grupo
  * @param name nombre del grupo
- * @return content: Grupo con admin, members y member_requests populados
+ * @returns content: Grupo con admin, members y member_requests populados
  */
 
 export async function getOneGroup(name: string) {
@@ -217,18 +215,20 @@ export async function getOneGroup(name: string) {
       .populate({path: 'members', model: User})
       .populate({path: 'member_requests.user', model: User})
       .exec()
+    //? Transforma a objeto plano para poder pasar a componentes cliente de Next
     const groupPOJO = JSON.parse(JSON.stringify(group))
     return {
       ok: true,
-      code: 200,
       message: 'Grupo obtenido',
       content: groupPOJO as PopulatedGroup,
     } as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
+
+//* 3. Funciones de membresía */
 
 /**
  * @version 1
@@ -247,20 +247,16 @@ export async function checkIsMember(
       members: {$in: [userId]},
     })
     if (!matchingGroup) {
-      return {
-        ok: false,
-        code: 404,
-        message: 'No eres miembro de este grupo',
-      } as Answer
+      return {ok: false, message: 'No eres miembro'} as Answer
     }
+
     return {
       ok: true,
-      code: 200,
-      message: 'Eres miembro de este grupo',
+      message: 'Eres miembro',
     } as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
@@ -283,14 +279,13 @@ export async function checkIsAdmin(
     if (!matchingGroup) {
       return {
         ok: false,
-        code: 404,
         message: 'No eres admin de este grupo',
       } as Answer
     }
-    return {ok: true, code: 200, message: 'Eres admin de este grupo'} as Answer
+    return {ok: true, message: 'Eres admin de este grupo'} as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
@@ -303,48 +298,40 @@ export async function checkIsAdmin(
 
 export async function addMemberRequest(
   groupId: string,
-  request: {user: string; message: string}
+  request: MemberRequestValues
 ) {
   try {
+    // Obtener grupo:
     await connectToMongoDB()
     const group: GroupDocument | null = await Group.findById(groupId)
     if (!group) {
-      return {ok: false, code: 404, message: 'Grupo no encontrado'} as Answer
+      return {ok: false, message: 'Grupo no encontrado'} as Answer
     }
 
+    // Comprobar si ya existe una solicitud:
     const existingRequest = group.member_requests.find(
       (groupRequest) => groupRequest.user.toString() === request.user
     )
-
     if (existingRequest) {
-      return {
-        ok: false,
-        code: 400,
-        message: 'Ya existe una solicitud',
-      } as Answer
+      return {ok: false, message: 'Ya existe una solicitud'} as Answer
     }
-    group.member_requests.push({
-      _id: new mongoose.Types.ObjectId(),
-      message: request.message,
-      user: new mongoose.Types.ObjectId(request.user),
-    })
-    const updatedGroup = await group.save()
-    if (!updatedGroup) {
-      return {ok: false, code: 404, message: 'Error desconocido'} as Answer
-    }
+
+    // Insertar nueva solicitud:
+    const updated = group.pushMemberRequest(request)
+    if (!updated) throw new Error('Error al añadir la solicitud')
+
     return {
       ok: true,
-      code: 200,
       message: 'Solicitud de miembro añadida',
     } as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
 /**
- * @version 1
+ * @version 2
  * @description Función para aceptar una solicitud de miembro
  * @param groupId _id del grupo
  * @param requestId _id de la solicitud
@@ -352,46 +339,54 @@ export async function addMemberRequest(
 
 export async function acceptMemberRequest(groupId: string, requestId: string) {
   try {
-    await connectToMongoDB()
+    const conection = await connectToMongoDB()
+
+    // Obtener grupo:
     const group: GroupDocument | null = await Group.findById(groupId)
       .populate({path: 'member_requests.user', model: User})
       .exec()
+    if (!group) throw new Error('Grupo no encontrado')
 
-    if (!group) {
-      return {ok: false, code: 404, message: 'Grupo no encontrado'} as Answer
-    }
-
-    const requestIndex = group.member_requests.findIndex(
+    // Obtener petición:
+    const request = group.member_requests.find(
       (request) => request._id.toString() === requestId
     )
+    if (!request) throw new Error('Solicitud no encontrada')
 
-    if (requestIndex === -1) {
-      return {
-        ok: false,
-        code: 404,
-        message: 'Solicitud no encontrada',
-      } as Answer
+    // Obtener usuario:
+    const userId: string = request.user._id.toString()
+    const user: UserDocument | null = await User.findById(userId)
+    if (!user) throw new Error('Usuario no encontrado')
+
+    // Iniciar transacción:
+    const session = await conection.startSession()
+    session.startTransaction()
+
+    // Actualizar datos
+    const updatedUser = user.pushMemberOf(groupId, session)
+    const updatedGroup = group.pushMember(userId, session)
+    const removed = group.removeMemberRequest(requestId, session)
+
+    // Terminar transacción
+    if (!updatedUser || !updatedGroup || !removed) {
+      session.abortTransaction()
+      session.endSession()
+      throw new Error('Error al actualizar los datos')
     }
 
-    // Transferir id aceptada al array de members
+    await session.commitTransaction()
+    session.endSession()
 
-    group.members.push(group.member_requests[requestIndex].user._id)
-    group.member_requests.splice(requestIndex, 1)
-    await group.save()
-
-    return {
-      ok: true,
-      code: 200,
-      message: 'Solicitud aceptada y miembro añadido',
-    } as Answer
+    // TODO: Enviar email de feedback
+    return {ok: true, message: 'Solicitud aceptada'} as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
 /**
- * @version 1
+ * @version 2
  * @description Función para rechazar una solicitud de miembro
  * @param groupId _id del grupo
  * @param requestId _id de la solicitud
@@ -401,29 +396,15 @@ export async function rejectMemberRequest(groupId: string, requestId: string) {
   try {
     await connectToMongoDB()
     const group: GroupDocument | null = await Group.findById(groupId)
-    if (!group) {
-      return {ok: false, code: 404, message: 'Grupo no encontrado'} as Answer
-    }
+    if (!group) throw new Error('Grupo no encontrado')
 
-    const requestIndex = group.member_requests.findIndex(
-      (request) => request._id.toString() === requestId
-    )
+    const removed = await group.removeMemberRequest(requestId)
+    if (!removed) throw new Error('Error al eliminar la solicitud')
 
-    if (requestIndex === -1) {
-      return {
-        ok: false,
-        code: 404,
-        message: 'Solicitud no encontrada',
-      } as Answer
-    }
-
-    // Eliminar solicitud del array de member_requests
-    group.member_requests.splice(requestIndex, 1)
-    await group.save()
-
-    return {ok: true, code: 200, message: 'Solicitud rechazada'} as Answer
+    // TODO: Enviar email de feedback
+    return {ok: true, message: 'Solicitud rechazada'} as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }

@@ -24,6 +24,16 @@ import TextAreaField from '@/components/fields/text-area-field'
 import {Loader2} from 'lucide-react'
 import {TiUserAdd} from 'react-icons/ti'
 
+const memberRequestSchema = z.object({
+  user: z.string().min(1),
+  message: z
+    .string()
+    .min(1, 'Debes escribir un mensaje')
+    .max(400, 'El mensaje es demasiado largo'),
+})
+
+export type MemberRequestValues = z.infer<typeof memberRequestSchema>
+
 /**
  * @version 1
  * @description Diálogo y formulario para enviar una solicitud de membresía al grupo
@@ -48,23 +58,15 @@ export default function MembershipRequestDialog({
   const [isPending, startTransition] = React.useTransition()
   const router = useRouter()
 
-  const Schema = z.object({
-    message: z
-      .string()
-      .min(1, 'Debes escribir un mensaje')
-      .max(400, 'El mensaje es demasiado largo'),
-  })
-
   const form = useForm({
-    resolver: zodResolver(Schema),
-    defaultValues: {message: ''},
+    resolver: zodResolver(memberRequestSchema),
+    defaultValues: {user: userId, message: ''},
   })
 
-  const onSubmit = (values: {message: string}) => {
-    const userRequest = {user: userId, message: values.message}
+  const onSubmit = (values: MemberRequestValues) => {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await addMemberRequest(groupId, userRequest)
+      const answer = await addMemberRequest(groupId, values)
       setDbAnswer(answer)
 
       if (answer.ok) {

@@ -28,6 +28,7 @@ export async function getOnePlatform(name: string = 'subterra') {
     // Obtener la plataforma:
     await connectToMongoDB()
     const platform = await Platform.findOne({name: name})
+    if (!platform) throw new Error('No se ha encontrado la plataforma')
 
     // Convertir la plataforma a un objeto plano:
     const platformPOJO = JSON.parse(JSON.stringify(platform))
@@ -66,20 +67,17 @@ export async function addContactMessage(message: ContactFormValues) {
     const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!subterra) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!subterra) throw new Error('No se ha encontrado la plataforma')
 
     // Introducir el mensaje en la plataforma:
     const updated = subterra.pushContactMessage(message as ContactMessage)
 
-    if (!updated) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!updated) throw new Error('No se ha podido añadir el mensaje')
 
     // Devolver respuesta exitosa:
     return {ok: true, message: 'Mensaje enviado'} as Answer
   } catch (error) {
+    console.error(error)
     return {ok: false, content: error} as Answer
   }
 }
@@ -98,21 +96,17 @@ export async function deleteContactMessage(messageId: string) {
     const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!subterra) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!subterra) throw new Error('No se ha encontrado la plataforma')
 
     // Eliminar el mensaje de la plataforma:
 
     const updated = subterra.removeContactMessage(messageId)
-    if (!updated) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!updated) throw new Error('No se ha podido eliminar el mensaje')
 
     // Devolver respuesta exitosa:
     return {ok: true, message: 'Mensaje eliminado'} as Answer
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
@@ -138,20 +132,16 @@ export async function addInstanceRequest(request: InstanceRequestFormValues) {
     const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!subterra) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!subterra) throw new Error('No se ha encontrado la plataforma')
 
     // Introducir la solicitud en la plataforma:
     const updated = subterra.pushInstanceRequest(request as InstanceRequest)
-    if (!updated) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!updated) throw new Error('No se ha podido añadir la solicitud')
 
     // Devolver respuesta exitosa:
     return {ok: true, message: 'Solicitud enviada'} as Answer
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
@@ -170,20 +160,16 @@ export async function deleteInstanceRequest(requestId: string) {
     const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    if (!subterra) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!subterra) throw new Error('No se ha encontrado la plataforma')
 
     // Eliminar la solicitud de la plataforma:
     const updated = subterra.removeInstanceRequest(requestId)
-    if (!updated) {
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
-    }
+    if (!updated) throw new Error('No se ha podido eliminar la solicitud')
 
     // Devolver respuesta exitosa:
     return {ok: true, message: 'Solicitud eliminada'} as Answer
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }

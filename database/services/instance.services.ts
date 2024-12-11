@@ -1,164 +1,31 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import Instance, {
-  InstanceDocument,
-  PopulatedInstance,
-} from '@/database/models/Instance.model'
 import {Answer} from '@/database/types/answer.type'
+
 import Group from '@/database/models/Group.model'
 import User from '@/database/models/User.model'
-import {
-  InstanceFormSchema,
-  InstanceFormValues,
-} from '@/database/validation/instance.schemas'
-import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import Platform, {PlatformDocument} from '../models/Platform.model'
+import Platform from '../models/Platform.model'
+import {PlatformDocument} from '../models/Platform.model'
+
+import Instance, {InstanceIndex} from '@/database/models/Instance.model'
+import {InstanceDocument} from '@/database/models/Instance.model'
+import {PopulatedInstance} from '@/database/models/Instance.model'
+
+import {InstanceFormValues} from '@/database/validation/instance.schemas'
+import {InstanceFormSchema} from '@/database/validation/instance.schemas'
+
+//* 1. Funciones de escritura */
 
 /**
- * Función para obtener todas las instancias
- * @returns
- * answer{
- * ok: boolean,
- * code: number,
- * message: string,
- * content?: PopulatedInstance[]
- * }
+ * @version 1
+ * @description Función para crear una nueva instancia
+ * @param values InstanceFormValues (Incluidos owner y coordinator)
+ * @param commanderId string (Miembro del staff)
  */
 
-export async function getAllInstances() {
-  try {
-    await connectToMongoDB()
-    const allInstances = await Instance.find()
-      .populate({path: 'coordinator', model: User})
-      .populate({path: 'owner', model: Group})
-      .populate({path: 'editors', model: User})
-      .populate({path: 'viewers', model: User})
-      .exec()
-    const allInstancesPOJO = allInstances.map((instance) => {
-      //? Transforma a objeto plano para poder pasar a componentes cliente de Next
-      return JSON.parse(JSON.stringify(instance))
-    })
-    return {
-      ok: true,
-      code: 200,
-      message: 'Instancias obtenidas',
-      content: allInstancesPOJO as PopulatedInstance[],
-    } as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
-  }
-}
-
-export async function getSomeInstances(ids: string[] | undefined) {
-  try {
-    await connectToMongoDB()
-    const someInstances = await Instance.find({
-      _id: {$in: ids},
-    })
-      .populate({path: 'coordinator', model: User})
-      .populate({path: 'owner', model: Group})
-      .populate({path: 'editors', model: User})
-      .populate({path: 'viewers', model: User})
-      .exec()
-    const someInstancesPOJO = someInstances.map((instance) => {
-      //? Transforma a objeto plano para poder pasar a componentes cliente de Next
-      return JSON.parse(JSON.stringify(instance))
-    })
-    return {
-      ok: true,
-      code: 200,
-      message: 'Instancias obtenidas',
-      content: someInstancesPOJO as PopulatedInstance[],
-    } as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
-  }
-}
-
-/**
- * Función para obtener una instancia
- * @param name <string> nombre de la instancia
- * @returns
- * answer{
- * ok: boolean,
- * code: number,
- * message: string,
- * content?: PopulatedInstance
- * }
- */
-
-export async function getInstanceByName(name: string) {
-  try {
-    await connectToMongoDB()
-    const instance: InstanceDocument = await Instance.findOne({
-      name: name,
-    })
-      .populate({path: 'coordinator', model: User})
-      .populate({path: 'owner', model: Group})
-      .populate({path: 'editors', model: User})
-      .populate({path: 'viewers', model: User})
-      .exec()
-    //? Transforma a objeto plano para poder pasar a componentes cliente de Next
-    const instancePOJO = JSON.parse(JSON.stringify(instance))
-    return {
-      ok: true,
-      code: 200,
-      message: 'Instancia obtenida',
-      content: instancePOJO as PopulatedInstance,
-    } as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
-  }
-}
-
-/**
- * Función para obtener una instancia por su id
- * @param id <string> id de la instancia
- * @returns
- * answer{
- * ok: boolean,
- * code: number,
- * message: string,
- * content?: PopulatedInstance
- * }
- */
-export async function getInstanceById(id: string) {
-  try {
-    await connectToMongoDB()
-    const instance: InstanceDocument = await Instance.findOne({
-      _id: id,
-    })
-      .populate({path: 'coordinator', model: User})
-      .populate({path: 'owner', model: Group})
-      .populate({path: 'editors', model: User})
-      .populate({path: 'viewers', model: User})
-      .exec()
-    //? Transforma a objeto plano para poder pasar a componentes cliente de Next
-    const instancePOJO = JSON.parse(JSON.stringify(instance))
-    return {
-      ok: true,
-      code: 200,
-      message: 'Instancia obtenida',
-      content: instancePOJO as PopulatedInstance,
-    } as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
-  }
-}
-
-/**
- * Función para crear una instancia
- * @param values datos del formulario
- * @returns <Answer> respuesta de la petición
- */
-
-export async function createOneInstance(
+export async function createInstance(
   values: InstanceFormValues,
-  commander: string
+  commanderId: string
 ): Promise<Answer> {
   try {
     // Validación:
@@ -172,14 +39,8 @@ export async function createOneInstance(
     const subterra: PlatformDocument | null = await Platform.findOne({
       name: 'subterra',
     })
-    const commanderIsStaff = subterra?.staff.toString().includes(commander)
-
-    if (!commanderIsStaff) {
-      return {ok: false, message: 'No estas autorizado para esto'} as Answer
-    }
-
-    // Crear nueva instancia con los valores:
-    const newInstance = new Instance(values)
+    const isStaff = subterra?.checkIsStaff(commanderId)
+    if (!isStaff) throw new Error('No es staff de Subterra')
 
     // Iniciar transacción para garantizar la integridad de los datos
     //? https://mongoosejs.com/docs/transactions.html
@@ -188,27 +49,24 @@ export async function createOneInstance(
     const session = await conection.startSession()
     session.startTransaction()
 
-    // Insertar instancia en el grupo en instances[]:
-    const updatedGroup = await Group.findOneAndUpdate(
-      {_id: values.owner},
-      {$push: {instances: newInstance._id}},
-      {session: session}
-    )
+    // Crear nueva instancia con los valores:
+    const newInstance = new Instance(values)
 
-    // Insertar instancia en el usuario como coordinatorOf y editorOf:
-    const updatedUser = await User.findOneAndUpdate(
-      {_id: values.coordinator},
-      {
-        $push: {editorOf: newInstance._id, coordinatorOf: newInstance._id},
-      },
-      {session: session}
-    )
+    // Obtener el grupo owner e insertar instancia:
+    const group = await Group.findOne({_id: values.owner})
+    const owner = group.pushInstance(newInstance._id, session)
+
+    // Obtener el usuario coordinador e insertar instancia:
+    const user = await User.findOne({_id: values.coordinator})
+    const coordinator = user.pushCoordinatorOf(newInstance._id, session)
 
     // Guardar la nueva instancia:
     const savedInstance = await newInstance.save({session: session})
-    if (!savedInstance || !updatedUser || !updatedGroup) {
+
+    if (!savedInstance || !owner || !coordinator) {
+      session.abortTransaction()
       session.endSession()
-      return {ok: false, message: 'transacción fallida'} as Answer
+      throw new Error('Error al guardar la instancia')
     }
 
     await session.commitTransaction()
@@ -218,7 +76,242 @@ export async function createOneInstance(
       ok: true,
       message: 'Instancia creada correctamente',
     } as Answer
-  } catch (e) {
-    return decodeMongoError(e)
+  } catch (error) {
+    console.error(error)
+    return {
+      ok: false,
+      message: 'Algo ha ido mal, consulta el error',
+    } as Answer
+  }
+}
+
+//* 2. Funciones de consulta */
+
+/**
+ * @version 1
+ * @description Función para obtener el índice de instancias
+ * @returns content: Índice de instancias con los campos _id, name, fullname, territory e is_online
+ */
+
+export async function getInstancesIndex() {
+  try {
+    await connectToMongoDB()
+    const instancesIndex = await Instance.find()
+      .select('_id name fullname territory is_online')
+      .exec()
+
+    //? Transforma a objeto plano para poder pasar a componentes cliente de Next
+    const instancesIndexPOJO = instancesIndex.map((instance) => {
+      return JSON.parse(JSON.stringify(instance))
+    })
+
+    return {
+      ok: true,
+      message: 'Índice de instancias obtenido',
+      content: instancesIndexPOJO as InstanceIndex[],
+    } as Answer
+  } catch (error) {
+    console.error(error)
+    return {
+      ok: false,
+      message: 'Error desconocido',
+    } as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para obtener todas las instancias
+ * @returns content: Todas las instancias con los campos coordinator, owner, editor y viewers poblados como índice
+ */
+
+export async function getAllInstances() {
+  try {
+    await connectToMongoDB()
+    const allInstances = await Instance.find()
+      .populate({
+        path: 'coordinator',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .populate({
+        path: 'owner',
+        select: '_id name fullname province',
+        model: Group,
+      })
+      .populate({
+        path: 'editors',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .populate({
+        path: 'viewers',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .exec()
+    const allInstancesPOJO = allInstances.map((instance) => {
+      //? Transforma a objeto plano para poder pasar a componentes cliente de Next
+      return JSON.parse(JSON.stringify(instance))
+    })
+    return {
+      ok: true,
+      message: 'Instancias obtenidas',
+      content: allInstancesPOJO as PopulatedInstance[],
+    } as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para obtener algunas instancias
+ * @param ids string[] (Array de ids de instancias)
+ * @returns content: Instancias con los campos coordinator, owner, editor y viewers poblados como índice
+ */
+
+export async function getSomeInstances(ids: string[] | undefined) {
+  try {
+    await connectToMongoDB()
+    const someInstances = await Instance.find({
+      _id: {$in: ids},
+    })
+      .populate({
+        path: 'coordinator',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .populate({
+        path: 'owner',
+        select: '_id name fullname province',
+        model: Group,
+      })
+      .populate({
+        path: 'editors',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .populate({
+        path: 'viewers',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .exec()
+    const someInstancesPOJO = someInstances.map((instance) => {
+      //? Transforma a objeto plano para poder pasar a componentes cliente de Next
+      return JSON.parse(JSON.stringify(instance))
+    })
+    return {
+      ok: true,
+      message: 'Instancias obtenidas',
+      content: someInstancesPOJO as PopulatedInstance[],
+    } as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para obtener una instancia por su nombre
+ * @param name string (Nombre de la instancia)
+ * @returns content: Instancia con los campos coordinator, owner, editor y viewers poblados como índice
+ */
+
+export async function getOneInstance(name: string) {
+  try {
+    await connectToMongoDB()
+    const instance: InstanceDocument | null = await Instance.findOne({
+      name: name,
+    })
+      .populate({
+        path: 'coordinator',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .populate({
+        path: 'owner',
+        select: '_id name fullname province',
+        model: Group,
+      })
+      .populate({
+        path: 'editors',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .populate({
+        path: 'viewers',
+        select: '_id name fullname image',
+        model: User,
+      })
+      .exec()
+    //? Transforma a objeto plano para poder pasar a componentes cliente de Next
+    const instancePOJO = JSON.parse(JSON.stringify(instance))
+    return {
+      ok: true,
+      message: 'Instancia obtenida',
+      content: instancePOJO as PopulatedInstance,
+    } as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+//* 3. Funciones de membresía */
+
+/**
+ * @version 1
+ * @description Función para comprobar si un usuario es editor de una instancia
+ * @param instanceName nombre de la instancia
+ * @param userId _id del usuario
+ */
+export async function checkIsEditor(
+  instanceName: string,
+  userId: string | undefined | null
+) {
+  try {
+    await connectToMongoDB()
+    const matchingInstance: InstanceDocument | null = await Instance.findOne({
+      name: instanceName,
+      editors: {$in: [userId]},
+    })
+    if (!matchingInstance) {
+      return {ok: false, message: 'No eres editor'} as Answer
+    }
+    return {ok: true, message: 'Eres editor'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para comprobar si un usuario es coordinador de una instancia
+ * @param instanceName nombre de la instancia
+ * @param userId _id del usuario
+ */
+
+export async function checkIsCoordinator(
+  instanceName: string,
+  userId: string | undefined | null
+) {
+  try {
+    await connectToMongoDB()
+    const matchingInstance: InstanceDocument | null = await Instance.findOne({
+      name: instanceName,
+      coordinator: userId,
+    })
+    if (!matchingInstance) {
+      return {ok: false, message: 'No eres coordinador'} as Answer
+    }
+    return {ok: true, message: 'Eres coordinador'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }

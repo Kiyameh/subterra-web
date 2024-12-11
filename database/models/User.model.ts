@@ -1,4 +1,4 @@
-import {Document, Schema, models, model, Types, mongo} from 'mongoose'
+import {Document, Schema, models, model, Types, ClientSession} from 'mongoose'
 import bcrypt from 'bcryptjs'
 import {InstanceObject} from './Instance.model'
 import {GroupObject} from './Group.model'
@@ -22,16 +22,37 @@ export interface UserDocument extends Document {
   fav_systems: Types.ObjectId[]
   fav_explorations: Types.ObjectId[]
   comparePassword(candidatePassword: string): Promise<boolean>
-  pushAdminOf(groupId: string): Promise<UserDocument>
-  removeAdminOf(groupId: string): Promise<UserDocument>
-  pushMemberOf(groupId: string): Promise<UserDocument>
-  removeMemberOf(groupId: string): Promise<UserDocument>
-  pushCoordinatorOf(instanceId: string): Promise<UserDocument>
-  removeCoordinatorOf(instanceId: string): Promise<UserDocument>
-  pushEditorOf(instanceId: string): Promise<UserDocument>
-  removeEditorOf(instanceId: string): Promise<UserDocument>
-  pushViewerOf(instanceId: string): Promise<UserDocument>
-  removeViewerOf(instanceId: string): Promise<UserDocument>
+  pushAdminOf(groupId: string, session?: ClientSession): Promise<UserDocument>
+  removeAdminOf(groupId: string, session?: ClientSession): Promise<UserDocument>
+  pushMemberOf(groupId: string, session?: ClientSession): Promise<UserDocument>
+  removeMemberOf(
+    groupId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
+  pushCoordinatorOf(
+    instanceId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
+  removeCoordinatorOf(
+    instanceId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
+  pushEditorOf(
+    instanceId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
+  removeEditorOf(
+    instanceId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
+  pushViewerOf(
+    instanceId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
+  removeViewerOf(
+    instanceId: string,
+    session?: ClientSession
+  ): Promise<UserDocument>
   pushFavCave(caveId: string): Promise<UserDocument>
   removeFavCave(caveId: string): Promise<UserDocument>
   pushFavSystem(systemId: string): Promise<UserDocument>
@@ -102,68 +123,92 @@ userSchema.methods.comparePassword = async function (
 
 userSchema.methods.pushAdminOf = async function (
   groupId: string,
-  session?: mongo.ClientSession
+  session?: ClientSession
 ) {
   this.adminOf.push(groupId)
   return this.save(session)
 }
 
-userSchema.methods.removeAdminOf = async function (groupId: string) {
+userSchema.methods.removeAdminOf = async function (
+  groupId: string,
+  session?: ClientSession
+) {
   this.adminOf = this.adminOf.filter(
     (group: Types.ObjectId) => group.toString() !== groupId
   )
-  return this.save()
+  return this.save(session)
 }
 
 userSchema.methods.pushMemberOf = async function (
   groupId: string,
-  session?: mongo.ClientSession
+  session?: ClientSession
 ) {
   this.memberOf.push(groupId)
   return this.save(session)
 }
 
-userSchema.methods.removeMemberOf = async function (groupId: string) {
+userSchema.methods.removeMemberOf = async function (
+  groupId: string,
+  session?: ClientSession
+) {
   this.memberOf = this.memberOf.filter(
     (group: Types.ObjectId) => group.toString() !== groupId
   )
-  return this.save()
+  return this.save(session)
 }
 
-userSchema.methods.pushCoordinatorOf = async function (instanceId: string) {
+userSchema.methods.pushCoordinatorOf = async function (
+  instanceId: string,
+  session?: ClientSession
+) {
   this.coordinatorOf.push(instanceId)
-  return this.save()
+  return this.save(session)
 }
 
-userSchema.methods.removeCoordinatorOf = async function (instanceId: string) {
+userSchema.methods.removeCoordinatorOf = async function (
+  instanceId: string,
+  session?: ClientSession
+) {
   this.coordinatorOf = this.coordinatorOf.filter(
     (instance: Types.ObjectId) => instance.toString() !== instanceId
   )
-  return this.save()
+  return this.save(session)
 }
 
-userSchema.methods.pushEditorOf = async function (instanceId: string) {
+userSchema.methods.pushEditorOf = async function (
+  instanceId: string,
+  session?: ClientSession
+) {
   this.editorOf.push(instanceId)
-  return this.save()
+  return this.save(session)
 }
 
-userSchema.methods.removeEditorOf = async function (instanceId: string) {
+userSchema.methods.removeEditorOf = async function (
+  instanceId: string,
+  session?: ClientSession
+) {
   this.editorOf = this.editorOf.filter(
     (instance: Types.ObjectId) => instance.toString() !== instanceId
   )
-  return this.save()
+  return this.save(session)
 }
 
-userSchema.methods.pushViewerOf = async function (instanceId: string) {
+userSchema.methods.pushViewerOf = async function (
+  instanceId: string,
+  session?: ClientSession
+) {
   this.viewerOf.push(instanceId)
-  return this.save()
+  return this.save(session)
 }
 
-userSchema.methods.removeViewerOf = async function (instanceId: string) {
+userSchema.methods.removeViewerOf = async function (
+  instanceId: string,
+  session?: ClientSession
+) {
   this.viewerOf = this.viewerOf.filter(
     (instance: Types.ObjectId) => instance.toString() !== instanceId
   )
-  return this.save()
+  return this.save(session)
 }
 
 userSchema.methods.pushFavCave = async function (caveId: string) {
@@ -254,4 +299,11 @@ export interface PopulatedUser
   // fav_caves: CaveObject[] //TODO: Actualizar cuando se cree el tipo
   // fav_systems: SystemObject[] //TODO: Actualizar cuando se cree el tipo
   // fav_explorations: ExplorationObject[] //TODO: Actualizar cuando se cree el tipo
+}
+
+export interface UserIndex {
+  _id: string
+  name: string
+  fullname: string
+  image?: string
 }

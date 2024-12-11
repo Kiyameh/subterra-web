@@ -6,7 +6,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {Answer} from '@/database/types/answer.type'
 import {InstanceFormValues} from '@/database/validation/instance.schemas'
 import {InstanceFormSchema} from '@/database/validation/instance.schemas'
-import {createOneInstance} from '@/database/services/instance.services'
+import {createInstance} from '@/database/services/instance.services'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/fields/text-field'
@@ -30,10 +30,14 @@ const EMPTY_INSTANCE: InstanceFormValues = {
 /**
  * @version 1
  * @description Formulario para crear una instancia
- * @param commander Staff que crea la instancia
+ * @param commanderId Staff que crea la instancia
  */
 
-export default function CreateInstanceForm({commander}: {commander: string}) {
+export default function CreateInstanceForm({
+  commanderId,
+}: {
+  commanderId: string
+}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -45,7 +49,7 @@ export default function CreateInstanceForm({commander}: {commander: string}) {
   function onSubmit(values: InstanceFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createOneInstance(values, commander)
+      const answer = await createInstance(values, commanderId)
       setDbAnswer(answer)
     })
   }

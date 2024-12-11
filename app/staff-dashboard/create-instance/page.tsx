@@ -32,7 +32,7 @@ export default async function CreateInstancePage() {
             </div>
           }
         >
-          <CreateInstanceForm commander={userId} />
+          <CreateInstanceForm commanderId={userId} />
         </BasicCard>
       )}
     </PageContainer>
