@@ -1,4 +1,4 @@
-import {Document, Schema, models, model, Types} from 'mongoose'
+import {Document, Schema, models, model, Types, mongo} from 'mongoose'
 import bcrypt from 'bcryptjs'
 import {InstanceObject} from './Instance.model'
 import {GroupObject} from './Group.model'
@@ -22,6 +22,22 @@ export interface UserDocument extends Document {
   fav_systems: Types.ObjectId[]
   fav_explorations: Types.ObjectId[]
   comparePassword(candidatePassword: string): Promise<boolean>
+  pushAdminOf(groupId: string): Promise<UserDocument>
+  removeAdminOf(groupId: string): Promise<UserDocument>
+  pushMemberOf(groupId: string): Promise<UserDocument>
+  removeMemberOf(groupId: string): Promise<UserDocument>
+  pushCoordinatorOf(instanceId: string): Promise<UserDocument>
+  removeCoordinatorOf(instanceId: string): Promise<UserDocument>
+  pushEditorOf(instanceId: string): Promise<UserDocument>
+  removeEditorOf(instanceId: string): Promise<UserDocument>
+  pushViewerOf(instanceId: string): Promise<UserDocument>
+  removeViewerOf(instanceId: string): Promise<UserDocument>
+  pushFavCave(caveId: string): Promise<UserDocument>
+  removeFavCave(caveId: string): Promise<UserDocument>
+  pushFavSystem(systemId: string): Promise<UserDocument>
+  removeFavSystem(systemId: string): Promise<UserDocument>
+  pushFavExploration(explorationId: string): Promise<UserDocument>
+  removeFavExploration(explorationId: string): Promise<UserDocument>
 }
 
 //* ESQUEMA:
@@ -82,6 +98,110 @@ userSchema.methods.comparePassword = async function (
   const user = this as UserDocument
   if (!user.password) return false
   return bcrypt.compare(candidatePassword, user.password).catch(() => false)
+}
+
+userSchema.methods.pushAdminOf = async function (
+  groupId: string,
+  session?: mongo.ClientSession
+) {
+  this.adminOf.push(groupId)
+  return this.save(session)
+}
+
+userSchema.methods.removeAdminOf = async function (groupId: string) {
+  this.adminOf = this.adminOf.filter(
+    (group: Types.ObjectId) => group.toString() !== groupId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushMemberOf = async function (
+  groupId: string,
+  session?: mongo.ClientSession
+) {
+  this.memberOf.push(groupId)
+  return this.save(session)
+}
+
+userSchema.methods.removeMemberOf = async function (groupId: string) {
+  this.memberOf = this.memberOf.filter(
+    (group: Types.ObjectId) => group.toString() !== groupId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushCoordinatorOf = async function (instanceId: string) {
+  this.coordinatorOf.push(instanceId)
+  return this.save()
+}
+
+userSchema.methods.removeCoordinatorOf = async function (instanceId: string) {
+  this.coordinatorOf = this.coordinatorOf.filter(
+    (instance: Types.ObjectId) => instance.toString() !== instanceId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushEditorOf = async function (instanceId: string) {
+  this.editorOf.push(instanceId)
+  return this.save()
+}
+
+userSchema.methods.removeEditorOf = async function (instanceId: string) {
+  this.editorOf = this.editorOf.filter(
+    (instance: Types.ObjectId) => instance.toString() !== instanceId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushViewerOf = async function (instanceId: string) {
+  this.viewerOf.push(instanceId)
+  return this.save()
+}
+
+userSchema.methods.removeViewerOf = async function (instanceId: string) {
+  this.viewerOf = this.viewerOf.filter(
+    (instance: Types.ObjectId) => instance.toString() !== instanceId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushFavCave = async function (caveId: string) {
+  this.fav_caves.push(caveId)
+  return this.save()
+}
+
+userSchema.methods.removeFavCave = async function (caveId: string) {
+  this.fav_caves = this.fav_caves.filter(
+    (cave: Types.ObjectId) => cave.toString() !== caveId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushFavSystem = async function (systemId: string) {
+  this.fav_systems.push(systemId)
+  return this.save()
+}
+
+userSchema.methods.removeFavSystem = async function (systemId: string) {
+  this.fav_systems = this.fav_systems.filter(
+    (system: Types.ObjectId) => system.toString() !== systemId
+  )
+  return this.save()
+}
+
+userSchema.methods.pushFavExploration = async function (explorationId: string) {
+  this.fav_explorations.push(explorationId)
+  return this.save()
+}
+
+userSchema.methods.removeFavExploration = async function (
+  explorationId: string
+) {
+  this.fav_explorations = this.fav_explorations.filter(
+    (exploration: Types.ObjectId) => exploration.toString() !== explorationId
+  )
+  return this.save()
 }
 
 //* MODELO:

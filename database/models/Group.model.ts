@@ -1,9 +1,16 @@
-import {model, models, Schema, Types, Document} from 'mongoose'
+import {model, models, Schema, Types, Document, mongo} from 'mongoose'
 import {groupCategories} from './Group.enums'
 import {UserObject} from './User.model'
 import {InstanceObject} from './Instance.model'
 
 //* INTERFACES:
+
+export interface MemberRequest {
+  _id: Types.ObjectId
+  user: Types.ObjectId
+  message: string
+}
+
 export interface GroupDocument extends Document {
   name: string
   fullname: string
@@ -24,14 +31,19 @@ export interface GroupDocument extends Document {
   email?: string
   webpage?: string
   admin: Types.ObjectId
-  member_requests: {
-    _id: Types.ObjectId
-    user: Types.ObjectId
-    message: string
-  }[]
+  member_requests: MemberRequest[]
   members: Types.ObjectId[]
   instances: Types.ObjectId[]
   explorations: Types.ObjectId[]
+  pushMember(user: string): Promise<GroupDocument>
+  removeMember(user: string): Promise<GroupDocument>
+  pushMemberRequest(request: MemberRequest): Promise<GroupDocument>
+  removeMemberRequest(requestId: string): Promise<GroupDocument>
+  setAdmin(adminId: string): Promise<GroupDocument>
+  pushInstance(instance: string): Promise<GroupDocument>
+  removeInstance(instanceId: string): Promise<GroupDocument>
+  pushExploration(exploration: string): Promise<GroupDocument>
+  removeExploration(explorationId: string): Promise<GroupDocument>
 }
 
 //* ESQUEMA:
@@ -84,13 +96,67 @@ const groupSchema = new Schema<GroupDocument>(
     timestamps: true,
   }
 )
-//* ÍNDICES:
-
-//* MIDDLEWARES:
-
-//* MÉTODOS ESTATICOS:
-
 //* MÉTODOS DE INSTANCIA:
+groupSchema.methods.pushMember = async function (
+  user: string,
+  session?: mongo.ClientSession
+) {
+  this.members.push(user)
+  return this.save(session)
+}
+
+groupSchema.methods.removeMember = async function (user: string) {
+  this.members = this.members.filter(
+    (member: Types.ObjectId) => member.toString() !== user
+  )
+  return this.save()
+}
+
+groupSchema.methods.pushMemberRequest = async function (
+  request: MemberRequest
+) {
+  this.member_requests.push(request)
+  return this.save()
+}
+
+groupSchema.methods.removeMemberRequest = async function (requestId: string) {
+  this.member_requests = this.member_requests.filter(
+    (request: MemberRequest) => request._id.toString() !== requestId
+  )
+  return this.save()
+}
+
+groupSchema.methods.setAdmin = async function (
+  adminId: string,
+  session?: mongo.ClientSession
+) {
+  this.admin = adminId
+  return this.save(session)
+}
+
+groupSchema.methods.pushInstance = async function (instance: string) {
+  this.instances.push(instance)
+  return this.save()
+}
+
+groupSchema.methods.removeInstance = async function (instanceId: string) {
+  this.instances = this.instances.filter(
+    (instance: Types.ObjectId) => instance.toString() !== instanceId
+  )
+  return this.save()
+}
+
+groupSchema.methods.pushExploration = async function (exploration: string) {
+  this.explorations.push(exploration)
+  return this.save()
+}
+
+groupSchema.methods.removeExploration = async function (explorationId: string) {
+  this.explorations = this.explorations.filter(
+    (exploration: Types.ObjectId) => exploration.toString() !== explorationId
+  )
+  return this.save()
+}
 
 //* MODELO:
 const Group = models?.Group || model<GroupDocument>('Group', groupSchema)

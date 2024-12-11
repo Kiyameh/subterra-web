@@ -6,7 +6,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import DbAwnserBox from '@/components/forms/ui/db-answer-box'
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {createOneGroup} from '@/database/services/group.services'
+import {createGroup} from '@/database/services/group.services'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
@@ -62,7 +62,7 @@ export default function CreateGroupForm({commander}: {commander: string}) {
   function onSubmit(values: GroupFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createOneGroup(values, commander)
+      const answer = await createGroup(values, commander)
       setDbAnswer(answer)
     })
   }

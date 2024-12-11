@@ -19,6 +19,12 @@ export interface InstanceDocument extends Document {
   public_edition: boolean
   main_image: string
   map_image: string
+  pushEditor(editorId: string): Promise<InstanceDocument>
+  removeEditor(editorId: string): Promise<InstanceDocument>
+  pushViewer(viewerId: string): Promise<InstanceDocument>
+  removeViewer(viewerId: string): Promise<InstanceDocument>
+  setOwner(ownerId: string): Promise<InstanceDocument>
+  setCoordinator(coordinatorId: string): Promise<InstanceDocument>
 }
 
 //* ESQUEMA:
@@ -43,13 +49,41 @@ const instanceSchema = new Schema<InstanceDocument>(
   {timestamps: true}
 )
 
-//* ÍNDICES:
-
-//* MIDDLEWARES:
-
-//* MÉTODOS ESTATICOS:
-
 //* MÉTODOS DE INSTANCIA:
+
+instanceSchema.methods.pushEditor = async function (editorId: string) {
+  this.editors.push(editorId)
+  return this.save()
+}
+
+instanceSchema.methods.removeEditor = async function (editorId: string) {
+  this.editors = this.editors.filter(
+    (editor: Types.ObjectId) => editor.toString() !== editorId
+  )
+  return this.save()
+}
+
+instanceSchema.methods.pushViewer = async function (viewerId: string) {
+  this.viewers.push(viewerId)
+  return this.save()
+}
+
+instanceSchema.methods.removeViewer = async function (viewerId: string) {
+  this.viewers = this.viewers.filter(
+    (viewer: Types.ObjectId) => viewer.toString() !== viewerId
+  )
+  return this.save()
+}
+
+instanceSchema.methods.setOwner = async function (ownerId: string) {
+  this.owner = ownerId
+  return this.save()
+}
+
+instanceSchema.methods.setCoordinator = async function (coordinatorId: string) {
+  this.coordinator = coordinatorId
+  return this.save()
+}
 
 //* MODELO:
 

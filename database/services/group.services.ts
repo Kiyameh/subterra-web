@@ -23,7 +23,7 @@ import mongoose from 'mongoose'
  * @returns <Answer> respuesta de la petición
  * Redirect: /group/:name
  */
-export async function createOneGroup(
+export async function createGroup(
   values: GroupFormValues,
   commander: string
 ): Promise<Answer> {
