@@ -3,15 +3,15 @@ import React from 'react'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {deleteInstanceRequest} from '@/database/services/platform.services'
 
-import BasicCard from '@/components/containing/basic-card'
 import {TextSlot} from '@/components/boards/_slots/text-slots'
 import {Button} from '../ui/button'
 
 import {BiMessageAltAdd} from 'react-icons/bi'
 import {MdDelete} from 'react-icons/md'
+import CardWithHeader from '../containing/card-with-header'
 
 /**
- * @version 1
+ * @version 2
  * @description Panel en el que se muestran las solicitudes de instancia y se pueden eliminar
  * @param messages - Array de solicitudes de instancia
  */
@@ -33,11 +33,11 @@ export default function InstanceMessagesBoard({
   }
 
   return (
-    <BasicCard
+    <CardWithHeader
       defaultWidth="xl"
-      cardHeader={
+      cardSubHeader={
         <div className="flex items-center gap-2 text-xl">
-          <BiMessageAltAdd className="text-3xl text-emphasis" />
+          <BiMessageAltAdd className="text-3xl text-staff" />
           <span>Solicitudes de instancia</span>
         </div>
       }
@@ -88,6 +88,6 @@ export default function InstanceMessagesBoard({
           />
         </div>
       ))}
-    </BasicCard>
+    </CardWithHeader>
   )
 }

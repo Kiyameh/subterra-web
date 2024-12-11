@@ -3,16 +3,16 @@ import React from 'react'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {deleteContactMessage} from '@/database/services/platform.services'
 
-import BasicCard from '@/components/containing/basic-card'
 import {TextSlot} from '@/components/boards/_slots/text-slots'
 import {LinkSlot} from '@/components/boards/_slots/link-slots'
 import {Button} from '@/components/ui/button'
 
 import {MdDelete} from 'react-icons/md'
 import {BiMessageDots} from 'react-icons/bi'
+import CardWithHeader from '../containing/card-with-header'
 
 /**
- * @version 1
+ * @version 2
  * @description Panel en el que se muestran los mensajes de contacto y se pueden eliminar
  * @param messages - Array de mensajes de contacto
  */
@@ -34,11 +34,11 @@ export default function ContactMessagesBoard({
   }
 
   return (
-    <BasicCard
+    <CardWithHeader
       defaultWidth="xl"
-      cardHeader={
+      cardSubHeader={
         <div className="flex items-center gap-2 text-xl">
-          <BiMessageDots className="text-3xl text-emphasis" />
+          <BiMessageDots className="text-3xl text-staff" />
           <span>Mensajes de contacto</span>
         </div>
       }
@@ -77,6 +77,6 @@ export default function ContactMessagesBoard({
           />
         </div>
       ))}
-    </BasicCard>
+    </CardWithHeader>
   )
 }

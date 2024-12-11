@@ -27,7 +27,7 @@ export default async function CreateInstancePage() {
           defaultWidth="xl"
           cardHeader={
             <div className="flex items-center gap-2 text-xl">
-              <LuBox className="text-3xl text-emphasis" />
+              <LuBox className="text-3xl text-staff" />
               <span>Crear una instancia</span>
             </div>
           }

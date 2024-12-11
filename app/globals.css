@@ -43,10 +43,10 @@ textarea {
     --accent-foreground: 240 5.9% 10%;
 
     /* Text decoration */
-    --emphasis: 346.8 77.2% 49.8%;
-
+    --emphasis: 216.4 66.8% 51.6%;
     --editor: 172.5 66% 50.4%;
     --admin: 270.7 91% 65.1%;
+    --staff: 75 67% 45%;
 
     /* Estados */
     --destructive-foreground: 17.5 88.3% 40.4%;
@@ -101,6 +101,7 @@ textarea {
     --emphasis: 216.4 66.8% 51.6%;
     --editor: 172.5 66% 50.4%;
     --admin: 270.7 91% 65.1%;
+    --staff: 75 67% 45%;
 
     /* Estados */
     --info-foreground: 198.4 93.2% 59.6%;
