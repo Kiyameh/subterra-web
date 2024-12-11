@@ -1,10 +1,12 @@
-import AboutSection from './(landing)/AboutSection'
-import DesktopNav from '../components/navigation/nav-desktop'
-import Footer from './(landing)/Footer'
-import MobileNav from '../components/navigation/nav-mobile'
-import HowToSection from './(landing)/HowToSection'
-import InstancesSection from './(landing)/InstancesSection'
-import WelcomeSection from './(landing)/WelcomeSection'
+import WelcomeSection from '@/app/(landing)/welcome-section'
+import AboutSection from '@/app/(landing)/about-section'
+import HowToSection from '@/app/(landing)/how-to-section'
+import InstancesSection from '@/app/(landing)/instances-section'
+import GroupsSection from '@/app/(landing)/groups-section'
+import Footer from '@/app/(landing)/Footer'
+
+import DesktopNav from '@/components/navigation/nav-desktop'
+import MobileNav from '@/components/navigation/nav-mobile'
 import FloatingAccountControls from '@/components/account/floating-account-controls'
 
 //* Constantes:
@@ -13,9 +15,10 @@ const sections = [
   {label: '¿Qué es?', id: 'about-section'},
   {label: 'Empezar', id: 'start-section'},
   {label: 'Instancias', id: 'instances-section'},
+  {label: 'Grupos', id: 'groups-section'},
 ]
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <nav className="hidden md:block">
@@ -32,6 +35,7 @@ export default function Home() {
         <AboutSection />
         <HowToSection />
         <InstancesSection />
+        <GroupsSection />
       </main>
       <footer>
         <Footer />

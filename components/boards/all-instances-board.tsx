@@ -5,8 +5,8 @@ import NotFoundCard from '@/components/displaying/404-not-found'
 import InstanceCard from '@/components/boards/_cards/instance-card'
 
 export default async function InstancesBoard() {
-  const answer = await getAllInstances()
-  if (!answer.ok)
+  const instances = (await getAllInstances()).content as PopulatedInstance[]
+  if (!instances)
     return (
       <NotFoundCard
         title="Algo ha ido mal"
@@ -14,7 +14,6 @@ export default async function InstancesBoard() {
       />
     )
 
-  const instances = answer.content as PopulatedInstance[]
   return (
     <section className="max-w-full flex flex-wrap justify-center gap-4">
       {instances &&

@@ -52,7 +52,7 @@ export default function BasicDialog({
     xxl: 'w-[1024px]',
   }
   const width = sizeMap[defaultWidth]
-  const glass = glassmorphism ? 'bg-black bg-opacity-20 backdrop-blur-sm' : ''
+  const glass = glassmorphism ? 'bg-black bg-opacity-50 backdrop-blur-sm' : ''
 
   const style = cn(
     'max-w-[90%] bg-card flex flex-col justify-between rounded-xl p-0',

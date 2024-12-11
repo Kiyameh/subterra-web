@@ -3,6 +3,7 @@ import React from 'react'
 import {LuBox} from 'react-icons/lu'
 import PageContainer from '@/components/containing/page-container'
 import BasicCard from '@/components/containing/basic-card'
+import DownAnchor from '@/components/navigation/down-anchor'
 
 export default function InstancesSection() {
   return (
@@ -24,6 +25,9 @@ export default function InstancesSection() {
         </p>
       </BasicCard>
       <InstancesBoard />
+      <nav>
+        <DownAnchor href="#groups-section" />
+      </nav>
     </PageContainer>
   )
 }

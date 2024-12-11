@@ -4,7 +4,7 @@ import {FaUserGroup} from 'react-icons/fa6'
 
 export function GroupCard({groupIndex}: {groupIndex: GroupIndex}) {
   return (
-    <div className="flex items-center gap-4 p-4 rounded-lg border border-muted-foreground">
+    <div className="flex items-center gap-4 p-4 rounded-lg border border-muted-foreground bg-card">
       <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-primary text-xl text-sidebar-primary-foreground">
         <FaUserGroup />
       </div>

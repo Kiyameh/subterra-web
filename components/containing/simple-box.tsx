@@ -28,7 +28,7 @@ export default function SimpleBox({
     xxl: 'w-[1024px]',
   }
   const width = sizeMap[defaultWidth]
-  const glass = glassmorphism ? 'bg-black bg-opacity-20 backdrop-blur-sm' : ''
+  const glass = glassmorphism ? 'bg-black bg-opacity-50 backdrop-blur-sm' : ''
 
   const style = cn(
     'max-w-[90%]	border border-muted-foreground flex flex-col justify-between p-6 rounded-xl',

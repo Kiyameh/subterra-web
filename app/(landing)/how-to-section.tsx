@@ -16,6 +16,7 @@ export default function HowToSection() {
     >
       <div className="flex flex-wrap gap-5 justify-center">
         <BasicCard
+          glassmorphism
           cardHeader={
             <div className="flex items-center gap-4">
               <MdGroup className="text-3xl" />
@@ -38,6 +39,7 @@ export default function HowToSection() {
         </BasicCard>
 
         <BasicCard
+          glassmorphism
           cardHeader={
             <div className="flex items-center gap-4">
               <FaPersonHiking className="text-3xl" />

@@ -41,7 +41,7 @@ export default function BasicCard({
     xxl: 'w-[1024px] max-w-[90vw]',
   }
   const width = sizeMap[defaultWidth]
-  const glass = glassmorphism ? 'bg-black bg-opacity-20 backdrop-blur-sm' : ''
+  const glass = glassmorphism ? 'bg-black bg-opacity-50 backdrop-blur-sm' : ''
 
   const style = cn(
     'border border-muted-foreground flex flex-col justify-between',
