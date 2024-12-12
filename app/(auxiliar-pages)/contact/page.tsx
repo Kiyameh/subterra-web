@@ -1,8 +1,9 @@
 import {auth} from '@/auth'
-import CardWithHeader from '@/components/containing/card-with-header'
-import CollapsibleBox from '@/components/containing/collapsible-box'
-import PageContainer from '@/components/containing/page-container'
-import ContactForm from '@/components/forms/contact-form'
+import ContactForm from '@/components/_Organisms/forms/contact-form'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
+import PageContainer from '@/components/theming/page-container'
+
 import {BiSolidMessage} from 'react-icons/bi'
 
 export default async function ContactPage() {

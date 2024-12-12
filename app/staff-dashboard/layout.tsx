@@ -1,6 +1,6 @@
 import {auth} from '@/auth'
-import PageContainer from '@/components/containing/page-container'
-import NotFoundCard from '@/components/displaying/404-not-found'
+import PageContainer from '@/components/theming/page-container'
+import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
 

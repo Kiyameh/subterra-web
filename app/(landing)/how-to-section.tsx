@@ -1,11 +1,11 @@
-import DownAnchor from '@/components/navigation/down-anchor'
+import DownAnchor from '@/components/_Atoms/buttons/down-anchor'
 import React from 'react'
 
 import {FaPersonHiking} from 'react-icons/fa6'
 import {MdGroup} from 'react-icons/md'
 
-import LinkButton from '@/components/navigation/link-button'
-import BasicCard from '@/components/containing/basic-card'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
 
 export default function HowToSection() {
   return (

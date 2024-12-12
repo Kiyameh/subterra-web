@@ -1,6 +1,6 @@
 import SubterraLogo from '@/components/branding/subterra-logo'
-import SimpleBox from '@/components/containing/simple-box'
-import DownAnchor from '@/components/navigation/down-anchor'
+import SimpleBox from '@/components/_Atoms/boxes/simple-box'
+import DownAnchor from '@/components/_Atoms/buttons/down-anchor'
 import React from 'react'
 
 export default function WelcomeSection() {

@@ -5,8 +5,8 @@ import InstancesSection from '@/app/(landing)/instances-section'
 import GroupsSection from '@/app/(landing)/groups-section'
 import Footer from '@/app/(landing)/Footer'
 
-import DesktopNav from '@/components/navigation/nav-desktop'
-import MobileNav from '@/components/navigation/nav-mobile'
+import DesktopNav from '@/components/_Organisms/navs/nav-desktop'
+import MobileNav from '@/components/_Organisms/navs/nav-mobile'
 import FloatingAccountControls from '@/components/account/floating-account-controls'
 
 //* Constantes:

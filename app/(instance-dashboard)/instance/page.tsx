@@ -1,4 +1,4 @@
-import InstancesBoard from '@/components/boards/all-instances-board'
+import InstancesBoard from '@/components/_Organisms/boards/all-instances-board'
 
 export default function InstanceListPage() {
   return (

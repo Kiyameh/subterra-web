@@ -3,13 +3,12 @@ import {auth} from '@/auth'
 import {getOneGroup} from '@/database/services/group.services'
 import {PopulatedGroup} from '@/database/models/Group.model'
 
-import NotFoundCard from '@/components/displaying/404-not-found'
-import PendingRequestBanner from '@/components/boards/_interaction/pending-request-banner'
-import MembersAdminCard from '@/components/boards/_cards/members-admin-card'
-import GroupEditionForm from '@/components/forms/group-edition-form'
-import PageContainer from '@/components/containing/page-container'
-import BasicCard from '@/components/containing/basic-card'
-import LinkButton from '@/components/navigation/link-button'
+import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
+import PendingRequestBanner from '@/components/_Molecules/interactives/pending-request-banner'
+import PageContainer from '@/components/theming/page-container'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import GroupEditionForm from '@/components/_Organisms/forms/group-edition-form'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -57,10 +56,7 @@ export default async function GroupAdminPage({params}: PageProps) {
           href={'admin/instance-request'}
         />
       </BasicCard>
-      <MembersAdminCard
-        members={group.members}
-        groupId={group._id}
-      />
+
       <BasicCard defaultWidth="xl">
         {userId && (
           <GroupEditionForm

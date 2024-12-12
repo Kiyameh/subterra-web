@@ -1,8 +1,8 @@
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
 
-import PageContainer from '@/components/containing/page-container'
-import ContactMessagesBoard from '@/components/staff/contact-messages-board'
+import PageContainer from '@/components/theming/page-container'
+import ContactMessagesBoard from '@/components/_Organisms/boards/contact-messages-board'
 
 export default async function StaffDashboardPage() {
   const subterra = (await getOnePlatform('subterra'))

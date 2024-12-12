@@ -1,11 +1,11 @@
-import NotFoundCard from '@/components/displaying/404-not-found'
+import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import {PopulatedGroup} from '@/database/models/Group.model'
 import {checkIsAdmin, getOneGroup} from '@/database/services/group.services'
 import MembersTable, {
   MembersTableRow,
-} from '@/components/boards/_tables/members-table'
+} from '@/components/_Organisms/tables/members-table'
 
-import PageContainer from '@/components/containing/page-container'
+import PageContainer from '@/components/theming/page-container'
 import {auth} from '@/auth'
 
 interface PageProps {

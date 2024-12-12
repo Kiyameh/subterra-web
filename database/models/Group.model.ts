@@ -1,7 +1,7 @@
 import {model, models, Schema, Types, Document, ClientSession} from 'mongoose'
 import {groupCategories} from './Group.enums'
 import {UserObject} from './User.model'
-import {MemberRequestValues} from '@/components/boards/_interaction/membership-request-dialog'
+import {MemberRequestValues} from '@/components/_Molecules/interactives/membership-request-dialog'
 
 //* INTERFACES:
 

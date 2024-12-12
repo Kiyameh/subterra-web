@@ -1,10 +1,10 @@
-import DownAnchor from '@/components/navigation/down-anchor'
+import DownAnchor from '@/components/_Atoms/buttons/down-anchor'
 import React from 'react'
 import {IoMdInformationCircleOutline} from 'react-icons/io'
 import {LuBox} from 'react-icons/lu'
 import {MdStorage} from 'react-icons/md'
-import PageContainer from '@/components/containing/page-container'
-import BasicCard from '@/components/containing/basic-card'
+import PageContainer from '@/components/theming/page-container'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
 
 export default function AboutSection() {
   return (

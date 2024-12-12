@@ -1,9 +1,9 @@
-import InstancesBoard from '@/components/boards/all-instances-board'
+import InstancesBoard from '@/components/_Organisms/boards/all-instances-board'
 import React from 'react'
 import {LuBox} from 'react-icons/lu'
-import PageContainer from '@/components/containing/page-container'
-import BasicCard from '@/components/containing/basic-card'
-import DownAnchor from '@/components/navigation/down-anchor'
+import PageContainer from '@/components/theming/page-container'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import DownAnchor from '@/components/_Atoms/buttons/down-anchor'
 
 export default function InstancesSection() {
   return (

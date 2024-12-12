@@ -1,5 +1,5 @@
-import NotFoundCard from '@/components/displaying/404-not-found'
-import InDevelopmentCard from '@/components/displaying/501-not-implemented'
+import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
+import InDevelopmentCard from '@/components/_Molecules/cards/501-not-implemented'
 import {PopulatedInstance} from '@/database/models/Instance.model'
 import {getOneInstance} from '@/database/services/instance.services'
 

@@ -3,10 +3,10 @@ import {auth} from '@/auth'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
 
-import PageContainer from '@/components/containing/page-container'
-import BasicCard from '@/components/containing/basic-card'
-import CreateInstanceForm from '@/components/staff/create-instance-form'
-import InstanceMessagesBoard from '@/components/staff/instance-messages-board'
+import PageContainer from '@/components/theming/page-container'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import CreateInstanceForm from '@/components/_Organisms/forms/create-instance-form'
+import InstanceMessagesBoard from '@/components/_Organisms/boards/instance-messages-board'
 
 import {LuBox} from 'react-icons/lu'
 

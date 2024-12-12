@@ -1,17 +1,17 @@
-import React from "react";
-import ShortcutTooltip from "@/components/displaying/shortcut-tooltip";
-import NavigationBreadcrumb from "@/components/navigation/nav-breadcrumb";
-import GroupSidebar from "@/components/sidebar/group-sidebar";
+import React from 'react'
+import ShortcutTooltip from '@/components/_Atoms/indicators/shortcut-tooltip'
+import NavigationBreadcrumb from '@/components/_Organisms/navs/nav-breadcrumb'
+import GroupSidebar from '@/components/sidebar/group-sidebar'
 
 import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
 
 interface GroupDashboardLayoutProps {
-  params: Promise<{ group: string }>;
-  children: React.ReactElement;
+  params: Promise<{group: string}>
+  children: React.ReactElement
 }
 
 /**
@@ -23,7 +23,7 @@ export default async function GroupDashboardLayout({
   children,
 }: GroupDashboardLayoutProps) {
   // Obtener nombre del grupo de la URL:
-  const groupName = (await params).group;
+  const groupName = (await params).group
   return (
     <SidebarProvider>
       {/* Componente de la barra lateral del grupo */}
@@ -42,5 +42,5 @@ export default async function GroupDashboardLayout({
         </main>
       </SidebarInset>
     </SidebarProvider>
-  );
+  )
 }

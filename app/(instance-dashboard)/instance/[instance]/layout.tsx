@@ -1,17 +1,17 @@
-import React from "react";
-import ShortcutTooltip from "@/components/displaying/shortcut-tooltip";
-import NavigationBreadcrumb from "@/components/navigation/nav-breadcrumb";
-import InstanceSidebar from "@/components/sidebar/instance-sidebar";
+import React from 'react'
+import ShortcutTooltip from '@/components/_Atoms/indicators/shortcut-tooltip'
+import NavigationBreadcrumb from '@/components/_Organisms/navs/nav-breadcrumb'
+import InstanceSidebar from '@/components/sidebar/instance-sidebar'
 
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
 
 interface InstanceDashboardLayoutProps {
-  params: Promise<{ instance: string }>;
-  children: React.ReactNode;
+  params: Promise<{instance: string}>
+  children: React.ReactNode
 }
 
 /**
@@ -23,7 +23,7 @@ export default async function InstanceDashboardLayout({
   children,
 }: InstanceDashboardLayoutProps) {
   // Obtener nombre de la instancia de la URL:
-  const instanceName = (await params).instance;
+  const instanceName = (await params).instance
   return (
     <SidebarProvider>
       {/* Componente de la barra lateral de instancia */}
@@ -42,5 +42,5 @@ export default async function InstanceDashboardLayout({
         </main>
       </SidebarInset>
     </SidebarProvider>
-  );
+  )
 }

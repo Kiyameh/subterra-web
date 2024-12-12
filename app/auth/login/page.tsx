@@ -1,10 +1,10 @@
 import React from 'react'
-import LoginForm from '@/components/forms/login-form'
 import GoogleButton from '@/components/account/google-button'
-import Divider from '@/components/displaying/divider'
-import LinkButton from '@/components/navigation/link-button'
-import CardWithHeader from '@/components/containing/card-with-header'
-import PageContainer from '@/components/containing/page-container'
+import Divider from '@/components/_Atoms/boxes/divider'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import PageContainer from '@/components/theming/page-container'
+import LoginForm from '@/components/_Organisms/forms/login-form'
 
 export default function LoginPage() {
   return (

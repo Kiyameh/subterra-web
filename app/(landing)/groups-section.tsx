@@ -1,7 +1,7 @@
 import React from 'react'
-import BasicCard from '@/components/containing/basic-card'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import {FaUserGroup} from 'react-icons/fa6'
-import GroupsBoard from '@/components/boards/all-groups-board'
+import GroupsBoard from '@/components/_Organisms/boards/all-groups-board'
 
 export default function GroupsSection() {
   return (

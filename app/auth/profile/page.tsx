@@ -1,5 +1,5 @@
 import React from 'react'
-import BackButton from '@/components/navigation/back-button'
+import BackButton from '@/components/_Atoms/buttons/back-button'
 import {FaUser} from 'react-icons/fa'
 
 import {Card, CardHeader, CardFooter, CardContent} from '@/components/ui/card'

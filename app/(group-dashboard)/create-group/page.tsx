@@ -1,11 +1,11 @@
 import {auth} from '@/auth'
-import BasicCard from '@/components/containing/basic-card'
-import GroupCreationForm from '@/components/forms/group-creation-form'
-import BackButton from '@/components/navigation/back-button'
-import LinkButton from '@/components/navigation/link-button'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import BackButton from '@/components/_Atoms/buttons/back-button'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {FiAlertTriangle} from 'react-icons/fi'
-import PageContainer from '@/components/containing/page-container'
-import CardWithHeader from '@/components/containing/card-with-header'
+import PageContainer from '@/components/theming/page-container'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import GroupCreationForm from '@/components/_Organisms/forms/group-creation-form'
 
 export default async function GroupCreationPage() {
   const session = await auth()
