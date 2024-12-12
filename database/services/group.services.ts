@@ -408,3 +408,55 @@ export async function rejectMemberRequest(groupId: string, requestId: string) {
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
+
+/**
+ * @version 1
+ * @description Función para eliminar un miembro de un grupo
+ * @param groupId _id del grupo
+ * @param userId _id del usuario
+ */
+
+export async function removeMember(groupId: string, userId: string | null) {
+  try {
+    await connectToMongoDB()
+    const group: GroupDocument | null = await Group.findById(groupId)
+    if (!group) throw new Error('Grupo no encontrado')
+
+    const isMember = await checkIsMember(group.name, userId)
+    if (!userId || !isMember) throw new Error('Usuario no es miembro')
+
+    const updated = await group.removeMember(userId)
+    if (!updated) throw new Error('Error al eliminar el miembro')
+
+    return {ok: true, message: 'Miembro eliminado'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para promocionar miembro como administrador
+ * @param groupId _id del grupo
+ * @param userId _id del usuario
+ */
+
+export async function promoteAdmin(groupId: string, userId: string | null) {
+  try {
+    await connectToMongoDB()
+    const group: GroupDocument | null = await Group.findById(groupId)
+    if (!group) throw new Error('Grupo no encontrado')
+
+    const isMember = await checkIsMember(group.name, userId)
+    if (!userId || !isMember) throw new Error('Usuario no es miembro')
+
+    const updated = await group.setAdmin(userId)
+    if (!updated) throw new Error('Error al promocionar miembro')
+
+    return {ok: true, message: 'Miembro promocionado'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}

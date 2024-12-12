@@ -2,12 +2,13 @@
 
 Componentes contenedores
 
-## Componentes revisados (nov24)
+## Componentes revisados (dic24)
 
 - BasicCard
 - BasicDialog
 - CardWithHeader
 - CollapsibleBox
+- InfoBox
 - PageContainer
 - SimpleBox
 

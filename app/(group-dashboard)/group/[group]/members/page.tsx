@@ -1,11 +1,12 @@
 import NotFoundCard from '@/components/displaying/404-not-found'
 import {PopulatedGroup} from '@/database/models/Group.model'
-import {getOneGroup} from '@/database/services/group.services'
+import {checkIsAdmin, getOneGroup} from '@/database/services/group.services'
 import MembersTable, {
-  MembersTableRows,
+  MembersTableRow,
 } from '@/components/boards/_tables/members-table'
 
 import PageContainer from '@/components/containing/page-container'
+import {auth} from '@/auth'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -18,6 +19,11 @@ export default async function GroupMembersPage({params}: PageProps) {
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
 
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id
+
+  // Validar roles de usuario
+  const isAdmin = (await checkIsAdmin(groupName, userId)).ok as boolean
   if (!group) {
     return (
       <PageContainer>
@@ -30,8 +36,11 @@ export default async function GroupMembersPage({params}: PageProps) {
   }
 
   // Generar las filas de la tabla
-  const rows: MembersTableRows[] = group.members.map((member) => ({
-    user: {name: member.name, image: member.image},
+
+  const rows: MembersTableRow[] = group.members.map((member) => ({
+    _id: member._id,
+    name: member.name,
+    image: member.image,
     fullname: member.fullname,
     email: member.email,
     isAdmin: group.admin._id.toString() === member._id,
@@ -39,7 +48,11 @@ export default async function GroupMembersPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <MembersTable rows={rows} />
+      <MembersTable
+        groupId={group._id}
+        rows={rows}
+        adminActions={isAdmin}
+      />
     </PageContainer>
   )
 }
