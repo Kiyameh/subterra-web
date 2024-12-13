@@ -24,7 +24,7 @@ import {IoIosWarning} from 'react-icons/io'
  * @version 1
  * @description Diálogo para eliminar un miembro de un grupo
  * @param groupId  Id del grupo al que se envía la solicitud
- * @param userId  Id del usuario a promocionar
+ * @param userId  Id del usuario a eliminar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
@@ -98,7 +98,7 @@ export default function RemoveMemberDialog({
             onClick={handleAccept}
           >
             {isPending && <Loader2 className="animate-spin" />}
-            Acceptar
+            Aceptar
           </Button>
         </DialogFooter>
       </DialogContent>

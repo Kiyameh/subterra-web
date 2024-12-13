@@ -306,4 +306,5 @@ export interface UserIndex {
   name: string
   fullname: string
   image?: string
+  email?: string
 }

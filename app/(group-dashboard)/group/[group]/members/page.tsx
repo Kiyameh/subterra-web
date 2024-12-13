@@ -1,9 +1,9 @@
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import {PopulatedGroup} from '@/database/models/Group.model'
 import {checkIsAdmin, getOneGroup} from '@/database/services/group.services'
-import MembersTable, {
-  MembersTableRow,
-} from '@/components/_Organisms/tables/members-table'
+import GroupMembersTable, {
+  GroupMembersTableRow,
+} from '@/components/_Organisms/tables/group-members-table'
 
 import PageContainer from '@/components/theming/page-container'
 import {auth} from '@/auth'
@@ -37,7 +37,7 @@ export default async function GroupMembersPage({params}: PageProps) {
 
   // Generar las filas de la tabla
 
-  const rows: MembersTableRow[] = group.members.map((member) => ({
+  const rows: GroupMembersTableRow[] = group.members.map((member) => ({
     _id: member._id,
     name: member.name,
     image: member.image,
@@ -48,7 +48,7 @@ export default async function GroupMembersPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <MembersTable
+      <GroupMembersTable
         groupId={group._id}
         rows={rows}
         adminActions={isAdmin}

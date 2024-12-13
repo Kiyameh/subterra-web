@@ -9,53 +9,54 @@ import {Button} from '@/components/ui/button'
 import {LinkCell} from '@/components/_Atoms/cells/link-cell'
 
 import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
-import PromoteToAdminDialog from '@/components/_Molecules/interactives/promote-to-admin-dialog'
-import RemoveMemberDialog from '@/components/_Molecules/interactives/remove-member-dialog'
 
-import {FaUser} from 'react-icons/fa'
-import {MdDeleteForever} from 'react-icons/md'
-import {MdOutlineUpgrade} from 'react-icons/md'
+import {FaUserEdit} from 'react-icons/fa'
+import {RiArrowUpDoubleLine} from 'react-icons/ri'
+import {IoMdClose} from 'react-icons/io'
 import {MdOutlineAdminPanelSettings} from 'react-icons/md'
+
 import CardTitle from '@/components/_Atoms/boxes/card-title'
+import PromoteToCoordinatorDialog from '@/components/_Molecules/interactives/promote-to-coordinator-dialog'
+import RemoveEditorDialog from '@/components/_Molecules/interactives/remove-editor-dialog'
 
 // Interfaz de las filas de la tabla
-export interface MembersTableRow {
+export interface InstanceEditorsTableRow {
   _id: string
   name: string
   image: string | undefined
   fullname: string | undefined
-  email: string
-  isAdmin: boolean
+  email: string | undefined
+  isCoordinator: boolean
 }
 
 /**
  * @version 1
- * @description Tabla de miembros de un grupo
- * @param groupId id del grupo
- * @param rows filas segun la interfaz MembersTableRow
- * @param adminActions Si se muestran las acciones de administrador
+ * @description Tabla de editores de una instancia
+ * @param instanceId id del grupo
+ * @param rows filas segun la interfaz InstanceEditorsTableRow
+ * @param adminActions Si se muestran las acciones del coordinador
  */
 
-export default function MembersTable({
-  groupId,
+export default function InstanceEditorsTable({
+  instanceId,
   rows,
   adminActions = false,
 }: {
-  groupId: string
-  rows: MembersTableRow[]
+  instanceId: string
+  rows: InstanceEditorsTableRow[]
   adminActions?: boolean
 }) {
-  const [selectedMember, setSelectedMember] = React.useState<string | null>(
+  const [selectedEditor, setSelectedEditor] = React.useState<string | null>(
     null
   )
   const [removeDialogOpen, setRemoveDialogOpen] = React.useState(false)
   const [promoteDialogOpen, setPromoteDialogOpen] = React.useState(false)
 
   // Definición de las columnas de la tabla
-  const columns: ColumnDef<MembersTableRow>[] = [
+  const columns: ColumnDef<InstanceEditorsTableRow>[] = [
     {
       accessorKey: 'user',
-      header: 'Usuario',
+      header: 'Editor',
       cell: ({row}) => {
         return (
           <div className="flex gap-2 items-center">
@@ -82,16 +83,16 @@ export default function MembersTable({
       ),
     },
     {
-      accessorKey: 'isAdmin',
+      accessorKey: 'isCoordinator',
       header: 'Roles',
       cell: ({row}) =>
-        row.original.isAdmin ? (
-          <AdminBadge helperText="Administrador del grupo" />
-        ) : (
-          <EditorBadge
-            label="Miembro"
-            helperText="Miembro del grupo"
+        row.original.isCoordinator ? (
+          <AdminBadge
+            helperText="Coordinador de la instancia"
+            label="Coordinador"
           />
+        ) : (
+          <EditorBadge helperText="Editor de la instancia" />
         ),
     },
     {
@@ -100,7 +101,7 @@ export default function MembersTable({
         adminActions ? (
           <div className="flex flex-row gap-2 items-center">
             <MdOutlineAdminPanelSettings className="text-admin text-lg" />
-            Acciones de administrador
+            Acciones de coordinador
           </div>
         ) : (
           ' '
@@ -108,28 +109,29 @@ export default function MembersTable({
       cell: ({row}) => {
         return (
           adminActions &&
-          !row.original.isAdmin && (
+          !row.original.isCoordinator && (
             <div className="flex gap-2">
               <Button
                 variant="admin"
                 size="sm"
                 onClick={() => {
-                  setSelectedMember(row.original._id)
+                  setSelectedEditor(row.original._id)
                   setPromoteDialogOpen(true)
                 }}
               >
-                <MdOutlineUpgrade />
+                <RiArrowUpDoubleLine />
                 Promocionar
               </Button>
               <Button
                 variant="destructive"
                 size="sm"
                 onClick={() => {
-                  setSelectedMember(row.original._id)
+                  setSelectedEditor(row.original._id)
                   setRemoveDialogOpen(true)
                 }}
               >
-                <MdDeleteForever />
+                <IoMdClose />
+                Retirar permisos
               </Button>
             </div>
           )
@@ -143,8 +145,8 @@ export default function MembersTable({
       className="w-full"
       cardHeader={
         <CardTitle
-          title="Miembros del grupo"
-          icon={<FaUser />}
+          title="Editores de la instancia"
+          icon={<FaUserEdit />}
         />
       }
     >
@@ -152,16 +154,16 @@ export default function MembersTable({
         columns={columns}
         data={rows}
       />
-      <PromoteToAdminDialog
+      <PromoteToCoordinatorDialog
         isOpen={promoteDialogOpen}
-        groupId={groupId}
-        userId={selectedMember}
+        instanceId={instanceId}
+        userId={selectedEditor}
         onOpenChange={setPromoteDialogOpen}
       />
-      <RemoveMemberDialog
+      <RemoveEditorDialog
         isOpen={removeDialogOpen}
-        groupId={groupId}
-        userId={selectedMember}
+        instanceId={instanceId}
+        userId={selectedEditor}
         onOpenChange={setRemoveDialogOpen}
       />
     </BasicCard>

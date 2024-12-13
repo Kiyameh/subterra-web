@@ -423,7 +423,7 @@ export async function removeMember(groupId: string, userId: string | null) {
     if (!group) throw new Error('Grupo no encontrado')
 
     const isMember = await checkIsMember(group.name, userId)
-    if (!userId || !isMember) throw new Error('Usuario no es miembro')
+    if (!userId || !isMember.ok) throw new Error('Usuario no es miembro')
 
     const updated = await group.removeMember(userId)
     if (!updated) throw new Error('Error al eliminar el miembro')
@@ -449,7 +449,7 @@ export async function promoteAdmin(groupId: string, userId: string | null) {
     if (!group) throw new Error('Grupo no encontrado')
 
     const isMember = await checkIsMember(group.name, userId)
-    if (!userId || !isMember) throw new Error('Usuario no es miembro')
+    if (!userId || !isMember.ok) throw new Error('Usuario no es miembro')
 
     const updated = await group.setAdmin(userId)
     if (!updated) throw new Error('Error al promocionar miembro')

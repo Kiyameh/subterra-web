@@ -5,9 +5,9 @@ import {getOneGroup} from '@/database/services/group.services'
 import PageContainer from '@/components/theming/page-container'
 import {getSomeInstances} from '@/database/services/instance.services'
 import {PopulatedInstance} from '@/database/models/Instance.model'
-import InstancesTable, {
-  InstancesTableRow,
-} from '@/components/_Organisms/tables/instances-table'
+import GroupInstancesTable, {
+  GroupInstancesTableRow,
+} from '@/components/_Organisms/tables/group-instances-table'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -39,7 +39,7 @@ export default async function GroupInstancesPage({params}: PageProps) {
 
   // Generar las filas de la tabla
 
-  const rows: InstancesTableRow[] = instances.map((instance) => ({
+  const rows: GroupInstancesTableRow[] = instances.map((instance) => ({
     _id: instance._id,
     name: instance.name,
     fullname: instance.fullname,
@@ -50,7 +50,7 @@ export default async function GroupInstancesPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <InstancesTable rows={rows} />
+      <GroupInstancesTable rows={rows} />
     </PageContainer>
   )
 }

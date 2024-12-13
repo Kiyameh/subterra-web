@@ -2,10 +2,9 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {promoteAdmin} from '@/database/services/group.services'
 import {Answer} from '@/database/types/answer.type'
 
-import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
+import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
 import {
   Dialog,
@@ -17,25 +16,27 @@ import {
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
-import {FaUserLock} from 'react-icons/fa6'
+import {FaUserTimes} from 'react-icons/fa'
+import {IoIosWarning} from 'react-icons/io'
+import {removeEditor} from '@/database/services/instance.services'
 
 /**
  * @version 1
- * @description Diálogo para promoción de un miembro a administrador
- * @param groupId  Id del grupo al que se envía la solicitud
- * @param userId  Id del usuario a promocionar
+ * @description Diálogo para eliminar un editor de una instancia
+ * @param instanceId  Id de la instancia al que se envía la solicitud
+ * @param userId  Id del usuario a eliminar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function PromoteToAdminDialog({
+export default function RemoveEditorDialog({
   userId,
-  groupId,
+  instanceId,
   isOpen,
   onOpenChange,
 }: {
   userId: string | null
-  groupId: string
+  instanceId: string
   isOpen: boolean
   onOpenChange: (open: boolean) => void
 }) {
@@ -46,7 +47,7 @@ export default function PromoteToAdminDialog({
   const handleAccept = () => {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await promoteAdmin(groupId, userId)
+      const answer = await removeEditor(instanceId, userId)
       setDbAnswer(answer)
 
       if (answer.ok) {
@@ -70,18 +71,19 @@ export default function PromoteToAdminDialog({
       <DialogContent className="bg-card w-[460px] max-w-[90%]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <FaUserLock />
-            Promocionar como administrador
+            <FaUserTimes />
+            Eliminar editor
           </DialogTitle>
         </DialogHeader>
-        <CollapsibleBox
+        <InfoBox
           title="¿Estás seguro?"
           color="destructive"
+          icon={<IoIosWarning />}
         >
-          Solo puede haber un administrador por grupo, esta acción te
-          reemplazará como administrador del grupo y le dará a este usuario
-          todos tus permisos.
-        </CollapsibleBox>
+          El usuario pasara a ser un invitado común sin permisos de edición.
+          Esta acción es irreversible
+        </InfoBox>
+
         <DbAwnserBox answer={dbAnswer} />
         <DialogFooter className="mt-6">
           <Button

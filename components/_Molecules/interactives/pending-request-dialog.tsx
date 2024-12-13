@@ -128,7 +128,7 @@ export default function PendingRequestDialog({
             onClick={handleAccept}
           >
             {isPending && <Loader2 className="animate-spin" />}
-            Acceptar
+            Aceptar
           </Button>
         </DialogFooter>
       </DialogContent>

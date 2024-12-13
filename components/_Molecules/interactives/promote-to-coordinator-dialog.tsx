@@ -2,7 +2,6 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {promoteAdmin} from '@/database/services/group.services'
 import {Answer} from '@/database/types/answer.type'
 
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
@@ -18,24 +17,25 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
 import {FaUserLock} from 'react-icons/fa6'
+import {promoteCoordinator} from '@/database/services/instance.services'
 
 /**
  * @version 1
- * @description Diálogo para promoción de un miembro a administrador
- * @param groupId  Id del grupo al que se envía la solicitud
+ * @description Diálogo para promoción de un editor como coordinador de una instancia
+ * @param instanceId  Id de la instancia al que se envía la solicitud
  * @param userId  Id del usuario a promocionar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function PromoteToAdminDialog({
+export default function PromoteToCoordinatorDialog({
   userId,
-  groupId,
+  instanceId,
   isOpen,
   onOpenChange,
 }: {
   userId: string | null
-  groupId: string
+  instanceId: string
   isOpen: boolean
   onOpenChange: (open: boolean) => void
 }) {
@@ -46,7 +46,7 @@ export default function PromoteToAdminDialog({
   const handleAccept = () => {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await promoteAdmin(groupId, userId)
+      const answer = await promoteCoordinator(instanceId, userId)
       setDbAnswer(answer)
 
       if (answer.ok) {
@@ -71,15 +71,15 @@ export default function PromoteToAdminDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
             <FaUserLock />
-            Promocionar como administrador
+            Promocionar como coordinador
           </DialogTitle>
         </DialogHeader>
         <CollapsibleBox
           title="¿Estás seguro?"
           color="destructive"
         >
-          Solo puede haber un administrador por grupo, esta acción te
-          reemplazará como administrador del grupo y le dará a este usuario
+          Solo puede haber un coordinador de instancia, esta acción te
+          reemplazará como coordinador de la instancia y le dará a este usuario
           todos tus permisos.
         </CollapsibleBox>
         <DbAwnserBox answer={dbAnswer} />

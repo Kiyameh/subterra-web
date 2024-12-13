@@ -11,7 +11,7 @@ import {LinkCell} from '@/components/_Atoms/cells/link-cell'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 
 // Interfaz de las filas de la tabla
-export interface InstancesTableRow {
+export interface GroupInstancesTableRow {
   _id: string
   name: string
   fullname: string | undefined
@@ -23,12 +23,16 @@ export interface InstancesTableRow {
 /**
  * @version 1
  * @description Tabla de instancias de un grupo
- * @param rows filas segun la interfaz InstancesTableRow
+ * @param rows filas segun la interfaz GroupInstancesTableRow
  */
 
-export default function InstancesTable({rows}: {rows: InstancesTableRow[]}) {
+export default function GroupInstancesTable({
+  rows,
+}: {
+  rows: GroupInstancesTableRow[]
+}) {
   // Definición de las columnas de la tabla
-  const columns: ColumnDef<InstancesTableRow>[] = [
+  const columns: ColumnDef<GroupInstancesTableRow>[] = [
     {
       accessorKey: 'fullname',
       header: 'Instancia',

@@ -229,7 +229,7 @@ export async function getOneInstance(name: string) {
     })
       .populate({
         path: 'coordinator',
-        select: '_id name fullname image',
+        select: '_id name fullname image email',
         model: User,
       })
       .populate({
@@ -239,12 +239,12 @@ export async function getOneInstance(name: string) {
       })
       .populate({
         path: 'editors',
-        select: '_id name fullname image',
+        select: '_id name fullname image  email',
         model: User,
       })
       .populate({
         path: 'viewers',
-        select: '_id name fullname image',
+        select: '_id name fullname image  email',
         model: User,
       })
       .exec()
@@ -310,6 +310,66 @@ export async function checkIsCoordinator(
       return {ok: false, message: 'No eres coordinador'} as Answer
     }
     return {ok: true, message: 'Eres coordinador'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para eliminasr un editor de una instancia
+ * @param instanceId _id de la instancia
+ * @param userId _id del usuario
+ *
+ */
+
+export async function removeEditor(instanceId: string, userId: string | null) {
+  try {
+    await connectToMongoDB()
+    const instance: InstanceDocument | null =
+      await Instance.findById(instanceId)
+    if (!instance) throw new Error('Instancia no encontrada')
+
+    const isEditor = await checkIsEditor(instance.name, userId)
+    if (!userId || !isEditor.ok)
+      throw new Error('No eres editor de esta instancia')
+
+    const updated = await instance.removeEditor(userId)
+    if (!updated) throw new Error('Error al eliminar el editor')
+
+    return {ok: true, message: 'Editor eliminado'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para promocionar un editor como coordinador
+ * @param instanceId _id de la instancia
+ * @param userId _id del usuario
+ */
+
+export async function promoteCoordinator(
+  instanceId: string,
+  userId: string | null
+) {
+  try {
+    await connectToMongoDB()
+    const instance: InstanceDocument | null =
+      await Instance.findById(instanceId)
+    if (!instance) throw new Error('Instancia no encontrada')
+
+    const isEditor = await checkIsEditor(instance.name, userId)
+    if (!userId || !isEditor.ok)
+      throw new Error('No eres editor de esta instancia')
+
+    const updated = await instance.setCoordinator(userId)
+    if (!updated) throw new Error('Error al promocionar el editor')
+
+    return {ok: true, message: 'Editor promocionado'} as Answer
   } catch (error) {
     console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer

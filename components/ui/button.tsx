@@ -10,10 +10,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         admin: 'bg-admin/20 text-admin shadow-sm hover:bg-admin/30',
+        editor: 'bg-editor/20 text-editor shadow-sm hover:bg-editor/30',
         default:
           'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         destructive:
-          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
+          'bg-destructive/80 text-destructive-foreground shadow-sm hover:bg-destructive',
         outline:
           'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
         secondary:
