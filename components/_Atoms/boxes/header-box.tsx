@@ -3,7 +3,7 @@ import React from 'react'
 
 /**
  * @version 1
- * @description Caja de encabezado para separar secciones
+ * @description Caja de titulo para separar secciones (<h2>)
  * @param text texto del encabezado
  * @param icon icono del encabezado
  * @param className clases adicionales

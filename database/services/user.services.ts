@@ -108,7 +108,7 @@ export async function checkCredentials(
       redirect: '/',
     } as Answer
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return {ok: false, code: 500, message: 'Error en el servidor'} as Answer
   }
 }

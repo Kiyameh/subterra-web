@@ -2,6 +2,8 @@ import React from 'react'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import {LinkSlot} from '../../_Atoms/slots/link-slots'
 import {TextSlot} from '../../_Atoms/slots/text-slots'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
+import {MdAlternateEmail} from 'react-icons/md'
 
 interface ContactCardProps {
   street?: string
@@ -35,7 +37,14 @@ export default function ContactCard({
     .join(', ')
 
   return (
-    <BasicCard cardHeader="Datos de contacto">
+    <BasicCard
+      cardHeader={
+        <CardTitle
+          title="Información de contacto"
+          icon={<MdAlternateEmail />}
+        />
+      }
+    >
       <TextSlot
         label="Dirección"
         value={address}

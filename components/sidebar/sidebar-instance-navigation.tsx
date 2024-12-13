@@ -22,10 +22,11 @@ import {ChevronRight} from 'lucide-react'
 import {PiCircleBold} from 'react-icons/pi'
 import {TbCircles} from 'react-icons/tb'
 import {MdOutlineExplore} from 'react-icons/md'
-import {GrUserAdmin} from 'react-icons/gr'
+import {FaGear} from 'react-icons/fa6'
 import {RiApps2AddLine} from 'react-icons/ri'
 import {LuPlusCircle} from 'react-icons/lu'
 import {GrChapterAdd} from 'react-icons/gr'
+import {FaUserEdit} from 'react-icons/fa'
 
 interface Props {
   isEditor: boolean
@@ -190,13 +191,26 @@ export default function SidebarInstanceNavigation({
             <SidebarMenuItem>
               <SidebarMenuButton
                 asChild
-                tooltip="Administrar instancia"
+                tooltip="Lista de editores"
               >
-                <Link href={`/${instance}/admin`}>
-                  <span className="text-admin">
-                    <GrUserAdmin />
+                <Link href={`/instance/${instance}/editors`}>
+                  <span className="text-editor">
+                    <FaUserEdit />
                   </span>
-                  <span>Administrar instancia</span>
+                  <span>Lista de editores</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                tooltip="Editar instancia"
+              >
+                <Link href={`/instance/${instance}/admin`}>
+                  <span className="text-admin">
+                    <FaGear />
+                  </span>
+                  <span>Editar instancia</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

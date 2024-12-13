@@ -13,7 +13,7 @@ import {getSomeInstances} from '@/database/services/instance.services'
 import {PopulatedInstance} from '@/database/models/Instance.model'
 import {FiBox} from 'react-icons/fi'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import {IoMdInformationCircle} from 'react-icons/io'
+import {FaUserGroup} from 'react-icons/fa6'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -67,7 +67,7 @@ export default async function GroupLandingPage({params}: PageProps) {
       <div className="flex gap-4 flex-wrap justify-center">
         <HeaderBox
           text={`${group.fullname}`}
-          icon={<IoMdInformationCircle />}
+          icon={<FaUserGroup />}
         />
         <GroupInfoCard
           fullname={group.fullname}

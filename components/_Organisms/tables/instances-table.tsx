@@ -8,6 +8,7 @@ import {DataTable} from '@/components/ui/data-table'
 import {Badge} from '@/components/ui/badge'
 import {FiBox} from 'react-icons/fi'
 import {LinkCell} from '@/components/_Atoms/cells/link-cell'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
 
 // Interfaz de las filas de la tabla
 export interface InstancesTableRow {
@@ -76,10 +77,10 @@ export default function InstancesTable({rows}: {rows: InstancesTableRow[]}) {
     <BasicCard
       className="w-full"
       cardHeader={
-        <div className="flex flex-row items-center gap-3">
-          <FiBox className="text-xl" />
-          <h2 className="text-xl">Instancias del grupo</h2>
-        </div>
+        <CardTitle
+          title="Instancias del grupo"
+          icon={<FiBox />}
+        />
       }
     >
       <DataTable

@@ -46,11 +46,9 @@ export default async function InstanceSidebar({
 
   // Comprobar si el usuario es editor de la instancia:
   const isEditor = (await checkIsEditor(instanceName, user?._id)).ok as boolean
-
   // Comprobar si el usuario es coordinador de la instancia:
   const isCoordinator = (await checkIsCoordinator(instanceName, user?._id))
     .ok as boolean
-
   return (
     <Sidebar
       collapsible="icon"

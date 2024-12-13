@@ -16,6 +16,7 @@ import {FaUser} from 'react-icons/fa'
 import {MdDeleteForever} from 'react-icons/md'
 import {MdOutlineUpgrade} from 'react-icons/md'
 import {MdOutlineAdminPanelSettings} from 'react-icons/md'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
 
 // Interfaz de las filas de la tabla
 export interface MembersTableRow {
@@ -141,10 +142,10 @@ export default function MembersTable({
     <BasicCard
       className="w-full"
       cardHeader={
-        <div className="flex flex-row items-center gap-3">
-          <FaUser className="text-xl" />
-          <h2 className="text-xl">Miembros del grupo</h2>
-        </div>
+        <CardTitle
+          title="Miembros del grupo"
+          icon={<FaUser />}
+        />
       }
     >
       <DataTable

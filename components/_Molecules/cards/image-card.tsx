@@ -1,5 +1,7 @@
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
 import React from 'react'
+import {FaRegImage} from 'react-icons/fa'
 
 interface ImageCardProps {
   src?: string
@@ -8,11 +10,16 @@ interface ImageCardProps {
 export default function ImageCard({}: ImageCardProps) {
   return (
     <BasicCard
-      cardHeader="Imagen del grupo"
+      cardHeader={
+        <CardTitle
+          title={'Imagen del grupo'}
+          subtitle="Funcionalidad en desarrollo. Proximamente estará disponible"
+          icon={<FaRegImage />}
+        />
+      }
       className="w-full"
     >
-      <p className="text-xl">En desarrollo</p>
-      <p>Esta funcionalidad aún no está implementada</p>
+      <span></span>
     </BasicCard>
   )
 }

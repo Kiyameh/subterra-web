@@ -1,26 +1,54 @@
+import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import InDevelopmentCard from '@/components/_Molecules/cards/501-not-implemented'
+import InstanceInfoCard from '@/components/_Molecules/cards/instance-info-card'
+import InstanceStatsCard from '@/components/_Molecules/cards/instance-stats-card'
+import TerritoryCard from '@/components/_Molecules/cards/territory-card'
+import PageContainer from '@/components/theming/page-container'
 import {PopulatedInstance} from '@/database/models/Instance.model'
 import {getOneInstance} from '@/database/services/instance.services'
+import {FiBox} from 'react-icons/fi'
 
-interface Props {
+interface PageProps {
   params: Promise<{instance: string}>
 }
 
-export default async function InstanceLandingPage({params}: Props) {
-  const instanceName = (await params).instance
-  const answer = await getOneInstance(instanceName)
+export default async function InstanceLandingPage({params}: PageProps) {
+  // Obtener el nombre de la instancia
+  const instanceName: string = (await params).instance
 
-  if (!answer.ok) {
-    return <NotFoundCard />
+  // Obtener la instancia
+  const instance = (await getOneInstance(instanceName))
+    .content as PopulatedInstance | null
+
+  if (!instance) {
+    return (
+      <PageContainer>
+        <NotFoundCard
+          title="Algo ha ido mal"
+          text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
+        />
+      </PageContainer>
+    )
   }
 
-  const instance = answer.content as PopulatedInstance
-  console.log(instance)
-
   return (
-    <section className="w-full h-full flex items-center justify-center">
-      <InDevelopmentCard title="LandingPage de instancia" />
-    </section>
+    <PageContainer>
+      <div className="flex gap-4 flex-wrap justify-center">
+        <HeaderBox
+          text={instance.fullname}
+          icon={<FiBox />}
+        />
+        <InstanceInfoCard
+          _id={instance._id}
+          name={instance.name}
+          fullname={instance.fullname}
+          acronym={instance.acronym}
+          owner={instance.owner.fullname}
+          description={instance.description}
+        />
+        <InstanceStatsCard editorsLength={instance.editors.length} />
+        <TerritoryCard map_image={instance.map_image} />
+      </div>
+    </PageContainer>
   )
 }

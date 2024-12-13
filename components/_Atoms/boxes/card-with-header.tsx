@@ -7,7 +7,7 @@ import BackButton from '@/components/_Atoms/buttons/back-button'
 /**
  * @version 1
  * @description Componente card personalizado con cabecera de navegación y branding
- * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 800, "xxl": 1024]
+ * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 940, "xxl": 1220]
  * @param cardSubHeader Cabecera de la card
  * @param cardFooter Pie de la card
  * @param children Contenido de la card
@@ -31,10 +31,10 @@ export default function CardWithHeader({
   className?: string
 }) {
   const sizeMap = {
-    md: 'w-[460px]',
-    lg: 'w-[600px]',
-    xl: 'w-[800px]',
-    xxl: 'w-[1024px]',
+    md: 'w-[460px] max-w-[90vw]',
+    lg: 'w-[600px] max-w-[90vw]',
+    xl: 'w-[940px] max-w-[90vw]',
+    xxl: 'w-[1220px] max-w-[90vw]',
   }
   const width = sizeMap[defaultWidth]
   const glass = glassmorphism ? 'bg-black bg-opacity-50 backdrop-blur-sm' : ''

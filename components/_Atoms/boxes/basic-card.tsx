@@ -7,7 +7,7 @@ import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card'
 /**
  * @version 1
  * @description Card con slots para imagen, heaedr, footer y children. Opción glassmorphism.
- * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 800, "xxl": 1024]
+ * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 940, "xxl": 1220]
  * @param image Imagen superior
  * @param cardHeader Cabecera de la card
  * @param cardFooter Pie de la card
@@ -37,8 +37,8 @@ export default function BasicCard({
   const sizeMap = {
     md: 'w-[460px] max-w-[90vw]',
     lg: 'w-[600px] max-w-[90vw]',
-    xl: 'w-[800px] max-w-[90vw]',
-    xxl: 'w-[1024px] max-w-[90vw]',
+    xl: 'w-[940px] max-w-[90vw]',
+    xxl: 'w-[1220px] max-w-[90vw]',
   }
   const width = sizeMap[defaultWidth]
   const glass = glassmorphism ? 'bg-black bg-opacity-50 backdrop-blur-sm' : ''

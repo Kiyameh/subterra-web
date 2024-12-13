@@ -14,6 +14,7 @@ import SquareButton from '@/components/_Atoms/buttons/square-button'
 import {RiAddBoxLine} from 'react-icons/ri'
 import Link from 'next/link'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -54,49 +55,49 @@ export default async function GroupAdminPage({params}: PageProps) {
       <BasicCard
         defaultWidth="xl"
         cardHeader={
-          <div className="flex flex-row items-center gap-3">
-            <FiBox className="text-xl" />
-            <h2 className="text-xl">Instancias</h2>
-          </div>
+          <CardTitle
+            title="Instancias"
+            icon={<FiBox />}
+          />
         }
       >
-        <Link href={'admin/instance-request'}>
-          <div className="flex flex-row gap-4 flex-wrap items-center justify-center">
-            {group.instances.length < 3 && (
+        <div className="flex flex-row gap-4 flex-wrap items-center justify-center">
+          {group.instances.length < 3 && (
+            <Link href={'admin/instance-request'}>
               <SquareButton
                 text="Solicitar una instancia"
                 icon={<RiAddBoxLine />}
                 color="admin"
               />
-            )}
-            <div>
-              <InfoBox
-                title={
-                  <span>
-                    Tu grupo tiene
-                    <span className="font-semibold text-info-foreground px-1">
-                      {group.instances.length}
-                    </span>
-                    instancias
+            </Link>
+          )}
+          <div>
+            <InfoBox
+              title={
+                <span>
+                  Tu grupo tiene
+                  <span className="font-semibold text-info-foreground px-1">
+                    {group.instances.length}
                   </span>
-                }
-              >
-                {group.instances.length === 3
-                  ? 'Has alcanzado el límite de instancias, elimina una para solicitar otra'
-                  : 'Puedes solicitar hasta tres instancias'}
-              </InfoBox>
-            </div>
+                  instancias
+                </span>
+              }
+            >
+              {group.instances.length === 3
+                ? 'Has alcanzado el límite de instancias, elimina una para solicitar otra'
+                : 'Puedes solicitar hasta tres instancias'}
+            </InfoBox>
           </div>
-        </Link>
+        </div>
       </BasicCard>
 
       <BasicCard
         defaultWidth="xl"
         cardHeader={
-          <div className="flex flex-row items-center gap-3">
-            <MdModeEdit className="text-xl" />
-            <h2 className="text-xl">Editar información del grupo</h2>
-          </div>
+          <CardTitle
+            title="Editar información del grupo"
+            icon={<MdModeEdit />}
+          />
         }
       >
         {userId && (

@@ -194,8 +194,8 @@ export async function getOneGroupIndex(name: string) {
       message: 'Índice de grupo obtenido',
       content: groupIndexPOJO as GroupIndex,
     } as Answer
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
