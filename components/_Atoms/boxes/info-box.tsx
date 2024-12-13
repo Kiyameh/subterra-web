@@ -20,7 +20,7 @@ export default function InfoBox({
   children,
   className,
 }: {
-  title: string
+  title: React.ReactNode
   color?: 'info' | 'success' | 'warning' | 'destructive'
   icon?: React.ReactNode
   children?: React.ReactNode
@@ -49,7 +49,7 @@ export default function InfoBox({
       >
         <div className="flex gap-2 items-center">
           <span className={cn('text-lg', iconColor)}>{icon}</span>
-          <span>{title}</span>
+          <div>{title}</div>
         </div>
         <div>{children}</div>
       </div>

@@ -2,9 +2,11 @@ import Link from 'next/link'
 import {MdEmail, MdPhone, MdLink, MdOpenInNew} from 'react-icons/md'
 
 export function LinkCell({
+  label,
   value,
   type,
 }: {
+  label?: string
   value?: string
   type?: 'email' | 'phone' | 'internal' | 'external'
 }) {
@@ -44,7 +46,11 @@ export function LinkCell({
           href={href || ''}
           className="flex gap-2 items-center"
         >
-          <span className="hover:text-primary text-sm">{value}</span>
+          {label ? (
+            <span className="text-sm">{label}</span>
+          ) : (
+            <span className="hover:text-primary text-sm">{value}</span>
+          )}
           <span className="text-primary">{icon}</span>
         </Link>
       )}

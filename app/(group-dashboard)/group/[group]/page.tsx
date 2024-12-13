@@ -11,6 +11,9 @@ import PageContainer from '@/components/theming/page-container'
 import InstanceCard from '@/components/_Molecules/cards/instance-card'
 import {getSomeInstances} from '@/database/services/instance.services'
 import {PopulatedInstance} from '@/database/models/Instance.model'
+import {FiBox} from 'react-icons/fi'
+import HeaderBox from '@/components/_Atoms/boxes/header-box'
+import {IoMdInformationCircle} from 'react-icons/io'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -62,16 +65,10 @@ export default async function GroupLandingPage({params}: PageProps) {
 
       <ImageCard />
       <div className="flex gap-4 flex-wrap justify-center">
-        {instances &&
-          instances.map((instance) => {
-            return (
-              <InstanceCard
-                glassmorphism={false}
-                key={instance.name}
-                instance={instance}
-              />
-            )
-          })}
+        <HeaderBox
+          text={`${group.fullname}`}
+          icon={<IoMdInformationCircle />}
+        />
         <GroupInfoCard
           fullname={group.fullname}
           name={group.name}
@@ -93,6 +90,21 @@ export default async function GroupLandingPage({params}: PageProps) {
           webpage={group.webpage}
         />
         <DescriptionCard description={group.description} />
+        <HeaderBox
+          text={`Instancias del grupo`}
+          icon={<FiBox />}
+        />
+
+        {instances &&
+          instances.map((instance) => {
+            return (
+              <InstanceCard
+                glassmorphism={false}
+                key={instance.name}
+                instance={instance}
+              />
+            )
+          })}
       </div>
     </PageContainer>
   )

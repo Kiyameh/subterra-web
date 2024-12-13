@@ -12,6 +12,7 @@ import {
 import {IoMdInformationCircleOutline} from 'react-icons/io'
 import {FaUserGroup} from 'react-icons/fa6'
 import {FaGear} from 'react-icons/fa6'
+import {FiBox} from 'react-icons/fi'
 
 interface Props {
   isMember: boolean
@@ -58,6 +59,17 @@ export default function SidebarGroupNavigation({isMember, isAdmin}: Props) {
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                isActive={pathName.includes(`${group}/instances`)}
+              >
+                <Link href={`/group/${group}/instances`}>
+                  <FiBox className="text-editor" />
+                  <span>Instancias del grupo</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             {isAdmin && (
               <SidebarMenuItem>
                 <SidebarMenuButton
@@ -66,7 +78,7 @@ export default function SidebarGroupNavigation({isMember, isAdmin}: Props) {
                 >
                   <Link href={`/group/${group}/admin`}>
                     <FaGear className="text-admin" />
-                    <span>Área de administración</span>
+                    <span>Editar grupo</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
