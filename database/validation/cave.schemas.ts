@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {caveShapes, coordProyections} from '../models/Cave.enums'
+import {caveShapes, coordProyections, utmZones} from '../models/Cave.enums'
 
 // Expresión regular para un string hexadecimal de 24 caracteres (ObjectId)
 const hex24Regex = /^[0-9a-fA-F]{24}$/
@@ -44,45 +44,42 @@ export const CaveFormSchema = z.object({
     .string()
     .max(1000, {message: 'Demasiado largo'})
     .optional(),
-
-  length: z
+  //? Propiedad coerce para obligar a que el valor sea un número
+  length: z.coerce
     .number()
-    .positive({message: 'Número positivo'})
+    .min(0, {message: 'Número positivo'})
     .max(400000, {
       message: '¡Enhorabuena!Has encontrado la cueva más larga del mundo',
     })
     .optional(),
-  depth: z
+  depth: z.coerce
     .number()
-    .positive({
-      message: 'Introduce la profundidad de forma absoluta (número positivo)',
+    .min(0, {
+      message: 'Introduce la longitud de forma absoluta (número positivo)',
     })
     .max(2500, {
-      message: '¡Enhorabuena!Has encontrado la cueva más profunda del mundo',
+      message: '¡Enhorabuena! Has encontrado la cueva más profunda del mundo',
     })
     .optional(),
   main_image: z.string().optional(),
 
   coordinates: z.object({
-    x_coord: z
+    //? Propiedad coerce para obligar a que el valor sea un número
+    x_coord: z.coerce
       .number()
       .min(1, {message: 'Coordenada requerida'})
       .max(999999, {message: 'Coordenada inválida'}),
-    y_coord: z
+    y_coord: z.coerce
       .number()
       .min(1, {message: 'Coordenada requerida'})
       .max(9999999, {message: 'Coordenada inválida'}),
-    z_coord: z
+    z_coord: z.coerce
       .number()
-      .positive({message: 'Número positivo'})
+      .min(0, {message: 'Coordenada inválida'})
       .max(8849, {message: 'No hay cuevas voladoras'})
       .optional(),
     coord_proyec: z.enum(coordProyections).default('WGS84'),
-    utm_zone: z
-      .number()
-      .positive({message: 'Número positivo'})
-      .min(1, {message: 'Zona requerida'})
-      .max(60, {message: 'Zona inválida'}),
+    utm_zone: z.enum(utmZones).default('30'),
     hemisphere: z.enum(['N', 'S']).default('N'),
   }),
 

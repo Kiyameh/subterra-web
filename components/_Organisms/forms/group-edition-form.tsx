@@ -15,7 +15,6 @@ import TextField from '@/components/_Atoms/fields/text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import MultipleSelectionField from '@/components/_Atoms/fields/multiple-selection-field'
 import PhoneField from '@/components/_Atoms/fields/phone-field'
-import ImageField from '@/components/_Atoms/fields/image-field'
 import CountryField from '@/components/_Atoms/fields/country-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -182,24 +181,7 @@ export default function GroupEditionForm({
           type="email"
           endContent={<MdOutlineAlternateEmail />}
         />
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 md:col-span-6">
-            <ImageField
-              control={form.control}
-              name="main_image"
-              label="Imagen principal"
-              description="Esta imagen se mostrará en la cabecera del grupo"
-            />
-          </div>
-          <div className="col-span-12 md:col-span-6">
-            <ImageField
-              control={form.control}
-              name="logo_image"
-              label="Logo"
-              description="Logotipo del grupo"
-            />
-          </div>
-        </div>
+
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.redirect ? (
           <LinkButton

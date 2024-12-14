@@ -1,5 +1,4 @@
 import {Control, FieldValues, Path} from 'react-hook-form'
-import {Input} from '@/components/ui/input'
 import {
   FormControl,
   FormField,
@@ -8,18 +7,16 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import {TagsInput} from '@/components/ui/tags-input'
 
 /**
  * @version 1
- * @description Input de texto sencillo controlado por RHF. Opciones de end y start adornment. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
+ * @description Input de texto multiple (TAGS) controlado por RHF. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
  * @param control Controlador de RHF
  * @param name Path del campo
  * @param label Etiqueta del campo
- * @param type Tipo de input
  * @param description Descripción del campo
  * @param placeholder Placeholder del campo
- * @param startContent Contenido al inicio del campo
- * @param endContent Contenido al final del campo
  * @default type 'text'
  */
 
@@ -27,20 +24,14 @@ export default function MultiTextField<T extends FieldValues>({
   control,
   name,
   label,
-  type = 'text',
   description,
   placeholder,
-  startContent,
-  endContent,
 }: {
   control: Control<T>
   name: Path<T>
   label?: string
-  type?: HTMLInputElement['type']
   description?: string
   placeholder?: string
-  startContent?: React.ReactNode
-  endContent?: React.ReactNode
 }) {
   return (
     <FormField
@@ -54,18 +45,16 @@ export default function MultiTextField<T extends FieldValues>({
               {description && <InfoBadge description={description} />}
             </div>
             <FormControl>
-              <Input
+              <TagsInput
                 className={
                   fieldState.isDirty && !fieldState.error
                     ? 'border border-emphasis'
                     : ''
                 }
                 id={name}
-                endContent={endContent}
-                type={type}
-                startContent={startContent}
+                value={field.value}
+                onValueChange={field.onChange}
                 placeholder={placeholder}
-                {...field}
               />
             </FormControl>
             <FormMessage />

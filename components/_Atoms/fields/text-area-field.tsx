@@ -20,7 +20,7 @@ import {Textarea} from '@/components/ui/textarea'
  * @param maxCharacters Número máximo de caracteres
  */
 
-export default function TextField<T extends FieldValues>({
+export default function TextAreaField<T extends FieldValues>({
   control,
   name,
   label,

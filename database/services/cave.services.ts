@@ -7,6 +7,7 @@ import Cave from '../models/Cave.model'
 import {checkIsEditor} from './instance.services'
 import System from '../models/System.model'
 import Exploration from '../models/Exploration.model'
+import Instance from '../models/Instance.model'
 
 //* 1. Funciones de escritura */
 
@@ -34,11 +35,18 @@ export async function createCave(
     // Comprobar si el commander es editor de la instancia
     const isEditor = checkIsEditor(commanderId, instanceName)
     if (!isEditor) throw new Error('El usuario no es editor de la instancia')
+    await connectToMongoDB()
+    // Obtener el _id de la instancia
+    const instanceId = await Instance.findOne({name: instanceName})
+      .select('_id')
+      .exec()
 
     // Crear la nueva cueva en memoria:
-    const newCave = new Cave(values)
+    const newCave = new Cave({
+      ...values,
+      instances: [instanceId],
+    })
 
-    await connectToMongoDB()
     const savedCave = await newCave.save()
 
     return {

@@ -99,7 +99,7 @@ const caveSchema = new Schema<CaveDocument>(
         required: true,
       },
       coord_format: {type: String, default: 'UTM', required: true},
-      utm_zone: {type: Number, enum: utmZones, required: true},
+      utm_zone: {type: String, enum: utmZones, required: true},
       hemisphere: {type: String, enum: ['N', 'S'], required: true},
     },
     municipality: {type: String},

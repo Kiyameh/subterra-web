@@ -5,7 +5,7 @@ import {getOnePlatform} from '@/database/services/platform.services'
 
 import PageContainer from '@/components/theming/page-container'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
-import CreateInstanceForm from '@/components/_Organisms/forms/create-instance-form'
+import InstanceCreationForm from '@/components/_Organisms/forms/instance-creation-form'
 import InstanceMessagesBoard from '@/components/_Organisms/boards/instance-messages-board'
 
 import {LuBox} from 'react-icons/lu'
@@ -32,7 +32,7 @@ export default async function CreateInstancePage() {
             </div>
           }
         >
-          <CreateInstanceForm commanderId={userId} />
+          <InstanceCreationForm commanderId={userId} />
         </BasicCard>
       )}
     </PageContainer>

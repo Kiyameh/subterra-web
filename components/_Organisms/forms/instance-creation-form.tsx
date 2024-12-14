@@ -33,7 +33,7 @@ const EMPTY_INSTANCE: InstanceFormValues = {
  * @param commanderId Staff que crea la instancia
  */
 
-export default function CreateInstanceForm({
+export default function InstanceCreationForm({
   commanderId,
 }: {
   commanderId: string

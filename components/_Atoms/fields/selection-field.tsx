@@ -28,7 +28,7 @@ import {
  * @default type = 'text'
  */
 
-export default function TextField<T extends FieldValues>({
+export default function SelectionField<T extends FieldValues>({
   control,
   name,
   label,
