@@ -51,7 +51,7 @@ export default async function InstanceEditorsPage({params}: PageProps) {
   }))
 
   return (
-    <PageContainer>
+    <PageContainer className="justify-start">
       <InstanceEditorsTable
         instanceId={instance._id}
         rows={rows}

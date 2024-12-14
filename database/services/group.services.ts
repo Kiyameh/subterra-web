@@ -105,21 +105,11 @@ export async function updateGroup(
     // Obtener grupo a editar:
     await connectToMongoDB()
     const groupToUpdate = await Group.findById(groupId)
-    if (!groupToUpdate) {
-      return {
-        ok: false,
-        message: 'Grupo no encontrado',
-      } as Answer
-    }
+    if (!groupToUpdate) throw new Error('Grupo no encontrado')
 
     // Comprobar si el ordenante es el admin del grupo:
     const commanderIsAdmin = groupToUpdate.admin.toString() === commanderId
-    if (!commanderIsAdmin) {
-      return {
-        ok: false,
-        message: 'No tienes permisos para editar este grupo',
-      } as Answer
-    }
+    if (!commanderIsAdmin) throw new Error('No es admin de este grupo')
 
     // Actualización de grupo:
     Object.assign(groupToUpdate, values)
@@ -128,8 +118,9 @@ export async function updateGroup(
       ok: true,
       message: 'Grupo actualizado correctamente',
     } as Answer
-  } catch (e) {
-    return decodeMongoError(e)
+  } catch (error) {
+    console.log(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 

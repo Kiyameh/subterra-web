@@ -1,5 +1,6 @@
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
+import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import React from 'react'
 import {IoMdInformationCircle} from 'react-icons/io'
@@ -44,9 +45,10 @@ export default function InstanceInfoCard({
         label="Ácronimo"
         value={acronym}
       />
-      <TextSlot
+      <LinkSlot
         label="Grupo propietario"
         value={owner}
+        type="internal"
       />
       <TextSlot
         label="Descripción"
