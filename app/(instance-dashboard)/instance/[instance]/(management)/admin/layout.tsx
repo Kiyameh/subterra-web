@@ -16,7 +16,7 @@ export default async function EditorsLayout({params, children}: LayoutProps) {
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isEditor = (await checkIsEditor(instancesName, userId)).ok as boolean
+  const isEditor = (await checkIsEditor(userId, instancesName)).ok as boolean
 
   if (!isEditor) return <UnauthorizedCard />
 

@@ -321,15 +321,26 @@ export async function getOneInstance(name: string) {
  * @param userId _id del usuario
  */
 export async function checkIsEditor(
-  instanceName: string,
-  userId: string | undefined | null
+  userId: string | undefined | null,
+  instanceName?: string | null,
+  instanceId?: string | null
 ) {
   try {
     await connectToMongoDB()
-    const matchingInstance: InstanceDocument | null = await Instance.findOne({
-      name: instanceName,
-      editors: {$in: [userId]},
-    })
+    let matchingInstance: InstanceDocument | null = null
+
+    if (instanceName) {
+      matchingInstance = await Instance.findOne({
+        name: instanceName,
+        editors: {$in: [userId]},
+      })
+    } else if (instanceId) {
+      matchingInstance = await Instance.findOne({
+        _id: instanceId,
+        editors: {$in: [userId]},
+      })
+    }
+
     if (!matchingInstance) {
       return {ok: false, message: 'No eres editor'} as Answer
     }
@@ -382,7 +393,7 @@ export async function removeEditor(instanceId: string, userId: string | null) {
       await Instance.findById(instanceId)
     if (!instance) throw new Error('Instancia no encontrada')
 
-    const isEditor = await checkIsEditor(instance.name, userId)
+    const isEditor = await checkIsEditor(userId, instance.name)
     if (!userId || !isEditor.ok)
       throw new Error('No eres editor de esta instancia')
 
@@ -413,7 +424,7 @@ export async function promoteCoordinator(
       await Instance.findById(instanceId)
     if (!instance) throw new Error('Instancia no encontrada')
 
-    const isEditor = await checkIsEditor(instance.name, userId)
+    const isEditor = await checkIsEditor(userId, instance.name)
     if (!userId || !isEditor.ok)
       throw new Error('No eres editor de esta instancia')
 

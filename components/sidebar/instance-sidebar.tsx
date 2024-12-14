@@ -45,7 +45,7 @@ export default async function InstanceSidebar({
   ) as InstanceIndex | null
 
   // Comprobar si el usuario es editor de la instancia:
-  const isEditor = (await checkIsEditor(instanceName, user?._id)).ok as boolean
+  const isEditor = (await checkIsEditor(user?._id, instanceName)).ok as boolean
   // Comprobar si el usuario es coordinador de la instancia:
   const isCoordinator = (await checkIsCoordinator(instanceName, user?._id))
     .ok as boolean
