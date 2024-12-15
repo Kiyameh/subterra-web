@@ -11,12 +11,29 @@ import {createExploration} from '@/database/services/exploration.services'
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
+import {GroupIndex} from '@/database/models/Group.model'
+import {CaveIndex} from '@/database/models/Cave.model'
+import MultiRefSelectionField from '@/components/_Atoms/fields/multi-ref-selection-field'
+import TextField from '@/components/_Atoms/fields/text-field'
+import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
+import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 
 const EMPTY_EXPLORATION: ExplorationFormValues = {
-  name: '',
+  instances: [],
+  groups: [],
+  caves: [],
   datatype: 'exploration',
-  instances: [''],
-  groups: [''],
+
+  name: '',
+  dates: [],
+  cave_time: 0,
+  participants: [],
+  collaborators: [],
+
+  description: '',
+  incidents: '',
+  inventory: '',
+  pending_work: '',
 }
 
 /**
@@ -29,9 +46,13 @@ const EMPTY_EXPLORATION: ExplorationFormValues = {
 export default function ExplorationCreationForm({
   instanceName,
   commanderId,
+  groupIndex,
+  caveIndex,
 }: {
   instanceName: string
   commanderId: string
+  groupIndex: GroupIndex[] | undefined
+  caveIndex: CaveIndex[] | undefined
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -55,14 +76,82 @@ export default function ExplorationCreationForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <p>AÑADIR FIELDS</p>
+        <MultiRefSelectionField
+          control={form.control}
+          name="groups"
+          label="Grupos"
+          index={groupIndex}
+        />
+        <MultiRefSelectionField
+          control={form.control}
+          name="caves"
+          label="Cavidades"
+          index={caveIndex}
+        />
+        <TextField
+          control={form.control}
+          name="name"
+          label="Nombre"
+          description="Titulo de la exploración"
+        />
+        {
+          // TODO: Selector multiple de fechas
+        }
+
+        <TextField
+          control={form.control}
+          name="cave_time"
+          label="Tiempo en cueva"
+          description="Tiempo aproximado en cueva"
+          endContent="horas"
+          type="number"
+        />
+
+        <MultiTextField
+          control={form.control}
+          name="participants"
+          label="Participantes"
+          description="Nombres de los participantes"
+        />
+        <MultiTextField
+          control={form.control}
+          name="collaborators"
+          label="Colaboradores"
+          description="Grupos colaboradores"
+        />
+
+        <TextAreaField
+          control={form.control}
+          name="description"
+          label="Descripción"
+          description="Descripción de la exploración"
+        />
+
+        <TextAreaField
+          control={form.control}
+          name="incidents"
+          label="Incidentes"
+          description="Incidentes ocurridos"
+        />
+        <TextAreaField
+          control={form.control}
+          name="inventory"
+          label="Inventario"
+          description="Inventario de la exploración"
+        />
+        <TextAreaField
+          control={form.control}
+          name="pending_work"
+          label="Trabajos pendientes"
+          description="Trabajos pendientes"
+        />
 
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
-          <p>Sistema creadad</p>
+          <p>Informe creado</p>
         ) : (
           <SubmitButton
-            label="Crear sistema"
+            label="Crear informe"
             isPending={isPending}
           />
         )}

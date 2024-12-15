@@ -30,7 +30,8 @@ export const ExplorationFormSchema = z.object({
     .min(3, {message: 'Nombre requerido'})
     .max(120, {message: 'Máximo 120 caracteres'}),
   dates: z.array(z.date()).optional(),
-  cave_time: z.number().positive().optional(),
+  //? Propiedad coerce para obligar a que el valor sea un número
+  cave_time: z.coerce.number().nonnegative().optional(),
   participants: z
     .array(z.string().max(120, {message: 'Máximo 120 caracteres'}))
     .optional(),

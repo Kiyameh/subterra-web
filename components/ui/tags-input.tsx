@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import {cn} from '@/lib/utils'
@@ -257,7 +258,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           ref={ref}
           dir={dir}
           className={cn(
-            'flex items-center flex-wrap gap-1 p-2 rounded-sm bg-card overflow-hidden ring-1 ring-muted  ',
+            'flex items-center flex-wrap gap-1 h-10 p-2 py-1 rounded-md bg-card overflow-hidden ring-1 ring-muted  ',
             {
               'focus-within:ring-muted': activeIndex === -1,
             },
@@ -286,7 +287,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
                 className="disabled:cursor-not-allowed"
               >
                 <span className="sr-only">Remove {item} option</span>
-                <RemoveIcon className="h-4 w-4 hover:stroke-destructive" />
+                <RemoveIcon className="h-4 w-4 hover:stroke-destructive-foreground" />
               </button>
             </Badge>
           ))}

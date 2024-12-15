@@ -1,5 +1,13 @@
 'use client'
 
+/**
+ * Selector multiple sencillo utilizado para multi-text-selector.
+ * Obtenido de:
+ * https://shadcn-extension.vercel.app/docs/multi-select
+ * (Modificado para ajustar estilos)
+ *
+ */
+
 import {Badge} from '@/components/ui/badge'
 import {
   Command,
@@ -231,7 +239,7 @@ const MultiSelectorTrigger = forwardRef<
     <div
       ref={ref}
       className={cn(
-        'flex flex-wrap gap-1 p-1 py-2 ring-1 ring-muted rounded-md bg-card',
+        'flex flex-wrap items-center h-10 gap-1 p-2  ring-1 ring-muted rounded-md bg-card',
         {
           'ring-1 focus-within:ring-ring': activeIndex === -1,
         },
@@ -243,7 +251,7 @@ const MultiSelectorTrigger = forwardRef<
         <Badge
           key={item}
           className={cn(
-            'px-1 rounded-xl flex items-center gap-1',
+            'px-1 bg-emphasis/50 hover:bg-emphasis/40 rounded-sx flex items-center gap-1',
             activeIndex === index && 'ring-2 ring-muted-foreground '
           )}
           variant={'secondary'}
@@ -257,7 +265,7 @@ const MultiSelectorTrigger = forwardRef<
             onClick={() => onValueChange(item)}
           >
             <span className="sr-only">Remove {item} option</span>
-            <RemoveIcon className="h-4 w-4 hover:stroke-destructive" />
+            <RemoveIcon className="h-4 w-4 hover:stroke-destructive-foreground" />
           </button>
         </Badge>
       ))}
@@ -330,7 +338,7 @@ const MultiSelectorList = forwardRef<
     <CommandList
       ref={ref}
       className={cn(
-        'p-2 flex flex-col gap-2  rounded-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg w-full absolute shadow-md z-10 border border-muted top-0 bg-card',
+        'p-2 flex flex-col gap-2 text-white rounded-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg w-full absolute shadow-md z-10 border border-muted top-0 bg-card',
         className
       )}
     >

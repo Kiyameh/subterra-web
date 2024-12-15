@@ -5,6 +5,10 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import ExplorationCreationForm from '@/components/_Organisms/forms/exploration-cretion-form'
 import PageContainer from '@/components/theming/page-container'
+import {CaveIndex} from '@/database/models/Cave.model'
+import {GroupIndex} from '@/database/models/Group.model'
+import {getCaveIndex} from '@/database/services/cave.services'
+import {getGroupsIndex} from '@/database/services/group.services'
 import {GrChapterAdd} from 'react-icons/gr'
 
 interface PageProps {
@@ -16,6 +20,16 @@ export default async function ExplorationCreationPage({params}: PageProps) {
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
+
+  // Obtener el índice de cavidades disponibles:
+  const caveIndex = (await getCaveIndex(instanceName))?.content as
+    | CaveIndex[]
+    | undefined
+
+  // Obtener in índice de grupos disponibles:
+  const groupIndex = (await getGroupsIndex())?.content as
+    | GroupIndex[]
+    | undefined
 
   return (
     <PageContainer className="justify-start">
@@ -53,6 +67,8 @@ export default async function ExplorationCreationPage({params}: PageProps) {
           <ExplorationCreationForm
             instanceName={instanceName}
             commanderId={userId}
+            groupIndex={groupIndex}
+            caveIndex={caveIndex}
           />
         </BasicCard>
       ) : (

@@ -115,7 +115,10 @@ export async function updateCave(
 export async function getCaveIndex(instanceName: string): Promise<Answer> {
   try {
     await connectToMongoDB()
-    const caves = await Cave.find({instance: instanceName})
+    const instance = await Instance.findOne({name: instanceName})
+      .select('_id')
+      .exec()
+    const caves = await Cave.find({instances: instance?._id})
       .select('_id catalog initials name system cave_shapes')
       .exec()
 

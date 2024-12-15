@@ -14,9 +14,9 @@ export const inputVariants = cva(
       },
       variant: {
         outline:
-          'border-borde focus-within:border-primary focus-within:shadow-[0_0px_0px_1px_hsl(var(--primary))] aria-invalid:border-transparent',
+          'border-borde focus-within:border-muthed-foreground focus-within:shadow-[0_0px_0px_1px_hsl(var(--primary))] aria-invalid:border-transparent',
         filled:
-          'border-2 bg-background focus-within:border-primary focus-within:bg-transparent',
+          'border-2 bg-background focus-within:border-muthed-foreground focus-within:bg-transparent',
         underlined:
           'rounded-none border-b-border focus-within:border-b-primary focus-within:shadow-[0_1px_0px_0px_hsl(var(--primary))]',
         unstyled: '',

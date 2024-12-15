@@ -5,6 +5,8 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import CaveCreationForm from '@/components/_Organisms/forms/cave-creation-form'
 import PageContainer from '@/components/theming/page-container'
+import {SystemIndex} from '@/database/models/System.model'
+import {getSystemIndex} from '@/database/services/system.services'
 import {LuPlusCircle} from 'react-icons/lu'
 
 interface PageProps {
@@ -16,6 +18,11 @@ export default async function CaveCreationPage({params}: PageProps) {
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
+
+  // Obtener el indice del sistema
+  const systemIndex = (await getSystemIndex(instanceName)).content as
+    | SystemIndex[]
+    | undefined
 
   return (
     <PageContainer className="justify-start">
@@ -49,6 +56,7 @@ export default async function CaveCreationPage({params}: PageProps) {
           <CaveCreationForm
             instanceName={instanceName}
             commanderId={userId}
+            systemIndex={systemIndex}
           />
         </BasicCard>
       ) : (

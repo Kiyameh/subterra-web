@@ -27,6 +27,8 @@ import Divider from '@/components/_Atoms/boxes/divider'
 import SelectionField from '@/components/_Atoms/fields/selection-field'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {BsExclamationTriangle} from 'react-icons/bs'
+import RefSelectionField from '@/components/_Atoms/fields/ref-selection-field'
+import {SystemIndex} from '@/database/models/System.model'
 
 const EMPTY_CAVE: CaveFormValues = {
   instances: [],
@@ -75,14 +77,17 @@ const EMPTY_CAVE: CaveFormValues = {
  * @description Formulario para crear una cavidad
  * @param instanceName Nombre de la instancia
  * @param commanderId Editor que crea la cavidad
+ * @param systemIndex Índice de los sistemas
  */
 
 export default function CaveCreationForm({
   instanceName,
   commanderId,
+  systemIndex,
 }: {
   instanceName: string
   commanderId: string
+  systemIndex: SystemIndex[] | undefined
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -121,6 +126,12 @@ export default function CaveCreationForm({
               </div>
             </AccordionTrigger>
             <AccordionContent className="space-y-6 p-2 py-6">
+              <RefSelectionField
+                control={form.control}
+                name="system"
+                label="Sistema"
+                index={systemIndex}
+              />
               <TextField
                 control={form.control}
                 name="catalog"

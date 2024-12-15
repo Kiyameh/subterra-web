@@ -11,7 +11,7 @@ import Exploration from '../models/Exploration.model'
 import Cave from '../models/Cave.model'
 import Group from '../models/Group.model'
 
-//* 1. Funciones de escritura */
+//* 1. Acciones de escritura */
 
 /**
  * @version 1
@@ -99,7 +99,7 @@ export async function updateExploration(
   }
 }
 
-//* 2. Funciones de lectura */
+//* 2. Acciones de lectura */
 
 /**
  * @version 1
@@ -195,7 +195,7 @@ export async function getSomeExplorations(
   }
 }
 
-//* 3. Funciones de adición */
+//* 3. Acciones de adición */
 
 /**
  * @version 1

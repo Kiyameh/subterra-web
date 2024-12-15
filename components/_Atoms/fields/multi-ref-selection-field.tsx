@@ -17,35 +17,46 @@ import {
   MultiSelectorItem,
 } from '@/components/ui/multi-select'
 import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import {CaveIndex} from '@/database/models/Cave.model'
+import {ExplorationIndex} from '@/database/models/Exploration.model'
+import {GroupIndex} from '@/database/models/Group.model'
+import {SystemIndex} from '@/database/models/System.model'
 
 /**
  * @version 1
- * @description Campo de selección múltiple controlado por RHF.
+ * @description Campo de selección múltiple de refs controlado por RHF.
  * @param control Controlador de RHF
  * @param name Path del campo
- * @param options Opciones del campo
  * @param label Etiqueta del campo
  * @param description Descripción del campo
  * @param placeholder Placeholder del campo
+ * @param index Opciones del campo
  */
 
-export default function MultipleSelectionField<T extends FieldValues>({
+export default function MultiRefSelectionField<T extends FieldValues>({
   control,
   name,
-  options,
   label,
   description,
   placeholder,
+  index,
 }: {
   control: Control<T>
   name: Path<T>
-  options: string[]
   label?: string
   description?: string
   placeholder?: string
   startContent?: React.ReactNode
   endContent?: React.ReactNode
+  index:
+    | GroupIndex[]
+    | CaveIndex[]
+    | SystemIndex[]
+    | ExplorationIndex[]
+    | undefined
 }) {
+  if (!index) return <div>Algo ha ido mal al cargar las opciones...</div> //TODO: Mejorar el mensaje de error
+
   return (
     <FormField
       control={control}
@@ -58,8 +69,13 @@ export default function MultipleSelectionField<T extends FieldValues>({
           </div>
           <FormControl>
             <MultiSelector
-              values={field.value as string[]}
-              onValuesChange={field.onChange}
+              values={field.value as string[]} // Asegúrate de que los valores sean compatibles
+              onValuesChange={(newValues) => {
+                const selectedOptions = index.filter((option) =>
+                  newValues.includes(option._id)
+                )
+                field.onChange(selectedOptions.map((option) => option._id))
+              }}
               loop
             >
               <MultiSelectorTrigger
@@ -75,12 +91,12 @@ export default function MultipleSelectionField<T extends FieldValues>({
               </MultiSelectorTrigger>
               <MultiSelectorContent>
                 <MultiSelectorList>
-                  {options.map((item) => (
+                  {index.map((item) => (
                     <MultiSelectorItem
-                      key={item}
-                      value={item}
+                      key={item._id}
+                      value={item._id}
                     >
-                      {item}
+                      {item.name}
                     </MultiSelectorItem>
                   ))}
                 </MultiSelectorList>

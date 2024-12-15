@@ -37,7 +37,7 @@ export default function PhoneField<T extends FieldValues>({
     <FormField
       control={control}
       name={name}
-      render={({field}) => (
+      render={({field, fieldState}) => (
         <FormItem className="flex flex-col items-start">
           <div className="flex gap-2">
             {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
@@ -45,6 +45,11 @@ export default function PhoneField<T extends FieldValues>({
           </div>
           <FormControl className="w-full">
             <PhoneInput
+              className={
+                fieldState.isDirty && !fieldState.error
+                  ? 'border border-emphasis rounded-md'
+                  : ''
+              }
               placeholder={placeholder}
               {...field}
               defaultCountry="ES"
