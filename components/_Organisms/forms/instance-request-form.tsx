@@ -4,10 +4,9 @@ import {Session} from 'next-auth'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {
-  instanceRequestFormSchema,
-  InstanceRequestFormValues,
-} from '@/database/validation/platform.schemas'
+import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
+import {instanceRequestMaxCharacters} from '@/database/validation/platform.schemas'
+import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 import {addInstanceRequest} from '@/database/services/platform.services'
 import {GroupIndex} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
@@ -20,8 +19,6 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import BackButton from '@/components/_Atoms/buttons/back-button'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
-
-import {maxCharacterLimits} from '@/components/_Organisms/forms/hooks/use-max-character-limits'
 
 import {FaInfoCircle} from 'react-icons/fa'
 
@@ -63,8 +60,6 @@ export default function InstanceRequestForm({
     } as InstanceRequestFormValues,
   })
 
-  const maxCharacters = maxCharacterLimits(instanceRequestFormSchema)
-
   return (
     <Form {...form}>
       <form
@@ -87,7 +82,7 @@ export default function InstanceRequestForm({
           label="Nombre completo"
           description="Nombre completo de la instancia"
           placeholder="Cuevas de la sierra de la cabra"
-          maxCharacters={maxCharacters.fullname}
+          maxCharacters={instanceRequestMaxCharacters.fullname}
         />
         <TextAreaField
           control={form.control}
@@ -95,7 +90,7 @@ export default function InstanceRequestForm({
           label="Descripción"
           description="Descripción detallada de la información que se quiere almacenar. Incluido formato de los datos si se tienen"
           placeholder="Registro de exploraciones del club de la cabra en la sierra..."
-          maxCharacters={maxCharacters.description}
+          maxCharacters={instanceRequestMaxCharacters.description}
         />
         <TextAreaField
           control={form.control}
@@ -103,7 +98,7 @@ export default function InstanceRequestForm({
           label="Extensión territorial"
           description="Información sobre el territorio que abarca la instancia"
           placeholder="Límites del parque natural de la sierra de la cabra. Provincia de Nuevatierra"
-          maxCharacters={maxCharacters.territory}
+          maxCharacters={instanceRequestMaxCharacters.territory}
         />
         <CollapsibleBox
           title="Gestión de permisos"
@@ -122,14 +117,14 @@ export default function InstanceRequestForm({
           name="roles"
           label="Gestión de permisos"
           placeholder="Edición solo por miembros autorizados"
-          maxCharacters={maxCharacters.roles}
+          maxCharacters={instanceRequestMaxCharacters.roles}
         />
         <TextAreaField
           control={form.control}
           name="message"
           label="Otros comentarios"
           placeholder="..."
-          maxCharacters={maxCharacters.message}
+          maxCharacters={instanceRequestMaxCharacters.message}
         />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}

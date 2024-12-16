@@ -6,6 +6,7 @@ import React from 'react'
 import {Badge} from './badge'
 import {Input} from './input'
 import {X as RemoveIcon} from 'lucide-react'
+import {PiKeyReturnFill} from 'react-icons/pi'
 
 /**
  * used for identifying the split char and use will pasting
@@ -230,6 +231,14 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
       [activeIndex, value, inputValue, RemoveValue]
     )
 
+    function handleAdd(e: {preventDefault: () => void}) {
+      if (inputValue.trim() !== '') {
+        e.preventDefault()
+        onValueChangeHandler(inputValue)
+        setInputValue('')
+      }
+    }
+
     const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
@@ -307,6 +316,13 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
               activeIndex !== -1 && 'caret-transparent'
             )}
           />
+          <button
+            className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer"
+            onClick={handleAdd}
+          >
+            <PiKeyReturnFill className="text-lg" />
+            <span>Añadir</span>
+          </button>
         </div>
       </TagInputContext.Provider>
     )

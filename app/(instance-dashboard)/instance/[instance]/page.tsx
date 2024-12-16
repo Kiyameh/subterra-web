@@ -43,7 +43,7 @@ export default async function InstanceLandingPage({params}: PageProps) {
           name={instance.name}
           fullname={instance.fullname}
           acronym={instance.acronym}
-          owner={instance.owner.fullname}
+          owner={instance.owner}
           description={instance.description}
         />
         <InstanceStatsCard editorsLength={instance.editors.length} />

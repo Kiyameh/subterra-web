@@ -2,6 +2,7 @@ import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import {GroupIndex} from '@/database/models/Group.model'
 import React from 'react'
 import {IoMdInformationCircle} from 'react-icons/io'
 
@@ -17,7 +18,7 @@ export default function InstanceInfoCard({
   name: string
   fullname: string
   acronym: string
-  owner: string
+  owner: GroupIndex
   description: string
 }) {
   return (
@@ -47,7 +48,8 @@ export default function InstanceInfoCard({
       />
       <LinkSlot
         label="Grupo propietario"
-        value={owner}
+        value={`/group/${owner.name}`}
+        showText={owner.fullname}
         type="internal"
       />
       <TextSlot

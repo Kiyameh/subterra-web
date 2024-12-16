@@ -3,8 +3,8 @@ import React from 'react'
 import {Session} from 'next-auth'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {maxCharacterLimits} from '@/components/_Organisms/forms/hooks/use-max-character-limits'
 
+import {contactMaxCharacters} from '@/database/validation/platform.schemas'
 import {contactFormSchema} from '@/database/validation/platform.schemas'
 import {ContactFormValues} from '@/database/validation/platform.schemas'
 import {contactSubjects} from '@/database/models/Platform.enums'
@@ -51,7 +51,6 @@ export default function ContactForm({
     } as ContactFormValues,
   })
 
-  const maxCharacters = maxCharacterLimits(contactFormSchema)
   return (
     <Form {...form}>
       <form
@@ -80,7 +79,7 @@ export default function ContactForm({
           name="message"
           label="Mensaje"
           placeholder="Escribe tu mensaje aquí"
-          maxCharacters={maxCharacters.message}
+          maxCharacters={contactMaxCharacters.message}
         />
         <DbAwnserBox answer={dbAnswer} />
         <SubmitButton isPending={isPending} />

@@ -7,16 +7,19 @@ import {MdEmail, MdPhone, MdLink, MdOpenInNew} from 'react-icons/md'
  * @param label Texto del slot
  * @param value Valor del enlace
  * @param type Tipo de enlace (email, phone, internal, external)
+ * @param showText Texto a mostrar en el enlace
  */
 
 export function LinkSlot({
   label,
   value,
   type,
+  showText,
 }: {
   label: string
   value?: string
   type?: 'email' | 'phone' | 'internal' | 'external'
+  showText?: string
 }) {
   const icon =
     type === 'email' ? (
@@ -55,7 +58,9 @@ export function LinkSlot({
           href={href || ''}
           className="flex gap-2 items-center"
         >
-          <span className="hover:text-primary text-sm">{value}</span>
+          <span className="hover:text-primary text-sm">
+            {showText || value}
+          </span>
           <span className="text-primary">{icon}</span>
         </Link>
       )}

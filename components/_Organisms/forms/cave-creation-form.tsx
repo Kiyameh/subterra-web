@@ -4,9 +4,11 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/answer.type'
+import {caveMaxCharacters} from '@/database/validation/cave.schemas'
 import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {CaveFormSchema} from '@/database/validation/cave.schemas'
 import {createCave} from '@/database/services/cave.services'
+import {SystemIndex} from '@/database/models/System.model'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -21,14 +23,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import Divider from '@/components/_Atoms/boxes/divider'
 import SelectField from '@/components/_Atoms/fields/select-field'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
+
 import {BsExclamationTriangle} from 'react-icons/bs'
-import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
-import {SystemIndex} from '@/database/models/System.model'
 
 const EMPTY_CAVE: CaveFormValues = {
   instances: [],
@@ -129,19 +131,22 @@ export default function CaveCreationForm({
               <RefSelectField
                 control={form.control}
                 name="system"
-                label="Sistema"
+                label="Sistema karstico"
+                noOptionsText="Todavía no hay ningun sistema creado"
                 index={systemIndex}
               />
               <TextField
                 control={form.control}
                 name="catalog"
                 label="Número de Catálogo externo"
+                description="Referencia de catálogo en algún sistema externo a subterra"
                 placeholder="CAT-123"
               />
               <MultiTextField
                 control={form.control}
                 name="initials"
                 label="Siglas de exploración"
+                description="Añade una o varias siglas pulsando enter entre ellas"
                 placeholder="AR-01"
               />
               <TextField
@@ -149,11 +154,13 @@ export default function CaveCreationForm({
                 name="name"
                 label="Nombre"
                 placeholder="Cueva del pirata"
+                maxCharacters={caveMaxCharacters.name}
               />
               <MultiTextField
                 control={form.control}
                 name="alt_names"
                 label="Nombres alternativos"
+                description="Añade uno o varios nombres alternativos pulsando enter entre ellos"
                 placeholder="Torca de isla tortuga"
               />
               <MultiSelectField
@@ -166,7 +173,7 @@ export default function CaveCreationForm({
                 control={form.control}
                 name="description"
                 label="Descripción"
-                placeholder="La cueva del pirata tiene un tesoro escondido..."
+                maxCharacters={caveMaxCharacters.description}
               />
               <BooleanField
                 control={form.control}
@@ -177,7 +184,7 @@ export default function CaveCreationForm({
                 control={form.control}
                 name="regulation_description"
                 label="Descripción de las regulaciones"
-                placeholder="No se permite el paso de animales"
+                maxCharacters={caveMaxCharacters.regulation_description}
               />
               <TextField
                 control={form.control}
@@ -268,25 +275,26 @@ export default function CaveCreationForm({
                 control={form.control}
                 name="locality"
                 label="Localidad"
-                placeholder="Villasable"
+                placeholder="Tortuga"
               />
               <MultiTextField
                 control={form.control}
                 name="toponymy"
                 label="Toponimia"
+                description="Añade uno o varios topónimos pulsando enter entre ellos"
                 placeholder="Mar del sur"
               />
               <TextField
                 control={form.control}
                 name="massif"
                 label="Macizo"
-                placeholder="Monte de los piratas"
+                placeholder="Montes de poniente"
               />
               <TextAreaField
                 control={form.control}
                 name="location_description"
                 label="Descripción de la localización"
-                placeholder="La cueva se encuentra en la falda del monte"
+                maxCharacters={caveMaxCharacters.location_description}
               />
             </AccordionContent>
           </AccordionItem>
@@ -307,55 +315,63 @@ export default function CaveCreationForm({
                 control={form.control}
                 name="geolog_age"
                 label="Edad geológica"
-                placeholder="Jurásico"
+                maxCharacters={caveMaxCharacters.geolog_age}
               />
               <TextAreaField
                 control={form.control}
                 name="geolog_litology"
                 label="Litología"
-                placeholder="Caliza"
+                placeholder="Datos de interes litológicos"
+                maxCharacters={caveMaxCharacters.geolog_litology}
               />
               <TextAreaField
                 control={form.control}
                 name="arqueolog"
                 label="Arqueología"
                 placeholder="Datos de interes arqueológicos"
+                maxCharacters={caveMaxCharacters.arqueolog}
               />
               <TextAreaField
                 control={form.control}
                 name="paleontolog"
                 label="Paleontología"
                 placeholder="Datos de interes paleontológicos"
+                maxCharacters={caveMaxCharacters.paleontolog}
               />
               <TextAreaField
                 control={form.control}
                 name="mineralog"
                 label="Mineralogía"
                 placeholder="Datos de interes mineralógicos"
+                maxCharacters={caveMaxCharacters.mineralog}
               />
               <TextAreaField
                 control={form.control}
                 name="contamination"
                 label="Contaminación"
                 placeholder="Presencia de residuos humanos"
+                maxCharacters={caveMaxCharacters.contamination}
               />
               <TextAreaField
                 control={form.control}
                 name="biolog"
                 label="Biología"
                 placeholder="Datos de interes biológicos"
+                maxCharacters={caveMaxCharacters.biolog}
               />
               <TextField
                 control={form.control}
                 name="hidrolog_system"
                 label="Cuenca hidrológica"
                 placeholder="Datos hidrológicos de la cuenca"
+                maxCharacters={caveMaxCharacters.hidrolog_system}
               />
               <TextField
                 control={form.control}
                 name="hidrolog_subsystem"
                 label="Subsistema hidrológico"
                 placeholder="Datos hidrológicos locales"
+                maxCharacters={caveMaxCharacters.hidrolog_subsystem}
               />
             </AccordionContent>
           </AccordionItem>

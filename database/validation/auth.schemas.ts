@@ -1,27 +1,54 @@
 import {z} from 'zod'
 
+/**
+ * @const Máximos de caracteres permitidos en los campos de un usuario
+ */
+
+export const userMaxCharacters = {
+  name: 20,
+  fullname: 40,
+  password: 20,
+}
+
+/**
+ * @schema de Zod para validar formulario de inicio de sesión
+ */
+
 export const SignInSchema = z.object({
   email: z.string().email({
     message: 'Email no válido',
   }),
-  password: z.string().min(1, {message: 'Contraseña requerida'}),
+  password: z
+    .string()
+    .min(1, {message: 'Contraseña requerida'})
+    .max(userMaxCharacters.password, {message: 'Demasiado largo'}),
 })
 
+/**
+ * @type Tipo de los datos introducidos en el formulario de inicio de sesión.
+ */
 export type SignInValues = z.infer<typeof SignInSchema>
 
+/**
+ * @schema de Zod para validar formulario de registro
+ */
 export const SignUpSchema = z
   .object({
     name: z
       .string()
       .min(3, {message: 'Requerido'})
-      .max(20, {message: 'Demasiado largo'})
+      .max(userMaxCharacters.name, {message: 'Demasiado largo'})
       .trim()
       .toLowerCase(),
-    fullname: z.string().max(40, {message: 'Demasiado largo'}).trim(),
+    fullname: z
+      .string()
+      .max(userMaxCharacters.fullname, {message: 'Demasiado largo'})
+      .trim(),
     email: z.string().email({message: 'Email incorrecto'}),
     password: z
       .string()
       .min(8, {message: 'Mínimo 8 caracteres'})
+      .max(userMaxCharacters.password, {message: 'Demasiado largo'})
       .regex(/[a-z]/, {
         message: 'Incluye una letra minúscula',
       })
@@ -34,5 +61,9 @@ export const SignUpSchema = z
     message: 'Las contraseñas no coinciden',
     path: ['passwordConfirmation'],
   })
+
+/**
+ * @type Tipo de los datos introducidos en el formulario de registro.
+ */
 
 export type SignUpValues = z.infer<typeof SignUpSchema>
