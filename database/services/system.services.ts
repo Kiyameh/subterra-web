@@ -6,6 +6,7 @@ import {checkIsEditor} from './instance.services'
 import {SystemFormSchema, SystemFormValues} from '../validation/system.schemas'
 import System from '../models/System.model'
 import Cave from '../models/Cave.model'
+import Instance from '../models/Instance.model'
 
 //* 1. Funciones de escritura */
 
@@ -34,16 +35,46 @@ export async function createSystem(
     const isEditor = checkIsEditor(commanderId, instanceName)
     if (!isEditor) throw new Error('El usuario no es editor de la instancia')
 
-    // Crear el nuevo sistema en memoria:
-    const newSystem = new System(values)
+    const conection = await connectToMongoDB()
+    // Obtener el _id de la instancia
+    const instanceId = await Instance.findOne({name: instanceName})
+      .select('_id')
+      .exec()
 
-    await connectToMongoDB()
-    const savedSystem = await newSystem.save()
+    // Crear el nuevo sistema en memoria:
+    const newSystem = new System({
+      ...values,
+      instances: [instanceId],
+    })
+
+    const session = await conection.startSession()
+    // TODO: Estudiar cual es el retorno de withTransaction
+
+    await session.withTransaction(async () => {
+      // Insertar el sistema en las cuevas:
+      if (values.caves) {
+        values.caves.forEach(async (caveId: string) => {
+          const updatedCave = await Cave.findByIdAndUpdate(
+            caveId,
+            {system: newSystem._id},
+            {new: true}
+          )
+          if (!updatedCave) throw new Error('Error al actualizar la cueva')
+        })
+      }
+
+      // Guardar el sistema en la base de datos
+      const savedSystem = await newSystem.save()
+      if (!savedSystem) {
+        throw new Error('Error al guardar el sistema')
+      }
+    })
+
+    session.endSession()
 
     return {
       ok: true,
       message: 'Sistema creado',
-      redirect: `/system/${savedSystem._id}`,
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -105,7 +136,11 @@ export async function updateSystem(
 export async function getSystemIndex(instanceName: string): Promise<Answer> {
   try {
     await connectToMongoDB()
-    const systems = await System.find({instance: instanceName})
+    const instance = await Instance.findOne({name: instanceName})
+      .select('_id')
+      .exec()
+
+    const systems = await System.find({instances: {$in: [instance?._id]}})
       .select('_id catalog initials name caves')
       .exec()
 

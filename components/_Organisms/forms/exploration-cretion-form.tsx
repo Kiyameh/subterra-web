@@ -4,19 +4,23 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/answer.type'
-import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
+import {
+  ExplorationFormValues,
+  explorationMaxCharacters,
+} from '@/database/validation/exploration.schemas'
 import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
 import {createExploration} from '@/database/services/exploration.services'
+import {GroupIndex} from '@/database/models/Group.model'
+import {CaveIndex} from '@/database/models/Cave.model'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
-import {GroupIndex} from '@/database/models/Group.model'
-import {CaveIndex} from '@/database/models/Cave.model'
 import MultiRefSelectField from '@/components/_Atoms/fields/multi-ref-select-field'
 import TextField from '@/components/_Atoms/fields/text-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
+import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
 
 const EMPTY_EXPLORATION: ExplorationFormValues = {
   instances: [],
@@ -91,18 +95,20 @@ export default function ExplorationCreationForm({
         <TextField
           control={form.control}
           name="name"
-          label="Nombre"
-          description="Titulo de la exploración"
+          label="Titulo de la exploracion"
+          maxCharacters={explorationMaxCharacters.name}
         />
-        {
-          // TODO: Selector multiple de fechas
-        }
+        <MultiDateField
+          control={form.control}
+          name="dates"
+          label="Fechas de la exploración"
+        />
 
         <TextField
           control={form.control}
           name="cave_time"
           label="Tiempo en cueva"
-          description="Tiempo aproximado en cueva"
+          description="Tiempo aproximado de trabajo dentro de cavidad"
           endContent="horas"
           type="number"
         />
@@ -111,39 +117,39 @@ export default function ExplorationCreationForm({
           control={form.control}
           name="participants"
           label="Participantes"
-          description="Nombres de los participantes"
+          description="Introduce los participantes separados por enter"
         />
         <MultiTextField
           control={form.control}
           name="collaborators"
           label="Colaboradores"
-          description="Grupos colaboradores"
+          description="Introduce personas o entidades colaboradoras separadas por enter"
         />
 
         <TextAreaField
           control={form.control}
           name="description"
-          label="Descripción"
-          description="Descripción de la exploración"
+          label="Relato de la exploración"
+          maxCharacters={explorationMaxCharacters.description}
         />
 
         <TextAreaField
           control={form.control}
           name="incidents"
-          label="Incidentes"
-          description="Incidentes ocurridos"
+          label="Incidentes ocurridos"
+          maxCharacters={explorationMaxCharacters.incidents}
         />
         <TextAreaField
           control={form.control}
           name="inventory"
-          label="Inventario"
-          description="Inventario de la exploración"
+          label="Inventario de la exploración"
+          maxCharacters={explorationMaxCharacters.inventory}
         />
         <TextAreaField
           control={form.control}
           name="pending_work"
           label="Trabajos pendientes"
-          description="Trabajos pendientes"
+          maxCharacters={explorationMaxCharacters.pending_work}
         />
 
         <DbAwnserBox answer={dbAnswer} />

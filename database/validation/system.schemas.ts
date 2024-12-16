@@ -40,14 +40,14 @@ export const SystemFormSchema = z.object({
     z
       .string()
       .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
-  ), // Instancias
+  ),
   caves: z
     .array(
       z
         .string()
         .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
     )
-    .optional(), // Caves
+    .optional(),
   datatype: z.string().default('system'),
 
   //* Datos troncales:

@@ -8,6 +8,7 @@ import {Answer} from '../types/answer.type'
  */
 
 export function decodeMongoError(error: unknown): Answer {
+  console.error(error)
   let errorCode = 500
   let errorMessage = 'Error desconocido'
   if (error instanceof MongoError) {

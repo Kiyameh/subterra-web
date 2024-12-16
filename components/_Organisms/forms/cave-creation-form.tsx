@@ -141,6 +141,7 @@ export default function CaveCreationForm({
                 label="Número de Catálogo externo"
                 description="Referencia de catálogo en algún sistema externo a subterra"
                 placeholder="CAT-123"
+                maxCharacters={caveMaxCharacters.catalog}
               />
               <MultiTextField
                 control={form.control}
@@ -270,12 +271,14 @@ export default function CaveCreationForm({
                 name="municipality"
                 label="Municipio"
                 placeholder="Isla tortuga"
+                maxCharacters={caveMaxCharacters.municipality}
               />
               <TextField
                 control={form.control}
                 name="locality"
                 label="Localidad"
                 placeholder="Tortuga"
+                maxCharacters={caveMaxCharacters.locality}
               />
               <MultiTextField
                 control={form.control}
@@ -289,6 +292,7 @@ export default function CaveCreationForm({
                 name="massif"
                 label="Macizo"
                 placeholder="Montes de poniente"
+                maxCharacters={caveMaxCharacters.massif}
               />
               <TextAreaField
                 control={form.control}
@@ -382,14 +386,10 @@ export default function CaveCreationForm({
           )}
         </div>
         <DbAwnserBox answer={dbAnswer} />
-        {dbAnswer?.ok ? (
-          <p>Cavidad creadad</p>
-        ) : (
-          <SubmitButton
-            label="Crear cavidad"
-            isPending={isPending}
-          />
-        )}
+        <SubmitButton
+          label="Crear cavidad"
+          isPending={isPending}
+        />
       </form>
     </Form>
   )

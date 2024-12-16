@@ -41,6 +41,9 @@ export default function MultiRefSelectField<T extends FieldValues>({
   label,
   description,
   placeholder,
+  fetchingErrorText = 'Error al cargar opciones, puedes editar este dato más tarde',
+  noOptionsText = 'Todavía no hay opciones disponibles',
+
   index,
 }: {
   control: Control<T>
@@ -48,8 +51,8 @@ export default function MultiRefSelectField<T extends FieldValues>({
   label?: string
   description?: string
   placeholder?: string
-  startContent?: React.ReactNode
-  endContent?: React.ReactNode
+  fetchingErrorText?: string
+  noOptionsText?: string
   index:
     | GroupIndex[]
     | CaveIndex[]
@@ -69,9 +72,12 @@ export default function MultiRefSelectField<T extends FieldValues>({
           </div>
           <FormControl>
             {!index ? (
-              <div className="h-10 w-full rounded-md border border-muted flex items-center justify-center text-xs text-destructive-foreground/80 px-2 py-1 ">
-                Algo ha ido mal al cargar las opciones, puedes añadir este dato
-                más tarde
+              <div className="h-10 w-full rounded-md border border-muted flex items-center justify-start text-xs text-destructive-foreground/80 px-2 py-1 ">
+                {fetchingErrorText}
+              </div>
+            ) : index.length === 0 ? (
+              <div className="h-10 w-full rounded-md border border-muted flex items-center justify-start text-xs text-destructive-foreground/80 px-2 py-1 ">
+                {noOptionsText}
               </div>
             ) : (
               <MultiSelector

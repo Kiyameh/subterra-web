@@ -46,9 +46,9 @@ export interface SystemDocument extends Document {
 
 const systemSchema = new Schema<SystemDocument>({
   instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},
-  catalog: {type: String, unique: true}, // TODO: Actualizar para que pueda haber varios catálogos con las mismas siglas
+  catalog: {type: String},
   initials: {type: [String]},
-  name: {type: String, required: true},
+  name: {type: String, required: true, unique: true},
   alt_names: {type: [String]},
   datatype: {type: String, required: true, default: 'system'},
   caves: {type: [Schema.Types.ObjectId], ref: 'Cave'},

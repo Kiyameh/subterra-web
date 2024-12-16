@@ -75,9 +75,9 @@ export interface CaveDocument extends Document {
 const caveSchema = new Schema<CaveDocument>(
   {
     instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},
-    catalog: {type: String, unique: true}, // TODO: Actualizar para que pueda haber varios catálogos con las mismas siglas
+    catalog: {type: String}, // TODO: Actualizar para que pueda haber varios catálogos con las mismas siglas
     initials: {type: [String]},
-    name: {type: String, required: true},
+    name: {type: String, required: true, unique: true},
     alt_names: {type: [String]},
     cave_shapes: {type: [String], enum: caveShapes},
     system: {type: Schema.Types.ObjectId, ref: 'System'},

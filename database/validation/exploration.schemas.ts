@@ -9,7 +9,7 @@ const hex24Regex = /^[0-9a-fA-F]{24}$/
  * @const Máximos de caracteres permitidos en los campos de un informe de exploración
  */
 
-const explorationMaxCharacters = {
+export const explorationMaxCharacters = {
   name: 120,
   participants: 120,
   collaborators: 120,

@@ -10,6 +10,7 @@ import {
 import Exploration from '../models/Exploration.model'
 import Cave from '../models/Cave.model'
 import Group from '../models/Group.model'
+import Instance from '../models/Instance.model'
 
 //* 1. Acciones de escritura */
 
@@ -38,16 +39,60 @@ export async function createExploration(
     const isEditor = checkIsEditor(commanderId, instanceName)
     if (!isEditor) throw new Error('El usuario no es editor de la instancia')
 
-    // Crear la nueva exploración en memoria:
-    const newExploration = new Exploration(values)
+    const conection = await connectToMongoDB()
+    // Obtener el _id de la instancia
+    const instanceId = await Instance.findOne({name: instanceName})
+      .select('_id')
+      .exec()
 
-    await connectToMongoDB()
-    const savedExploration = await newExploration.save()
+    // Crear la nueva exploración en memoria:
+    const newExploration = new Exploration({
+      ...values,
+      instances: [instanceId],
+    })
+
+    const session = await conection.startSession()
+    // TODO: Estudiar cual es el retorno de withTransaction
+
+    await session.withTransaction(async () => {
+      // Insertar la exploración en las cuevas:
+      if (values.caves) {
+        values.caves.forEach(async (caveId: string) => {
+          const updatedCave = await Cave.findByIdAndUpdate(
+            caveId,
+            {$push: {explorations: newExploration._id}},
+            {new: true}
+          )
+          if (!updatedCave) {
+            throw new Error('Error al actualizar la cueva')
+          }
+        })
+      }
+
+      // Insertar la exploración en los grupos:
+      if (values.groups) {
+        values.groups.forEach(async (groupId: string) => {
+          const updatedGroup = await Group.findByIdAndUpdate(
+            groupId,
+            {$push: {explorations: newExploration._id}},
+            {new: true}
+          )
+          if (!updatedGroup) {
+            throw new Error('Error al guardar el grupo')
+          }
+        })
+      }
+
+      // Guardar la exploración en la base de datos
+      const savedExploration = await newExploration.save()
+      if (!savedExploration) {
+        throw new Error('Error al guardar la exploración')
+      }
+    })
 
     return {
       ok: true,
       message: 'Exploración creada',
-      redirect: `/exploration/${savedExploration._id}`,
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -113,7 +158,12 @@ export async function getExplorationsIndex(
 ): Promise<Answer> {
   try {
     await connectToMongoDB()
-    const explorations = await Exploration.find({instance: instanceName})
+    const instance = await Instance.findOne({name: instanceName})
+      .select('_id')
+      .exec()
+    const explorations = await Exploration.find({
+      instances: {$in: [instance?._id]},
+    })
       .select('_id name dates caves')
       .exec()
 

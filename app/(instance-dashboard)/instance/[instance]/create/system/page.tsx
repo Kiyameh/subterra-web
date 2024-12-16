@@ -1,10 +1,15 @@
 import {auth} from '@/auth'
+
+import {CaveIndex} from '@/database/models/Cave.model'
+import {getCaveIndex} from '@/database/services/cave.services'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import SystemCreationForm from '@/components/_Organisms/forms/system-creation-form'
 import PageContainer from '@/components/theming/page-container'
+
 import {RiApps2AddLine} from 'react-icons/ri'
 
 interface PageProps {
@@ -16,6 +21,11 @@ export default async function SystemCreationPage({params}: PageProps) {
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
+
+  // Obtener el índice de cavidades
+  const cavesIndex = (await getCaveIndex(instanceName)).content as
+    | CaveIndex[]
+    | undefined
 
   return (
     <PageContainer className="justify-start">
@@ -49,6 +59,7 @@ export default async function SystemCreationPage({params}: PageProps) {
           <SystemCreationForm
             instanceName={instanceName}
             commanderId={userId}
+            cavesIndex={cavesIndex}
           />
         </BasicCard>
       ) : (

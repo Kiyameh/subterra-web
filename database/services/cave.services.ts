@@ -35,7 +35,9 @@ export async function createCave(
     // Comprobar si el commander es editor de la instancia
     const isEditor = checkIsEditor(commanderId, instanceName)
     if (!isEditor) throw new Error('El usuario no es editor de la instancia')
-    await connectToMongoDB()
+
+    const conection = await connectToMongoDB()
+
     // Obtener el _id de la instancia
     const instanceId = await Instance.findOne({name: instanceName})
       .select('_id')
@@ -47,12 +49,30 @@ export async function createCave(
       instances: [instanceId],
     })
 
-    const savedCave = await newCave.save()
+    const session = await conection.startSession()
+    // TODO: Estudiar cual es el retorno de withTransaction
+
+    await session.withTransaction(async () => {
+      // Insertar la cueva en el sistema:
+      if (values.system) {
+        const updatedSystem = await System.findOneAndUpdate(
+          {_id: values.system},
+          {$push: {caves: newCave._id}},
+          {new: true}
+        )
+        if (!updatedSystem) throw new Error('Error al actualizar el sistema')
+      }
+
+      // Guardar la cueva en la base de datos
+      const savedCave = await newCave.save()
+      if (!savedCave) throw new Error('Error al guardar la cueva')
+    })
+
+    session.endSession()
 
     return {
       ok: true,
       message: 'Cueva creada',
-      redirect: `/cave/${savedCave._id}`,
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -118,7 +138,7 @@ export async function getCaveIndex(instanceName: string): Promise<Answer> {
     const instance = await Instance.findOne({name: instanceName})
       .select('_id')
       .exec()
-    const caves = await Cave.find({instances: instance?._id})
+    const caves = await Cave.find({instances: {$in: [instance?._id]}})
       .select('_id catalog initials name system cave_shapes')
       .exec()
 
