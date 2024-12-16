@@ -7,6 +7,7 @@ import {PiAvocadoFill} from 'react-icons/pi'
 import {BiMessageDots} from 'react-icons/bi'
 import {FiBox} from 'react-icons/fi'
 import {TbComponents} from 'react-icons/tb'
+import {MdDataObject} from 'react-icons/md'
 
 export default function StaffDashboardLanding() {
   return (
@@ -40,6 +41,13 @@ export default function StaffDashboardLanding() {
               color="staff"
               icon={<TbComponents />}
               text="Muestrario componentes"
+            />
+          </Link>
+          <Link href="/admin/object-viewer">
+            <SquareButton
+              color="staff"
+              icon={<MdDataObject />}
+              text="Visor de objetos"
             />
           </Link>
         </div>

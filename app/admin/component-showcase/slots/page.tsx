@@ -23,7 +23,7 @@ import {BiAlarmAdd} from 'react-icons/bi'
 
 export default function SlotsShowcasePage() {
   return (
-    <PageContainer className="flex flex-row gap-6">
+    <PageContainer className="flex flex-row gap-6 flex-wrap">
       <CardWithHeader cardSubHeader="Slots showcase">
         <TextSlot
           label="TextSlot"

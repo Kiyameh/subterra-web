@@ -92,9 +92,9 @@ export default function CountryField<
                   {EU_countries.map((option, i) => (
                     <SelectItem
                       key={i}
-                      value={option.name}
+                      value={option.native}
                     >
-                      {option.name}
+                      {option.native}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -136,7 +136,7 @@ export default function CountryField<
                 </SelectTrigger>
                 <SelectContent>
                   {EU_provinces.filter((pronvince) => {
-                    return pronvince.country_name === country
+                    return pronvince.country_native === country
                   }).map((option, i) => (
                     <SelectItem
                       key={i}

@@ -57,10 +57,5 @@
   {"id": 232, "name": "United Kingdom", "native": "United Kingdom"},
   {"id": 238, "name": "Vatican City State (Holy See)", "native": "Vaticano"},
   {"id": 251, "name": "Basque country", "native": "Euskal Herria"},
-  {"id": 252, "name": "Catalan Countries", "native": "Països Catalans"},
-  {
-    "id": 253,
-    "name": "República de Vallekas",
-    "native": "República de Vallekas"
-  }
+  {"id": 252, "name": "Catalan Countries", "native": "Països Catalans"}
 ]

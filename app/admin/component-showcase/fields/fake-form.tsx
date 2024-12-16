@@ -65,7 +65,7 @@ const EXAMPLE_VALUES: FakeFormValues = {
   ref: '21',
   multiRef: ['21', '22'],
   phone: '+34666666666',
-  country: 'Spain',
+  country: 'España',
   province: 'Barcelona',
 }
 
