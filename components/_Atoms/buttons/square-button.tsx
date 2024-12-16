@@ -1,5 +1,13 @@
 import {cn} from '@/lib/utils'
 
+/**
+ * @version 1
+ * @description Componente que muestra un botón cuadrado con un icono y un texto.
+ * @param icon Icono del botón
+ * @param text Texto del botón
+ * @param color Color del botón [staff, admin, editor, primary]
+ */
+
 export default function SquareButton({
   icon,
   text,

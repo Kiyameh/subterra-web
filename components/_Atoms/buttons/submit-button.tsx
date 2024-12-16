@@ -5,6 +5,8 @@ import {Loader2} from 'lucide-react'
  * @version 1
  * @description Botón de envío de formulario con loader
  * @param isPending Estado de envío del formulario
+ * @param label Texto del botón
+ * @default label 'Enviar'
  */
 
 export default function SubmitButton({

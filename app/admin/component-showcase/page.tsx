@@ -6,6 +6,10 @@ import {RiInputField} from 'react-icons/ri'
 import Link from 'next/link'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import {BsTextareaResize} from 'react-icons/bs'
+import {BsAppIndicator} from 'react-icons/bs'
+import {CiViewTable} from 'react-icons/ci'
+import {CgPlayButtonR} from 'react-icons/cg'
+import {FiBox} from 'react-icons/fi'
 
 export default function ComponentsShowcasePage() {
   return (
@@ -19,7 +23,7 @@ export default function ComponentsShowcasePage() {
           </div>
         }
       >
-        <div className="flex flex-row gap-2 items-center justify-center">
+        <div className="flex flex-row gap-2 flex-wrap items-center justify-center">
           <Link href="/admin/component-showcase/fields">
             <SquareButton
               color="staff"
@@ -32,6 +36,34 @@ export default function ComponentsShowcasePage() {
               color="staff"
               icon={<BsTextareaResize />}
               text="Slots"
+            />
+          </Link>
+          <Link href="/admin/component-showcase/indicators">
+            <SquareButton
+              color="staff"
+              icon={<BsAppIndicator />}
+              text="Indicators"
+            />
+          </Link>
+          <Link href="/admin/component-showcase/cells">
+            <SquareButton
+              color="staff"
+              icon={<CiViewTable />}
+              text="Cells"
+            />
+          </Link>
+          <Link href="/admin/component-showcase/buttons">
+            <SquareButton
+              color="staff"
+              icon={<CgPlayButtonR />}
+              text="Buttons"
+            />
+          </Link>
+          <Link href="/admin/component-showcase/boxes">
+            <SquareButton
+              color="staff"
+              icon={<FiBox />}
+              text="Boxes"
             />
           </Link>
         </div>

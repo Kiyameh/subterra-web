@@ -5,9 +5,15 @@ Componentes contenedores
 ## Componentes revisados (dic24)
 
 - BasicCard
+- CardTitle
 - CardWithHeader
+
 - CollapsibleBox
 - DbAnswerBox
+
+- Divider
+
+- HeaderBox
 - InfoBox
 - SimpleBox
 

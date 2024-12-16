@@ -1,6 +1,16 @@
 import {Badge, BadgeProps} from '@/components/ui/badge'
 import {cn} from '@/lib/utils'
 
+/**
+ * @version 1
+ * @description Slot de chip con label y valor
+ * @param label Texto del slot
+ * @param value Valor del chip
+ * @param endAdornment Adorno al final del chip
+ * @param startAdornment Adorno al inicio del chip
+ * @param emphasis Enfatizar el chip
+ */
+
 export function ChipSlot({
   label,
   value,
@@ -39,6 +49,16 @@ export function ChipSlot({
     </div>
   )
 }
+
+/**
+ * @version 1
+ * @description Slot de múltiples chips con label y valores
+ * @param label Texto del slot
+ * @param values Valores de los chips
+ * @param endAdornment Adorno al final del chip
+ * @param startAdornment Adorno al inicio del chip
+ * @param emphasis Enfatizar el chip
+ */
 
 export function MultiChipSlot({
   label,
@@ -80,6 +100,16 @@ export function MultiChipSlot({
   )
 }
 
+/**
+ * @version 1
+ * @description Slot de booleano con label y valor
+ * @param label Texto del slot
+ * @param value Valor del slot
+ * @param endAdornment Adorno al final del slot
+ * @param startAdornment Adorno al inicio del slot
+ * @param invertedColor Invertir colores
+ */
+
 export function BooleanSlot({
   label,
   value,
@@ -96,8 +126,8 @@ export function BooleanSlot({
   //? Compara value e invertedColor, para las cuatro posibilidades de color
   const color =
     value != invertedColor
-      ? 'text-success-foreground border-success-foreground hover:bg-success-foreground hover:text-black'
-      : 'text-destructive-foreground border-destructive-foreground hover:bg-destructive-foreground hover:text-black'
+      ? 'text-success-foreground border-success-foreground hover:bg-success'
+      : 'text-destructive-foreground border-destructive-foreground hover:bg-destructive '
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">

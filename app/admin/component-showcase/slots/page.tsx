@@ -1,20 +1,25 @@
 import React from 'react'
+
 import PageContainer from '@/components/theming/page-container'
-import {MultiTextSlot, TextSlot} from '@/components/_Atoms/slots/text-slots'
-import {
-  BooleanSlot,
-  ChipSlot,
-  MultiChipSlot,
-} from '@/components/_Atoms/slots/chip-slots'
+import {MultiTextSlot} from '@/components/_Atoms/slots/text-slots'
+import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import {MultiChipSlot} from '@/components/_Atoms/slots/chip-slots'
+import {ChipSlot} from '@/components/_Atoms/slots/chip-slots'
+import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
-import {
-  DistanceSlot,
-  NumberSlot,
-  TimeSlot,
-} from '@/components/_Atoms/slots/number-slots'
-import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
-import {GroupCard} from '@/components/_Atoms/slots/group-slots'
+import {TimeSlot} from '@/components/_Atoms/slots/number-slots'
+import {NumberSlot} from '@/components/_Atoms/slots/number-slots'
+import {DistanceSlot} from '@/components/_Atoms/slots/number-slots'
+import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
+import {AdminBadge} from '@/components/_Atoms/slots/user-slots'
+import {EditorBadge} from '@/components/_Atoms/slots/user-slots'
+import {GroupProfileCard} from '@/components/_Atoms/slots/group-slots'
+
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import Divider from '@/components/_Atoms/boxes/divider'
+
+import {BiAlarmAdd} from 'react-icons/bi'
 
 export default function SlotsShowcasePage() {
   return (
@@ -24,22 +29,110 @@ export default function SlotsShowcasePage() {
           label="TextSlot"
           value="Esto es un texto"
         />
+        <TextSlot
+          label="TextSlot & EndAdornment"
+          value="Esto es un texto"
+          endAdornment="Metros"
+        />
+        <TextSlot
+          label="TextSlot & EndAdornment"
+          value="Esto es un texto"
+          endAdornment={<BiAlarmAdd />}
+        />
+        <TextSlot
+          label="TextSlot & undefined"
+          value={undefined}
+        />
+
+        <Divider />
+
         <MultiTextSlot
           label="MultiTextSlot"
           values={['Este es uno', 'Este es otro']}
         />
+        <MultiTextSlot
+          label="MultiTextSlot & EndAdornment"
+          values={['Este es uno', 'Este es otro']}
+          endAdornment={<BiAlarmAdd />}
+        />
+        <MultiTextSlot
+          label="MultiTextSlot & undefined"
+          values={undefined}
+        />
+
+        <Divider />
+
         <ChipSlot
           label="ChipSlot"
           value="Esto es un chip"
         />
+        <ChipSlot
+          label="ChipSlot & Empahsis"
+          value="Esto es un chip"
+          emphasis
+        />
+        <ChipSlot
+          label="ChipSlot & EndAdornment"
+          value="Esto es un chip"
+          endAdornment={<BiAlarmAdd />}
+        />
+        <ChipSlot
+          label="ChipSlot & StartAdornment"
+          value="Esto es un chip"
+          startAdornment={<BiAlarmAdd />}
+        />
+        <ChipSlot
+          label="ChipSlot & undefined"
+          value={undefined}
+        />
+
+        <Divider />
+
         <MultiChipSlot
           label="MultiChipSlot"
           values={['Este es uno', 'Este es otro']}
         />
+        <MultiChipSlot
+          label="MultiChipSlot & Empahsis"
+          values={['Este es uno', 'Este es otro']}
+          emphasis
+        />
+        <MultiChipSlot
+          label="MultiChipSlot & EndAdornment"
+          values={['Adorno', 'Al final']}
+          endAdornment={<BiAlarmAdd />}
+        />
+        <MultiChipSlot
+          label="MultiChipSlot & StartAdornment"
+          values={['Adorno', 'Al inicio']}
+          startAdornment={<BiAlarmAdd />}
+        />
+        <MultiChipSlot
+          label="MultiChipSlot & undefined"
+          values={undefined}
+        />
+
+        <Divider />
         <BooleanSlot
-          label="BooleanSlot"
+          label="BooleanSlot & true"
           value={true}
         />
+        <BooleanSlot
+          label="BooleanSlot & false"
+          value={false}
+        />
+        <BooleanSlot
+          label="BooleanSlot & invertedColor"
+          value={false}
+          invertedColor
+        />
+        <BooleanSlot
+          label="BooleanSlot & undefined"
+          value={undefined}
+        />
+
+        <Divider />
+
         <LinkSlot
           label="Internal LinkSlot"
           value="/admin/showcase"
@@ -60,6 +153,14 @@ export default function SlotsShowcasePage() {
           value="123456789"
           type="phone"
         />
+        <LinkSlot
+          label="Undefined LinkSlot"
+          value={undefined}
+          type="phone"
+        />
+
+        <Divider />
+
         <NumberSlot
           label="NumberSlot"
           value={123456789}
@@ -70,7 +171,7 @@ export default function SlotsShowcasePage() {
           withMillarDots
         />
         <NumberSlot
-          label="NumberSlot with endAdornment"
+          label="NumberSlot & endAdornment"
           value={123456789}
           endAdornment="cm"
         />
@@ -82,20 +183,34 @@ export default function SlotsShowcasePage() {
           label="TimeSlot"
           valueInMinutes={12345}
         />
-
-        <h2>User Slots</h2>
+        <NumberSlot
+          label="NumberSlot & undefined"
+          value={undefined}
+        />
+      </CardWithHeader>
+      <BasicCard cardHeader="Slots de user y group">
+        <p>AdminBadge y EditorBadge</p>
         <div className="flex flex-row gap-6">
-          <p>Role badges:</p>
+          <AdminBadge
+            label="Coordinador"
+            helperText="Eres coordinador"
+          />
           <AdminBadge
             label="Admin"
             helperText="Eres administrador"
+          />
+          <EditorBadge
+            label="Miembro"
+            helperText="Eres miembro"
           />
           <EditorBadge
             label="Editor"
             helperText="Eres editor"
           />
         </div>
-        <GroupCard
+        <Divider />
+        <p>UserProfileCard y GroupProfileCard</p>
+        <GroupProfileCard
           groupIndex={{
             fullname: 'Grupo de prueba',
             province: 'Provincia de prueba',
@@ -103,7 +218,22 @@ export default function SlotsShowcasePage() {
             name: 'Grupo de prueba',
           }}
         />
-      </CardWithHeader>
+        <UserProfileCard
+          user={{
+            _id: '123456789',
+            name: 'Usuario de prueba',
+            email: 'usuario@gmail.com',
+            image: 'https://i.pravatar.cc/150?img=3',
+          }}
+        />
+        <UserProfileCard
+          user={{
+            _id: '123456789',
+            name: 'Usuario sin imagen',
+            email: 'usuario@gmail.com',
+          }}
+        />
+      </BasicCard>
     </PageContainer>
   )
 }

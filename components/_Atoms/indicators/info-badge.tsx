@@ -10,7 +10,9 @@ import {MdInfo} from 'react-icons/md'
  * @param withIcon Mostrar icono
  * @param color Color del badge ['info', 'success', 'warning', 'destructive']
  * @param description Descripción del tooltip
- * @default color: 'info' withIcon: true
+ * @default
+ * color: 'info'
+ * withIcon: true
  */
 
 export default function InfoBadge({

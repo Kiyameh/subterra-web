@@ -15,9 +15,9 @@ import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import SelectField from '@/components/_Atoms/fields/select-field'
-import UserCard from '@/components/account/user-card'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
+import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 
 /**
  * @version 1
@@ -59,7 +59,7 @@ export default function ContactForm({
         className="space-y-6"
       >
         {commander ? (
-          <UserCard user={commander} />
+          <UserProfileCard user={commander} />
         ) : (
           <TextField
             control={form.control}

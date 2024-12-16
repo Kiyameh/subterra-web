@@ -2,7 +2,13 @@ import React from 'react'
 import {GroupIndex} from '@/database/models/Group.model'
 import {FaUserGroup} from 'react-icons/fa6'
 
-export function GroupCard({groupIndex}: {groupIndex: GroupIndex}) {
+/**
+ * @version 1
+ * @description Slot de perfil de grupo con nombre y provincia
+ * @param groupIndex Índice de grupo
+ */
+
+export function GroupProfileCard({groupIndex}: {groupIndex: GroupIndex}) {
   return (
     <div className="flex items-center gap-4 p-4 rounded-lg border border-muted-foreground bg-card">
       <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-primary text-xl text-sidebar-primary-foreground">

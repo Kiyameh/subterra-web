@@ -13,13 +13,13 @@ import {GroupIndex} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
-import {GroupCard} from '@/components/_Atoms/slots/group-slots'
+import {GroupProfileCard} from '@/components/_Atoms/slots/group-slots'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
-import UserCard from '@/components/account/user-card'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import BackButton from '@/components/_Atoms/buttons/back-button'
+import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 
 import {maxCharacterLimits} from '@/components/_Organisms/forms/hooks/use-max-character-limits'
 
@@ -74,11 +74,11 @@ export default function InstanceRequestForm({
         <div className="flex gap-2 justify-stretch">
           <div className="w-full">
             <span className="text-muted-foreground text-sm">Solicitante:</span>
-            <UserCard user={commander} />
+            <UserProfileCard user={commander} />
           </div>
           <div className="w-full">
             <span className="text-muted-foreground text-sm">En nombre de:</span>
-            <GroupCard groupIndex={groupIndex} />
+            <GroupProfileCard groupIndex={groupIndex} />
           </div>
         </div>
         <TextAreaField

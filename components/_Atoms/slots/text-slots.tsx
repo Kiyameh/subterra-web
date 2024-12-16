@@ -1,3 +1,13 @@
+import React from 'react'
+
+/**
+ * @version 1
+ * @description Slot de texto con label y valor
+ * @param label Texto del slot
+ * @param value Valor del slot
+ * @param endAdornment Adorno al final del slot
+ */
+
 export function TextSlot({
   label,
   value,
@@ -17,6 +27,14 @@ export function TextSlot({
     </div>
   )
 }
+
+/**
+ * @version 1
+ * @description Slot de textos multiples con label y valores
+ * @param label Texto del slot
+ * @param values Valores del slot
+ * @param endAdornment Adorno al final del slot
+ */
 
 export function MultiTextSlot({
   label,

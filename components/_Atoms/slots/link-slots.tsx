@@ -1,6 +1,14 @@
 import Link from 'next/link'
 import {MdEmail, MdPhone, MdLink, MdOpenInNew} from 'react-icons/md'
 
+/**
+ * @version 1
+ * @description Slot de enlace con label y valores
+ * @param label Texto del slot
+ * @param value Valor del enlace
+ * @param type Tipo de enlace (email, phone, internal, external)
+ */
+
 export function LinkSlot({
   label,
   value,

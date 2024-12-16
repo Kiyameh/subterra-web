@@ -3,7 +3,7 @@ import Link from 'next/link'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import {getGroupsIndex} from '@/database/services/group.services'
 import {GroupIndex} from '@/database/models/Group.model'
-import {GroupCard} from '@/components/_Atoms/slots/group-slots'
+import {GroupProfileCard} from '@/components/_Atoms/slots/group-slots'
 
 export default async function GroupsBoard() {
   const groups = (await getGroupsIndex()).content as GroupIndex[]
@@ -23,7 +23,7 @@ export default async function GroupsBoard() {
             href={`/group/${group.name}`}
             key={group.name}
           >
-            <GroupCard groupIndex={group} />
+            <GroupProfileCard groupIndex={group} />
           </Link>
         ))}
     </div>

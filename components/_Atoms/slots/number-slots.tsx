@@ -1,6 +1,15 @@
 'use client'
 import React from 'react'
 
+/**
+ * @version 1
+ * @description Slot de número con label y valor
+ * @param label Texto del slot
+ * @param value Valor del slot
+ * @param withMillarDots Mostrar valor con puntos millares
+ * @param endAdornment Adorno al final del slot
+ */
+
 export function NumberSlot({
   label,
   value,
@@ -24,6 +33,13 @@ export function NumberSlot({
     </div>
   )
 }
+
+/**
+ * @version 1
+ * @description Slot de distancia con label y valor
+ * @param label Texto del slot
+ * @param valueInMeters Valor de la distancia en metros
+ */
 
 export function DistanceSlot({
   label,
@@ -71,6 +87,13 @@ export function DistanceSlot({
     </div>
   )
 }
+
+/**
+ * @version 1
+ * @description Slot de tiempo con label y valor
+ * @param label Texto del slot
+ * @param valueInMinutes Valor del tiempo en minutos
+ */
 
 export function TimeSlot({
   label,

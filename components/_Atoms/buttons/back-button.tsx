@@ -10,6 +10,7 @@ import {cn} from '@/lib/utils'
  * @param className Clases adicionales para componente Button
  * @param size Tamaño del botón [icon, sm, lg, default]
  */
+
 export default function BackButton({
   className,
   size = 'default',
