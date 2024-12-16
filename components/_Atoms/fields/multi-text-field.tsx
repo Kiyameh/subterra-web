@@ -1,4 +1,6 @@
+'use client'
 import {Control, FieldValues, Path} from 'react-hook-form'
+
 import {
   FormControl,
   FormField,

@@ -10,10 +10,10 @@ import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
-import SelectionField from '@/components/_Atoms/fields/selection-field'
-import MultipleSelectionField from '@/components/_Atoms/fields/multiple-selection-field'
-import RefSelectionField from '@/components/_Atoms/fields/ref-selection-field'
-import MultiRefSelectionField from '@/components/_Atoms/fields/multi-ref-selection-field'
+import SelectField from '@/components/_Atoms/fields/select-field'
+import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
+import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
+import MultiRefSelectField from '@/components/_Atoms/fields/multi-ref-select-field'
 import DateField from '@/components/_Atoms/fields/date-field'
 import PhoneField from '@/components/_Atoms/fields/phone-field'
 import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
@@ -87,7 +87,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
         content: validated.data,
       } as Answer
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return {ok: false, message: 'Ha habido un error'} as Answer
     }
   }
@@ -147,7 +147,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           label="Fechas múltiples"
           description="Fechas múltiples"
         />
-        <SelectionField
+        <SelectField
           control={form.control}
           name="select"
           label="Selección"
@@ -155,7 +155,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           placeholder="Selecciona una opción"
           options={['Uno', 'Dos', 'Tres']}
         />
-        <MultipleSelectionField
+        <MultiSelectField
           control={form.control}
           name="multiSelect"
           label="Selección múltiple"
@@ -163,7 +163,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           placeholder="Selecciona varias opciones"
           options={['Uno', 'Dos', 'Tres']}
         />
-        <RefSelectionField
+        <RefSelectField
           control={form.control}
           name="ref"
           label="Referencia"
@@ -174,7 +174,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
             {_id: '22', name: 'Referencia 22'},
           ]}
         />
-        <MultiRefSelectionField
+        <MultiRefSelectField
           control={form.control}
           name="multiRef"
           label="Referencia múltiple"
@@ -196,8 +196,6 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           form={form}
           countryName="country"
           provinceName="province"
-          label="País y provincia"
-          description="País y provincia"
         />
 
         <div className="text-destructive-foreground text-sm">

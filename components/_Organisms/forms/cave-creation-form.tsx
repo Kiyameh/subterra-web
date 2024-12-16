@@ -21,13 +21,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import MultipleSelectionField from '@/components/_Atoms/fields/multiple-selection-field'
+import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import Divider from '@/components/_Atoms/boxes/divider'
-import SelectionField from '@/components/_Atoms/fields/selection-field'
+import SelectField from '@/components/_Atoms/fields/select-field'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {BsExclamationTriangle} from 'react-icons/bs'
-import RefSelectionField from '@/components/_Atoms/fields/ref-selection-field'
+import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 import {SystemIndex} from '@/database/models/System.model'
 
 const EMPTY_CAVE: CaveFormValues = {
@@ -126,7 +126,7 @@ export default function CaveCreationForm({
               </div>
             </AccordionTrigger>
             <AccordionContent className="space-y-6 p-2 py-6">
-              <RefSelectionField
+              <RefSelectField
                 control={form.control}
                 name="system"
                 label="Sistema"
@@ -156,7 +156,7 @@ export default function CaveCreationForm({
                 label="Nombres alternativos"
                 placeholder="Torca de isla tortuga"
               />
-              <MultipleSelectionField
+              <MultiSelectField
                 control={form.control}
                 name="cave_shapes"
                 label="Tipo de entrada"
@@ -244,13 +244,13 @@ export default function CaveCreationForm({
                   endContent="msnm"
                   type="number"
                 />
-                <SelectionField
+                <SelectField
                   control={form.control}
                   name="coordinates.hemisphere"
                   label="Hemisferio"
                   options={['N', 'S']}
                 />
-                <SelectionField
+                <SelectField
                   control={form.control}
                   name="coordinates.utm_zone"
                   label="Zona UTM"

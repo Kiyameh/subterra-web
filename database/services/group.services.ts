@@ -119,7 +119,7 @@ export async function updateGroup(
       message: 'Grupo actualizado correctamente',
     } as Answer
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }

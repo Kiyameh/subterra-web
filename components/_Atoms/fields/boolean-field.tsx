@@ -1,11 +1,14 @@
+'use client'
+import React from 'react'
 import {Control, FieldValues, Path} from 'react-hook-form'
 import {FormControl, FormField, FormItem, FormLabel} from '@/components/ui/form'
+
 import InfoBadge from '@/components/_Atoms/indicators/info-badge'
 import LabeledSwitch from '@/components/ui/labeled-switch'
 
 /**
  * @version 1
- * @description Input booleano controlado por RHF. Coloreado en [emphasis] si ha sido modificado.
+ * @description Input booleano controlado por RHF. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
  * @param control Controlador de RHF
  * @param name Path del campo
  * @param label Etiqueta del campo

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import {Control, FieldValues, Path} from 'react-hook-form'
 import {
@@ -12,7 +13,7 @@ import {PhoneInput} from '@/components/ui/phone-input'
 
 /**
  * @version 1
- * @description Campo de teléfono controlado por RHF.
+ * @description Campo de teléfono controlado por RHF. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
  * @param control Controlador de RHF
  * @param name Path del campo
  * @param label Etiqueta del campo

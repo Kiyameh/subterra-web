@@ -13,7 +13,7 @@ import LinkButton from '@/components/_Atoms/buttons/link-button'
 import TextField from '@/components/_Atoms/fields/text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import CountryField from '@/components/_Atoms/fields/country-field'
-import MultipleSelectionField from '@/components/_Atoms/fields/multiple-selection-field'
+import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
 import PhoneField from '@/components/_Atoms/fields/phone-field'
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
@@ -110,7 +110,7 @@ export default function GroupCreationForm({commander}: {commander: string}) {
             />
           </div>
         </div>
-        <MultipleSelectionField
+        <MultiSelectField
           control={form.control}
           options={groupCategories as unknown as string[]}
           name="group_categories"
@@ -181,8 +181,6 @@ export default function GroupCreationForm({commander}: {commander: string}) {
           form={form}
           countryName="country"
           provinceName="province"
-          label="País y provincia"
-          description="Selecciona el país y la provincia donde se encuentra el grupo"
         />
         <PhoneField
           control={form.control}

@@ -14,7 +14,7 @@ import {Answer} from '@/database/types/answer.type'
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
-import SelectionField from '@/components/_Atoms/fields/selection-field'
+import SelectField from '@/components/_Atoms/fields/select-field'
 import UserCard from '@/components/account/user-card'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -68,7 +68,7 @@ export default function ContactForm({
             placeholder="arcaute@mail.com"
           />
         )}
-        <SelectionField
+        <SelectField
           control={form.control}
           name="subject"
           label="Asunto"

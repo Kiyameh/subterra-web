@@ -13,7 +13,7 @@ import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {GroupIndex} from '@/database/models/Group.model'
 import {CaveIndex} from '@/database/models/Cave.model'
-import MultiRefSelectionField from '@/components/_Atoms/fields/multi-ref-selection-field'
+import MultiRefSelectField from '@/components/_Atoms/fields/multi-ref-select-field'
 import TextField from '@/components/_Atoms/fields/text-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
@@ -76,13 +76,13 @@ export default function ExplorationCreationForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <MultiRefSelectionField
+        <MultiRefSelectField
           control={form.control}
           name="groups"
           label="Grupos"
           index={groupIndex}
         />
-        <MultiRefSelectionField
+        <MultiRefSelectField
           control={form.control}
           name="caves"
           label="Cavidades"

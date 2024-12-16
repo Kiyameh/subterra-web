@@ -1,3 +1,4 @@
+'use client'
 import {Control, FieldValues, Path} from 'react-hook-form'
 import {
   FormControl,
@@ -25,10 +26,11 @@ import {
  * @param placeholder Placeholder del campo
  * @param startContent Contenido al inicio del campo
  * @param options Opciones del campo
+ * @param disabled Deshabilitar campo
  * @default type = 'text'
  */
 
-export default function SelectionField<T extends FieldValues>({
+export default function SelectField<T extends FieldValues>({
   control,
   name,
   label,
@@ -36,6 +38,7 @@ export default function SelectionField<T extends FieldValues>({
   placeholder,
   startContent,
   options,
+  disabled,
 }: {
   control: Control<T>
   name: Path<T>
@@ -44,6 +47,7 @@ export default function SelectionField<T extends FieldValues>({
   placeholder?: string
   startContent?: React.ReactNode
   options: string[]
+  disabled?: boolean
 }) {
   return (
     <FormField
@@ -60,7 +64,7 @@ export default function SelectionField<T extends FieldValues>({
               <Select
                 onValueChange={field.onChange}
                 value={field.value}
-                disabled={field.disabled}
+                disabled={disabled || field.disabled}
                 name={field.name}
               >
                 <SelectTrigger

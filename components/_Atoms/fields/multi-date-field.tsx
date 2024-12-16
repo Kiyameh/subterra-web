@@ -1,5 +1,15 @@
 'use client'
+import React from 'react'
 import {Control, FieldValues, Path} from 'react-hook-form'
+import {format} from 'date-fns'
+import {es} from 'date-fns/locale'
+import {cn} from '@/lib/utils'
+
+import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import {Calendar} from '@/components/ui/calendar'
+import {Button} from '@/components/ui/button'
+import {Badge} from '@/components/ui/badge'
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
 import {
   FormControl,
   FormField,
@@ -7,21 +17,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
-import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
-import {CalendarIcon} from 'lucide-react'
-import {Calendar} from '@/components/ui/calendar'
-import {Button} from '@/components/ui/button'
-import {cn} from '@/lib/utils'
-import {format} from 'date-fns'
-import {es} from 'date-fns/locale'
-import React from 'react'
-import {Badge} from '@/components/ui/badge'
-import {X as RemoveIcon} from 'lucide-react'
 
+import {X as RemoveIcon} from 'lucide-react'
+import {CalendarIcon} from 'lucide-react'
 /**
  * @version 1
- * @description Input de fecha multiple controlado por RHF. Opciones de end y start adornment. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
+ * @description Input de fecha multiple controlado por RHF. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
  * @param control Controlador de RHF
  * @param name Path del campo
  * @param label Etiqueta del campo
