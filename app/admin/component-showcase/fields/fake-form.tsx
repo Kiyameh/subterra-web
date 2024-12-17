@@ -18,6 +18,8 @@ import DateField from '@/components/_Atoms/fields/date-field'
 import PhoneField from '@/components/_Atoms/fields/phone-field'
 import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
 import CountryField from '@/components/_Atoms/fields/country-field'
+import TimeField from '@/components/_Atoms/fields/time-field'
+import DistanceField from '@/components/_Atoms/fields/distance-field'
 
 const FakeFormSchema = z.object({
   text: z.string().max(120).optional(),
@@ -33,6 +35,8 @@ const FakeFormSchema = z.object({
   phone: z.string().optional(),
   country: z.string().optional(),
   province: z.string().optional(),
+  time: z.coerce.number().optional(),
+  distance: z.coerce.number().optional(),
 })
 
 type FakeFormValues = z.infer<typeof FakeFormSchema>
@@ -51,6 +55,8 @@ const EMPTY_VALUES: FakeFormValues = {
   phone: '',
   country: '',
   province: '',
+  time: 0,
+  distance: 0,
 }
 
 const EXAMPLE_VALUES: FakeFormValues = {
@@ -67,6 +73,8 @@ const EXAMPLE_VALUES: FakeFormValues = {
   phone: '+34666666666',
   country: 'España',
   province: 'Barcelona',
+  time: 3600,
+  distance: 1200,
 }
 
 export default function FakeForm({empty}: {empty?: boolean}) {
@@ -196,6 +204,18 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           form={form}
           countryName="country"
           provinceName="province"
+        />
+        <TimeField
+          control={form.control}
+          name="time"
+          label="Horas en total"
+          description="Horas en total"
+        />
+        <DistanceField
+          control={form.control}
+          name="distance"
+          label="Distancia total"
+          description="Distancia total"
         />
 
         <div className="text-destructive-foreground text-sm">

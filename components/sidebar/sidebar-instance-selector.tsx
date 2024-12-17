@@ -20,7 +20,7 @@ import {LuChevronsUpDown} from 'react-icons/lu'
 import {LuBox} from 'react-icons/lu'
 
 import Link from 'next/link'
-import OnlineIndicator from '@/components/_Atoms/indicators/online-indicator'
+import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
 import {InstanceIndex} from '@/database/models/Instance.model'
 
 interface Props {

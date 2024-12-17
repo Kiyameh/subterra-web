@@ -125,5 +125,7 @@ export interface ExplorationIndex {
   _id: string
   name: string
   dates?: Date[]
-  caves?: string[]
+  groups?: {name: string; _id: string}[]
+  caves?: {name: string; _id: string}[]
+  cave_time?: number
 }

@@ -21,6 +21,9 @@ import TextField from '@/components/_Atoms/fields/text-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import {Button} from '@/components/ui/button'
+import TimeField from '@/components/_Atoms/fields/time-field'
 
 const EMPTY_EXPLORATION: ExplorationFormValues = {
   instances: [],
@@ -74,6 +77,13 @@ export default function ExplorationCreationForm({
     })
   }
 
+  function handleReset() {
+    console.log('reset')
+    form.reset(EMPTY_EXPLORATION)
+    window.scrollTo(0, 0)
+    setDbAnswer(null)
+  }
+
   return (
     <Form {...form}>
       <form
@@ -104,13 +114,11 @@ export default function ExplorationCreationForm({
           label="Fechas de la exploración"
         />
 
-        <TextField
+        <TimeField
           control={form.control}
           name="cave_time"
           label="Tiempo en cueva"
           description="Tiempo aproximado de trabajo dentro de cavidad"
-          endContent="horas"
-          type="number"
         />
 
         <MultiTextField
@@ -151,10 +159,25 @@ export default function ExplorationCreationForm({
           label="Trabajos pendientes"
           maxCharacters={explorationMaxCharacters.pending_work}
         />
-
+        <div className="text-destructive-foreground text-sm">
+          {!form.formState.isValid && form.formState.isDirty && (
+            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
+          )}
+        </div>
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
-          <p>Informe creado</p>
+          <div className="flex flex-row gap-2">
+            <LinkButton
+              label="Ver informe"
+              href={`/instance/${instanceName}/detail/exploration/${dbAnswer.redirect}`}
+            />
+            <Button
+              variant="secondary"
+              onClick={handleReset}
+            >
+              Crear otro informe
+            </Button>
+          </div>
         ) : (
           <SubmitButton
             label="Crear informe"

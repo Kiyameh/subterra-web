@@ -3,7 +3,7 @@ import React from 'react'
 import {Control, FieldValues, Path} from 'react-hook-form'
 import {FormControl, FormField, FormItem, FormLabel} from '@/components/ui/form'
 
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import LabeledSwitch from '@/components/ui/labeled-switch'
 
 /**

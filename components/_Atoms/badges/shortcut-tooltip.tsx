@@ -27,7 +27,7 @@ export default function ShortcutTooltip({
   if (isMobile) return <>{children}</>
 
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={300}>
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent className="border-transparent bg-transparent">

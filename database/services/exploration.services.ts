@@ -20,7 +20,7 @@ import Instance from '../models/Instance.model'
  * @param values datos del formulario
  * @param instanceName Nombre de la instancia a la que pertenece la exploración
  * @param commanderId id del usuario que crea la exploración
- * @returns redirect: `/exploration/[explorationId]`
+ * @returns redirect: explorationId
  */
 
 export async function createExploration(
@@ -93,6 +93,7 @@ export async function createExploration(
     return {
       ok: true,
       message: 'Exploración creada',
+      redirect: newExploration._id.toString(),
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -164,7 +165,17 @@ export async function getExplorationsIndex(
     const explorations = await Exploration.find({
       instances: {$in: [instance?._id]},
     })
-      .select('_id name dates caves')
+      .select('_id name dates caves groups cave_time')
+      .populate({
+        path: 'caves',
+        select: 'name _id',
+        model: Cave,
+      })
+      .populate({
+        path: 'groups',
+        select: 'name _id',
+        model: Group,
+      })
       .exec()
 
     //? Transforma a objeto plano para poder pasar a componentes cliente de Next
@@ -175,7 +186,7 @@ export async function getExplorationsIndex(
     return {
       ok: true,
       message: 'Índice de exploraciones obtenido',
-      data: explorationsPOJO,
+      content: explorationsPOJO,
     } as Answer
   } catch (error) {
     console.error(error)

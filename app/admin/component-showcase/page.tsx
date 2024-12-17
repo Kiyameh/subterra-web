@@ -38,11 +38,11 @@ export default function ComponentsShowcasePage() {
               text="Slots"
             />
           </Link>
-          <Link href="/admin/component-showcase/indicators">
+          <Link href="/admin/component-showcase/badges">
             <SquareButton
               color="staff"
               icon={<BsAppIndicator />}
-              text="Indicators"
+              text="Badges"
             />
           </Link>
           <Link href="/admin/component-showcase/cells">

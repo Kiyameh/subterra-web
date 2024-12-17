@@ -5,7 +5,7 @@ import {format} from 'date-fns'
 import {es} from 'date-fns/locale'
 import {cn} from '@/lib/utils'
 
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import {Calendar} from '@/components/ui/calendar'
 import {Button} from '@/components/ui/button'
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'

@@ -1,4 +1,4 @@
-import ResponsiveTooltip from '@/components/_Atoms/indicators/responsive-tooltip'
+import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
 
 /**
  * @version 1

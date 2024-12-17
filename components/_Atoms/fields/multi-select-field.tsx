@@ -17,7 +17,7 @@ import {
   MultiSelectorList,
   MultiSelectorItem,
 } from '@/components/ui/multi-select'
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
 /**
  * @version 1

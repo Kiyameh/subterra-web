@@ -7,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import {
   Select,
   SelectContent,

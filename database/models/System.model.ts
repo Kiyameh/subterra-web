@@ -116,5 +116,8 @@ export interface SystemIndex {
   catalog?: string
   initials?: string[]
   name: string
-  caves?: string[]
+  caves?: {name: string; _id: string}[]
+  depth?: number
+  length?: number
+  regulations?: boolean
 }

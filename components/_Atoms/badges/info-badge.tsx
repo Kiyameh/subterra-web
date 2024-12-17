@@ -1,5 +1,5 @@
 import {cn} from '@/lib/utils'
-import ResponsiveTooltip from '@/components/_Atoms/indicators/responsive-tooltip'
+import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
 import {Badge} from '@/components/ui/badge'
 import {MdInfo} from 'react-icons/md'
 

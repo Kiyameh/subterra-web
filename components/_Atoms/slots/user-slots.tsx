@@ -3,7 +3,7 @@ import {Session} from 'next-auth'
 
 import {Badge} from '@/components/ui/badge'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
-import ResponsiveTooltip from '@/components/_Atoms/indicators/responsive-tooltip'
+import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
 
 /**
  * @version 1

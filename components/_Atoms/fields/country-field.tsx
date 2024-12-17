@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import {FieldValues, Path, PathValue, UseFormReturn} from 'react-hook-form'
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import {
   FormField,
   FormItem,

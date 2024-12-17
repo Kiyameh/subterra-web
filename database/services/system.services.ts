@@ -16,7 +16,7 @@ import Instance from '../models/Instance.model'
  * @param values datos del formulario
  * @param instanceName Nombre de la instancia a la que pertenece el sistema
  * @param commanderId id del usuario que crea el sistema
- * @returns redirect: `/system/[systemId]`
+ * @returns redirect: systemId
  */
 
 export async function createSystem(
@@ -75,6 +75,7 @@ export async function createSystem(
     return {
       ok: true,
       message: 'Sistema creado',
+      redirect: newSystem._id.toString(),
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -141,7 +142,8 @@ export async function getSystemIndex(instanceName: string): Promise<Answer> {
       .exec()
 
     const systems = await System.find({instances: {$in: [instance?._id]}})
-      .select('_id catalog initials name caves')
+      .select('_id catalog initials name caves depth length regulations')
+      .populate({path: 'caves', select: 'name _id', model: Cave})
       .exec()
 
     //? Transforma a objeto plano para poder pasar a componentes cliente de Next

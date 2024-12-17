@@ -175,6 +175,9 @@ export interface CaveIndex {
   catalog?: string
   initials?: string[]
   name: string
-  system?: string
-  cave_shapes?: string[]
+  system?: {name: string; _id: string}
+  length?: number
+  depth?: number
+  regulations?: boolean
+  massif?: string
 }

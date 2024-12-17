@@ -31,6 +31,9 @@ import SelectField from '@/components/_Atoms/fields/select-field'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 
 import {BsExclamationTriangle} from 'react-icons/bs'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import {Button} from '@/components/ui/button'
+import DistanceField from '@/components/_Atoms/fields/distance-field'
 
 const EMPTY_CAVE: CaveFormValues = {
   instances: [],
@@ -107,6 +110,12 @@ export default function CaveCreationForm({
     })
   }
 
+  function handleReset() {
+    console.log('reset')
+    form.reset(EMPTY_CAVE)
+    window.scrollTo(0, 0)
+    setDbAnswer(null)
+  }
   return (
     <Form {...form}>
       <form
@@ -187,21 +196,17 @@ export default function CaveCreationForm({
                 label="Descripción de las regulaciones"
                 maxCharacters={caveMaxCharacters.regulation_description}
               />
-              <TextField
+              <DistanceField
                 control={form.control}
                 name="length"
                 label="Longitud"
                 placeholder="1242"
-                type="number"
-                endContent="metros"
               />
-              <TextField
+              <DistanceField
                 control={form.control}
                 name="depth"
                 label="Profundidad"
                 placeholder="102"
-                type="number"
-                endContent="metros"
               />
             </AccordionContent>
           </AccordionItem>
@@ -228,29 +233,20 @@ export default function CaveCreationForm({
                 Asegurate de intruducir las coordenadas en Datum ETRS89
               </InfoBox>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                <TextField
+                <DistanceField
                   control={form.control}
                   name="coordinates.x_coord"
                   label="Coordenada X"
-                  placeholder=""
-                  endContent="metros"
-                  type="number"
                 />
-                <TextField
+                <DistanceField
                   control={form.control}
                   name="coordinates.y_coord"
                   label="Coordenada Y"
-                  placeholder=""
-                  endContent="metros"
-                  type="number"
                 />
-                <TextField
+                <DistanceField
                   control={form.control}
                   name="coordinates.z_coord"
                   label="Coordenada Z"
-                  placeholder=""
-                  endContent="msnm"
-                  type="number"
                 />
                 <SelectField
                   control={form.control}
@@ -382,14 +378,29 @@ export default function CaveCreationForm({
         </Accordion>
         <div className="text-destructive-foreground text-sm">
           {!form.formState.isValid && form.formState.isDirty && (
-            <p>Algunos datos introducidos no son correctos</p>
+            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
           )}
         </div>
         <DbAwnserBox answer={dbAnswer} />
-        <SubmitButton
-          label="Crear cavidad"
-          isPending={isPending}
-        />
+        {dbAnswer?.ok ? (
+          <div className="flex flex-row gap-2">
+            <LinkButton
+              label="Ver cavidad"
+              href={`/instance/${instanceName}/detail/cave/${dbAnswer.redirect}`}
+            />
+            <Button
+              variant="secondary"
+              onClick={handleReset}
+            >
+              Crear otro cavidad
+            </Button>
+          </div>
+        ) : (
+          <SubmitButton
+            label="Crear cavidad"
+            isPending={isPending}
+          />
+        )}
       </form>
     </Form>
   )

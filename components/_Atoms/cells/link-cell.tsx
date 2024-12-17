@@ -40,7 +40,7 @@ export function LinkCell({
   }
 
   return (
-    <div className="w-fit flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">
+    <>
       {value && (
         <Link
           href={href || ''}
@@ -54,6 +54,6 @@ export function LinkCell({
           <span className="text-primary">{icon}</span>
         </Link>
       )}
-    </div>
+    </>
   )
 }

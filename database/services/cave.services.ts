@@ -17,7 +17,7 @@ import Instance from '../models/Instance.model'
  * @param values datos del formulario
  * @param instanceName Nombre de la instancia a la que pertenece la cueva
  * @param commanderId id del usuario que crea la cueva
- * @returns redirect: `/cave/[caveId]`
+ * @returns redirect: caveId
  */
 
 export async function createCave(
@@ -73,6 +73,7 @@ export async function createCave(
     return {
       ok: true,
       message: 'Cueva creada',
+      redirect: newCave._id.toString(),
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -139,7 +140,14 @@ export async function getCaveIndex(instanceName: string): Promise<Answer> {
       .select('_id')
       .exec()
     const caves = await Cave.find({instances: {$in: [instance?._id]}})
-      .select('_id catalog initials name system cave_shapes')
+      .select(
+        '_id catalog initials name system length depth regulations massif'
+      )
+      .populate({
+        path: 'system',
+        select: 'name _id',
+        model: System,
+      })
       .exec()
 
     //? Transforma a objeto plano para poder pasar a componentes cliente de Next

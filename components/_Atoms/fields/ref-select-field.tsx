@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import InfoBadge from '@/components/_Atoms/indicators/info-badge'
+import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
 import {GroupIndex} from '@/database/models/Group.model'
 import {CaveIndex} from '@/database/models/Cave.model'

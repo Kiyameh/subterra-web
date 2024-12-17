@@ -25,6 +25,9 @@ import TextField from '@/components/_Atoms/fields/text-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import BooleanField from '@/components/_Atoms/fields/boolean-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import {Button} from '@/components/ui/button'
+import DistanceField from '@/components/_Atoms/fields/distance-field'
 
 const EMPTY_SYSTEM: SystemFormValues = {
   instances: [],
@@ -87,6 +90,13 @@ export default function SystemCreationForm({
       const answer = await createSystem(values, instanceName, commanderId)
       setDbAnswer(answer)
     })
+  }
+
+  function handleReset() {
+    console.log('reset')
+    form.reset(EMPTY_SYSTEM)
+    window.scrollTo(0, 0)
+    setDbAnswer(null)
   }
 
   return (
@@ -163,19 +173,17 @@ export default function SystemCreationForm({
                 label="Historia de las exploraciones"
                 maxCharacters={systemMaxCharacters.exploration_description}
               />
-              <TextField
+              <DistanceField
                 control={form.control}
                 name="length"
                 label="Longitud"
                 placeholder="23558"
-                type="number"
               />
-              <TextField
+              <DistanceField
                 control={form.control}
                 name="depth"
                 label="Profundidad"
                 placeholder="527"
-                type="number"
               />
 
               <TextField
@@ -267,19 +275,29 @@ export default function SystemCreationForm({
         </Accordion>
         <div className="text-destructive-foreground text-sm">
           {!form.formState.isValid && form.formState.isDirty && (
-            <p>Algunos datos introducidos no son correctos</p>
-          )}
-        </div>
-        <div>
-          {form.formState.errors && (
-            <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
+            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
           )}
         </div>
         <DbAwnserBox answer={dbAnswer} />
-        <SubmitButton
-          label="Crear sistema"
-          isPending={isPending}
-        />
+        {dbAnswer?.ok ? (
+          <div className="flex flex-row gap-2">
+            <LinkButton
+              label="Ver sistema"
+              href={`/instance/${instanceName}/detail/system/${dbAnswer.redirect}`}
+            />
+            <Button
+              variant="secondary"
+              onClick={handleReset}
+            >
+              Crear otro sistema
+            </Button>
+          </div>
+        ) : (
+          <SubmitButton
+            label="Crear instancia"
+            isPending={isPending}
+          />
+        )}
       </form>
     </Form>
   )
