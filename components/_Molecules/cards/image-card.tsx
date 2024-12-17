@@ -12,7 +12,7 @@ export default function ImageCard({}: ImageCardProps) {
     <BasicCard
       cardHeader={
         <CardTitle
-          title={'Imagen del grupo'}
+          title={'Imagen'}
           subtitle="Funcionalidad en desarrollo. Proximamente estará disponible"
           icon={<FaRegImage />}
         />

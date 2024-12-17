@@ -210,13 +210,14 @@ export async function getOneExploration(
       .populate({path: 'caves', model: Cave})
       .populate({path: 'groups', model: Group})
       .exec()
-
     if (!exploration) throw new Error('Exploración no encontrada')
+    //? Transforma a objeto plano para poder pasar a componentes cliente de Next
+    const explorationPOJO = JSON.parse(JSON.stringify(exploration))
 
     return {
       ok: true,
       message: 'Exploración obtenida',
-      data: exploration,
+      content: explorationPOJO,
     } as Answer
   } catch (error) {
     console.error(error)

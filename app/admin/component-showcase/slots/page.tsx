@@ -181,7 +181,7 @@ export default function SlotsShowcasePage() {
         />
         <TimeSlot
           label="TimeSlot"
-          valueInMinutes={12345}
+          valueInSeconds={360000}
         />
         <NumberSlot
           label="NumberSlot & undefined"

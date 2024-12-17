@@ -3,15 +3,17 @@ import React from 'react'
 import {TextSlot} from '../../_Atoms/slots/text-slots'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {BsCardText} from 'react-icons/bs'
+import Divider from '@/components/_Atoms/boxes/divider'
 
-interface DescriptionCardProps {
-  title?: string
-  description?: string
-}
 export default function DescriptionCard({
   title = 'Descripción',
   description,
-}: DescriptionCardProps) {
+  locationDescription,
+}: {
+  title?: string
+  description?: string
+  locationDescription?: string
+}) {
   return (
     <BasicCard
       cardHeader={
@@ -22,9 +24,20 @@ export default function DescriptionCard({
       }
     >
       <TextSlot
-        label="Descripción del grupo"
+        textArea
+        label="Descripción general"
         value={description}
       />
+      {locationDescription && (
+        <>
+          <Divider text="Localización" />
+          <TextSlot
+            textArea
+            label="Descripción acceso"
+            value={locationDescription}
+          />
+        </>
+      )}
     </BasicCard>
   )
 }

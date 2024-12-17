@@ -158,12 +158,16 @@ export default Cave
 
 export interface CaveObject
   extends Omit<CaveDocument, 'system' | 'explorations' | 'instances'> {
+  _id: string
+  __v: number
+  createdAt: Date
+  updatedAt: Date
   system: string
   explorations: string[]
   instances: string[]
 }
 
-export interface PopulatetCave
+export interface PopulatedCave
   extends Omit<CaveObject, 'system' | 'explorations' | 'instances'> {
   system: SystemObject
   explorations: ExplorationObject[]

@@ -96,7 +96,7 @@ export default function AllExplorationTable({
         return (
           <div className="flex gap-2">
             <Link
-              href={`/intance/${instanceName}/detail/exploration/${row.original._id}`}
+              href={`/instance/${instanceName}/detail/exploration/${row.original._id}`}
               replace
             >
               <Button
@@ -113,7 +113,7 @@ export default function AllExplorationTable({
 
             {isEditor && (
               <Link
-                href={`/intance/${instanceName}/edit/exploration/${row.original._id}`}
+                href={`/instance/${instanceName}/edit/exploration/${row.original._id}`}
                 replace
               >
                 <Button

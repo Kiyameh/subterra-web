@@ -1,3 +1,4 @@
+import {cn} from '@/lib/utils'
 import React from 'react'
 
 /**
@@ -11,14 +12,21 @@ import React from 'react'
 export function TextSlot({
   label,
   value,
+  textArea,
   endAdornment,
 }: {
   label: string
   value?: string | number | undefined
+  textArea?: boolean
   endAdornment?: React.ReactNode
 }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">
+    <div
+      className={cn(
+        'flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7',
+        textArea && 'pb-5'
+      )}
+    >
       <span className="text-muted-foreground text-sm">{label}</span>
       <div className="flex gap-1 items-center">
         <span className="text-sm">{value}</span>

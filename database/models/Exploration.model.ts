@@ -109,6 +109,10 @@ export default Exploration
 //* INTERFACES EXTENDIDAS:
 export interface ExplorationObject
   extends Omit<ExplorationDocument, 'caves' | 'instances' | 'groups'> {
+  _id: string
+  __v: number
+  createdAt: Date
+  updatedAt: Date
   caves?: string[]
   instances?: string[]
   groups?: string[]

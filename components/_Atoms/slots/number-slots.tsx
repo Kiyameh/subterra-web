@@ -1,5 +1,7 @@
 'use client'
 import React from 'react'
+import TimeBadge from '../badges/time-badge'
+import DistanceBadge from '../badges/distance-badge'
 
 /**
  * @version 1
@@ -44,44 +46,21 @@ export function NumberSlot({
 export function DistanceSlot({
   label,
   valueInMeters,
+  fixedUnits,
 }: {
   label: string
   valueInMeters?: number
+  fixedUnits?: boolean
 }) {
-  const [unit, setUnit] = React.useState(1)
-
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">
       <span className="text-muted-foreground text-sm">{label}</span>
       <div className="flex gap-1">
         {valueInMeters && (
-          <>
-            <span className="text-sm">{Number(valueInMeters) * unit}</span>
-            <select
-              className="text-muted-foreground bg-transparent text-right rounded-md border-none"
-              value={unit}
-              onChange={(e) => setUnit(Number(e.target.value))}
-            >
-              <option
-                className="bg-muted"
-                value={10}
-              >
-                cm
-              </option>
-              <option
-                className="bg-muted"
-                value={1}
-              >
-                m
-              </option>
-              <option
-                className="bg-muted"
-                value={0.1}
-              >
-                km
-              </option>
-            </select>
-          </>
+          <DistanceBadge
+            fixedUnits={fixedUnits}
+            valueInMeters={valueInMeters}
+          />
         )}
       </div>
     </div>
@@ -92,51 +71,21 @@ export function DistanceSlot({
  * @version 1
  * @description Slot de tiempo con label y valor
  * @param label Texto del slot
- * @param valueInMinutes Valor del tiempo en minutos
+ * @param valueInSeconds Valor del tiempo en minutos
  */
 
 export function TimeSlot({
   label,
-  valueInMinutes,
+  valueInSeconds,
 }: {
   label: string
-  valueInMinutes?: number
+  valueInSeconds?: number
 }) {
-  const [unit, setUnit] = React.useState(1)
-
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">
       <span className="text-muted-foreground text-sm">{label}</span>
       <div className="flex gap-1">
-        {valueInMinutes && (
-          <>
-            <span className="text-sm">{Number(valueInMinutes) * unit}</span>
-            <select
-              className="text-muted-foreground bg-transparent text-right rounded-md border-none"
-              value={unit}
-              onChange={(e) => setUnit(Number(e.target.value))}
-            >
-              <option
-                className="bg-muted"
-                value={1}
-              >
-                min
-              </option>
-              <option
-                className="bg-muted"
-                value={1 / 60}
-              >
-                horas
-              </option>
-              <option
-                className="bg-muted"
-                value={1 / 60 / 24}
-              >
-                dias
-              </option>
-            </select>
-          </>
-        )}
+        {valueInSeconds && <TimeBadge valueInSeconds={valueInSeconds} />}
       </div>
     </div>
   )

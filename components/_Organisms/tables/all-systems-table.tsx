@@ -92,7 +92,7 @@ export default function AllSystemTable({
         return (
           <div className="flex gap-2">
             <Link
-              href={`/intance/${instanceName}/detail/system/${row.original._id}`}
+              href={`/instance/${instanceName}/detail/system/${row.original._id}`}
               replace
             >
               <Button
@@ -109,7 +109,7 @@ export default function AllSystemTable({
 
             {isEditor && (
               <Link
-                href={`/intance/${instanceName}/edit/system/${row.original._id}`}
+                href={`/instance/${instanceName}/edit/system/${row.original._id}`}
                 replace
               >
                 <Button

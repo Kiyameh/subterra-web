@@ -14,8 +14,8 @@ export default function TimeBadge({
 }: {
   valueInSeconds: number | undefined
 }) {
-  const [timeUnit, setTimeUnit] = React.useState('sec')
-  const [divider, setDivider] = React.useState(1)
+  const [timeUnit, setTimeUnit] = React.useState('mins')
+  const [divider, setDivider] = React.useState(60)
   const handleClick = () => {
     setTimeUnit((prevUnit) => {
       switch (prevUnit) {

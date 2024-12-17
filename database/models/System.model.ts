@@ -101,6 +101,10 @@ export default System
 
 export interface SystemObject
   extends Omit<SystemDocument, 'caves' | 'instances'> {
+  _id: string
+  __v: number
+  createdAt: Date
+  updatedAt: Date
   caves?: string[]
   instances?: string[]
 }

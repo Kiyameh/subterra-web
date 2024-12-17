@@ -11,13 +11,16 @@ import {LuRuler} from 'react-icons/lu'
 
 export default function DistanceBadge({
   valueInMeters,
+  fixedUnits,
 }: {
   valueInMeters: number | undefined
+  fixedUnits?: boolean
 }) {
   const [distanceUnit, setDistanceUnit] = React.useState('m')
   const [divider, setDivider] = React.useState(1)
 
   const handleClick = () => {
+    if (fixedUnits) return
     setDistanceUnit((prevUnit) => {
       switch (prevUnit) {
         case 'cm':
@@ -53,7 +56,7 @@ export default function DistanceBadge({
         <span>{(valueInMeters / divider).toLocaleString()}</span>
         <span className="text-xs text-muted-foreground">{distanceUnit}</span>
         <span className="text-sm text-primary">
-          <LuRuler />
+          {!fixedUnits && <LuRuler />}
         </span>
       </Badge>
     )

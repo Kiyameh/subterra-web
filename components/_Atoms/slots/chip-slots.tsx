@@ -1,5 +1,6 @@
 import {Badge, BadgeProps} from '@/components/ui/badge'
 import {cn} from '@/lib/utils'
+import DateBadge from '../badges/date-badge'
 
 /**
  * @version 1
@@ -94,6 +95,35 @@ export function MultiChipSlot({
             {value}
             {endAdornment}
           </Badge>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * @version 1
+ * @description Slot de fechas con label y valores
+ * @param label Texto del slot
+ * @param values Valores de las fechas
+ */
+
+export function MultiDateSlot({
+  label,
+  values,
+}: {
+  label: string
+  values?: Date[] | undefined
+} & BadgeProps) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">
+      <span className="text-muted-foreground text-sm">{label}</span>
+      <div className="flex gap-1 items-center">
+        {values?.map((value, index) => (
+          <DateBadge
+            key={index}
+            value={value}
+          />
         ))}
       </div>
     </div>

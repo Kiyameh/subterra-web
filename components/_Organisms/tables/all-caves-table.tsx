@@ -88,7 +88,7 @@ export default function AllCavesTable({
         return (
           <div className="flex gap-2">
             <Link
-              href={`/intance/${instanceName}/detail/cave/${row.original._id}`}
+              href={`/instance/${instanceName}/detail/cave/${row.original._id}`}
               replace
             >
               <Button
@@ -105,7 +105,7 @@ export default function AllCavesTable({
 
             {isEditor && (
               <Link
-                href={`/intance/${instanceName}/edit/cave/${row.original._id}`}
+                href={`/instance/${instanceName}/edit/cave/${row.original._id}`}
                 replace
               >
                 <Button
