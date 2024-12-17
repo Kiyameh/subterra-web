@@ -123,6 +123,51 @@ export async function updateCave(
   }
 }
 
+/**
+ * @version 1
+ * @description Elimina una cueva de la base de datos
+ * @param caveId id de la cueva a eliminar
+ */
+
+export async function deleteOneCave(caveId: string): Promise<Answer> {
+  try {
+    const conection = await connectToMongoDB()
+    const session = await conection.startSession()
+
+    await session.withTransaction(async () => {
+      const deletedCave = await Cave.findByIdAndDelete(caveId)
+      if (!deletedCave) throw new Error('Error al eliminar la cueva')
+
+      if (deletedCave.system) {
+        const updatedSystem = await System.findByIdAndUpdate(
+          deletedCave.system,
+          {$pull: {caves: deletedCave._id}},
+          {new: true}
+        )
+        if (!updatedSystem) throw new Error('Error al actualizar el sistema')
+      }
+
+      if (deletedCave.explorations) {
+        deletedCave.explorations.forEach(async (explorationId: string) => {
+          const updatedExploration = await Exploration.findByIdAndUpdate(
+            explorationId,
+            {$pull: {caves: deletedCave._id}},
+            {new: true}
+          )
+          if (!updatedExploration)
+            throw new Error('Error al actualizar la exploración')
+        })
+      }
+    })
+    return {
+      ok: true,
+      message: 'Cueva eliminada',
+    } as Answer
+  } catch (error) {
+    return decodeMongoError(error)
+  }
+}
+
 //* 2. Funciones de consulta */
 
 /**

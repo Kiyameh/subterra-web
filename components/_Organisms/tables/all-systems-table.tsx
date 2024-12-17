@@ -46,7 +46,7 @@ export default function AllSystemTable({
             {row.original.caves?.map((cave) => (
               <RefBadge
                 key={cave._id}
-                baseUrl={`/instance/${instanceName}/detail/cave/`}
+                baseUrl={`/instance/${instanceName}/caves/`}
                 value={cave}
                 type="cave"
               />
@@ -92,7 +92,7 @@ export default function AllSystemTable({
         return (
           <div className="flex gap-2">
             <Link
-              href={`/instance/${instanceName}/detail/system/${row.original._id}`}
+              href={`/instance/${instanceName}/systems/${row.original._id}`}
               replace
             >
               <Button
@@ -109,7 +109,7 @@ export default function AllSystemTable({
 
             {isEditor && (
               <Link
-                href={`/instance/${instanceName}/edit/system/${row.original._id}`}
+                href={`/instance/${instanceName}/systems/${row.original._id}/edit`}
                 replace
               >
                 <Button
@@ -135,7 +135,7 @@ export default function AllSystemTable({
       className="w-full"
       cardHeader={
         <CardTitle
-          title={`Systemas de ${instanceName}`}
+          title={`Sistemas de ${instanceName}`}
           icon={<FaRegCircle />}
         />
       }

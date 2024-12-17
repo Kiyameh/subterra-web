@@ -1,9 +1,10 @@
 import InstancesBoard from '@/components/_Organisms/boards/all-instances-board'
+import PageContainer from '@/components/theming/page-container'
 
 export default function InstanceListPage() {
   return (
-    <section className="flex h-full w-full items-center justify-center">
+    <PageContainer>
       <InstancesBoard />
-    </section>
+    </PageContainer>
   )
 }

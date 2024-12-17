@@ -1,21 +1,22 @@
 import {auth} from '@/auth'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import AllExplorationTable from '@/components/_Organisms/tables/all-explorations-table'
+import AllCavesTable from '@/components/_Organisms/tables/all-caves-table'
 import PageContainer from '@/components/theming/page-container'
-import {ExplorationIndex} from '@/database/models/Exploration.model'
-import {getExplorationsIndex} from '@/database/services/exploration.services'
+import {CaveIndex} from '@/database/models/Cave.model'
+import {getCaveIndex} from '@/database/services/cave.services'
 import {checkIsEditor} from '@/database/services/instance.services'
 
 interface PageProps {
   params: Promise<{instance: string}>
 }
-export default async function ExplorationListPage({params}: PageProps) {
+export default async function CaveListPage({params}: PageProps) {
   // Obtener el nombre de la instancia
   const instanceName = (await params).instance
 
   // Obtener el indice de cuevas
-  const explorationsIndex = (await getExplorationsIndex(instanceName))
-    .content as ExplorationIndex[] | undefined
+  const cavesIndex = (await getCaveIndex(instanceName)).content as
+    | CaveIndex[]
+    | undefined
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
@@ -23,7 +24,7 @@ export default async function ExplorationListPage({params}: PageProps) {
   // Validar roles de usuario
   const isEditor = (await checkIsEditor(userId, instanceName)).ok as boolean
 
-  if (!explorationsIndex)
+  if (!cavesIndex)
     return (
       <NotFoundCard
         title="Algo ha ido mal"
@@ -32,9 +33,9 @@ export default async function ExplorationListPage({params}: PageProps) {
     )
 
   return (
-    <PageContainer>
-      <AllExplorationTable
-        explorationsIndex={explorationsIndex}
+    <PageContainer className="justify-start">
+      <AllCavesTable
+        cavesIndex={cavesIndex}
         instanceName={instanceName}
         isEditor={isEditor}
       />

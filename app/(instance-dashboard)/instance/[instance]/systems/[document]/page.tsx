@@ -7,6 +7,8 @@ import {getOneSystem} from '@/database/services/system.services'
 import {PopulatedSystem} from '@/database/models/System.model'
 import SystemInfoCard from '@/components/_Molecules/cards/system-info-card'
 import CavesCard from '@/components/_Molecules/cards/caves-card'
+import HeaderBox from '@/components/_Atoms/boxes/header-box'
+import EditDocumentBanner from '@/components/_Molecules/interactives/edit-document-banner'
 
 interface PageProps {
   params: Promise<{document: string}>
@@ -33,7 +35,14 @@ export default async function SystemDetailPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
+      <EditDocumentBanner
+        type="system"
+        removeLabel="Eliminar sistema"
+        editLabel="Editar sistema"
+      />
       <ImageCard />
+      <HeaderBox text={system.name} />
+
       <div className="flex gap-4 flex-wrap justify-center">
         <SystemInfoCard system={system} />
         <DescriptionCard description={system.description} />

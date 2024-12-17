@@ -43,7 +43,7 @@ export default function AllCavesTable({
       cell: ({row}) => {
         return (
           <RefBadge
-            baseUrl={`/instance/${instanceName}/detail/system/`}
+            baseUrl={`/instance/${instanceName}/systems/`}
             value={row.original.system}
             type="system"
           />
@@ -88,7 +88,7 @@ export default function AllCavesTable({
         return (
           <div className="flex gap-2">
             <Link
-              href={`/instance/${instanceName}/detail/cave/${row.original._id}`}
+              href={`/instance/${instanceName}/caves/${row.original._id}`}
               replace
             >
               <Button
@@ -105,7 +105,7 @@ export default function AllCavesTable({
 
             {isEditor && (
               <Link
-                href={`/instance/${instanceName}/edit/cave/${row.original._id}`}
+                href={`/instance/${instanceName}/caves/${row.original._id}/edit`}
                 replace
               >
                 <Button

@@ -169,7 +169,7 @@ export default function ExplorationCreationForm({
           <div className="flex flex-row gap-2">
             <LinkButton
               label="Ver informe"
-              href={`/instance/${instanceName}/detail/exploration/${dbAnswer.redirect}`}
+              href={`/instance/${instanceName}/explorations/${dbAnswer.redirect}`}
             />
             <Button
               variant="secondary"

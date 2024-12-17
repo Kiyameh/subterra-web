@@ -386,7 +386,7 @@ export default function CaveCreationForm({
           <div className="flex flex-row gap-2">
             <LinkButton
               label="Ver cavidad"
-              href={`/instance/${instanceName}/detail/cave/${dbAnswer.redirect}`}
+              href={`/instance/${instanceName}/caves/${dbAnswer.redirect}`}
             />
             <Button
               variant="secondary"

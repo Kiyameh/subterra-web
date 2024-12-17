@@ -33,7 +33,7 @@ export default async function SystemListPage({params}: PageProps) {
     )
 
   return (
-    <PageContainer>
+    <PageContainer className="justify-start">
       <AllSystemTable
         systemIndex={systemIndex}
         instanceName={instanceName}

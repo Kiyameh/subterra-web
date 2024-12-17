@@ -125,6 +125,43 @@ export async function updateSystem(
   }
 }
 
+/**
+ * @version 1
+ * @description Elimina un sistema de la base de datos
+ * @param systemId id del sistema a eliminar
+ */
+
+export async function deleteOneSystem(systemId: string): Promise<Answer> {
+  try {
+    const conection = await connectToMongoDB()
+    const session = await conection.startSession()
+
+    await session.withTransaction(async () => {
+      const deletedSystem = await System.findByIdAndDelete(systemId)
+      if (!deletedSystem) {
+        return {ok: false, message: 'Error al eliminar el sistema'} as Answer
+      }
+
+      if (deletedSystem.caves) {
+        deletedSystem.caves.forEach(async (caveId: string) => {
+          const updatedCave = await Cave.findByIdAndUpdate(
+            caveId,
+            {system: null},
+            {new: true}
+          )
+          if (!updatedCave) throw new Error('Error al actualizar la cueva')
+        })
+      }
+    })
+
+    session.endSession()
+
+    return {ok: true, message: 'Sistema eliminado'} as Answer
+  } catch (error) {
+    return decodeMongoError(error)
+  }
+}
+
 //* 2. Funciones de consulta */
 
 /**

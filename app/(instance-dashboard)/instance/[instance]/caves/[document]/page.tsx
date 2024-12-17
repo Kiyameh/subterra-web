@@ -8,6 +8,8 @@ import CaveLocationCard from '@/components/_Molecules/cards/cave-location-card'
 import ScienceCard from '@/components/_Molecules/cards/science-card'
 import ExplorationsCards from '@/components/_Molecules/cards/explorations-card'
 import DescriptionCard from '@/components/_Molecules/cards/description-card'
+import HeaderBox from '@/components/_Atoms/boxes/header-box'
+import EditDocumentBanner from '@/components/_Molecules/interactives/edit-document-banner'
 
 interface PageProps {
   params: Promise<{document: string}>
@@ -33,7 +35,14 @@ export default async function CaveDetailPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
+      <EditDocumentBanner
+        type="cave"
+        removeLabel="Eliminar cavidad"
+        editLabel="Editar cavidad"
+      />
+
       <ImageCard />
+      <HeaderBox text={cave.name} />
       <div className="flex gap-4 flex-wrap justify-center">
         <CaveInfoCard cave={cave} />
         <CaveLocationCard cave={cave} />

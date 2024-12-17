@@ -54,7 +54,7 @@ export default function AllExplorationTable({
             {row.original.caves?.map((cave) => (
               <RefBadge
                 key={cave._id}
-                baseUrl={`/instance/${instanceName}/detail/cave/`}
+                baseUrl={`/instance/${instanceName}/caves/`}
                 value={cave}
                 type="cave"
               />
@@ -96,7 +96,7 @@ export default function AllExplorationTable({
         return (
           <div className="flex gap-2">
             <Link
-              href={`/instance/${instanceName}/detail/exploration/${row.original._id}`}
+              href={`/instance/${instanceName}/explorations/${row.original._id}`}
               replace
             >
               <Button
@@ -113,7 +113,7 @@ export default function AllExplorationTable({
 
             {isEditor && (
               <Link
-                href={`/instance/${instanceName}/edit/exploration/${row.original._id}`}
+                href={`/instance/${instanceName}/explorations/${row.original._id}/edit`}
                 replace
               >
                 <Button

@@ -67,9 +67,9 @@ export default function SidebarInstanceNavigation({
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton
                       asChild
-                      isActive={pathName.includes('/list/caves')}
+                      isActive={pathName.includes('/caves/list')}
                     >
-                      <Link href={`/instance/${instance}/list/caves`}>
+                      <Link href={`/instance/${instance}/caves/list`}>
                         <span>Listado completo</span>
                       </Link>
                     </SidebarMenuSubButton>
@@ -78,9 +78,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         asChild
-                        isActive={pathName.includes('/create/cave')}
+                        isActive={pathName.includes('/caves/create')}
                       >
-                        <Link href={`/instance/${instance}/create/cave`}>
+                        <Link href={`/instance/${instance}/caves/create`}>
                           <span className="text-editor">
                             <LuPlusCircle />
                           </span>
@@ -110,9 +110,9 @@ export default function SidebarInstanceNavigation({
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton
                       asChild
-                      isActive={pathName.includes('/list/systems')}
+                      isActive={pathName.includes('/systems/list')}
                     >
-                      <Link href={`/instance/${instance}/list/systems`}>
+                      <Link href={`/instance/${instance}/systems/list`}>
                         <span>Listado completo</span>
                       </Link>
                     </SidebarMenuSubButton>
@@ -122,9 +122,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         asChild
-                        isActive={pathName.includes('/create/system')}
+                        isActive={pathName.includes('/system/create')}
                       >
-                        <Link href={`/instance/${instance}/create/system`}>
+                        <Link href={`/instance/${instance}/system/create`}>
                           <span className="text-editor">
                             <RiApps2AddLine />
                           </span>
@@ -155,9 +155,9 @@ export default function SidebarInstanceNavigation({
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton
                       asChild
-                      isActive={pathName.includes('/list/explorations')}
+                      isActive={pathName.includes('/explorations/list')}
                     >
-                      <Link href={`/instance/${instance}/list/explorations`}>
+                      <Link href={`/instance/${instance}/explorations/list`}>
                         <span>Ultimas exploraciones</span>
                       </Link>
                     </SidebarMenuSubButton>
@@ -166,9 +166,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         asChild
-                        isActive={pathName.includes('/create/exploration')}
+                        isActive={pathName.includes('/exploration/create')}
                       >
-                        <Link href={`/instance/${instance}/create/exploration`}>
+                        <Link href={`/instance/${instance}/exploration/create`}>
                           <span className="text-editor">
                             <GrChapterAdd />
                           </span>

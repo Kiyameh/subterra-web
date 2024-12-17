@@ -145,6 +145,60 @@ export async function updateExploration(
   }
 }
 
+/**
+ * @version 1
+ * @description Elimina una exploración de la base de datos
+ * @param explorationId id de la exploración a eliminar
+ */
+
+export async function deleteOneExploration(
+  explorationId: string
+): Promise<Answer> {
+  try {
+    const conection = await connectToMongoDB()
+    const session = await conection.startSession()
+
+    await session.withTransaction(async () => {
+      const deletedExploration =
+        await Exploration.findByIdAndDelete(explorationId)
+      if (!deletedExploration) throw new Error('Exploración no encontrada')
+
+      if (deletedExploration.caves) {
+        deletedExploration.caves.forEach(async (caveId: string) => {
+          const updatedCave = await Cave.findByIdAndUpdate(
+            caveId,
+            {$pull: {explorations: explorationId}},
+            {new: true}
+          )
+          if (!updatedCave) {
+            throw new Error('Error al actualizar la cueva')
+          }
+        })
+      }
+
+      if (deletedExploration.groups) {
+        deletedExploration.groups.forEach(async (groupId: string) => {
+          const updatedGroup = await Group.findByIdAndUpdate(
+            groupId,
+            {$pull: {explorations: explorationId}},
+            {new: true}
+          )
+          if (!updatedGroup) {
+            throw new Error('Error al actualizar el grupo')
+          }
+        })
+      }
+    })
+
+    return {
+      ok: true,
+      message: 'Exploración eliminada',
+    } as Answer
+  } catch (error) {
+    return decodeMongoError(error)
+  }
+}
+
 //* 2. Acciones de lectura */
 
 /**

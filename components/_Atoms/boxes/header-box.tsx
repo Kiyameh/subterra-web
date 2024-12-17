@@ -15,7 +15,7 @@ export default function HeaderBox({
   className,
 }: {
   text: string
-  icon: React.ReactNode
+  icon?: React.ReactNode
   className?: string
 }) {
   return (

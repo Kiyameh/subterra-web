@@ -283,7 +283,7 @@ export default function SystemCreationForm({
           <div className="flex flex-row gap-2">
             <LinkButton
               label="Ver sistema"
-              href={`/instance/${instanceName}/detail/system/${dbAnswer.redirect}`}
+              href={`/instance/${instanceName}/systems/${dbAnswer.redirect}`}
             />
             <Button
               variant="secondary"
