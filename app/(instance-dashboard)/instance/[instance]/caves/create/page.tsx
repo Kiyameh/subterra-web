@@ -19,7 +19,7 @@ export default async function CaveCreationPage({params}: PageProps) {
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
-  // Obtener el indice del sistema
+  // Obtener el indice de sistemas (para el select)
   const systemIndex = (await getSystemIndex(instanceName)).content as
     | SystemIndex[]
     | undefined

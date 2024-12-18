@@ -134,11 +134,12 @@ export async function updateExploration(
       values,
       {new: true}
     )
+    if (!updatedExploration)
+      throw new Error('Error al actualizar la exploración')
 
     return {
       ok: true,
       message: 'Exploración actualizada',
-      redirect: `/exploration/${updatedExploration._id}`,
     } as Answer
   } catch (error) {
     return decodeMongoError(error)

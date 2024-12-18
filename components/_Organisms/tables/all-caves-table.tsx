@@ -14,6 +14,7 @@ import Link from 'next/link'
 import BooleanBadge from '@/components/_Atoms/badges/boolean-badge'
 import RefBadge from '@/components/_Atoms/badges/ref-badge'
 import DistanceBadge from '@/components/_Atoms/badges/distance-badge'
+import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
 
 export default function AllCavesTable({
   cavesIndex,
@@ -26,20 +27,40 @@ export default function AllCavesTable({
 }) {
   const columns: ColumnDef<CaveIndex>[] = [
     {
+      accessorKey: 'name',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Nombre"
+        />
+      ),
+    },
+    {
       accessorKey: 'catalog',
-      header: 'Catálogo',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Catálogo"
+        />
+      ),
     },
     {
       accessorKey: 'initials',
-      header: 'Siglas exploración',
-    },
-    {
-      accessorKey: 'name',
-      header: 'Nombre',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Siglas"
+        />
+      ),
     },
     {
       accessorKey: 'system',
-      header: 'Pertenece a sistema',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Sistema kárstico"
+        />
+      ),
       cell: ({row}) => {
         return (
           <RefBadge
@@ -52,21 +73,36 @@ export default function AllCavesTable({
     },
     {
       accessorKey: 'length',
-      header: 'Desarrollo',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Desarrollo"
+        />
+      ),
       cell: ({row}) => {
         return <DistanceBadge valueInMeters={row.original.length} />
       },
     },
     {
       accessorKey: 'depth',
-      header: 'Profundidad',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Profundidad"
+        />
+      ),
       cell: ({row}) => {
         return <DistanceBadge valueInMeters={row.original.depth} />
       },
     },
     {
       accessorKey: 'regulations',
-      header: 'Regulaciones',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Regulaciones"
+        />
+      ),
       cell: ({row}) => {
         return (
           <BooleanBadge
@@ -79,7 +115,12 @@ export default function AllCavesTable({
 
     {
       accessorKey: 'massif',
-      header: 'Macizo',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Macizo"
+        />
+      ),
     },
     {
       accessorKey: 'actions',

@@ -114,11 +114,11 @@ export async function updateSystem(
     const updatedSystem = await System.findByIdAndUpdate(systemId, values, {
       new: true,
     })
+    if (!updatedSystem) throw new Error('Error al actualizar el sistema')
 
     return {
       ok: true,
       message: 'Sistema actualizado',
-      redirect: `/system/${updatedSystem._id}`,
     } as Answer
   } catch (error) {
     return decodeMongoError(error)

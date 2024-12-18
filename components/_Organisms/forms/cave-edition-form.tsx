@@ -7,8 +7,7 @@ import {Answer} from '@/database/types/answer.type'
 import {caveMaxCharacters} from '@/database/validation/cave.schemas'
 import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {CaveFormSchema} from '@/database/validation/cave.schemas'
-import {createCave} from '@/database/services/cave.services'
-import {SystemIndex} from '@/database/models/System.model'
+import {updateCave} from '@/database/services/cave.services'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -23,7 +22,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import Divider from '@/components/_Atoms/boxes/divider'
@@ -34,85 +32,53 @@ import {BsExclamationTriangle} from 'react-icons/bs'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
-
-const EMPTY_CAVE: CaveFormValues = {
-  instances: [],
-  explorations: [],
-  system: undefined,
-  datatype: 'cave',
-
-  catalog: '',
-  initials: [],
-  name: '',
-  alt_names: [],
-  cave_shapes: [],
-  description: '',
-  regulations: undefined,
-  regulation_description: '',
-  length: 0,
-  depth: 0,
-
-  municipality: '',
-  locality: '',
-  toponymy: [],
-  massif: '',
-  location_description: '',
-  geolog_age: '',
-  geolog_litology: '',
-  arqueolog: '',
-  paleontolog: '',
-  mineralog: '',
-  contamination: '',
-  biolog: '',
-  hidrolog_system: '',
-  hidrolog_subsystem: '',
-
-  coordinates: {
-    x_coord: 0,
-    y_coord: 0,
-    z_coord: 0,
-    coord_proyec: 'ETRS89',
-    hemisphere: 'N',
-    utm_zone: '30',
-  },
-}
+import {PopulatedCave} from '@/database/models/Cave.model'
 
 /**
  * @version 1
- * @description Formulario para crear una cavidad
+ * @description Formulario para editar una cavidad
  * @param instanceName Nombre de la instancia
  * @param commanderId Editor que crea la cavidad
- * @param systemIndex Índice de los sistemas
+ * @param cave Cavidad a editar
  */
 
-export default function CaveCreationForm({
+export default function CaveEditionForm({
   instanceName,
   commanderId,
-  systemIndex,
+  cave,
 }: {
   instanceName: string
   commanderId: string
-  systemIndex: SystemIndex[] | undefined
+  cave: PopulatedCave
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
+  // ? Despoblar las propiedades pobladas:
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {system, explorations, ...plainCave} = cave
+
   const form = useForm<CaveFormValues>({
     resolver: zodResolver(CaveFormSchema),
-    defaultValues: EMPTY_CAVE,
+    defaultValues: plainCave,
   })
 
   function onSubmit(values: CaveFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createCave(values, instanceName, commanderId)
+      const answer = await updateCave(
+        values,
+        cave._id,
+        instanceName,
+        commanderId
+      )
       setDbAnswer(answer)
     })
   }
 
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    form.reset(EMPTY_CAVE)
+    form.reset(plainCave)
     window.scrollTo(0, 0)
     setDbAnswer(null)
   }
@@ -137,13 +103,6 @@ export default function CaveCreationForm({
               </div>
             </AccordionTrigger>
             <AccordionContent className="space-y-6 p-2 py-6">
-              <RefSelectField
-                control={form.control}
-                name="system"
-                label="Sistema karstico"
-                noOptionsText="Todavía no hay ningun sistema creado"
-                index={systemIndex}
-              />
               <TextField
                 control={form.control}
                 name="catalog"
@@ -383,23 +342,23 @@ export default function CaveCreationForm({
         </div>
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
+          <LinkButton
+            label="Ver cavidad actualizada"
+            href={`/instance/${instanceName}/caves/${cave._id}`}
+          />
+        ) : (
           <div className="flex flex-row gap-2">
-            <LinkButton
-              label="Ver cavidad"
-              href={`/instance/${instanceName}/caves/${dbAnswer.redirect}`}
+            <SubmitButton
+              label="Actualizar cavidad"
+              isPending={isPending}
             />
             <Button
               variant="secondary"
               onClick={handleReset}
             >
-              Crear otro cavidad
+              Reiniciar cambios
             </Button>
           </div>
-        ) : (
-          <SubmitButton
-            label="Crear cavidad"
-            isPending={isPending}
-          />
         )}
       </form>
     </Form>

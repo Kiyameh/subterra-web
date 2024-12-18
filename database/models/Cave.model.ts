@@ -1,7 +1,6 @@
 import {model, models, Schema, Types, Document, ClientSession} from 'mongoose'
 
 import {caveShapes, coordProyections, utmZones} from './Cave.enums'
-import {InstanceObject} from './Instance.model'
 import {SystemObject} from './System.model'
 import {ExplorationObject} from './Exploration.model'
 
@@ -168,10 +167,9 @@ export interface CaveObject
 }
 
 export interface PopulatedCave
-  extends Omit<CaveObject, 'system' | 'explorations' | 'instances'> {
+  extends Omit<CaveObject, 'system' | 'explorations'> {
   system: SystemObject
   explorations: ExplorationObject[]
-  instances: InstanceObject[]
 }
 
 export interface CaveIndex {

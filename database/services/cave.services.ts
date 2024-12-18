@@ -112,11 +112,11 @@ export async function updateCave(
     const updatedCave = await Cave.findByIdAndUpdate(caveId, values, {
       new: true,
     })
+    if (!updatedCave) throw new Error('Error al actualizar la cueva')
 
     return {
       ok: true,
       message: 'Cueva actualizada',
-      redirect: `/cave/${updatedCave._id}`,
     } as Answer
   } catch (error) {
     return decodeMongoError(error)
@@ -271,7 +271,7 @@ export async function getSomeCaves(caveIds: string[]): Promise<Answer> {
 //* 3. Funciones de adición */
 
 /**
- * @version 1
+ * @version 2
  * @description Añadir una cueva a un sistema
  * @param caveId id de la cueva
  * @param systemId id del sistema
@@ -296,17 +296,18 @@ export async function addCaveToSystem(
     const system = await System.findById(systemId)
 
     if (!cave || !system) throw new Error('Cueva o sistema no encontrados')
+
     const session = await conection.startSession()
-    session.startTransaction()
 
-    // Añadir la cueva al sistema
-    const updatedSystem = system.pushCave(caveId, session)
-    // Añadir el sistema a la cueva
-    const updatedCave = cave.setSystem(systemId, session)
-    if (!updatedSystem || !updatedCave)
-      throw new Error('Error al añadir la cueva al sistema')
+    await session.withTransaction(async () => {
+      // Añadir la cueva al sistema
+      const updatedSystem = system.pushCave(caveId)
+      // Añadir el sistema a la cueva
+      const updatedCave = cave.setSystem(systemId)
+      if (!updatedSystem || !updatedCave)
+        throw new Error('Error al añadir la cueva al sistema')
+    })
 
-    session.commitTransaction()
     session.endSession()
 
     return {
@@ -347,14 +348,17 @@ export async function removeCaveFromSystem(
     if (!cave || !system) throw new Error('Cueva o sistema no encontrados')
 
     const session = await conection.startSession()
-    session.startTransaction()
 
-    // Eliminar la cueva del sistema
-    const updatedSystem = system.removeCave(caveId, session)
-    // Eliminar el sistema de la cueva
-    const updatedCave = cave.setSystem('', session)
-    if (!updatedSystem || !updatedCave)
-      throw new Error('Error al eliminar la cueva del sistema')
+    await session.withTransaction(async () => {
+      // Eliminar la cueva del sistema
+      const updatedSystem = system.removeCave(caveId, session)
+      // Eliminar el sistema de la cueva
+      const updatedCave = cave.setSystem('', session)
+      if (!updatedSystem || !updatedCave)
+        throw new Error('Error al eliminar la cueva del sistema')
+    })
+
+    session.endSession()
 
     return {
       ok: true,

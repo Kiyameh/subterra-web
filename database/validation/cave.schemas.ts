@@ -53,11 +53,12 @@ export const CaveFormSchema = z.object({
     z
       .string()
       .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
-  ), // Instancias
+  ),
   system: z
     .string()
     .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
-    .optional(), // ObjectId del sistema
+    .optional()
+    .nullable(),
   datatype: z.string().default('cave'),
   explorations: z
     .array(
@@ -65,7 +66,7 @@ export const CaveFormSchema = z.object({
         .string()
         .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
     )
-    .optional(), // Exploraciones
+    .optional(),
 
   //* Datos troncales:
   catalog: z

@@ -14,6 +14,7 @@ import {ExplorationIndex} from '@/database/models/Exploration.model'
 import DateBadge from '@/components/_Atoms/badges/date-badge'
 import RefBadge from '@/components/_Atoms/badges/ref-badge'
 import TimeBadge from '@/components/_Atoms/badges/time-badge'
+import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
 
 export default function AllExplorationTable({
   explorationsIndex,
@@ -27,7 +28,12 @@ export default function AllExplorationTable({
   const columns: ColumnDef<ExplorationIndex>[] = [
     {
       accessorKey: 'name',
-      header: 'Nombre',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Nombre"
+        />
+      ),
     },
     {
       accessorKey: 'dates',
@@ -83,7 +89,12 @@ export default function AllExplorationTable({
     },
     {
       accessorKey: 'cave_time',
-      header: 'Tiempo en cavidad',
+      header: ({column}) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Tiempo en cavidad"
+        />
+      ),
       cell: ({row}) => {
         return <TimeBadge valueInSeconds={row.original.cave_time} />
       },

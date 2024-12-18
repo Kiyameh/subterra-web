@@ -34,7 +34,7 @@ export default function RefBadge({
           className="w-fit"
         >
           <ResponsiveTooltip content={helperText}>
-            <Badge className="select-none rounded-full min-w-11 w-fit bg-muted hover:bg-emphasis/30 border border-emphasis cursor-pointer space-x-1 text-emphasis">
+            <Badge className="max-h-5 select-none rounded-full min-w-11 shrink-0 whitespace-nowrap bg-muted hover:bg-emphasis/30 border border-emphasis cursor-pointer space-x-1 text-emphasis">
               <span className="text-xs font-normal">
                 {showText || value.name}
               </span>

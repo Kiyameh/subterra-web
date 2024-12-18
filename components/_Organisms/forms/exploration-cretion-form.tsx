@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, {MouseEvent} from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
@@ -77,8 +77,8 @@ export default function ExplorationCreationForm({
     })
   }
 
-  function handleReset() {
-    console.log('reset')
+  function handleReset(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault()
     form.reset(EMPTY_EXPLORATION)
     window.scrollTo(0, 0)
     setDbAnswer(null)
