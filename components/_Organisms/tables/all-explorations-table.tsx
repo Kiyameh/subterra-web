@@ -10,11 +10,11 @@ import {Button} from '@/components/ui/button'
 import {TbEditCircle} from 'react-icons/tb'
 import {FaMagnifyingGlass} from 'react-icons/fa6'
 import Link from 'next/link'
-import {ExplorationIndex} from '@/database/models/Exploration.model'
 import DateBadge from '@/components/_Atoms/badges/date-badge'
 import RefBadge from '@/components/_Atoms/badges/ref-badge'
 import TimeBadge from '@/components/_Atoms/badges/time-badge'
 import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
+import {ExplorationIndex} from '@/database/services/exploration.actions'
 
 export default function AllExplorationTable({
   explorationsIndex,
@@ -59,9 +59,9 @@ export default function AllExplorationTable({
           <div className="flex flex-row flex-wrap gap-1">
             {row.original.caves?.map((cave) => (
               <RefBadge
-                key={cave._id}
+                key={cave._id as string}
                 baseUrl={`/instance/${instanceName}/caves/`}
-                value={cave}
+                value={cave as {name: string; _id: string}}
                 type="cave"
               />
             ))}
@@ -77,9 +77,9 @@ export default function AllExplorationTable({
           <div className="flex flex-row flex-wrap gap-1">
             {row.original.groups?.map((group) => (
               <RefBadge
-                key={group._id}
+                key={group._id as string}
                 baseUrl={`/group/`}
-                value={group}
+                value={group as {name: string; _id: string}}
                 type="group"
               />
             ))}

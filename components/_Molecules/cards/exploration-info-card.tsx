@@ -8,9 +8,9 @@ import {
 } from '@/components/_Atoms/slots/chip-slots'
 import {TimeSlot} from '@/components/_Atoms/slots/number-slots'
 import {IoMdInformationCircle} from 'react-icons/io'
-import {PopulatedExploration} from '@/database/models/Exploration.model'
 import Divider from '@/components/_Atoms/boxes/divider'
 import {CaveSlot} from '@/components/_Atoms/slots/documents-slots'
+import {PopulatedExploration} from '@/database/services/exploration.actions'
 
 export default function ExplorationInfoCard({
   exploration,
@@ -19,6 +19,7 @@ export default function ExplorationInfoCard({
 }) {
   return (
     <BasicCard
+      key="exploration_info_card"
       cardHeader={
         <CardTitle
           title={'Información general'}

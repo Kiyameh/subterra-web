@@ -13,6 +13,7 @@ export const explorationMaxCharacters = {
   name: 120,
   participants: 120,
   collaborators: 120,
+
   description: 1000,
   incidents: 1000,
   inventory: 1000,
@@ -24,7 +25,8 @@ export const explorationMaxCharacters = {
  */
 
 export const ExplorationFormSchema = z.object({
-  // Manejo DB:
+  //* Manejo de relaciones:
+  datatype: z.string().default('system'),
   instances: z.array(
     z
       .string()
@@ -42,7 +44,6 @@ export const ExplorationFormSchema = z.object({
       .string()
       .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
   ),
-  datatype: z.string().default('system'),
 
   //* Datos troncales:
   name: z

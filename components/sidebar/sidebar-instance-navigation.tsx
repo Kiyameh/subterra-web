@@ -122,9 +122,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         asChild
-                        isActive={pathName.includes('/system/create')}
+                        isActive={pathName.includes('/systems/create')}
                       >
-                        <Link href={`/instance/${instance}/system/create`}>
+                        <Link href={`/instance/${instance}/systems/create`}>
                           <span className="text-editor">
                             <RiApps2AddLine />
                           </span>
@@ -166,9 +166,11 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         asChild
-                        isActive={pathName.includes('/exploration/create')}
+                        isActive={pathName.includes('/explorations/create')}
                       >
-                        <Link href={`/instance/${instance}/exploration/create`}>
+                        <Link
+                          href={`/instance/${instance}/explorations/create`}
+                        >
                           <span className="text-editor">
                             <GrChapterAdd />
                           </span>

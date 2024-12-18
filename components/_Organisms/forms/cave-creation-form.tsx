@@ -7,8 +7,6 @@ import {Answer} from '@/database/types/answer.type'
 import {caveMaxCharacters} from '@/database/validation/cave.schemas'
 import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {CaveFormSchema} from '@/database/validation/cave.schemas'
-import {createCave} from '@/database/services/cave.services'
-import {SystemIndex} from '@/database/models/System.model'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -34,17 +32,20 @@ import {BsExclamationTriangle} from 'react-icons/bs'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
+import {createCave} from '@/database/services/cave.actions'
+import {SystemIndex} from '@/database/services/system.actions'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 
 const EMPTY_CAVE: CaveFormValues = {
-  instances: [],
-  explorations: [],
-  system: undefined,
   datatype: 'cave',
+  instances: [],
+  system: undefined,
 
   catalog: '',
   initials: [],
   name: '',
   alt_names: [],
+
   cave_shapes: [],
   description: '',
   regulations: undefined,
@@ -57,6 +58,7 @@ const EMPTY_CAVE: CaveFormValues = {
   toponymy: [],
   massif: '',
   location_description: '',
+
   geolog_age: '',
   geolog_litology: '',
   arqueolog: '',
@@ -80,17 +82,17 @@ const EMPTY_CAVE: CaveFormValues = {
 /**
  * @version 1
  * @description Formulario para crear una cavidad
- * @param instanceName Nombre de la instancia
+ * @param instanceId Id de la instancia
  * @param commanderId Editor que crea la cavidad
  * @param systemIndex Índice de los sistemas
  */
 
 export default function CaveCreationForm({
-  instanceName,
+  instanceId,
   commanderId,
   systemIndex,
 }: {
-  instanceName: string
+  instanceId: string
   commanderId: string
   systemIndex: SystemIndex[] | undefined
 }) {
@@ -99,20 +101,26 @@ export default function CaveCreationForm({
 
   const form = useForm<CaveFormValues>({
     resolver: zodResolver(CaveFormSchema),
-    defaultValues: EMPTY_CAVE,
+    defaultValues: {
+      ...EMPTY_CAVE,
+      instances: [instanceId],
+    },
   })
 
   function onSubmit(values: CaveFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createCave(values, instanceName, commanderId)
+      const answer = await createCave(values, commanderId)
       setDbAnswer(answer)
     })
   }
 
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    form.reset(EMPTY_CAVE)
+    form.reset({
+      ...EMPTY_CAVE,
+      instances: [instanceId],
+    })
     window.scrollTo(0, 0)
     setDbAnswer(null)
   }
@@ -376,17 +384,15 @@ export default function CaveCreationForm({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="text-destructive-foreground text-sm">
-          {!form.formState.isValid && form.formState.isDirty && (
-            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
-          )}
-        </div>
+
+        <ReactHookFormErrorBox errors={form.formState.errors} />
+
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
           <div className="flex flex-row gap-2">
             <LinkButton
               label="Ver cavidad"
-              href={`/instance/${instanceName}/caves/${dbAnswer.redirect}`}
+              href={`${dbAnswer._id}`}
             />
             <Button
               variant="secondary"

@@ -11,15 +11,18 @@ import {useParams} from 'next/navigation'
  * @param type  Tipo de documento a editar
  * @param removeLabel  Texto del botón de eliminar
  * @param editLabel  Texto del botón de editar
+ * @param commanderId  ID del documento a editar
  */
 export default function EditDocumentBanner({
   type,
   removeLabel = 'Eliminar documento',
   editLabel = 'Editar documento',
+  commanderId,
 }: {
   type: 'cave' | 'exploration' | 'system'
   removeLabel?: string
   editLabel?: string
+  commanderId: string
 }) {
   const {document} = useParams()
   const [isOpen, setIsOpen] = React.useState(false)
@@ -46,6 +49,7 @@ export default function EditDocumentBanner({
         </Button>
       </div>
       <RemoveDocumentDialog
+        commanderId={commanderId}
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         type={type}

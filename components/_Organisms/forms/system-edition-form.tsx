@@ -25,61 +25,28 @@ import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
-import {createSystem} from '@/database/services/system.actions'
-import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-
-const EMPTY_SYSTEM: SystemFormValues = {
-  instances: [],
-  datatype: 'system',
-
-  catalog: '',
-  initials: [],
-  name: '',
-  alt_names: [],
-
-  description: '',
-  regulations: false,
-  regulation_description: '',
-  exploration_description: '',
-  length: 0,
-  depth: 0,
-  main_image: '',
-  massif: '',
-
-  geolog_age: '',
-  geolog_litology: '',
-  arqueolog: '',
-  paleontolog: '',
-  mineralog: '',
-  contamination: '',
-  biolog: '',
-  hidrolog_system: '',
-  hidrolog_subsystem: '',
-}
+import {createSystem, PlainSystem} from '@/database/services/system.actions'
 
 /**
  * @version 1
- * @description Formulario para crear una cavidad
- * @param instanceId Id de la instancia
+ * @description Formulario para editar un sistema
  * @param commanderId Editor que crea la cavidad
+ * @param system Sistema a editar
  */
 
-export default function SystemCreationForm({
-  instanceId,
+export default function SystemEditionForm({
   commanderId,
+  system,
 }: {
-  instanceId: string
   commanderId: string
+  system: PlainSystem
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<SystemFormValues>({
     resolver: zodResolver(SystemFormSchema),
-    defaultValues: {
-      ...EMPTY_SYSTEM,
-      instances: [instanceId],
-    },
+    defaultValues: system,
   })
 
   function onSubmit(values: SystemFormValues) {
@@ -92,10 +59,7 @@ export default function SystemCreationForm({
 
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    form.reset({
-      ...EMPTY_SYSTEM,
-      instances: [instanceId],
-    })
+    form.reset(system)
     window.scrollTo(0, 0)
     setDbAnswer(null)
   }
@@ -267,9 +231,11 @@ export default function SystemCreationForm({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-
-        <ReactHookFormErrorBox errors={form.formState.errors} />
-
+        <div className="text-destructive-foreground text-sm">
+          {!form.formState.isValid && form.formState.isDirty && (
+            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
+          )}
+        </div>
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
           <div className="flex flex-row gap-2">
@@ -286,7 +252,7 @@ export default function SystemCreationForm({
           </div>
         ) : (
           <SubmitButton
-            label="Crear sistema"
+            label="Crear instancia"
             isPending={isPending}
           />
         )}

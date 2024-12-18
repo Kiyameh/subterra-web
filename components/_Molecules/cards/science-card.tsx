@@ -1,10 +1,10 @@
 import React from 'react'
-import {PopulatedCave} from '@/database/models/Cave.model'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {MdOutlineScience} from 'react-icons/md'
-import {PopulatedSystem} from '@/database/models/System.model'
+import {PopulatedCave} from '@/database/services/cave.actions'
+import {PopulatedSystem} from '@/database/services/system.actions'
 
 export default function ScienceCard({
   document,
@@ -13,6 +13,7 @@ export default function ScienceCard({
 }) {
   return (
     <BasicCard
+      key="science_card"
       cardHeader={
         <CardTitle
           title={'Información científica'}

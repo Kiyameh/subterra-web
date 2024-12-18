@@ -16,6 +16,7 @@ export default function DescriptionCard({
 }) {
   return (
     <BasicCard
+      key="description_card"
       cardHeader={
         <CardTitle
           title={title}

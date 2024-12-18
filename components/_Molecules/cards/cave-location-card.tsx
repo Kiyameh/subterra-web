@@ -1,5 +1,4 @@
 import React from 'react'
-import {PopulatedCave} from '@/database/models/Cave.model'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import Divider from '@/components/_Atoms/boxes/divider'
@@ -8,10 +7,12 @@ import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {ChipSlot} from '@/components/_Atoms/slots/chip-slots'
 import {DistanceSlot} from '@/components/_Atoms/slots/number-slots'
 import {FaMapLocationDot} from 'react-icons/fa6'
+import {PopulatedCave} from '@/database/services/cave.actions'
 
 export default function CaveLocationCard({cave}: {cave: PopulatedCave}) {
   return (
     <BasicCard
+      key="cave_location_card"
       cardHeader={
         <CardTitle
           title={'Información de localización'}

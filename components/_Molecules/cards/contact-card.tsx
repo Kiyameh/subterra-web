@@ -38,6 +38,7 @@ export default function ContactCard({
 
   return (
     <BasicCard
+      key="contact_card"
       cardHeader={
         <CardTitle
           title="Información de contacto"

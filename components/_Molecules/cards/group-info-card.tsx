@@ -22,6 +22,7 @@ export default function GroupInfoCard({
 }: GroupInfoCardProps) {
   return (
     <BasicCard
+      key="group_info_card"
       cardHeader={
         <CardTitle
           title={'Información general'}

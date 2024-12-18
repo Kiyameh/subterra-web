@@ -1,14 +1,17 @@
-import {model, models, Schema, Types, Document, ClientSession} from 'mongoose'
-import {CaveObject} from './Cave.model'
-import {InstanceObject} from './Instance.model'
+import {model, models, Schema, Types, Document} from 'mongoose'
 
 //* INTERFACES:
 
 export interface SystemDocument extends Document {
-  //* Manejo DB:
-  instances: Types.ObjectId[]
-  caves?: Types.ObjectId[]
+  //* Añadidos por Mongo:
+  //  _id: Types.ObjectId
+  //  __v: number
+  //  createdAt: Date
+  //  updataedAt: Date
+
+  //* Manejo de relaciones:
   datatype: 'system'
+  instances: Types.ObjectId[]
 
   //* Datos troncales:
   catalog?: string
@@ -36,22 +39,22 @@ export interface SystemDocument extends Document {
   biolog?: string
   hidrolog_system?: string
   hidrolog_subsystem?: string
-
-  //* Métodos:
-  pushCave(cave: string, session?: ClientSession): Promise<SystemDocument>
-  removeCave(caveId: string, session?: ClientSession): Promise<SystemDocument>
 }
 
 //* ESQUEMA:
 
 const systemSchema = new Schema<SystemDocument>({
+  //* Manejo de relaciones:
+  datatype: {type: String, required: true, default: 'system'},
   instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},
+
+  //* Datos troncales:
   catalog: {type: String},
   initials: {type: [String]},
   name: {type: String, required: true, unique: true},
   alt_names: {type: [String]},
-  datatype: {type: String, required: true, default: 'system'},
-  caves: {type: [Schema.Types.ObjectId], ref: 'Cave'},
+
+  //* Datos descriptivos:
   description: {type: String},
   regulations: {type: Boolean},
   regulation_description: {type: String},
@@ -60,6 +63,8 @@ const systemSchema = new Schema<SystemDocument>({
   depth: {type: Number},
   massif: {type: String},
   main_image: {type: String},
+
+  //* Datos científicos:
   geolog_age: {type: String},
   geolog_litology: {type: String},
   arqueolog: {type: String},
@@ -71,57 +76,8 @@ const systemSchema = new Schema<SystemDocument>({
   hidrolog_subsystem: {type: String},
 })
 
-//* MÉTODOS INSTANCIA:
-
-systemSchema.methods.pushCave = async function (
-  cave: string,
-  session?: ClientSession
-): Promise<SystemDocument> {
-  this.caves.push(cave)
-  return this.save({session})
-}
-
-systemSchema.methods.removeCave = async function (
-  caveId: string,
-  session?: ClientSession
-): Promise<SystemDocument> {
-  this.caves = this.caves.filter(
-    (cave: Types.ObjectId) => cave.toString() !== caveId
-  )
-  return this.save({session})
-}
-
 //* MODELO:
 
 const System = models?.System || model<SystemDocument>('System', systemSchema)
 
 export default System
-
-//* INTERFACES EXTENDIDAS:
-
-export interface SystemObject
-  extends Omit<SystemDocument, 'caves' | 'instances'> {
-  _id: string
-  __v: number
-  createdAt: Date
-  updatedAt: Date
-  caves?: string[]
-  instances?: string[]
-}
-
-export interface PopulatedSystem
-  extends Omit<SystemObject, 'caves' | 'instances'> {
-  caves?: CaveObject[]
-  instances?: InstanceObject[]
-}
-
-export interface SystemIndex {
-  _id: string
-  catalog?: string
-  initials?: string[]
-  name: string
-  caves?: {name: string; _id: string}[]
-  depth?: number
-  length?: number
-  regulations?: boolean
-}

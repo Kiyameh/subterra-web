@@ -9,12 +9,10 @@ import {
   explorationMaxCharacters,
 } from '@/database/validation/exploration.schemas'
 import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
-import {GroupIndex} from '@/database/models/Group.model'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
-import MultiRefSelectField from '@/components/_Atoms/fields/multi-ref-select-field'
 import TextField from '@/components/_Atoms/fields/text-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
@@ -22,57 +20,31 @@ import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import TimeField from '@/components/_Atoms/fields/time-field'
-import {CaveIndex} from '@/database/services/cave.actions'
-import {createExploration} from '@/database/services/exploration.actions'
-import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-
-const EMPTY_EXPLORATION: ExplorationFormValues = {
-  instances: [],
-  groups: [],
-  caves: [],
-  datatype: 'exploration',
-
-  name: '',
-  dates: [],
-  cave_time: 0,
-  participants: [],
-  collaborators: [],
-
-  description: '',
-  incidents: '',
-  inventory: '',
-  pending_work: '',
-}
+import {
+  createExploration,
+  PlainExploration,
+} from '@/database/services/exploration.actions'
 
 /**
  * @version 1
- * @description Formulario para crear una cavidad
- * @param instanceId Id de la instancia
- * @param commanderId Editor que crea la cavidad
- * @param groupIndex Índice de grupos
- * @param caveIndex Índice de cavidades
+ * @description Formulario para editar una exploración
+ * @param commanderId Editor que crea la exploración
+ * @param exploration Exploración a editar
  */
 
-export default function ExplorationCreationForm({
-  instanceId,
+export default function ExplorationEditionForm({
   commanderId,
-  groupIndex,
-  caveIndex,
+  exploration,
 }: {
-  instanceId: string
   commanderId: string
-  groupIndex: GroupIndex[] | undefined
-  caveIndex: CaveIndex[] | undefined
+  exploration: PlainExploration
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<ExplorationFormValues>({
     resolver: zodResolver(ExplorationFormSchema),
-    defaultValues: {
-      ...EMPTY_EXPLORATION,
-      instances: [instanceId],
-    },
+    defaultValues: exploration,
   })
 
   function onSubmit(values: ExplorationFormValues) {
@@ -85,10 +57,7 @@ export default function ExplorationCreationForm({
 
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    form.reset({
-      ...EMPTY_EXPLORATION,
-      instances: [instanceId],
-    })
+    form.reset(exploration)
     window.scrollTo(0, 0)
     setDbAnswer(null)
   }
@@ -99,18 +68,6 @@ export default function ExplorationCreationForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <MultiRefSelectField
-          control={form.control}
-          name="groups"
-          label="Grupos"
-          index={groupIndex}
-        />
-        <MultiRefSelectField
-          control={form.control}
-          name="caves"
-          label="Cavidades"
-          index={caveIndex}
-        />
         <TextField
           control={form.control}
           name="name"
@@ -168,8 +125,11 @@ export default function ExplorationCreationForm({
           label="Trabajos pendientes"
           maxCharacters={explorationMaxCharacters.pending_work}
         />
-        <ReactHookFormErrorBox errors={form.formState.errors} />
-
+        <div className="text-destructive-foreground text-sm">
+          {!form.formState.isValid && form.formState.isDirty && (
+            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
+          )}
+        </div>
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
           <div className="flex flex-row gap-2">

@@ -2,8 +2,7 @@ import {auth} from '@/auth'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllCavesTable from '@/components/_Organisms/tables/all-caves-table'
 import PageContainer from '@/components/theming/page-container'
-import {CaveIndex} from '@/database/models/Cave.model'
-import {getCaveIndex} from '@/database/services/cave.services'
+import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
 import {checkIsEditor} from '@/database/services/instance.services'
 
 interface PageProps {

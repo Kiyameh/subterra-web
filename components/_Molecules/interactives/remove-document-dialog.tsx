@@ -16,22 +16,27 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {IoIosWarning} from 'react-icons/io'
 import {MdDelete} from 'react-icons/md'
-import {deleteOneCave} from '@/database/services/cave.services'
-import {deleteOneExploration} from '@/database/services/exploration.services'
-import {deleteOneSystem} from '@/database/services/system.services'
+import {deleteCave} from '@/database/services/cave.actions'
+import {deleteExploration} from '@/database/services/exploration.actions'
+import {deleteSystem} from '@/database/services/system.actions'
 
 /**
  * @version 1
  * @description Diálogo para eliminar un documento de una instancia
+ * @param commanderId  ID del documento a eliminar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
+ * @param type  Tipo de documento a eliminar
+ *
  */
 
 export default function RemoveDocumentDialog({
+  commanderId,
   isOpen,
   onOpenChange,
   type,
 }: {
+  commanderId: string
   isOpen: boolean
   onOpenChange: (open: boolean) => void
   type: 'cave' | 'exploration' | 'system'
@@ -50,13 +55,13 @@ export default function RemoveDocumentDialog({
       }
       switch (type) {
         case 'cave':
-          answer = await deleteOneCave(document)
+          answer = await deleteCave(document, commanderId)
           break
         case 'exploration':
-          answer = await deleteOneExploration(document)
+          answer = await deleteExploration(document, commanderId)
           break
         case 'system':
-          answer = await deleteOneSystem(document)
+          answer = await deleteSystem(document, commanderId)
           break
       }
 

@@ -6,6 +6,7 @@ import {IoMdMap} from 'react-icons/io'
 export default function TerritoryCard({map_image}: {map_image: string}) {
   return (
     <BasicCard
+      key="territory_card"
       cardHeader={
         <CardTitle
           title={'Extensión territorial'}

@@ -14,11 +14,14 @@ export const systemMaxCharacters = {
   initials: 10,
   name: 40,
   alt_names: 40,
+
   description: 1000,
-  regulations: 1000,
   regulation_description: 1000,
   exploration_description: 1000,
+  length: 400000,
+  depth: 2500,
   massif: 120,
+
   geolog_age: 40,
   geolog_litology: 40,
   arqueolog: 1000,
@@ -36,19 +39,12 @@ export const systemMaxCharacters = {
 
 export const SystemFormSchema = z.object({
   //* Manejo DB:
+  datatype: z.string().default('system'),
   instances: z.array(
     z
       .string()
       .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
   ),
-  caves: z
-    .array(
-      z
-        .string()
-        .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
-    )
-    .optional(),
-  datatype: z.string().default('system'),
 
   //* Datos troncales:
   catalog: z
@@ -74,7 +70,7 @@ export const SystemFormSchema = z.object({
     )
     .optional(),
 
-  //* Descripciónes:
+  //* Datos descriptivos:
   description: z
     .string()
     .max(systemMaxCharacters.description, {message: 'Demasiado largo'})
@@ -93,20 +89,21 @@ export const SystemFormSchema = z.object({
       message: 'Demasiado largo',
     })
     .optional(),
+  //? Propiedad coerce para obligar a que el valor sea un número
   length: z.coerce
     .number()
-    .positive({message: 'Número positivo'})
-    .max(400000, {
-      message: '¡Enhorabuena!Has encontrado la cueva más larga del mundo',
+    .min(0, {message: 'Número positivo'})
+    .max(systemMaxCharacters.length, {
+      message: '¡Enhorabuena!Has encontrado el sistema más largo del mundo',
     })
     .optional(),
   depth: z.coerce
     .number()
-    .positive({
-      message: 'Introduce la profundidad de forma absoluta (número positivo)',
+    .min(0, {
+      message: 'Introduce la longitud de forma absoluta (número positivo)',
     })
-    .max(2500, {
-      message: '¡Enhorabuena!Has encontrado la cueva más profunda del mundo',
+    .max(systemMaxCharacters.depth, {
+      message: '¡Enhorabuena! Has encontrado el sistema más profundo del mundo',
     })
     .optional(),
   main_image: z.string().optional(),
@@ -115,6 +112,7 @@ export const SystemFormSchema = z.object({
     .max(systemMaxCharacters.massif, {message: 'Máximo 120 caracteres'})
     .optional(),
 
+  //* Datos científicos:
   geolog_age: z
     .string()
     .max(systemMaxCharacters.geolog_age, {message: 'Demasiado largo'})

@@ -4,7 +4,6 @@ import React from 'react'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {DataTable} from '@/components/ui/data-table'
-import {CaveIndex} from '@/database/models/Cave.model'
 import {ColumnDef} from '@tanstack/react-table'
 import {FaRegCircle} from 'react-icons/fa6'
 import {Button} from '@/components/ui/button'
@@ -15,6 +14,7 @@ import BooleanBadge from '@/components/_Atoms/badges/boolean-badge'
 import RefBadge from '@/components/_Atoms/badges/ref-badge'
 import DistanceBadge from '@/components/_Atoms/badges/distance-badge'
 import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
+import {CaveIndex} from '@/database/services/cave.actions'
 
 export default function AllCavesTable({
   cavesIndex,
@@ -65,7 +65,7 @@ export default function AllCavesTable({
         return (
           <RefBadge
             baseUrl={`/instance/${instanceName}/systems/`}
-            value={row.original.system}
+            value={row.original.system as {name: string; _id: string}}
             type="system"
           />
         )

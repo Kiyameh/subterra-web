@@ -1,21 +1,21 @@
 'use client'
-import {ExplorationObject} from '@/database/models/Exploration.model'
 import DateBadge from '../badges/date-badge'
 import {IoDocumentTextOutline} from 'react-icons/io5'
 import Link from 'next/link'
 import {useParams} from 'next/navigation'
-import {CaveObject} from '@/database/models/Cave.model'
-import {SystemObject} from '@/database/models/System.model'
 import DistanceBadge from '../badges/distance-badge'
 import {Button} from '@/components/ui/button'
 import {FaAnchor} from 'react-icons/fa'
 import {FaRegCircle} from 'react-icons/fa6'
 import {PiCirclesThreeBold} from 'react-icons/pi'
+import {PlainCave} from '@/database/services/cave.actions'
+import {PlainExploration} from '@/database/services/exploration.actions'
+import {PlainSystem} from '@/database/services/system.actions'
 
 export function ExplorationSlot({
   exploration,
 }: {
-  exploration: ExplorationObject
+  exploration: PlainExploration
 }) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
@@ -52,7 +52,7 @@ export function ExplorationSlot({
     </div>
   )
 }
-export function CaveSlot({cave}: {cave: CaveObject}) {
+export function CaveSlot({cave}: {cave: PlainCave}) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
 
@@ -82,7 +82,7 @@ export function CaveSlot({cave}: {cave: CaveObject}) {
     </div>
   )
 }
-export function SystemSlot({system}: {system: SystemObject}) {
+export function SystemSlot({system}: {system: PlainSystem}) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
 

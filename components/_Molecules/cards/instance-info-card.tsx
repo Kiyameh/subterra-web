@@ -23,6 +23,7 @@ export default function InstanceInfoCard({
 }) {
   return (
     <BasicCard
+      key="instance_info_card"
       cardHeader={
         <CardTitle
           title={'Información general'}

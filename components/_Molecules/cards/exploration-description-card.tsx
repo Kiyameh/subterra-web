@@ -3,7 +3,7 @@ import React from 'react'
 import {TextSlot} from '../../_Atoms/slots/text-slots'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {BsCardText} from 'react-icons/bs'
-import {PopulatedExploration} from '@/database/models/Exploration.model'
+import {PopulatedExploration} from '@/database/services/exploration.actions'
 
 export default function ExplorationDescriptionCard({
   exploration,
@@ -12,6 +12,7 @@ export default function ExplorationDescriptionCard({
 }) {
   return (
     <BasicCard
+      key="exploration_description_card"
       cardHeader={
         <CardTitle
           title="Descripción de las exploraciones"

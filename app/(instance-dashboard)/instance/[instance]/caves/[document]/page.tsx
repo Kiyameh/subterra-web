@@ -1,5 +1,3 @@
-import {getOneCave} from '@/database/services/cave.services'
-import {PopulatedCave} from '@/database/models/Cave.model'
 import PageContainer from '@/components/theming/page-container'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import ImageCard from '@/components/_Molecules/cards/image-card'
@@ -10,6 +8,8 @@ import ExplorationsCards from '@/components/_Molecules/cards/explorations-card'
 import DescriptionCard from '@/components/_Molecules/cards/description-card'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import EditDocumentBanner from '@/components/_Molecules/interactives/edit-document-banner'
+import {getPopulatedCave, PopulatedCave} from '@/database/services/cave.actions'
+import {auth} from '@/auth'
 
 interface PageProps {
   params: Promise<{document: string}>
@@ -19,10 +19,14 @@ export default async function CaveDetailPage({params}: PageProps) {
   // Obtener el id del documento
   const documentId: string = (await params).document
 
-  // Obtener la cavidad
-  const cave = (await getOneCave(documentId)).content as PopulatedCave | null
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id
 
-  if (!cave) {
+  // Obtener la cavidad
+  const cave = (await getPopulatedCave(documentId))
+    .content as PopulatedCave | null
+
+  if (!cave || !userId) {
     return (
       <PageContainer>
         <NotFoundCard
@@ -39,6 +43,7 @@ export default async function CaveDetailPage({params}: PageProps) {
         type="cave"
         removeLabel="Eliminar cavidad"
         editLabel="Editar cavidad"
+        commanderId={userId}
       />
 
       <ImageCard />

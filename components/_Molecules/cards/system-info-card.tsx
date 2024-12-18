@@ -6,11 +6,12 @@ import {MultiTextSlot} from '@/components/_Atoms/slots/text-slots'
 import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'
 import {DistanceSlot} from '@/components/_Atoms/slots/number-slots'
 import {IoMdInformationCircle} from 'react-icons/io'
-import {PopulatedSystem} from '@/database/models/System.model'
+import {PopulatedSystem} from '@/database/services/system.actions'
 
 export default function SystemInfoCard({system}: {system: PopulatedSystem}) {
   return (
     <BasicCard
+      key="system_info_card"
       cardHeader={
         <CardTitle
           title={'Información general'}

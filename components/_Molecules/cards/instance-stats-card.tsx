@@ -11,6 +11,7 @@ export default function InstanceStatsCard({
 }) {
   return (
     <BasicCard
+      key="instance_stats_card"
       cardHeader={
         <CardTitle
           title={'Estadisticas'}

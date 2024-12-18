@@ -19,9 +19,9 @@ import {
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
 import {GroupIndex} from '@/database/models/Group.model'
-import {CaveIndex} from '@/database/models/Cave.model'
-import {SystemIndex} from '@/database/models/System.model'
-import {ExplorationIndex} from '@/database/models/Exploration.model'
+import {CaveIndex} from '@/database/services/cave.actions'
+import {ExplorationIndex} from '@/database/services/exploration.actions'
+import {SystemIndex} from '@/database/services/system.actions'
 
 /**
  * @version 2
@@ -106,8 +106,8 @@ export default function RefSelectField<T extends FieldValues>({
                   <SelectContent>
                     {index.map((option) => (
                       <SelectItem
-                        key={option._id}
-                        value={option._id}
+                        key={option._id as string}
+                        value={option._id as string}
                       >
                         {option.name}
                       </SelectItem>

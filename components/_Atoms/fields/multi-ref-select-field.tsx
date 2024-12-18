@@ -19,10 +19,10 @@ import {
 } from '@/components/ui/multi-select'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
-import {CaveIndex} from '@/database/models/Cave.model'
-import {ExplorationIndex} from '@/database/models/Exploration.model'
 import {GroupIndex} from '@/database/models/Group.model'
-import {SystemIndex} from '@/database/models/System.model'
+import {CaveIndex} from '@/database/services/cave.actions'
+import {ExplorationIndex} from '@/database/services/exploration.actions'
+import {SystemIndex} from '@/database/services/system.actions'
 
 /**
  * @version 1
@@ -84,7 +84,7 @@ export default function MultiRefSelectField<T extends FieldValues>({
                 values={field.value as string[]} // Asegúrate de que los valores sean compatibles
                 onValuesChange={(newValues) => {
                   const selectedOptions = index.filter((option) =>
-                    newValues.includes(option._id)
+                    newValues.includes(option._id as string)
                   )
                   field.onChange(selectedOptions.map((option) => option._id))
                 }}
@@ -105,8 +105,8 @@ export default function MultiRefSelectField<T extends FieldValues>({
                   <MultiSelectorList>
                     {index.map((item) => (
                       <MultiSelectorItem
-                        key={item._id}
-                        value={item._id}
+                        key={item._id as string}
+                        value={item._id as string}
                       >
                         {item.name}
                       </MultiSelectorItem>

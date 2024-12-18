@@ -7,7 +7,6 @@ import {Answer} from '@/database/types/answer.type'
 import {caveMaxCharacters} from '@/database/validation/cave.schemas'
 import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {CaveFormSchema} from '@/database/validation/cave.schemas'
-import {updateCave} from '@/database/services/cave.services'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -32,53 +31,41 @@ import {BsExclamationTriangle} from 'react-icons/bs'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
-import {PopulatedCave} from '@/database/models/Cave.model'
+import {PlainCave, updateCave} from '@/database/services/cave.actions'
 
 /**
  * @version 1
  * @description Formulario para editar una cavidad
- * @param instanceName Nombre de la instancia
  * @param commanderId Editor que crea la cavidad
  * @param cave Cavidad a editar
  */
 
 export default function CaveEditionForm({
-  instanceName,
   commanderId,
   cave,
 }: {
-  instanceName: string
   commanderId: string
-  cave: PopulatedCave
+  cave: PlainCave
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
-  // ? Despoblar las propiedades pobladas:
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {system, explorations, ...plainCave} = cave
-
   const form = useForm<CaveFormValues>({
     resolver: zodResolver(CaveFormSchema),
-    defaultValues: plainCave,
+    defaultValues: cave,
   })
 
   function onSubmit(values: CaveFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await updateCave(
-        values,
-        cave._id,
-        instanceName,
-        commanderId
-      )
+      const answer = await updateCave(values, cave._id, commanderId)
       setDbAnswer(answer)
     })
   }
 
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    form.reset(plainCave)
+    form.reset(cave)
     window.scrollTo(0, 0)
     setDbAnswer(null)
   }
@@ -344,7 +331,7 @@ export default function CaveEditionForm({
         {dbAnswer?.ok ? (
           <LinkButton
             label="Ver cavidad actualizada"
-            href={`/instance/${instanceName}/caves/${cave._id}`}
+            href={`${dbAnswer._id}`}
           />
         ) : (
           <div className="flex flex-row gap-2">

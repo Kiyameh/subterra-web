@@ -5,4 +5,5 @@ export interface Answer {
   error?: object
   content?: object
   redirect?: string
+  _id?: string
 }

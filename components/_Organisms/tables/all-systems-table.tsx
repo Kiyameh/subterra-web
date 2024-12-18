@@ -10,11 +10,11 @@ import {Button} from '@/components/ui/button'
 import {TbEditCircle} from 'react-icons/tb'
 import {FaMagnifyingGlass} from 'react-icons/fa6'
 import Link from 'next/link'
-import {SystemIndex} from '@/database/models/System.model'
 import BooleanBadge from '@/components/_Atoms/badges/boolean-badge'
 import RefBadge from '@/components/_Atoms/badges/ref-badge'
 import DistanceBadge from '@/components/_Atoms/badges/distance-badge'
 import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
+import {SystemIndex} from '@/database/services/system.actions'
 
 export default function AllSystemTable({
   systemIndex,
@@ -61,9 +61,9 @@ export default function AllSystemTable({
           <div className="flex flex-row flex-wrap gap-1">
             {row.original.caves?.map((cave) => (
               <RefBadge
-                key={cave._id}
+                key={cave._id as string}
                 baseUrl={`/instance/${instanceName}/caves/`}
-                value={cave}
+                value={cave as {name: string; _id: string}}
                 type="cave"
               />
             ))}

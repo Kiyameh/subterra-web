@@ -2,8 +2,10 @@ import {auth} from '@/auth'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllExplorationTable from '@/components/_Organisms/tables/all-explorations-table'
 import PageContainer from '@/components/theming/page-container'
-import {ExplorationIndex} from '@/database/models/Exploration.model'
-import {getExplorationsIndex} from '@/database/services/exploration.services'
+import {
+  ExplorationIndex,
+  getExplorationsIndex,
+} from '@/database/services/exploration.actions'
 import {checkIsEditor} from '@/database/services/instance.services'
 
 interface PageProps {

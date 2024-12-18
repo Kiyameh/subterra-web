@@ -296,9 +296,9 @@ export interface PopulatedUser
   editorOf: InstanceObject[]
   viewerOf: InstanceObject[]
 
-  // fav_caves: CaveObject[] //TODO: Actualizar cuando se cree el tipo
-  // fav_systems: SystemObject[] //TODO: Actualizar cuando se cree el tipo
-  // fav_explorations: ExplorationObject[] //TODO: Actualizar cuando se cree el tipo
+  // fav_caves: PlainCave[] //TODO: Actualizar cuando se cree el tipo
+  // fav_systems: PlainSystem[] //TODO: Actualizar cuando se cree el tipo
+  // fav_explorations: PlainExploration[] //TODO: Actualizar cuando se cree el tipo
 }
 
 export interface UserIndex {

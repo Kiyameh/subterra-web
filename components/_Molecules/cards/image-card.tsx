@@ -10,6 +10,7 @@ interface ImageCardProps {
 export default function ImageCard({}: ImageCardProps) {
   return (
     <BasicCard
+      key="image_card"
       cardHeader={
         <CardTitle
           title={'Imagen'}

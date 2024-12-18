@@ -2,16 +2,17 @@ import React from 'react'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {MdOutlineExplore} from 'react-icons/md'
-import {ExplorationObject} from '@/database/models/Exploration.model'
 import {ExplorationSlot} from '@/components/_Atoms/slots/documents-slots'
+import {PlainExploration} from '@/database/services/exploration.actions'
 
 export default function ExplorationsCards({
   explorations,
 }: {
-  explorations: ExplorationObject[]
+  explorations: PlainExploration[]
 }) {
   return (
     <BasicCard
+      key="explorations_card"
       cardHeader={
         <CardTitle
           title={'Ultimas exploraciones'}

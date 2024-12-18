@@ -1,12 +1,15 @@
 import PageContainer from '@/components/theming/page-container'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import ImageCard from '@/components/_Molecules/cards/image-card'
-import {getOneExploration} from '@/database/services/exploration.services'
 import ExplorationInfoCard from '@/components/_Molecules/cards/exploration-info-card'
-import {PopulatedExploration} from '@/database/models/Exploration.model'
 import ExplorationDescriptionCard from '@/components/_Molecules/cards/exploration-description-card'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import EditDocumentBanner from '@/components/_Molecules/interactives/edit-document-banner'
+import {
+  getPopulatedExploration,
+  PopulatedExploration,
+} from '@/database/services/exploration.actions'
+import {auth} from '@/auth'
 
 interface PageProps {
   params: Promise<{document: string}>
@@ -16,11 +19,14 @@ export default async function ExplorationDetailPage({params}: PageProps) {
   // Obtener el id del documento
   const documentId: string = (await params).document
 
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id
+
   // Obtener la cavidad
-  const exploration = (await getOneExploration(documentId))
+  const exploration = (await getPopulatedExploration(documentId))
     .content as PopulatedExploration | null
 
-  if (!exploration) {
+  if (!exploration || !userId) {
     return (
       <PageContainer>
         <NotFoundCard
@@ -34,9 +40,10 @@ export default async function ExplorationDetailPage({params}: PageProps) {
   return (
     <PageContainer className="justify-start">
       <EditDocumentBanner
-        type="system"
+        type="exploration"
         removeLabel="Eliminar exploración"
         editLabel="Editar exploración"
+        commanderId={userId}
       />
 
       <ImageCard />

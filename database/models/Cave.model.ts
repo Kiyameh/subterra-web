@@ -1,8 +1,7 @@
-import {model, models, Schema, Types, Document, ClientSession} from 'mongoose'
-
-import {caveShapes, coordProyections, utmZones} from './Cave.enums'
-import {SystemObject} from './System.model'
-import {ExplorationObject} from './Exploration.model'
+import {model, models, Schema, Types, Document} from 'mongoose'
+import {utmZones} from '@/database/models/Cave.enums'
+import {caveShapes} from '@/database/models/Cave.enums'
+import {coordProyections} from '@/database/models/Cave.enums'
 
 //* INTERFACES:
 
@@ -17,18 +16,24 @@ export interface UtmCoordinate {
 }
 
 export interface CaveDocument extends Document {
-  //* Manejo DB:
+  //* Añadidos por Mongo:
+  //  _id: Types.ObjectId
+  //  __v: number
+  //  createdAt: Date
+  //  updataedAt: Date
+
+  //* Manejo de relaciones:
+  datatype: 'cave'
   instances: Types.ObjectId[]
   system?: Types.ObjectId
-  datatype: 'cave'
 
-  //* Datos troncales:
+  //* Datos generales:
+  name: string
   catalog?: string
   initials?: string[]
-  name: string
   alt_names?: string[]
 
-  //* Descripciones:
+  //* Datos descriptivos:
   cave_shapes?: (typeof caveShapes)[number][]
   description?: string
   regulations?: boolean
@@ -55,38 +60,33 @@ export interface CaveDocument extends Document {
   biolog?: string
   hidrolog_system?: string
   hidrolog_subsystem?: string
-  explorations?: Types.ObjectId[]
-
-  //* Métodos:
-  setSystem(system: string, session?: ClientSession): Promise<CaveDocument>
-  pushExploration(
-    exploration: string,
-    session?: ClientSession
-  ): Promise<CaveDocument>
-  removeExploration(
-    explorationId: string,
-    session?: ClientSession
-  ): Promise<CaveDocument>
 }
 
 //* ESQUEMA:
 
 const caveSchema = new Schema<CaveDocument>(
   {
+    //* Manejo de relaciones:
+    datatype: {type: String, required: true, default: 'cave'},
     instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},
-    catalog: {type: String}, // TODO: Actualizar para que pueda haber varios catálogos con las mismas siglas
+    system: {type: Schema.Types.ObjectId, ref: 'System'},
+
+    //* Datos troncales:
+    catalog: {type: String},
     initials: {type: [String]},
     name: {type: String, required: true, unique: true},
     alt_names: {type: [String]},
+
+    //* Datos descriptivos:
     cave_shapes: {type: [String], enum: caveShapes},
-    system: {type: Schema.Types.ObjectId, ref: 'System'},
-    datatype: {type: String, required: true, default: 'cave'},
     description: {type: String},
     regulations: {type: Boolean},
     regulation_description: {type: String},
     length: {type: Number},
     depth: {type: Number},
     main_image: {type: String},
+
+    //* Datos localización:
     coordinates: {
       x_coord: {type: Number, required: true},
       y_coord: {type: Number, required: true},
@@ -106,6 +106,8 @@ const caveSchema = new Schema<CaveDocument>(
     toponymy: {type: [String]},
     massif: {type: String},
     location_description: {type: String},
+
+    //* Datos científicos:
     geolog_age: {type: String},
     geolog_litology: {type: String},
     arqueolog: {type: String},
@@ -115,71 +117,11 @@ const caveSchema = new Schema<CaveDocument>(
     biolog: {type: String},
     hidrolog_system: {type: String},
     hidrolog_subsystem: {type: String},
-    explorations: {type: [Schema.Types.ObjectId], ref: 'Exploration'},
   },
   {timestamps: true}
 )
-
-//* MÉTODOS DE INSTANCIA:
-
-caveSchema.methods.setSystem = async function (
-  system: string,
-  session?: ClientSession
-) {
-  this.system = system
-  return this.save(session)
-}
-
-caveSchema.methods.pushExploration = async function (
-  exploration: string,
-  session?: ClientSession
-) {
-  this.explorations.push(exploration)
-  return this.save(session)
-}
-
-caveSchema.methods.removeExploration = async function (
-  explorationId: string,
-  session?: ClientSession
-) {
-  this.explorations = this.explorations.filter(
-    (exploration: Types.ObjectId) => exploration.toString() !== explorationId
-  )
-  return this.save(session)
-}
 
 //* MODELO:
 const Cave = models?.Cave || model<CaveDocument>('Cave', caveSchema)
 
 export default Cave
-
-//* INTERFACES EXTENDIDAS:
-
-export interface CaveObject
-  extends Omit<CaveDocument, 'system' | 'explorations' | 'instances'> {
-  _id: string
-  __v: number
-  createdAt: Date
-  updatedAt: Date
-  system: string
-  explorations: string[]
-  instances: string[]
-}
-
-export interface PopulatedCave
-  extends Omit<CaveObject, 'system' | 'explorations'> {
-  system: SystemObject
-  explorations: ExplorationObject[]
-}
-
-export interface CaveIndex {
-  _id: string
-  catalog?: string
-  initials?: string[]
-  name: string
-  system?: {name: string; _id: string}
-  length?: number
-  depth?: number
-  regulations?: boolean
-  massif?: string
-}

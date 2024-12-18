@@ -4,22 +4,22 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import CaveEditionForm from '@/components/_Organisms/forms/cave-edition-form'
 import PageContainer from '@/components/theming/page-container'
-import {PopulatedCave} from '@/database/models/Cave.model'
-import {getOneCave} from '@/database/services/cave.services'
+import {getPlainCave} from '@/database/services/cave.actions'
+import {PlainCave} from '@/database/services/cave.actions'
 import {LuPlusCircle} from 'react-icons/lu'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>
 }
 export default async function CaveEditionPage({params}: PageProps) {
-  // Obtener el nombre de la instancia y el id del documento
-  const {instance, document} = await params
+  // Obtener el id del documento
+  const caveId = (await params).document
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
   // Obtener la cavidad
-  const cave = (await getOneCave(document)).content as PopulatedCave | null
+  const cave = (await getPlainCave(caveId)).content as PlainCave | null
 
   if (!cave) {
     return (
@@ -45,7 +45,6 @@ export default async function CaveEditionPage({params}: PageProps) {
           }
         >
           <CaveEditionForm
-            instanceName={instance}
             commanderId={userId}
             cave={cave}
           />

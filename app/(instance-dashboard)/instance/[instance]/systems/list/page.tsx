@@ -2,9 +2,8 @@ import {auth} from '@/auth'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllSystemTable from '@/components/_Organisms/tables/all-systems-table'
 import PageContainer from '@/components/theming/page-container'
-import {SystemIndex} from '@/database/models/System.model'
 import {checkIsEditor} from '@/database/services/instance.services'
-import {getSystemIndex} from '@/database/services/system.services'
+import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
 
 interface PageProps {
   params: Promise<{instance: string}>

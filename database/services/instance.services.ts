@@ -7,7 +7,10 @@ import User from '@/database/models/User.model'
 import Platform from '../models/Platform.model'
 import {PlatformDocument} from '../models/Platform.model'
 
-import Instance, {InstanceIndex} from '@/database/models/Instance.model'
+import Instance, {
+  InstanceIndex,
+  InstanceObject,
+} from '@/database/models/Instance.model'
 import {InstanceDocument} from '@/database/models/Instance.model'
 import {PopulatedInstance} from '@/database/models/Instance.model'
 
@@ -435,5 +438,24 @@ export async function promoteCoordinator(
   } catch (error) {
     console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+export async function getInstanceId(
+  instanceName: string
+): Promise<string | null> {
+  try {
+    await connectToMongoDB()
+    const instance: InstanceObject | null = await Instance.findOne({
+      name: instanceName,
+    })
+      .select('_id')
+      .exec()
+
+    if (!instance) throw new Error('Instancia no encontrada')
+    return instance._id.toString()
+  } catch (error) {
+    console.error(error)
+    return null
   }
 }
