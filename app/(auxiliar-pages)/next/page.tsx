@@ -1,12 +1,10 @@
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import InDevelopmentCard from '@/components/_Molecules/cards/501-not-implemented'
 import PageContainer from '@/components/theming/page-container'
 
 export default function NextPage() {
   return (
     <PageContainer>
-      <CardWithHeader cardSubHeader={'Lo que está por venir'}>
-        *Proximamente*
-      </CardWithHeader>
+      <InDevelopmentCard title="Próximas funcionalidades" />
     </PageContainer>
   )
 }

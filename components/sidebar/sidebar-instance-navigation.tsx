@@ -27,6 +27,7 @@ import {RiApps2AddLine} from 'react-icons/ri'
 import {LuPlusCircle} from 'react-icons/lu'
 import {GrChapterAdd} from 'react-icons/gr'
 import {FaUserEdit} from 'react-icons/fa'
+import {IoMdInformationCircleOutline} from 'react-icons/io'
 
 interface Props {
   isEditor: boolean
@@ -50,6 +51,14 @@ export default function SidebarInstanceNavigation({
       <SidebarGroup>
         <SidebarGroupLabel>Instancia</SidebarGroupLabel>
         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href={`/instance/${instance}`}>
+                <IoMdInformationCircleOutline />
+                <span>Página de presentación</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           <Collapsible
             asChild
             className="group/collapsible"

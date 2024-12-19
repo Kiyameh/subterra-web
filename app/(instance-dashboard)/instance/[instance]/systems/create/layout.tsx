@@ -8,7 +8,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-export default async function MemberLayout({params, children}: LayoutProps) {
+export default async function EditorLayout({params, children}: LayoutProps) {
   // Obtener el nombre de la instancia
   const instanceName = (await params).instance
 

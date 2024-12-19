@@ -1,13 +1,6 @@
 import React from 'react'
+import PageContainer from '@/components/theming/page-container'
 
-export default function AuthenticationLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <main className="flex h-full flex-col items-center justify-center">
-      {children}
-    </main>
-  )
+export default function AuthLayout({children}: {children: React.ReactNode}) {
+  return <PageContainer>{children}</PageContainer>
 }

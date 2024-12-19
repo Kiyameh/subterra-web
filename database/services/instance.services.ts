@@ -4,22 +4,22 @@ import {Answer} from '@/database/types/answer.type'
 
 import Group from '@/database/models/Group.model'
 import User from '@/database/models/User.model'
-import Platform from '../models/Platform.model'
-import {PlatformDocument} from '../models/Platform.model'
+import Platform from '@/database/models/Platform.model'
+import {PlatformDocument} from '@/database/models/Platform.model'
 
-import Instance, {
-  InstanceIndex,
-  InstanceObject,
-} from '@/database/models/Instance.model'
+import Instance from '@/database/models/Instance.model'
+import {InstanceObject} from '@/database/models/Instance.model'
+import {InstanceIndex} from '@/database/models/Instance.model'
 import {InstanceDocument} from '@/database/models/Instance.model'
 import {PopulatedInstance} from '@/database/models/Instance.model'
 
 import {InstanceFormValues} from '@/database/validation/instance.schemas'
 import {InstanceFormSchema} from '@/database/validation/instance.schemas'
-import {
-  UpdateInstanceFormValues,
-  UpdateInstanceFormSchema,
-} from '@/database/validation/instance.schemas'
+import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
+import {UpdateInstanceFormSchema} from '@/database/validation/instance.schemas'
+import Cave from '../models/Cave.model'
+import System from '../models/System.model'
+import Exploration from '../models/Exploration.model'
 
 //* 1. Funciones de escritura */
 
@@ -308,6 +308,42 @@ export async function getOneInstance(name: string) {
       ok: true,
       message: 'Instancia obtenida',
       content: instancePOJO as PopulatedInstance,
+    } as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para obtener las estadisticas de una instancia
+ * @param instanceId string (id de la instancia)
+ */
+
+export async function getInstanceStats(instanceId: string) {
+  try {
+    await connectToMongoDB()
+    const numberOfCaves = await Cave.countDocuments({
+      instances: {$in: [instanceId]},
+    })
+    const numberOfSystems = await System.countDocuments({
+      instances: {$in: [instanceId]},
+    })
+    const numberOfExplorations = await Exploration.countDocuments({
+      instances: {$in: [instanceId]},
+    })
+
+    console.log(numberOfCaves, numberOfSystems, numberOfExplorations)
+
+    return {
+      ok: true,
+      message: 'Estadisticas obtenidas',
+      content: {
+        numberOfCaves,
+        numberOfSystems,
+        numberOfExplorations,
+      },
     } as Answer
   } catch (error) {
     console.error(error)

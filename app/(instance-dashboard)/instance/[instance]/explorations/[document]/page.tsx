@@ -10,23 +10,27 @@ import {
   PopulatedExploration,
 } from '@/database/services/exploration.actions'
 import {auth} from '@/auth'
+import {checkIsEditor} from '@/database/services/instance.services'
 
 interface PageProps {
-  params: Promise<{document: string}>
+  params: Promise<{document: string; instance: string}>
 }
 
 export default async function ExplorationDetailPage({params}: PageProps) {
   // Obtener el id del documento
-  const documentId: string = (await params).document
-
-  // Obtener el id del usuario
-  const userId = (await auth())?.user?._id
+  const {instance, document} = await params
 
   // Obtener la cavidad
-  const exploration = (await getPopulatedExploration(documentId))
+  const exploration = (await getPopulatedExploration(document))
     .content as PopulatedExploration | null
 
-  if (!exploration || !userId) {
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
+
+  // Validar roles de usuario
+  const isEditor = (await checkIsEditor(userId, instance)).ok as boolean
+
+  if (!exploration) {
     return (
       <PageContainer>
         <NotFoundCard
@@ -39,12 +43,14 @@ export default async function ExplorationDetailPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <EditDocumentBanner
-        type="exploration"
-        removeLabel="Eliminar exploración"
-        editLabel="Editar exploración"
-        commanderId={userId}
-      />
+      {userId && isEditor && (
+        <EditDocumentBanner
+          type="exploration"
+          removeLabel="Eliminar exploración"
+          editLabel="Editar exploración"
+          commanderId={userId}
+        />
+      )}
 
       <ImageCard />
       <HeaderBox text={exploration.name} />

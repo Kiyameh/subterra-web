@@ -10,23 +10,27 @@ import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import EditDocumentBanner from '@/components/_Molecules/interactives/edit-document-banner'
 import {getPopulatedCave, PopulatedCave} from '@/database/services/cave.actions'
 import {auth} from '@/auth'
+import {checkIsEditor} from '@/database/services/instance.services'
 
 interface PageProps {
-  params: Promise<{document: string}>
+  params: Promise<{document: string; instance: string}>
 }
 
 export default async function CaveDetailPage({params}: PageProps) {
   // Obtener el id del documento
-  const documentId: string = (await params).document
-
-  // Obtener el id del usuario
-  const userId = (await auth())?.user?._id
+  const {instance, document} = await params
 
   // Obtener la cavidad
-  const cave = (await getPopulatedCave(documentId))
+  const cave = (await getPopulatedCave(document))
     .content as PopulatedCave | null
 
-  if (!cave || !userId) {
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
+
+  // Validar roles de usuario
+  const isEditor = (await checkIsEditor(userId, instance)).ok as boolean
+
+  if (!cave) {
     return (
       <PageContainer>
         <NotFoundCard
@@ -39,12 +43,14 @@ export default async function CaveDetailPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <EditDocumentBanner
-        type="cave"
-        removeLabel="Eliminar cavidad"
-        editLabel="Editar cavidad"
-        commanderId={userId}
-      />
+      {userId && isEditor && (
+        <EditDocumentBanner
+          type="cave"
+          removeLabel="Eliminar cavidad"
+          editLabel="Editar cavidad"
+          commanderId={userId}
+        />
+      )}
 
       <ImageCard />
       <HeaderBox text={cave.name} />

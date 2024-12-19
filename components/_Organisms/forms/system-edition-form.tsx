@@ -1,5 +1,7 @@
 'use client'
 import React, {MouseEvent} from 'react'
+import {useParams} from 'next/navigation'
+
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
@@ -25,7 +27,7 @@ import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
-import {createSystem, PlainSystem} from '@/database/services/system.actions'
+import {PlainSystem, updateSystem} from '@/database/services/system.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 
 /**
@@ -42,6 +44,8 @@ export default function SystemEditionForm({
   commanderId: string
   system: PlainSystem
 }) {
+  const params: {instance: string; document: string} = useParams()
+
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -53,7 +57,7 @@ export default function SystemEditionForm({
   function onSubmit(values: SystemFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createSystem(values, commanderId)
+      const answer = await updateSystem(values, system._id, commanderId)
       setDbAnswer(answer)
     })
   }
@@ -238,7 +242,7 @@ export default function SystemEditionForm({
         {dbAnswer?.ok ? (
           <LinkButton
             label="Ver sistema actualizado"
-            href={`intance/${system.instances[0]}/caves/${system._id}`}
+            href={`/instance/${params.instance}/caves/${params.document}`}
           />
         ) : (
           <div className="flex flex-row gap-2">

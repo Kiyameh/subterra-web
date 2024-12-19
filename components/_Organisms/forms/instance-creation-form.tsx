@@ -21,8 +21,8 @@ const EMPTY_INSTANCE: InstanceFormValues = {
   acronym: '',
   description: '',
   territory: '',
-  owner: [],
-  coordinator: [],
+  owner: '',
+  coordinator: '',
   public_visibility: true,
   public_edition: false,
 }

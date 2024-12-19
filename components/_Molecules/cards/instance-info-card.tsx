@@ -1,25 +1,16 @@
+import React from 'react'
+import {PopulatedInstance} from '@/database/models/Instance.model'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
+import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
-import {GroupIndex} from '@/database/models/Group.model'
-import React from 'react'
 import {IoMdInformationCircle} from 'react-icons/io'
 
 export default function InstanceInfoCard({
-  _id,
-  name,
-  fullname,
-  acronym,
-  owner,
-  description,
+  instance,
 }: {
-  _id: string
-  name: string
-  fullname: string
-  acronym: string
-  owner: GroupIndex
-  description: string
+  instance: PopulatedInstance
 }) {
   return (
     <BasicCard
@@ -33,29 +24,37 @@ export default function InstanceInfoCard({
     >
       <TextSlot
         label="ID"
-        value={_id}
+        value={instance._id}
       />
       <TextSlot
         label="Nombre corto"
-        value={name}
+        value={instance.name}
       />
       <TextSlot
         label="Nombre completo"
-        value={fullname}
+        value={instance.fullname}
       />
       <TextSlot
         label="Ácronimo"
-        value={acronym}
+        value={instance.acronym}
       />
       <LinkSlot
         label="Grupo propietario"
-        value={`/group/${owner.name}`}
-        showText={owner.fullname}
+        value={`/group/${instance.owner.name}`}
+        showText={instance.owner.fullname}
         type="internal"
       />
       <TextSlot
         label="Descripción"
-        value={description}
+        value={instance.description}
+      />
+      <BooleanSlot
+        label="Edición pública"
+        value={instance.public_edition}
+      />
+      <BooleanSlot
+        label="Visibilidad pública"
+        value={instance.public_visibility}
       />
     </BasicCard>
   )

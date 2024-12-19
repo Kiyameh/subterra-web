@@ -38,15 +38,11 @@ export default async function InstanceLandingPage({params}: PageProps) {
           text={instance.fullname}
           icon={<FiBox />}
         />
-        <InstanceInfoCard
-          _id={instance._id}
-          name={instance.name}
-          fullname={instance.fullname}
-          acronym={instance.acronym}
-          owner={instance.owner}
-          description={instance.description}
+        <InstanceInfoCard instance={instance} />
+        <InstanceStatsCard
+          editorsLength={instance.editors.length}
+          instanceId={instance._id.toString()}
         />
-        <InstanceStatsCard editorsLength={instance.editors.length} />
         <TerritoryCard map_image={instance.map_image} />
       </div>
     </PageContainer>

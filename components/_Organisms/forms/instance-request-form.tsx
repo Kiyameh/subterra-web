@@ -116,7 +116,7 @@ export default function InstanceRequestForm({
           control={form.control}
           name="roles"
           label="Gestión de permisos"
-          placeholder="Edición solo por miembros autorizados"
+          placeholder="Describe como te gustaría que se gestionaran los permisos de tu instancia"
           maxCharacters={instanceRequestMaxCharacters.roles}
         />
         <TextAreaField

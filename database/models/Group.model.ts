@@ -19,6 +19,7 @@ export interface GroupDocument extends Document {
   group_categories: (typeof groupCategories)[number][]
   main_image?: string
   logo_image?: string
+
   street?: string
   portal_number?: string
   floor?: string
@@ -31,10 +32,12 @@ export interface GroupDocument extends Document {
   email?: string
   webpage?: string
   admin: Types.ObjectId
+
   member_requests: MemberRequest[]
   members: Types.ObjectId[]
   instances: Types.ObjectId[]
   explorations: Types.ObjectId[]
+
   pushMember(user: string, session?: ClientSession): Promise<GroupDocument>
   removeMember(user: string, session?: ClientSession): Promise<GroupDocument>
   pushMemberRequest(request: MemberRequestValues): Promise<GroupDocument>

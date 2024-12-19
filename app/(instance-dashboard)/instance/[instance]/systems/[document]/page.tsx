@@ -12,23 +12,27 @@ import {
   PopulatedSystem,
 } from '@/database/services/system.actions'
 import {auth} from '@/auth'
+import {checkIsEditor} from '@/database/services/instance.services'
 
 interface PageProps {
-  params: Promise<{document: string}>
+  params: Promise<{document: string; instance: string}>
 }
 
 export default async function SystemDetailPage({params}: PageProps) {
   // Obtener el id del documento
-  const documentId: string = (await params).document
-
-  // Obtener el id del usuario
-  const userId = (await auth())?.user?._id
+  const {instance, document} = await params
 
   // Obtener la cavidad
-  const system = (await getPopulatedSystem(documentId))
+  const system = (await getPopulatedSystem(document))
     .content as PopulatedSystem | null
 
-  if (!system || !userId) {
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
+
+  // Validar roles de usuario
+  const isEditor = (await checkIsEditor(userId, instance)).ok as boolean
+
+  if (!system) {
     return (
       <PageContainer>
         <NotFoundCard
@@ -41,12 +45,14 @@ export default async function SystemDetailPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <EditDocumentBanner
-        type="system"
-        removeLabel="Eliminar sistema"
-        editLabel="Editar sistema"
-        commanderId={userId}
-      />
+      {userId && isEditor && (
+        <EditDocumentBanner
+          type="system"
+          removeLabel="Eliminar sistema"
+          editLabel="Editar sistema"
+          commanderId={userId}
+        />
+      )}
       <ImageCard />
       <HeaderBox text={system.name} />
 

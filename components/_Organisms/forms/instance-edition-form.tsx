@@ -2,21 +2,21 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
+import {Form} from '@/components/ui/form'
 
 import {PopulatedInstance} from '@/database/models/Instance.model'
-import {
-  UpdateInstanceFormValues,
-  UpdateInstanceFormSchema,
-} from '@/database/validation/instance.schemas'
+import {UpdateInstanceFormSchema} from '@/database/validation/instance.schemas'
+import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
 import {updateInstance} from '@/database/services/instance.services'
 import {Answer} from '@/database/types/answer.type'
 
-import {Form} from '@/components/ui/form'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import TextField from '@/components/_Atoms/fields/text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
+import BooleanField from '@/components/_Atoms/fields/boolean-field'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 
 /**
  * @version 1
@@ -35,14 +35,29 @@ export default function InstanceEditionForm({
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
-  const {fullname, territory, description, acronym} = initialData
+  const {
+    fullname,
+    territory,
+    description,
+    acronym,
+    public_edition,
+    public_visibility,
+  } = initialData
 
   const form = useForm<UpdateInstanceFormValues>({
     resolver: zodResolver(UpdateInstanceFormSchema),
-    defaultValues: {fullname, territory, description, acronym},
+    defaultValues: {
+      fullname,
+      territory,
+      description,
+      acronym,
+      public_edition,
+      public_visibility,
+    },
   })
 
   function onSubmit(values: UpdateInstanceFormValues) {
+    console.log('values', values)
     setDbAnswer(null)
     startTransition(async () => {
       const answer = await updateInstance(values, initialData._id, commanderId)
@@ -81,8 +96,20 @@ export default function InstanceEditionForm({
           label="Extensión territorial"
           placeholder="Provincia de Albacete"
         />
+        <BooleanField
+          control={form.control}
+          name="public_visibility"
+          label="Visibilidad pública"
+        />
+        <BooleanField
+          control={form.control}
+          name="public_edition"
+          label="Edición pública"
+        />
 
         <DbAwnserBox answer={dbAnswer} />
+        <ReactHookFormErrorBox errors={form.formState.errors} />
+
         {dbAnswer?.redirect ? (
           <LinkButton
             href={dbAnswer.redirect}

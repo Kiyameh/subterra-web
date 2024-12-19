@@ -39,19 +39,14 @@ export const InstanceFormSchema = z.object({
     .string()
     .min(1, {message: 'Requerido'})
     .max(instanceMaxCharacters.territory, {message: 'Demasiado largo'}),
-  owner: z.array(
-    z
-      .string()
-      .min(1, {message: 'Requerido'})
-      .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
-  ),
-  coordinator: z.array(
-    z
-      .string()
-      .min(1, {message: 'Requerido'})
-      .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
-  ),
-
+  owner: z
+    .string()
+    .min(1, {message: 'Requerido'})
+    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
+  coordinator: z
+    .string()
+    .min(1, {message: 'Requerido'})
+    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
   public_visibility: z.boolean().default(true),
   public_edition: z.boolean().default(false),
 })
@@ -67,10 +62,9 @@ export type InstanceFormValues = z.infer<typeof InstanceFormSchema>
  */
 
 export const UpdateInstanceFormSchema = InstanceFormSchema.omit({
+  name: true,
   owner: true,
   coordinator: true,
-  public_visibility: true,
-  public_edition: true,
 })
 
 /**

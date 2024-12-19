@@ -1,5 +1,6 @@
 'use client'
 import React, {MouseEvent} from 'react'
+import {useParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
@@ -48,6 +49,7 @@ export default function CaveEditionForm({
   commanderId: string
   cave: PlainCave
 }) {
+  const params: {instance: string; document: string} = useParams()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -327,8 +329,8 @@ export default function CaveEditionForm({
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
           <LinkButton
-            label="Ver informe actualizado"
-            href={`intance/${cave.instances[0]}/caves/${cave._id}`}
+            label="Ver cueva actualizada"
+            href={`/instance/${params.instance}/caves/${params.document}`}
           />
         ) : (
           <div className="flex flex-row gap-2">

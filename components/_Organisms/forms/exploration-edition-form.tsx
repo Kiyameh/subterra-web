@@ -1,13 +1,13 @@
 'use client'
 import React, {MouseEvent} from 'react'
+import {useParams} from 'next/navigation'
+
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/answer.type'
-import {
-  ExplorationFormValues,
-  explorationMaxCharacters,
-} from '@/database/validation/exploration.schemas'
+import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
+import {explorationMaxCharacters} from '@/database/validation/exploration.schemas'
 import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
 
 import {Form} from '@/components/ui/form'
@@ -20,10 +20,8 @@ import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import TimeField from '@/components/_Atoms/fields/time-field'
-import {
-  createExploration,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
+import {PlainExploration} from '@/database/services/exploration.actions'
+import {updateExploration} from '@/database/services/exploration.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 
 /**
@@ -40,6 +38,8 @@ export default function ExplorationEditionForm({
   commanderId: string
   exploration: PlainExploration
 }) {
+  const params: {instance: string; document: string} = useParams()
+
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -51,7 +51,11 @@ export default function ExplorationEditionForm({
   function onSubmit(values: ExplorationFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createExploration(values, commanderId)
+      const answer = await updateExploration(
+        values,
+        exploration._id,
+        commanderId
+      )
       setDbAnswer(answer)
     })
   }
@@ -131,7 +135,7 @@ export default function ExplorationEditionForm({
         {dbAnswer?.ok ? (
           <LinkButton
             label="Ver informe actualizado"
-            href={`intance/${exploration.instances[0]}/caves/${exploration._id}`}
+            href={`/instance/${params.instance}/caves/${params.document}`}
           />
         ) : (
           <div className="flex flex-row gap-2">
