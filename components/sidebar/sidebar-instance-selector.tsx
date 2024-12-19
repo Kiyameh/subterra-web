@@ -22,6 +22,8 @@ import {LuBox} from 'react-icons/lu'
 import Link from 'next/link'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
 import {InstanceIndex} from '@/database/models/Instance.model'
+import {Button} from '../ui/button'
+import {MdNavigateNext} from 'react-icons/md'
 
 interface Props {
   instancesIndex: InstanceIndex[] | null
@@ -72,7 +74,22 @@ export default function SidebarInstanceSelector({
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Instancias
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 p-2 px-5 rounded-md bg-secondary text-secondary-foreground">
+                  Instancias
+                </div>
+
+                <Link href="/group">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-sm"
+                  >
+                    <span className="text-xs">Grupos</span>
+                    <MdNavigateNext />
+                  </Button>
+                </Link>
+              </div>
             </DropdownMenuLabel>
             {instancesIndex &&
               instancesIndex.map((item, index) => (

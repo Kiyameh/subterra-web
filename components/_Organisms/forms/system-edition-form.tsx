@@ -26,6 +26,7 @@ import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
 import {createSystem, PlainSystem} from '@/database/services/system.actions'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 
 /**
  * @version 1
@@ -231,30 +232,27 @@ export default function SystemEditionForm({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="text-destructive-foreground text-sm">
-          {!form.formState.isValid && form.formState.isDirty && (
-            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
-          )}
-        </div>
+        <ReactHookFormErrorBox errors={form.formState.errors} />
+
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
+          <LinkButton
+            label="Ver sistema actualizado"
+            href={`intance/${system.instances[0]}/caves/${system._id}`}
+          />
+        ) : (
           <div className="flex flex-row gap-2">
-            <LinkButton
-              label="Ver sistema"
-              href={`${dbAnswer._id}`}
+            <SubmitButton
+              label="Actualizar sistema"
+              isPending={isPending}
             />
             <Button
               variant="secondary"
               onClick={handleReset}
             >
-              Crear otro sistema
+              Reiniciar cambios
             </Button>
           </div>
-        ) : (
-          <SubmitButton
-            label="Crear instancia"
-            isPending={isPending}
-          />
         )}
       </form>
     </Form>

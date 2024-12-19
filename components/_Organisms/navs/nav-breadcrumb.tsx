@@ -25,7 +25,7 @@ export default function NavigationBreadcrumb() {
             >
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <Link href={href}>{part}</Link>
+                <Link href={href}>{part.length > 12 ? '[doc]' : part}</Link>
               </BreadcrumbItem>
             </div>
           )

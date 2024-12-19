@@ -28,10 +28,11 @@ import SelectField from '@/components/_Atoms/fields/select-field'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 
 import {BsExclamationTriangle} from 'react-icons/bs'
-import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
 import {PlainCave, updateCave} from '@/database/services/cave.actions'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
 
 /**
  * @version 1
@@ -322,16 +323,12 @@ export default function CaveEditionForm({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="text-destructive-foreground text-sm">
-          {!form.formState.isValid && form.formState.isDirty && (
-            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
-          )}
-        </div>
+        <ReactHookFormErrorBox errors={form.formState.errors} />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
           <LinkButton
-            label="Ver cavidad actualizada"
-            href={`${dbAnswer._id}`}
+            label="Ver informe actualizado"
+            href={`intance/${cave.instances[0]}/caves/${cave._id}`}
           />
         ) : (
           <div className="flex flex-row gap-2">

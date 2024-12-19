@@ -30,10 +30,12 @@ export default async function InstanceDashboardLayout({
       <InstanceSidebar instanceName={instanceName} />
       <SidebarInset className="bg-inherit">
         {/* Encabezado de la página */}
-        <header className="flex h-10 items-center gap-2 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10">
+        <header className="flex h-12 md:h-10 items-center gap-2 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10">
+          {/* Botón de la barra lateral */}
           <ShortcutTooltip shortcut="Ctrl+B">
-            <SidebarTrigger className="mx-2" />
+            <SidebarTrigger className="mx-2 text-primary md:text-foreground scale-125 md:scale-100" />
           </ShortcutTooltip>
+
           <NavigationBreadcrumb />
         </header>
         {/* Contenido de la página */}

@@ -18,8 +18,10 @@ import {
 
 import {LuChevronsUpDown} from 'react-icons/lu'
 import {FaUserGroup} from 'react-icons/fa6'
+import {MdNavigateNext} from 'react-icons/md'
 
 import {GroupIndex} from '@/database/models/Group.model'
+import {Button} from '../ui/button'
 
 interface Props {
   groupsIndex: GroupIndex[] | null
@@ -70,7 +72,21 @@ export default function SidebarGroupSelector({
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Grupos
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 p-2 px-5 rounded-md bg-secondary text-secondary-foreground">
+                  Grupos
+                </div>
+                <Link href="/instance">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-sm"
+                  >
+                    <span className="text-xs">Instancias</span>
+                    <MdNavigateNext />
+                  </Button>
+                </Link>
+              </div>
             </DropdownMenuLabel>
             {groupsIndex &&
               groupsIndex.map((item, index) => (

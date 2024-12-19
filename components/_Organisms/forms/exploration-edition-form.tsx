@@ -24,6 +24,7 @@ import {
   createExploration,
   PlainExploration,
 } from '@/database/services/exploration.actions'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 
 /**
  * @version 1
@@ -125,30 +126,26 @@ export default function ExplorationEditionForm({
           label="Trabajos pendientes"
           maxCharacters={explorationMaxCharacters.pending_work}
         />
-        <div className="text-destructive-foreground text-sm">
-          {!form.formState.isValid && form.formState.isDirty && (
-            <p>Algunos datos introducidos no son correctos</p> // TODO: Mejorar feedback
-          )}
-        </div>
+        <ReactHookFormErrorBox errors={form.formState.errors} />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
+          <LinkButton
+            label="Ver informe actualizado"
+            href={`intance/${exploration.instances[0]}/caves/${exploration._id}`}
+          />
+        ) : (
           <div className="flex flex-row gap-2">
-            <LinkButton
-              label="Ver informe"
-              href={`${dbAnswer._id}`}
+            <SubmitButton
+              label="Actualizar informe"
+              isPending={isPending}
             />
             <Button
               variant="secondary"
               onClick={handleReset}
             >
-              Crear otro informe
+              Reiniciar cambios
             </Button>
           </div>
-        ) : (
-          <SubmitButton
-            label="Crear informe"
-            isPending={isPending}
-          />
         )}
       </form>
     </Form>

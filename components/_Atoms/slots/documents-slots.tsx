@@ -28,14 +28,15 @@ export function ExplorationSlot({
       </div>
       <div className="flex flex-row gap-2 justify-between items-end">
         <div className="flex gap-1 flex-wrap">
-          {exploration.dates?.map((date, i) => {
-            return (
-              <DateBadge
-                key={i}
-                value={date}
-              />
-            )
-          })}
+          {exploration.dates &&
+            exploration.dates?.map((date, i) => {
+              return (
+                <DateBadge
+                  key={i}
+                  value={date}
+                />
+              )
+            })}
         </div>
         <Link
           href={`/instance/${instance}/explorations/${exploration._id}`}
@@ -64,8 +65,8 @@ export function CaveSlot({cave}: {cave: PlainCave}) {
       </div>
       <div className="flex flex-row gap-2 justify-between items-end">
         <div className="flex gap-1 flex-wrap">
-          <DistanceBadge valueInMeters={cave.length} />
-          <DistanceBadge valueInMeters={cave.depth} />
+          {cave.length && <DistanceBadge valueInMeters={cave.length} />}
+          {cave.depth && <DistanceBadge valueInMeters={cave.depth} />}
         </div>
         <Link
           href={`/instance/${instance}/caves/${cave._id}`}
@@ -94,8 +95,8 @@ export function SystemSlot({system}: {system: PlainSystem}) {
       </div>
       <div className="flex flex-row gap-2 justify-between items-end">
         <div className="flex gap-1 flex-wrap">
-          <DistanceBadge valueInMeters={system.length} />
-          <DistanceBadge valueInMeters={system.depth} />
+          {system.length && <DistanceBadge valueInMeters={system.length} />}
+          {system.depth && <DistanceBadge valueInMeters={system.depth} />}
         </div>
         <Link
           href={`/instance/${instance}/systems/${system._id}`}

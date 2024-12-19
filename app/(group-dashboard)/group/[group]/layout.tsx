@@ -8,6 +8,7 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
+import SubterraDropdown from '@/components/_Organisms/navs/subterra-dropdown'
 
 interface GroupDashboardLayoutProps {
   params: Promise<{group: string}>
@@ -30,11 +31,14 @@ export default async function GroupDashboardLayout({
       <GroupSidebar groupName={groupName} />
       <SidebarInset className="bg-inherit">
         {/* Encabezado de la página */}
-        <header className="flex h-10 items-center gap-2 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10">
-          <ShortcutTooltip shortcut="Ctrl+B">
-            <SidebarTrigger className="mx-2" />
-          </ShortcutTooltip>
-          <NavigationBreadcrumb />
+        <header className="flex h-12 md:h-10 items-center justify-between pr-4 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10 ">
+          <div className="flex flex-row gap-2 items-center">
+            <ShortcutTooltip shortcut="Ctrl+B">
+              <SidebarTrigger className="mx-2 text-primary md:text-foreground scale-125 md:scale-100" />
+            </ShortcutTooltip>
+            <NavigationBreadcrumb />
+          </div>
+          <SubterraDropdown />
         </header>
         {/* Contenido de la página */}
         <main className="flex h-full items-center justify-center">
