@@ -134,9 +134,6 @@ export default function AllSystemTable({
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => {
-                  console.log(row.original._id)
-                }}
               >
                 <FaMagnifyingGlass />
                 Ver detalles
@@ -151,9 +148,6 @@ export default function AllSystemTable({
                 <Button
                   variant="editor"
                   size="sm"
-                  onClick={() => {
-                    console.log(row.original._id)
-                  }}
                 >
                   <TbEditCircle />
                   Editar

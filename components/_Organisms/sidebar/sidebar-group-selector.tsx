@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react'
+import Link from 'next/link'
 
 import {
   SidebarMenu,
@@ -15,30 +16,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-// Icons
 import {LuChevronsUpDown} from 'react-icons/lu'
-import {LuBox} from 'react-icons/lu'
-
-import Link from 'next/link'
-import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
-import {InstanceIndex} from '@/database/models/Instance.model'
-import {Button} from '../ui/button'
+import {FaUserGroup} from 'react-icons/fa6'
 import {MdNavigateNext} from 'react-icons/md'
 
+import {GroupIndex} from '@/database/models/Group.model'
+import {Button} from '../../ui/button'
+
 interface Props {
-  instancesIndex: InstanceIndex[] | null
-  currentInstanceIndex: InstanceIndex | null
+  groupsIndex: GroupIndex[] | null
+  currentGroupIndex: GroupIndex | null
 }
 
 /**
- * Panel de selección de instancias para colocar en un Sidebar
- * @param instancesIndex - Lista de instancias <PopulatedInstance[]>
- * @param currentInstanceIndex - Instancia actual <PopulatedInstance>
+ * Panel de selección de grupo para colocar en un Sidebar
+ * @param groupsIndex - Lista de grupos <PopulatedGroup[]>
+ * @param currentGroupIndex - Grupo actual <PopulatedGroup>
  */
 
-export default function SidebarInstanceSelector({
-  instancesIndex,
-  currentInstanceIndex,
+export default function SidebarGroupSelector({
+  groupsIndex,
+  currentGroupIndex,
 }: Props) {
   const {isMobile} = useSidebar()
 
@@ -52,16 +50,16 @@ export default function SidebarInstanceSelector({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-sidebar-primary-foreground">
-                <LuBox />
+                <FaUserGroup />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {currentInstanceIndex
-                    ? currentInstanceIndex.fullname
-                    : 'Selecciona una instancia'}
+                  {currentGroupIndex
+                    ? currentGroupIndex.fullname
+                    : 'Selecciona un grupo'}
                 </span>
                 <span className="truncate text-xs">
-                  {currentInstanceIndex && currentInstanceIndex.territory}
+                  {currentGroupIndex && currentGroupIndex.province}
                 </span>
               </div>
               <LuChevronsUpDown className="ml-auto" />
@@ -76,36 +74,35 @@ export default function SidebarInstanceSelector({
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 p-2 px-5 rounded-md bg-secondary text-secondary-foreground">
-                  Instancias
+                  Grupos
                 </div>
-
-                <Link href="/group">
+                <Link href="/instance">
                   <Button
                     size="sm"
                     variant="ghost"
                     className="text-sm"
                   >
-                    <span className="text-xs">Grupos</span>
+                    <span className="text-xs">Instancias</span>
                     <MdNavigateNext />
                   </Button>
                 </Link>
               </div>
             </DropdownMenuLabel>
-            {instancesIndex &&
-              instancesIndex.map((item, index) => (
+            {groupsIndex &&
+              groupsIndex.map((item, index) => (
                 <Link
                   key={index}
-                  href={item.is_online ? `/instance/${item.name}` : '#'}
+                  href={`/group/${item.name}`}
                 >
                   <DropdownMenuItem className="cursor-pointer flex justify-between">
                     <div className="flex items-center gap-2">
                       <div className="flex size-6 items-center justify-center rounded-sm border">
-                        <OnlineIndicator isOnline={item.is_online} />
+                        <FaUserGroup className="text-primary" />
                       </div>
                       <span>{item.name}</span>
                     </div>
                     <span className="text-muted-foreground">
-                      {item.territory}
+                      {item.province}
                     </span>
                   </DropdownMenuItem>
                 </Link>

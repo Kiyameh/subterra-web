@@ -1,7 +1,7 @@
 import React from 'react'
 import ShortcutTooltip from '@/components/_Atoms/badges/shortcut-tooltip'
 import NavigationBreadcrumb from '@/components/_Organisms/navs/nav-breadcrumb'
-import GroupSidebar from '@/components/sidebar/group-sidebar'
+import GroupSidebar from '@/components/_Organisms/sidebar/group-sidebar'
 
 import {
   SidebarProvider,

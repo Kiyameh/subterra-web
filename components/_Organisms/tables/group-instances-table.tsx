@@ -7,8 +7,8 @@ import {DataTable} from '@/components/ui/data-table'
 
 import {Badge} from '@/components/ui/badge'
 import {FiBox} from 'react-icons/fi'
-import {LinkCell} from '@/components/_Atoms/cells/link-cell'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
+import LinkBadge from '@/components/_Atoms/badges/link-badge'
 
 // Interfaz de las filas de la tabla
 export interface GroupInstancesTableRow {
@@ -37,8 +37,8 @@ export default function GroupInstancesTable({
       accessorKey: 'fullname',
       header: 'Instancia',
       cell: ({row}) => (
-        <LinkCell
-          label={row.original.fullname}
+        <LinkBadge
+          showText={row.original.fullname}
           type="internal"
           value={`/instance/${row.original.name}`}
         />

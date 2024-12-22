@@ -135,9 +135,6 @@ export default function AllCavesTable({
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => {
-                  console.log(row.original._id)
-                }}
               >
                 <FaMagnifyingGlass />
                 Ver detalles
@@ -152,9 +149,6 @@ export default function AllCavesTable({
                 <Button
                   variant="editor"
                   size="sm"
-                  onClick={() => {
-                    console.log(row.original._id)
-                  }}
                 >
                   <TbEditCircle />
                   Editar

@@ -57,7 +57,6 @@ export default function InstanceEditionForm({
   })
 
   function onSubmit(values: UpdateInstanceFormValues) {
-    console.log('values', values)
     setDbAnswer(null)
     startTransition(async () => {
       const answer = await updateInstance(values, initialData._id, commanderId)

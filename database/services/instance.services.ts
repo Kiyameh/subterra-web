@@ -334,8 +334,6 @@ export async function getInstanceStats(instanceId: string) {
       instances: {$in: [instanceId]},
     })
 
-    console.log(numberOfCaves, numberOfSystems, numberOfExplorations)
-
     return {
       ok: true,
       message: 'Estadisticas obtenidas',

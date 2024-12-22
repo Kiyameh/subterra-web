@@ -6,7 +6,6 @@ import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import {DataTable} from '@/components/ui/data-table'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import {Button} from '@/components/ui/button'
-import {LinkCell} from '@/components/_Atoms/cells/link-cell'
 
 import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
 
@@ -18,6 +17,7 @@ import {MdOutlineAdminPanelSettings} from 'react-icons/md'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import PromoteToCoordinatorDialog from '@/components/_Molecules/interactives/promote-to-coordinator-dialog'
 import RemoveEditorDialog from '@/components/_Molecules/interactives/remove-editor-dialog'
+import LinkBadge from '@/components/_Atoms/badges/link-badge'
 
 // Interfaz de las filas de la tabla
 export interface InstanceEditorsTableRow {
@@ -76,7 +76,7 @@ export default function InstanceEditorsTable({
       accessorKey: 'email',
       header: 'Correo',
       cell: ({row}) => (
-        <LinkCell
+        <LinkBadge
           value={row.original.email}
           type="email"
         />

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import {SidebarGroup, useSidebar} from '@/components/ui/sidebar'
-import {AdminBadge, EditorBadge} from '../_Atoms/slots/user-slots'
+import {AdminBadge, EditorBadge} from '../../_Atoms/slots/user-slots'
 
 interface SidebarRoleIndicatorProps {
   isEditor: boolean

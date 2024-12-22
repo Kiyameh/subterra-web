@@ -15,10 +15,10 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 
-import SidebarGroupSelector from '@/components/sidebar/sidebar-group-selector'
-import SidebarGroupNavigation from '@/components/sidebar/sidebar-group-navigation'
-import SidebarUserMenu from '@/components/sidebar/sidebar-user-menu'
-import SidebarLoginButton from '@/components/sidebar/sidebar-login-button'
+import SidebarGroupSelector from '@/components/_Organisms/sidebar/sidebar-group-selector'
+import SidebarGroupNavigation from '@/components/_Organisms/sidebar/sidebar-group-navigation'
+import SidebarUserMenu from '@/components/_Organisms/sidebar/sidebar-user-menu'
+import SidebarLoginButton from '@/components/_Organisms/sidebar/sidebar-login-button'
 import SidebarRoleIndicator from './sidebar-role-indicator'
 
 interface GroupSidebarProps extends React.ComponentProps<typeof Sidebar> {
