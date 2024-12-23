@@ -1,16 +1,13 @@
+import {Suspense} from 'react'
 import PageContainer from '@/components/theming/page-container'
-import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import ImageCard from '@/components/_Molecules/cards/image-card'
-import ExplorationInfoCard from '@/components/_Molecules/cards/exploration-info-card'
-import ExplorationDescriptionCard from '@/components/_Molecules/cards/exploration-description-card'
-import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import EditDocumentBanner from '@/components/_Molecules/interactives/edit-document-banner'
-import {
-  getPopulatedExploration,
-  PopulatedExploration,
-} from '@/database/services/exploration.actions'
-import {auth} from '@/auth'
-import {checkIsEditor} from '@/database/services/instance.services'
+import ExplorationInfoCard from '@/components/exploration-dashboard/exploration-info-card'
+import ExplorationDescriptionCard from '@/components/exploration-dashboard/exploration-description-card'
+import DocumentNotificationArea from '@/components/_Molecules/interactives/document-notification-area/document-notification-area'
+import ExplorationHeader from '@/components/exploration-dashboard/exploration-header'
+import SkeletonHeader from '@/components/_Molecules/cards/skelenton-header'
+import ExplorationCavesCard from '@/components/exploration-dashboard/exploration-caves-card'
+import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>
@@ -20,43 +17,33 @@ export default async function ExplorationDetailPage({params}: PageProps) {
   // Obtener el id del documento
   const {instance, document} = await params
 
-  // Obtener la cavidad
-  const exploration = (await getPopulatedExploration(document))
-    .content as PopulatedExploration | null
-
-  // Obtener el id del usuario
-  const userId = (await auth())?.user?._id as string | null
-
-  // Validar roles de usuario
-  const isEditor = (await checkIsEditor(userId, instance)).ok as boolean
-
-  if (!exploration) {
-    return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal al cargar los datos"
-          text="Intentalo de nuevo más tarde"
-        />
-      </PageContainer>
-    )
-  }
-
   return (
     <PageContainer className="justify-start">
-      {userId && isEditor && (
-        <EditDocumentBanner
+      <Suspense fallback={null}>
+        <DocumentNotificationArea
+          instanceName={instance}
           type="exploration"
-          removeLabel="Eliminar exploración"
-          editLabel="Editar exploración"
-          commanderId={userId}
         />
-      )}
+      </Suspense>
 
       <ImageCard />
-      <HeaderBox text={exploration.name} />
+
+      <Suspense fallback={<SkeletonHeader />}>
+        <ExplorationHeader explorationId={document} />
+      </Suspense>
+
       <div className="flex gap-4 flex-wrap justify-center">
-        <ExplorationInfoCard exploration={exploration} />
-        <ExplorationDescriptionCard exploration={exploration} />
+        <Suspense fallback={<SkeletonCard />}>
+          <ExplorationInfoCard explorationId={document} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonCard />}>
+          <ExplorationDescriptionCard explorationId={document} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonCard />}>
+          <ExplorationCavesCard explorationId={document} />
+        </Suspense>
       </div>
     </PageContainer>
   )

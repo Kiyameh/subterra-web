@@ -249,7 +249,7 @@ export interface PopulatedExploration
   updatedAt: Date
   instances?: string[]
   // Poblados:
-  caves?: PlainCave[]
+  caves: PlainCave[]
   groups?: GroupObject[]
 }
 

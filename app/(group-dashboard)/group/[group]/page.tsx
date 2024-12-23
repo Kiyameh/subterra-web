@@ -1,16 +1,16 @@
 import {Suspense} from 'react'
 
-import ContactCard from '@/components/_Molecules/cards/group-dashboard/contact-card'
-import GroupInfoCard from '@/components/_Molecules/cards/group-dashboard/group-info-card'
+import ContactCard from '@/components/group-dashboard/contact-card'
+import GroupInfoCard from '@/components/group-dashboard/group-info-card'
 import ImageCard from '@/components/_Molecules/cards/image-card'
 import PageContainer from '@/components/theming/page-container'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import GroupNotificationArea from '@/components/_Molecules/interactives/group-notification-area/group-notification-area'
-import GroupHeader from '@/components/_Molecules/cards/group-dashboard/group-header'
+import GroupHeader from '@/components/group-dashboard/group-header'
 import SkeletonHeader from '@/components/_Molecules/cards/skelenton-header'
 import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import GroupDescriptionCard from '@/components/_Molecules/cards/group-dashboard/group-description-card'
-import GroupInstancesBox from '@/components/_Molecules/cards/group-dashboard/group-instances-box'
+import GroupDescriptionCard from '@/components/group-dashboard/group-description-card'
+import GroupInstancesBox from '@/components/group-dashboard/group-instances-box'
 
 import {FiBox} from 'react-icons/fi'
 

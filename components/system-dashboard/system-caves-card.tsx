@@ -3,9 +3,16 @@ import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {FaRegCircle} from 'react-icons/fa'
 import {CaveSlot} from '@/components/_Atoms/slots/documents-slots'
-import {PlainCave} from '@/database/services/cave.actions'
+import {
+  getPopulatedSystem,
+  PopulatedSystem,
+} from '@/database/services/system.actions'
 
-export default function CavesCard({caves}: {caves: PlainCave[]}) {
+export default async function SystemCavesCard({systemId}: {systemId: string}) {
+  // Obtener el sistema
+  const system = (await getPopulatedSystem(systemId))
+    .content as PopulatedSystem | null
+
   return (
     <BasicCard
       key="caves_card"
@@ -16,7 +23,7 @@ export default function CavesCard({caves}: {caves: PlainCave[]}) {
         />
       }
     >
-      {caves.reverse().map((cave) => (
+      {system?.caves.map((cave) => (
         <CaveSlot
           key={cave._id}
           cave={cave}

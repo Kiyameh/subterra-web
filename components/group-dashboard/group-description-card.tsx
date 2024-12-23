@@ -1,6 +1,6 @@
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import React from 'react'
-import {TextSlot} from '../../../_Atoms/slots/text-slots'
+import {TextSlot} from '../_Atoms/slots/text-slots'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {BsCardText} from 'react-icons/bs'
 import {getOneGroup} from '@/database/services/group.services'

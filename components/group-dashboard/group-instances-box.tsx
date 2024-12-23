@@ -3,7 +3,7 @@ import {PopulatedInstance} from '@/database/models/Instance.model'
 import {getOneGroup} from '@/database/services/group.services'
 import {getSomeInstances} from '@/database/services/instance.services'
 import React from 'react'
-import InstanceCard from '../instance-card'
+import InstanceCard from '../_Molecules/cards/instance-card'
 
 export default async function GroupInstancesBox({
   groupName,
