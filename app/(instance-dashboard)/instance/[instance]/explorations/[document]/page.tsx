@@ -1,12 +1,12 @@
 import {Suspense} from 'react'
 import PageContainer from '@/components/theming/page-container'
 import ImageCard from '@/components/_Molecules/cards/image-card'
-import ExplorationInfoCard from '@/components/exploration-dashboard/exploration-info-card'
-import ExplorationDescriptionCard from '@/components/exploration-dashboard/exploration-description-card'
+import ExplorationInfoCard from '@/components/exploration-details-board/exploration-info-card'
+import ExplorationDescriptionCard from '@/components/exploration-details-board/exploration-description-card'
 import DocumentNotificationArea from '@/components/_Molecules/interactives/document-notification-area/document-notification-area'
-import ExplorationHeader from '@/components/exploration-dashboard/exploration-header'
+import ExplorationHeader from '@/components/exploration-details-board/exploration-header'
 import SkeletonHeader from '@/components/_Molecules/cards/skelenton-header'
-import ExplorationCavesCard from '@/components/exploration-dashboard/exploration-caves-card'
+import ExplorationCavesCard from '@/components/exploration-details-board/exploration-caves-card'
 import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
 
 interface PageProps {

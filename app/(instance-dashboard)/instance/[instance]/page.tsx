@@ -1,9 +1,9 @@
-import InstanceHeader from '@/components/instance-dashboard/instance-header'
-import InstanceInfoCard from '@/components/instance-dashboard/instance-info-card'
-import InstanceStatsCard from '@/components/instance-dashboard/instance-stats-card'
+import InstanceHeader from '@/components/instance-detail-board/instance-header'
+import InstanceInfoCard from '@/components/instance-detail-board/instance-info-card'
+import InstanceStatsCard from '@/components/instance-detail-board/instance-stats-card'
 import SkeletonHeader from '@/components/_Molecules/cards/skelenton-header'
 import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import TerritoryCard from '@/components/instance-dashboard/territory-card'
+import TerritoryCard from '@/components/instance-detail-board/territory-card'
 import PageContainer from '@/components/theming/page-container'
 import {Suspense} from 'react'
 

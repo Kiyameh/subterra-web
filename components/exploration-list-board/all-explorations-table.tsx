@@ -1,20 +1,23 @@
 'use client'
 import React from 'react'
+import Link from 'next/link'
+
+import {ExplorationIndex} from '@/database/services/exploration.actions'
+
+import {ColumnDef} from '@tanstack/react-table'
+import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
+import {DataTable} from '@/components/ui/data-table'
 
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
-import {DataTable} from '@/components/ui/data-table'
-import {ColumnDef} from '@tanstack/react-table'
-import {FaRegCircle} from 'react-icons/fa6'
 import {Button} from '@/components/ui/button'
-import {TbEditCircle} from 'react-icons/tb'
-import {FaMagnifyingGlass} from 'react-icons/fa6'
-import Link from 'next/link'
 import DateBadge from '@/components/_Atoms/badges/date-badge'
 import RefBadge from '@/components/_Atoms/badges/ref-badge'
 import TimeBadge from '@/components/_Atoms/badges/time-badge'
-import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
-import {ExplorationIndex} from '@/database/services/exploration.actions'
+
+import {TbEditCircle} from 'react-icons/tb'
+import {FaMagnifyingGlass} from 'react-icons/fa6'
+import {FaRegCompass} from 'react-icons/fa'
 
 export default function AllExplorationTable({
   explorationsIndex,
@@ -145,7 +148,7 @@ export default function AllExplorationTable({
       cardHeader={
         <CardTitle
           title={`Ultimas exploraciones de ${instanceName}`}
-          icon={<FaRegCircle />}
+          icon={<FaRegCompass />}
         />
       }
     >
