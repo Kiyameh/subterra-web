@@ -3,7 +3,7 @@ import React from 'react'
 
 import {Button} from '@/components/ui/button'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
-import MembershipRequestDialog from '@/components/_Molecules/interactives/membership-request-dialog'
+import MembershipRequestDialog from '@/components/_Molecules/interactives/group-notification-area/membership-request-dialog'
 import {IoCloseSharp} from 'react-icons/io5'
 
 /**

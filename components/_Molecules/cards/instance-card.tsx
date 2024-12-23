@@ -66,6 +66,7 @@ export default function InstanceCard({
   return (
     <BasicCard
       className={className}
+      defaultWidth="sm"
       glassmorphism={glassmorphism}
       cardHeader={cardHeader}
       cardFooter={cardFooter}

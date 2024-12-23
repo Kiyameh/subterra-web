@@ -26,7 +26,7 @@ export default function BasicCard({
   glassmorphism = false,
   className,
 }: {
-  defaultWidth?: 'md' | 'lg' | 'xl' | 'xxl'
+  defaultWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
   image?: StaticImport
   cardHeader?: React.ReactNode
   cardFooter?: React.ReactNode
@@ -35,6 +35,7 @@ export default function BasicCard({
   className?: string
 }) {
   const sizeMap = {
+    sm: 'w-[384px] max-w-[90vw]',
     md: 'w-[460px] max-w-[90vw]',
     lg: 'w-[600px] max-w-[90vw]',
     xl: 'w-[940px] max-w-[90vw]',

@@ -13,7 +13,7 @@ import {GroupIndex} from '@/database/models/Group.model'
 
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {MemberRequestValues} from '@/components/_Molecules/interactives/membership-request-dialog'
+import {MemberRequestValues} from '@/components/_Molecules/interactives/group-notification-area/membership-request-dialog'
 
 //* 1. Funciones de escritura */
 

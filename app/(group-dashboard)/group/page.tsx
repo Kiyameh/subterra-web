@@ -1,14 +1,14 @@
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
 import GroupsBoard from '@/components/_Organisms/boards/all-groups-board'
 import PageContainer from '@/components/theming/page-container'
-import React from 'react'
+import React, {Suspense} from 'react'
 
-export default function GroupPage() {
+export default function GroupListPage() {
   return (
     <PageContainer>
-      <CardWithHeader cardSubHeader="Grupos registrados">
+      <Suspense fallback={<SkeletonCard className="min-h-[790px]" />}>
         <GroupsBoard />
-      </CardWithHeader>
+      </Suspense>
     </PageContainer>
   )
 }

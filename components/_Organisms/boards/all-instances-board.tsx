@@ -6,6 +6,7 @@ import InstanceCard from '@/components/_Molecules/cards/instance-card'
 
 export default async function InstancesBoard() {
   const instances = (await getAllInstances()).content as PopulatedInstance[]
+
   if (!instances)
     return (
       <NotFoundCard
@@ -20,7 +21,6 @@ export default async function InstancesBoard() {
         instances.map((instance) => (
           <InstanceCard
             key={instance.name}
-            className="w-96"
             instance={instance}
           />
         ))}

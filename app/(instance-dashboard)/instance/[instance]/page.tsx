@@ -1,12 +1,11 @@
-import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import InstanceInfoCard from '@/components/_Molecules/cards/instance-info-card'
-import InstanceStatsCard from '@/components/_Molecules/cards/instance-stats-card'
-import TerritoryCard from '@/components/_Molecules/cards/territory-card'
+import InstanceHeader from '@/components/_Molecules/cards/instance-dashboard/instance-header'
+import InstanceInfoCard from '@/components/_Molecules/cards/instance-dashboard/instance-info-card'
+import InstanceStatsCard from '@/components/_Molecules/cards/instance-dashboard/instance-stats-card'
+import SkeletonHeader from '@/components/_Molecules/cards/skelenton-header'
+import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
+import TerritoryCard from '@/components/_Molecules/cards/instance-dashboard/territory-card'
 import PageContainer from '@/components/theming/page-container'
-import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getOneInstance} from '@/database/services/instance.services'
-import {FiBox} from 'react-icons/fi'
+import {Suspense} from 'react'
 
 interface PageProps {
   params: Promise<{instance: string}>
@@ -16,34 +15,21 @@ export default async function InstanceLandingPage({params}: PageProps) {
   // Obtener el nombre de la instancia
   const instanceName: string = (await params).instance
 
-  // Obtener la instancia
-  const instance = (await getOneInstance(instanceName))
-    .content as PopulatedInstance | null
-
-  if (!instance) {
-    return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal"
-          text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
-        />
-      </PageContainer>
-    )
-  }
-
   return (
     <PageContainer>
       <div className="flex gap-4 flex-wrap justify-center">
-        <HeaderBox
-          text={instance.fullname}
-          icon={<FiBox />}
-        />
-        <InstanceInfoCard instance={instance} />
-        <InstanceStatsCard
-          editorsLength={instance.editors.length}
-          instanceId={instance._id.toString()}
-        />
-        <TerritoryCard map_image={instance.map_image} />
+        <Suspense fallback={<SkeletonHeader />}>
+          <InstanceHeader instanceName={instanceName} />
+        </Suspense>
+        <Suspense fallback={<SkeletonCard />}>
+          <InstanceInfoCard instanceName={instanceName} />
+        </Suspense>
+        <Suspense fallback={<SkeletonCard />}>
+          <InstanceStatsCard instanceName={instanceName} />
+        </Suspense>
+        <Suspense fallback={<SkeletonCard defaultWidth="xl" />}>
+          <TerritoryCard instanceName={instanceName} />
+        </Suspense>
       </div>
     </PageContainer>
   )

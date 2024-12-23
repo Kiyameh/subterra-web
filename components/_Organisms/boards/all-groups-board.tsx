@@ -4,6 +4,7 @@ import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import {getGroupsIndex} from '@/database/services/group.services'
 import {GroupIndex} from '@/database/models/Group.model'
 import {GroupProfileCard} from '@/components/_Atoms/slots/group-slots'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 
 export default async function GroupsBoard() {
   const groups = (await getGroupsIndex()).content as GroupIndex[]
@@ -16,7 +17,7 @@ export default async function GroupsBoard() {
     )
 
   return (
-    <div className="max-w-full max-h-[60vh] flex flex-col flex-wrap justify-center gap-4">
+    <CardWithHeader cardSubHeader="Grupos registrados">
       {groups &&
         groups.map((group) => (
           <Link
@@ -26,6 +27,6 @@ export default async function GroupsBoard() {
             <GroupProfileCard groupIndex={group} />
           </Link>
         ))}
-    </div>
+    </CardWithHeader>
   )
 }
