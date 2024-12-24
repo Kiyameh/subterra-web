@@ -1,6 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {checkIsMember} from '@/database/services/group.services'
+import {checkIsMember} from '@/database/services/group.actions'
 import UnauthorizedCard from '@/components/_Molecules/cards/401-unauthorized'
 
 interface LayoutProps {
@@ -16,7 +16,7 @@ export default async function MemberLayout({params, children}: LayoutProps) {
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isMember = (await checkIsMember(groupName, userId)).ok as boolean
+  const isMember = await checkIsMember(userId, groupName)
 
   if (!isMember) return <UnauthorizedCard />
 

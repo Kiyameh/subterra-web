@@ -1,6 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {checkIsAdmin} from '@/database/services/group.services'
+import {checkIsAdmin} from '@/database/services/group.actions'
 import UnauthorizedCard from '@/components/_Molecules/cards/401-unauthorized'
 
 interface LayoutProps {
@@ -16,7 +16,7 @@ export default async function AdminLayout({params, children}: LayoutProps) {
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isAdmin = (await checkIsAdmin(groupName, userId)).ok as boolean
+  const isAdmin = await checkIsAdmin(userId, groupName)
 
   if (!isAdmin) return <UnauthorizedCard />
 

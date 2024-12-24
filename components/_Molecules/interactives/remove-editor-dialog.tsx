@@ -18,7 +18,7 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {FaUserTimes} from 'react-icons/fa'
 import {IoIosWarning} from 'react-icons/io'
-import {removeEditor} from '@/database/services/instance.services'
+import {removeEditor} from '@/database/services/instance.actions'
 
 /**
  * @version 1

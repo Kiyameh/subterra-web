@@ -5,10 +5,10 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import ExplorationCreationForm from '@/components/_Organisms/forms/exploration-cretion-form'
 import PageContainer from '@/components/theming/page-container'
-import {GroupIndex} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/services/group.actions'
 import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
-import {getGroupsIndex} from '@/database/services/group.services'
-import {getInstanceId} from '@/database/services/instance.services'
+import {getGroupsIndex} from '@/database/services/group.actions'
+import {getInstanceId} from '@/database/services/instance.actions'
 import {GrChapterAdd} from 'react-icons/gr'
 
 interface PageProps {

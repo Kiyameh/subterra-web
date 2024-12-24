@@ -20,6 +20,18 @@ export const instanceMaxCharacters = {
  * @schema de Zod para validar formulario de creación de instancia
  */
 export const InstanceFormSchema = z.object({
+  // Relaciones:
+  owner: z
+    .string()
+    .min(1, {message: 'Requerido'})
+    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
+
+  coordinator: z
+    .string()
+    .min(1, {message: 'Requerido'})
+    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
+
+  // Datos generales:
   name: z
     .string()
     .min(1, {message: 'Requerido'})
@@ -39,16 +51,10 @@ export const InstanceFormSchema = z.object({
     .string()
     .min(1, {message: 'Requerido'})
     .max(instanceMaxCharacters.territory, {message: 'Demasiado largo'}),
-  owner: z
-    .string()
-    .min(1, {message: 'Requerido'})
-    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
-  coordinator: z
-    .string()
-    .min(1, {message: 'Requerido'})
-    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
   public_visibility: z.boolean().default(true),
   public_edition: z.boolean().default(false),
+  main_image: z.string().optional(),
+  map_image: z.string().optional(),
 })
 
 /**

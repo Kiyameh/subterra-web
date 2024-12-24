@@ -2,10 +2,13 @@ import React from 'react'
 import {auth} from '@/auth'
 
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import {checkIsAdmin, getOneGroup} from '@/database/services/group.services'
-import {PopulatedGroup} from '@/database/models/Group.model'
 
 import GroupMembersTable, {GroupMembersTableRow} from './group-members-table'
+import {
+  getOneGroup,
+  GroupWithUsers,
+  checkIsAdmin,
+} from '@/database/services/group.actions'
 
 export default async function GroupMembersBoard({
   groupName,
@@ -13,13 +16,13 @@ export default async function GroupMembersBoard({
   groupName: string
 }) {
   // Obtener el grupo
-  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+  const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isAdmin = (await checkIsAdmin(groupName, userId)).ok as boolean
+  const isAdmin = await checkIsAdmin(userId, groupName)
 
   if (!group) {
     return (
@@ -38,7 +41,9 @@ export default async function GroupMembersBoard({
     image: member.image,
     fullname: member.fullname,
     email: member.email,
-    isAdmin: group.admin._id.toString() === member._id,
+    isAdmin: group.admins
+      .map((admin) => admin._id.toString())
+      .includes(member._id),
   }))
 
   return (

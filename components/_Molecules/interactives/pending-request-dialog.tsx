@@ -2,12 +2,12 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {PopulatedGroup} from '@/database/models/Group.model'
 import {Answer} from '@/database/types/answer.type'
 import {
   acceptMemberRequest,
+  GroupWithUsers,
   rejectMemberRequest,
-} from '@/database/services/group.services'
+} from '@/database/services/group.actions'
 
 import {ScrollArea} from '@/components/ui/scroll-area'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
@@ -29,7 +29,7 @@ import {FaUserCheck} from 'react-icons/fa'
  * @version 1
  * @description Diálogo para aceptar o rechazar una solicitud de acceso al grupo
  * @param groupId <string> Id del grupo al que se envía la solicitud
- * @param request <PopulatedGroup["member_requests"][0]> Solicitud de acceso
+ * @param request <GroupWithUsers["member_requests"][0]> Solicitud de acceso
  * @param isOpen <boolean> Estado de apertura del diálogo
  * @param onOpenChange <function> Función para cambiar el estado de apertura del diálogo
  *
@@ -42,7 +42,7 @@ export default function PendingRequestDialog({
   onOpenChange,
 }: {
   groupId: string
-  request: PopulatedGroup['member_requests'][0]
+  request: GroupWithUsers['member_requests'][0]
   isOpen: boolean
   onOpenChange: (open: boolean) => void
 }) {

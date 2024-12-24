@@ -1,11 +1,19 @@
 import {Document, Schema, models, model, Types, ClientSession} from 'mongoose'
 import bcrypt from 'bcryptjs'
-import {InstanceObject} from './Instance.model'
-import {GroupObject} from './Group.model'
+import {InstanceObject} from '../services/instance.actions'
+import {GroupObject} from '../services/group.actions'
 
 //* INTERFACES:
 
 export interface UserDocument extends Document {
+  // Relaciones:
+  adminOf: Types.ObjectId[]
+  memberOf: Types.ObjectId[]
+  coordinatorOf: Types.ObjectId[]
+  editorOf: Types.ObjectId[]
+  viewerOf: Types.ObjectId[]
+
+  // Datos generales:
   name: string
   email: string
   email_verified: Date
@@ -13,14 +21,12 @@ export interface UserDocument extends Document {
   fullname?: string
   password?: string
   image?: string
-  adminOf: Types.ObjectId[]
-  memberOf: Types.ObjectId[]
-  coordinatorOf: Types.ObjectId[]
-  editorOf: Types.ObjectId[]
-  viewerOf: Types.ObjectId[]
+
+  // favs
   fav_caves: Types.ObjectId[]
   fav_systems: Types.ObjectId[]
   fav_explorations: Types.ObjectId[]
+
   comparePassword(candidatePassword: string): Promise<boolean>
   pushAdminOf(groupId: string, session?: ClientSession): Promise<UserDocument>
   removeAdminOf(groupId: string, session?: ClientSession): Promise<UserDocument>

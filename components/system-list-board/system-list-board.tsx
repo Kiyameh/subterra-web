@@ -1,7 +1,7 @@
 import React from 'react'
 import {auth} from '@/auth'
 import {SystemIndex, getSystemIndex} from '@/database/services/system.actions'
-import {checkIsEditor} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.actions'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllSystemsTable from '@/components/system-list-board/all-systems-table'
 
@@ -19,7 +19,7 @@ export default async function SystemListBoard({
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isEditor = (await checkIsEditor(userId, instanceName)).ok as boolean
+  const isEditor = await checkIsEditor(userId, instanceName)
 
   if (!systemIndex)
     return (

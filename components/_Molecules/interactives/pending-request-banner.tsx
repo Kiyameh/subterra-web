@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 
-import {PopulatedGroup} from '@/database/models/Group.model'
 import PendingRequestDialog from '@/components/_Molecules/interactives/pending-request-dialog'
 
 import {Button} from '@/components/ui/button'
 import {TiUserAdd} from 'react-icons/ti'
 import {IoCloseSharp} from 'react-icons/io5'
+import {GroupWithUsers} from '@/database/services/group.actions'
 
 /**
  * @version 1
@@ -19,7 +19,7 @@ export default function PendingRequestBanner({
   requests,
   groupId,
 }: {
-  requests: PopulatedGroup['member_requests']
+  requests: GroupWithUsers['member_requests']
   groupId: string
 }) {
   const [openDialogId, setOpenDialogId] = React.useState<string | null>(null)

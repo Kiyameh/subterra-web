@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/select'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
-import {GroupIndex} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/services/group.actions'
 import {CaveIndex} from '@/database/services/cave.actions'
 import {ExplorationIndex} from '@/database/services/exploration.actions'
 import {SystemIndex} from '@/database/services/system.actions'

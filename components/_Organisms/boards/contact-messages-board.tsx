@@ -58,10 +58,12 @@ export default function ContactMessagesBoard({
             </Button>
             <span className="text-xs ">{`Mensaje #${card._id.toString()}`}</span>
           </div>
-          <TextSlot
-            label="Usuario"
-            value={card.user.toString()}
-          />
+          {card.user && (
+            <TextSlot
+              label="Usuario"
+              value={card.user.toString()}
+            />
+          )}
           <LinkSlot
             label="Email"
             value={card.email}

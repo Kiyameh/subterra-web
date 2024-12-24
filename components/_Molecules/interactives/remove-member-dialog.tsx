@@ -2,7 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {removeMember} from '@/database/services/group.services'
+import {removeMember} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/answer.type'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'

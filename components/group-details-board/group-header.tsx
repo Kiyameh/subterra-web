@@ -1,7 +1,7 @@
 import React from 'react'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getOneGroup} from '@/database/services/group.services'
+import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+
 import {FaUserGroup} from 'react-icons/fa6'
 
 /**
@@ -12,8 +12,7 @@ import {FaUserGroup} from 'react-icons/fa6'
 
 export default async function GroupHeader({groupName}: {groupName: string}) {
   // Obtener la instancia
-  const group = (await getOneGroup(groupName))
-    .content as PopulatedInstance | null
+  const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   return (
     <HeaderBox

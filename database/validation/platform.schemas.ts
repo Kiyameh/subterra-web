@@ -1,13 +1,13 @@
 import {z} from 'zod'
-import {contactSubjects} from '@/database/models/Platform.enums'
+import {contactSubjects} from '@/database/models/Platform.model'
 
 /**
  * @const Máximos de caracteres permitidos en los campos de un contacto
  */
 
 export const contactMaxCharacters = {
-  user: 20,
-  email: 20,
+  user: 24,
+  email: 99,
   message: 1000,
 }
 
@@ -16,10 +16,13 @@ export const contactMaxCharacters = {
  */
 
 export const contactFormSchema = z.object({
-  user: z.string().max(contactMaxCharacters.user, {message: 'Demasiado largo'}),
+  user: z
+    .string()
+    .max(contactMaxCharacters.user, {message: 'Demasiado largo'})
+    .optional(),
   email: z
     .string()
-    .email()
+    .email({message: 'Email requerido'})
     .max(contactMaxCharacters.email, {message: 'Demasiado largo'}),
   subject: z.enum(contactSubjects),
   message: z

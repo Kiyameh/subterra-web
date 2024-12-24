@@ -3,17 +3,16 @@ import {connectToMongoDB} from '@/database/databaseConection'
 import {Answer} from '@/database/types/answer.type'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 
-import User from '@/database/models/User.model'
-import {UserDocument} from '@/database/models/User.model'
+import User, {UserIndex, UserObject} from '@/database/models/User.model'
 
 import Group from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import {GroupIndex} from '@/database/models/Group.model'
 
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
 import {MemberRequestValues} from '@/components/_Molecules/interactives/group-notification-area/membership-request-dialog'
+import Instance from '../models/Instance.model'
+import {InstanceIndex} from './instance.actions'
 
 //* 1. Funciones de escritura */
 
@@ -31,16 +30,10 @@ export async function createGroup(
   try {
     // Validación:
     const validated = await GroupFormSchema.parseAsync(values)
-    if (!validated || !commanderId) {
-      return {ok: false, message: 'Datos no válidos'} as Answer
-    }
+    if (!validated || !commanderId) throw new Error('Datos no válidos')
 
-    // Crear nuevo grupo con los valores de miembro y admin asignados:
-    const newGroup = new Group({
-      ...values,
-      admin: commanderId,
-      members: [commanderId],
-    })
+    // Crear nuevo grupo con los valores:
+    const newGroup = new Group(values)
 
     // Iniciar transacción para garantizar la integridad de los datos
     //? https://mongoosejs.com/docs/transactions.html
@@ -63,7 +56,7 @@ export async function createGroup(
 
     if (!savedGroup || !updatedUser) {
       session.endSession()
-      return {ok: false, message: 'Algo ha ido mal'} as Answer
+      throw new Error('Error al guardar el grupo')
     }
 
     await session.commitTransaction()
@@ -74,8 +67,8 @@ export async function createGroup(
       message: 'Grupo creado correctamente',
       redirect: `/group/${values.name}`,
     } as Answer
-  } catch (e) {
-    return decodeMongoError(e)
+  } catch (error) {
+    return decodeMongoError(error)
   }
 }
 
@@ -95,12 +88,7 @@ export async function updateGroup(
   try {
     // Validación:
     const validated = await GroupFormSchema.parseAsync(values)
-    if (!validated) {
-      return {
-        ok: false,
-        message: 'Datos no válidos',
-      } as Answer
-    }
+    if (!validated) throw new Error('Datos no válidos')
 
     // Obtener grupo a editar:
     await connectToMongoDB()
@@ -108,7 +96,8 @@ export async function updateGroup(
     if (!groupToUpdate) throw new Error('Grupo no encontrado')
 
     // Comprobar si el ordenante es el admin del grupo:
-    const commanderIsAdmin = groupToUpdate.admin.toString() === commanderId
+
+    const commanderIsAdmin = checkIsAdmin(commanderId, groupToUpdate.name)
     if (!commanderIsAdmin) throw new Error('No es admin de este grupo')
 
     // Actualización de grupo:
@@ -192,6 +181,17 @@ export async function getOneGroupIndex(name: string) {
 }
 
 /**
+ * @type Retorno de la función getGroupsIndex y getOneGroupIndex
+ */
+
+export interface GroupIndex {
+  _id: string
+  name: string
+  fullname: string
+  province: string
+}
+
+/**
  * @version 2
  * @description Función para obtener un grupo
  * @param name nombre del grupo
@@ -201,22 +201,69 @@ export async function getOneGroupIndex(name: string) {
 export async function getOneGroup(name: string) {
   try {
     await connectToMongoDB()
+
     const group: GroupDocument | null = await Group.findOne({name: name})
-      .populate({path: 'admin', model: User})
-      .populate({path: 'members', model: User})
       .populate({path: 'member_requests.user', model: User})
       .exec()
+
+    if (!group) throw new Error('Grupo no encontrado')
+
+    const instances = await Instance.find({
+      owner: group._id,
+    })
+      .select('_id name fullname territory is_online')
+      .exec()
+
+    const admins = await User.find({
+      adminOf: {$in: [group._id]},
+    })
+      .select('_id name fullname image email')
+      .exec()
+
+    const members = await User.find({
+      memberOf: {$in: [group._id]},
+    })
+      .select('_id name fullname image email')
+      .exec()
+
+    const populatedGroup = {
+      ...group.toObject(),
+      members,
+      admins,
+      instances,
+    }
     //? Transforma a objeto plano para poder pasar a componentes cliente de Next
-    const groupPOJO = JSON.parse(JSON.stringify(group))
+    const groupPOJO = JSON.parse(JSON.stringify(populatedGroup))
+
     return {
       ok: true,
       message: 'Grupo obtenido',
-      content: groupPOJO as PopulatedGroup,
+      content: groupPOJO as GroupWithUsers,
     } as Answer
   } catch (error) {
     console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
+}
+
+/**
+ * @type Retorno de la función getOneGroup
+ */
+
+export interface GroupObject extends Omit<GroupDocument, 'member_requests'> {
+  _id: string
+  __v: number
+  createdAt: Date
+  updatedAt: Date
+
+  member_requests: {_id: string; user: string; message: string}[]
+}
+
+export interface GroupWithUsers extends Omit<GroupObject, 'member_requests'> {
+  member_requests: {_id: string; user: UserObject; message: string}[]
+  instances: InstanceIndex[]
+  admins: UserIndex[]
+  members: UserIndex[]
 }
 
 //* 3. Funciones de membresía */
@@ -224,27 +271,88 @@ export async function getOneGroup(name: string) {
 /**
  * @version 1
  * @description Función para comprobar si un usuario es miembro de un grupo
- * @param groupName nombre del grupo
  * @param userId _id del usuario
+ * @param groupName nombre del grupo
  */
 export async function checkIsMember(
-  groupName: string,
-  userId: string | undefined | null
-) {
+  userId: string | undefined | null,
+  groupName: string
+): Promise<boolean> {
   try {
     await connectToMongoDB()
-    const matchingGroup: GroupDocument | null = await Group.findOne({
-      name: groupName,
-      members: {$in: [userId]},
-    })
-    if (!matchingGroup) {
-      return {ok: false, message: 'No eres miembro'} as Answer
-    }
 
-    return {
-      ok: true,
-      message: 'Eres miembro',
-    } as Answer
+    const groupId = await Group.findOne({name: groupName}).select('_id').exec()
+
+    const matchingMember = await User.findOne({
+      _id: userId,
+      memberOf: {$in: groupId},
+    })
+      .select('_id')
+      .exec()
+
+    if (!matchingMember) return false
+
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para comprobar si un usuario es admin de un grupo
+ * @param userId _id del usuario
+ * @param groupName nombre del grupo
+ */
+export async function checkIsAdmin(
+  userId: string | undefined,
+  groupName: string
+): Promise<boolean> {
+  try {
+    await connectToMongoDB()
+
+    const groupId = await Group.findOne({name: groupName}).select('_id').exec()
+
+    const matchingAdmin = await User.findOne({
+      _id: userId,
+      adminOf: {$in: groupId},
+    })
+      .select('_id')
+      .exec()
+
+    if (!matchingAdmin) return false
+
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para eliminar un miembro de un grupo
+ * @param groupId _id del grupo
+ * @param userId _id del usuario
+ */
+
+export async function removeMember(groupId: string, userId: string | null) {
+  try {
+    await connectToMongoDB()
+
+    // TODO: Validar commander
+
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: userId},
+      {
+        $pull: {memberOf: groupId},
+      }
+    )
+
+    if (!updatedUser) throw new Error('Error al eliminar miembro')
+
+    return {ok: true, message: 'Miembro eliminado'} as Answer
   } catch (error) {
     console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
@@ -253,32 +361,59 @@ export async function checkIsMember(
 
 /**
  * @version 1
- * @description Función para comprobar si un usuario es admin de un grupo
- * @param groupName nombre del grupo
+ * @description Función para promocionar miembro como administrador
+ * @param groupId _id del grupo
  * @param userId _id del usuario
  */
-export async function checkIsAdmin(
-  groupName: string,
-  userId: string | undefined
-) {
+
+export async function promoteAdmin(groupId: string, userId: string | null) {
   try {
     await connectToMongoDB()
-    const matchingGroup: GroupDocument | null = await Group.findOne({
-      name: groupName,
-      admin: userId,
-    })
-    if (!matchingGroup) {
-      return {
-        ok: false,
-        message: 'No eres admin de este grupo',
-      } as Answer
-    }
-    return {ok: true, message: 'Eres admin de este grupo'} as Answer
+
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: userId},
+      {
+        $push: {adminOf: groupId},
+      }
+    )
+
+    if (!updatedUser) throw new Error('Error al promocionar miembro')
+
+    return {ok: true, message: 'Miembro promocionado'} as Answer
   } catch (error) {
     console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
+
+/**
+ * @version 1
+ * @description Función para degradar administrador a miembro
+ * @param groupId _id del grupo
+ * @param userId _id del usuario
+ */
+
+export async function demoteAdmin(groupId: string, userId: string | null) {
+  try {
+    await connectToMongoDB()
+
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: userId},
+      {
+        $pull: {adminOf: groupId},
+      }
+    )
+
+    if (!updatedUser) throw new Error('Error al degradar admin')
+
+    return {ok: true, message: 'Admin degradado'} as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+}
+
+//* 4. Funciones de peticiones de miembro */
 
 /**
  * @version 1
@@ -344,22 +479,26 @@ export async function acceptMemberRequest(groupId: string, requestId: string) {
     )
     if (!request) throw new Error('Solicitud no encontrada')
 
-    // Obtener usuario:
+    // Obtener id usuario:
     const userId: string = request.user._id.toString()
-    const user: UserDocument | null = await User.findById(userId)
-    if (!user) throw new Error('Usuario no encontrado')
 
     // Iniciar transacción:
     const session = await conection.startSession()
     session.startTransaction()
 
     // Actualizar datos
-    const updatedUser = user.pushMemberOf(groupId, session)
-    const updatedGroup = group.pushMember(userId, session)
-    const removed = group.removeMemberRequest(requestId, session)
+    const newMember = await User.findOneAndUpdate(
+      {_id: userId},
+      {
+        $push: {memberOf: group._id},
+      },
+      {session: session}
+    )
+
+    const removedRequest = group.removeMemberRequest(requestId, session)
 
     // Terminar transacción
-    if (!updatedUser || !updatedGroup || !removed) {
+    if (!newMember || !removedRequest) {
       session.abortTransaction()
       session.endSession()
       throw new Error('Error al actualizar los datos')
@@ -394,58 +533,6 @@ export async function rejectMemberRequest(groupId: string, requestId: string) {
 
     // TODO: Enviar email de feedback
     return {ok: true, message: 'Solicitud rechazada'} as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, message: 'Error desconocido'} as Answer
-  }
-}
-
-/**
- * @version 1
- * @description Función para eliminar un miembro de un grupo
- * @param groupId _id del grupo
- * @param userId _id del usuario
- */
-
-export async function removeMember(groupId: string, userId: string | null) {
-  try {
-    await connectToMongoDB()
-    const group: GroupDocument | null = await Group.findById(groupId)
-    if (!group) throw new Error('Grupo no encontrado')
-
-    const isMember = await checkIsMember(group.name, userId)
-    if (!userId || !isMember.ok) throw new Error('Usuario no es miembro')
-
-    const updated = await group.removeMember(userId)
-    if (!updated) throw new Error('Error al eliminar el miembro')
-
-    return {ok: true, message: 'Miembro eliminado'} as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, message: 'Error desconocido'} as Answer
-  }
-}
-
-/**
- * @version 1
- * @description Función para promocionar miembro como administrador
- * @param groupId _id del grupo
- * @param userId _id del usuario
- */
-
-export async function promoteAdmin(groupId: string, userId: string | null) {
-  try {
-    await connectToMongoDB()
-    const group: GroupDocument | null = await Group.findById(groupId)
-    if (!group) throw new Error('Grupo no encontrado')
-
-    const isMember = await checkIsMember(group.name, userId)
-    if (!userId || !isMember.ok) throw new Error('Usuario no es miembro')
-
-    const updated = await group.setAdmin(userId)
-    if (!updated) throw new Error('Error al promocionar miembro')
-
-    return {ok: true, message: 'Miembro promocionado'} as Answer
   } catch (error) {
     console.error(error)
     return {ok: false, message: 'Error desconocido'} as Answer

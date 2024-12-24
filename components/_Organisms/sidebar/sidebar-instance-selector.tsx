@@ -21,9 +21,9 @@ import {LuBox} from 'react-icons/lu'
 
 import Link from 'next/link'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
-import {InstanceIndex} from '@/database/models/Instance.model'
 import {Button} from '../../ui/button'
 import {MdNavigateNext} from 'react-icons/md'
+import {InstanceIndex} from '@/database/services/instance.actions'
 
 interface Props {
   instancesIndex: InstanceIndex[] | null
@@ -32,8 +32,8 @@ interface Props {
 
 /**
  * Panel de selección de instancias para colocar en un Sidebar
- * @param instancesIndex - Lista de instancias <PopulatedInstance[]>
- * @param currentInstanceIndex - Instancia actual <PopulatedInstance>
+ * @param instancesIndex - Lista de instancias <InstanceWithUsers[]>
+ * @param currentInstanceIndex - Instancia actual
  */
 
 export default function SidebarInstanceSelector({

@@ -2,7 +2,6 @@
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 import {Answer} from '@/database/types/answer.type'
-import {checkIsEditor} from './instance.services'
 
 import Cave from '@/database/models/Cave.model'
 import {CaveDocument} from '@/database/models/Cave.model'
@@ -15,6 +14,7 @@ import {SystemFormSchema} from '../validation/system.schemas'
 import Instance from '../models/Instance.model'
 import {PlainCave} from './cave.actions'
 import {redirect, RedirectType} from 'next/navigation'
+import {checkIsEditor} from './instance.actions'
 
 //* 1. Funciones de escritura */
 
@@ -36,8 +36,8 @@ export async function createSystem(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
-    // Comprobar si el commander es editor de la instancia
-    const isEditor = checkIsEditor(commanderId, null, values.instances[0])
+    // TODO: Si en un futuro habrá más de una instancia por sistema, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Crear sistema:
@@ -76,8 +76,8 @@ export async function updateSystem(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
-    // Comprobar si el commander es editor de la instancia
-    const isEditor = checkIsEditor(commanderId, null, values.instances[0])
+    // TODO: Si en un futuro habrá más de una instancia por sistema, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Actualizar el sistema en memoria:
@@ -115,8 +115,8 @@ export async function deleteSystem(
       await System.findOne({_id: systemId}).select('instances').exec()
     )?.instances
 
-    // TODO: Si en un futuro habrá más de una instancia por exploración, cambiar el método de comprobación
-    const isEditor = checkIsEditor(commanderId, null, instances[0])
+    // TODO: Si en un futuro habrá más de una instancia por sistema, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Eliminar el sistema:

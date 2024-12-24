@@ -23,7 +23,7 @@ export default function ReactHookFormErrorBox<T extends FieldValues>({
     ) => {
       for (const key in errorObj) {
         if (errorObj[key]?.message) {
-          errorMessages.push(`${errorObj[key].message}`)
+          errorMessages.push(`${parentKey}${key} : ${errorObj[key].message}`)
         } else {
           extractMessages(
             errorObj[key] as FieldErrors<T>,

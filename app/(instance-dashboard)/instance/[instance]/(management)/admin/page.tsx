@@ -4,8 +4,8 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import InstanceEditionForm from '@/components/_Organisms/forms/instance-edition-form'
 import PageContainer from '@/components/theming/page-container'
-import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getOneInstance} from '@/database/services/instance.services'
+import {InstanceWithUsers} from '@/database/services/instance.actions'
+import {getOneInstance} from '@/database/services/instance.actions'
 import {MdModeEdit} from 'react-icons/md'
 
 interface PageProps {
@@ -21,7 +21,7 @@ export default async function InstanceAdminPage({params}: PageProps) {
 
   // Obtener la instancia
   const instance = (await getOneInstance(instanceName))
-    .content as PopulatedInstance | null
+    .content as InstanceWithUsers | null
 
   if (!instance) {
     return (

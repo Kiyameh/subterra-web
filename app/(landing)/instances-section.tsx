@@ -1,9 +1,10 @@
-import InstancesBoard from '@/components/_Organisms/boards/all-instances-board'
-import React from 'react'
+import AllInstancesPanel from '@/components/_Organisms/boards/all-instances-panel'
+import React, {Suspense} from 'react'
 import {LuBox} from 'react-icons/lu'
 import PageContainer from '@/components/theming/page-container'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import DownAnchor from '@/components/_Atoms/buttons/down-anchor'
+import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
 
 export default function InstancesSection() {
   return (
@@ -24,7 +25,21 @@ export default function InstancesSection() {
           Subterra.
         </p>
       </BasicCard>
-      <InstancesBoard />
+
+      <div className="max-w-full flex flex-wrap justify-center gap-4">
+        <Suspense
+          fallback={
+            <>
+              <SkeletonCard defaultWidth="sm" />
+              <SkeletonCard defaultWidth="sm" />
+              <SkeletonCard defaultWidth="sm" />
+            </>
+          }
+        >
+          <AllInstancesPanel />
+        </Suspense>
+      </div>
+
       <nav>
         <DownAnchor href="#groups-section" />
       </nav>

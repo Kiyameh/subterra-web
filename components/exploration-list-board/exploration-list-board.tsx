@@ -4,7 +4,7 @@ import {
   ExplorationIndex,
   getExplorationsIndex,
 } from '@/database/services/exploration.actions'
-import {checkIsEditor} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.actions'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllExplorationsTable from '@/components/exploration-list-board/all-explorations-table'
 
@@ -21,7 +21,7 @@ export default async function ExplorationListBoard({
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isEditor = (await checkIsEditor(userId, instanceName)).ok as boolean
+  const isEditor = await checkIsEditor(userId, instanceName)
 
   if (!explorationIndex)
     return (

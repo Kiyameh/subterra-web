@@ -6,7 +6,7 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import SystemCreationForm from '@/components/_Organisms/forms/system-creation-form'
 import PageContainer from '@/components/theming/page-container'
-import {getInstanceId} from '@/database/services/instance.services'
+import {getInstanceId} from '@/database/services/instance.actions'
 
 import {RiApps2AddLine} from 'react-icons/ri'
 

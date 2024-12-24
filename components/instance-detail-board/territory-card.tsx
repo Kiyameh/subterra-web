@@ -1,8 +1,8 @@
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
-import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getOneInstance} from '@/database/services/instance.services'
+import {InstanceWithUsers} from '@/database/services/instance.actions'
+import {getOneInstance} from '@/database/services/instance.actions'
 import React from 'react'
 import {IoMdMap} from 'react-icons/io'
 
@@ -13,7 +13,7 @@ export default async function TerritoryCard({
 }) {
   // Obtener la instancia
   const instance = (await getOneInstance(instanceName))
-    .content as PopulatedInstance | null
+    .content as InstanceWithUsers | null
 
   return (
     <BasicCard

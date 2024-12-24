@@ -7,7 +7,7 @@ import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card'
 /**
  * @version 1
  * @description Card con slots para imagen, heaedr, footer y children. Opción glassmorphism.
- * @param defaultWidth Ancho por defecto ["md": 460, "lg": 600, "xl": 940, "xxl": 1220]
+ * @param defaultWidth Ancho por defecto ["sm": 384, "md": 460, "lg": 600, "xl": 940, "xxl": 1220]
  * @param image Imagen superior
  * @param cardHeader Cabecera de la card
  * @param cardFooter Pie de la card

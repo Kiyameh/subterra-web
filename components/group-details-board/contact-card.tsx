@@ -4,13 +4,13 @@ import {LinkSlot} from '../_Atoms/slots/link-slots'
 import {TextSlot} from '../_Atoms/slots/text-slots'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {MdAlternateEmail} from 'react-icons/md'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import {getOneGroup} from '@/database/services/group.services'
+import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
 export default async function ContactCard({groupName}: {groupName: string}) {
   // Obtener el grupo
-  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+  const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   if (!group) {
     return (

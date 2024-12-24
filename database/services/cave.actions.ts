@@ -2,7 +2,7 @@
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 import {Answer} from '@/database/types/answer.type'
-import {checkIsEditor} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.actions'
 
 import Cave from '@/database/models/Cave.model'
 import {CaveDocument} from '@/database/models/Cave.model'
@@ -39,8 +39,8 @@ export async function createCave(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
-    // Comprobar si el commander es editor de la instancia
-    const isEditor = checkIsEditor(commanderId, null, values.instances[0]) // TODO: Modificar checkIsEditor para solo ID
+    // TODO: Si en un futuro habrá más de una instancia por cueva, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Crear cueva:
@@ -55,7 +55,6 @@ export async function createCave(
       _id: savedCave._id.toString(),
     } as Answer
   } catch (error) {
-    //TODO: Revisar esta función:
     return decodeMongoError(error)
   }
 }
@@ -79,8 +78,8 @@ export async function updateCave(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
-    // Comprobar si el commander es editor de la instancia
-    const isEditor = checkIsEditor(commanderId, null, values.instances[0]) // TODO: Modificar checkIsEditor para solo ID
+    // TODO: Si en un futuro habrá más de una instancia por cueva, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Actualizar la cueva:
@@ -96,7 +95,6 @@ export async function updateCave(
       _id: updatedCave._id.toString(),
     } as Answer
   } catch (error) {
-    //TODO: Revisar esta función:
     return decodeMongoError(error)
   }
 }
@@ -119,9 +117,8 @@ export async function deleteCave(
       await Cave.findOne({_id: caveId}).select('instances').exec()
     )?.instances
 
-    // TODO: Si en un futuro habrá más de una instancia por exploración, cambiar el método de comprobación
-    const isEditor = checkIsEditor(commanderId, null, instances[0])
-    // TODO: Modificar checkIsEditor para solo ID
+    // TODO: Si en un futuro habrá más de una instancia por cueva, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Eliminar la cueva:

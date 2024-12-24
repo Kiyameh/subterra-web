@@ -4,7 +4,7 @@ import {redirect, RedirectType} from 'next/navigation'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 import {Answer} from '@/database/types/answer.type'
-import {checkIsEditor} from './instance.services'
+import {checkIsEditor} from './instance.actions'
 
 import Exploration from '@/database/models/Exploration.model'
 import {ExplorationDocument} from '@/database/models/Exploration.model'
@@ -15,11 +15,11 @@ import Cave from '@/database/models/Cave.model'
 import {CaveDocument} from '@/database/models/Cave.model'
 
 import Group from '@/database/models/Group.model'
-import {GroupObject} from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
 
 import Instance from '@/database/models/Instance.model'
 import {PlainCave} from './cave.actions'
+import {GroupObject} from './group.actions'
 
 //* 1. Funciones de escritura */
 
@@ -41,8 +41,8 @@ export async function createExploration(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
-    // Comprobar si el commander es editor de la instancia
-    const isEditor = checkIsEditor(commanderId, null, values.instances[0])
+    // TODO: Si en un futuro habrá más de una instancia por exploración, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Guardar la exploración en la base de datos
@@ -83,8 +83,8 @@ export async function updateExploration(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
-    // Comprobar si el commander es editor de la instancia
-    const isEditor = checkIsEditor(commanderId, null, values.instances[0])
+    // TODO: Si en un futuro habrá más de una instancia por exploración, cambiar el método de comprobación
+    const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     // Actualizar la exploración:
@@ -126,7 +126,7 @@ export async function deleteExploration(
     )?.instances
 
     // TODO: Si en un futuro habrá más de una instancia por exploración, cambiar el método de comprobación
-    const isEditor = checkIsEditor(commanderId, null, instances[0])
+    const isEditor = await checkIsEditor(commanderId, null, instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
     const deletedExploration =

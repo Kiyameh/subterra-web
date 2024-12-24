@@ -7,9 +7,8 @@ import {
 } from '@/database/validation/auth.schemas'
 import {Answer} from '@/database/types/answer.type'
 import {connectToMongoDB} from '@/database/databaseConection'
-import User, {UserDocument, UserObject} from '@/database/models/User.model'
+import User, {UserObject} from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import Group from '../models/Group.model'
 
 /**
  * Función de registro de nuevo usuario
@@ -124,31 +123,3 @@ export async function checkCredentials(
  * content?: PopulatedUser
  * }
  */
-
-export async function getUserById(id: string) {
-  try {
-    await connectToMongoDB()
-    const user: UserDocument = await User.findOne({
-      _id: id,
-    })
-      .populate({path: 'adminOf', model: Group})
-      .populate({path: 'memberOf', model: Group})
-      .populate({path: 'coordinatorOf', model: Group})
-      .populate({path: 'editorOf', model: Group})
-      .populate({path: 'viewerOf', model: Group})
-      // .populate({path: 'fav_caves', model: Cave}) //TODO: Añadir cuando este el tipo hecho
-      // .populate({path: 'fav_systems', model: System}) //TODO: Añadir cuando este el tipo hecho
-      // .populate({path: 'fav_explorations', model: Exploration}) //TODO: Añadir cuando este el tipo hecho
-      .exec()
-    const userPOJO = user.toJSON()
-    return {
-      ok: true,
-      code: 200,
-      message: 'Usuario obtenido',
-      content: userPOJO as UserObject,
-    } as Answer
-  } catch (error) {
-    console.error(error)
-    return {ok: false, code: 500, message: 'Error desconocido'} as Answer
-  }
-}

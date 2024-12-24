@@ -8,7 +8,7 @@ import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
 import {instanceRequestMaxCharacters} from '@/database/validation/platform.schemas'
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 import {addInstanceRequest} from '@/database/services/platform.services'
-import {GroupIndex} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
@@ -88,15 +88,15 @@ export default function InstanceRequestForm({
           control={form.control}
           name="description"
           label="Descripción"
-          description="Descripción detallada de la información que se quiere almacenar. Incluido formato de los datos si se tienen"
-          placeholder="Registro de exploraciones del club de la cabra en la sierra..."
+          description="Descripción detallada de la información que se quiere almacenar. Incluido el formato de los datos si se tienen"
+          placeholder="Registro de exploraciones del club en la sierra..."
           maxCharacters={instanceRequestMaxCharacters.description}
         />
         <TextAreaField
           control={form.control}
           name="territory"
           label="Extensión territorial"
-          description="Información sobre el territorio que abarca la instancia"
+          description="Describe que territorio abarca la instancia. Puede ser una descripción textual o un enlace con los límites geográficos"
           placeholder="Límites del parque natural de la sierra de la cabra. Provincia de Nuevatierra"
           maxCharacters={instanceRequestMaxCharacters.territory}
         />

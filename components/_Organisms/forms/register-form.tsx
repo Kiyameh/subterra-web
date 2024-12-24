@@ -5,13 +5,14 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useRouter} from 'next/navigation'
 
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
-import {signUp} from '@/database/services/user.services'
+import {signUp} from '@/database/services/user.actions'
 import {Answer} from '@/database/types/answer.type'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
+import BackButton from '@/components/_Atoms/buttons/back-button'
 
 const EMPTY_USER: SignUpValues = {
   email: '',
@@ -90,7 +91,7 @@ export default function RegisterForm() {
         />
 
         <DbAwnserBox answer={dbAnswer} />
-        <SubmitButton isPending={isPending} />
+        {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
       </form>
     </Form>
   )

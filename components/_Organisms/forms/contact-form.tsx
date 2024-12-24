@@ -7,7 +7,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {contactMaxCharacters} from '@/database/validation/platform.schemas'
 import {contactFormSchema} from '@/database/validation/platform.schemas'
 import {ContactFormValues} from '@/database/validation/platform.schemas'
-import {contactSubjects} from '@/database/models/Platform.enums'
+import {contactSubjects} from '@/database/models/Platform.model'
 import {addContactMessage} from '@/database/services/platform.services'
 import {Answer} from '@/database/types/answer.type'
 
@@ -18,6 +18,7 @@ import SelectField from '@/components/_Atoms/fields/select-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
+import BackButton from '@/components/_Atoms/buttons/back-button'
 
 /**
  * @version 1
@@ -28,7 +29,7 @@ import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 export default function ContactForm({
   commander,
 }: {
-  commander: Session['user'] | undefined
+  commander?: Session['user'] | undefined
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -44,7 +45,7 @@ export default function ContactForm({
   const form = useForm({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      user: commander?._id || '',
+      user: commander?._id || undefined,
       email: commander?.email || '',
       subject: 'Otro',
       message: '',
@@ -82,7 +83,7 @@ export default function ContactForm({
           maxCharacters={contactMaxCharacters.message}
         />
         <DbAwnserBox answer={dbAnswer} />
-        <SubmitButton isPending={isPending} />
+        {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
       </form>
     </Form>
   )

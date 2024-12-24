@@ -4,10 +4,12 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {Form} from '@/components/ui/form'
 
-import {PopulatedInstance} from '@/database/models/Instance.model'
 import {UpdateInstanceFormSchema} from '@/database/validation/instance.schemas'
 import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
-import {updateInstance} from '@/database/services/instance.services'
+import {
+  InstanceWithUsers,
+  updateInstance,
+} from '@/database/services/instance.actions'
 import {Answer} from '@/database/types/answer.type'
 
 import LinkButton from '@/components/_Atoms/buttons/link-button'
@@ -29,7 +31,7 @@ export default function InstanceEditionForm({
   initialData,
   commanderId,
 }: {
-  initialData: PopulatedInstance
+  initialData: InstanceWithUsers
   commanderId: string
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
@@ -68,7 +70,7 @@ export default function InstanceEditionForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-3xl space-y-8 py-10"
+        className="mx-auto max-w-3xl space-y-8 py-10 w-full"
       >
         <div className="text-xl">Editar instancia</div>
         <TextField

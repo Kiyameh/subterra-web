@@ -21,7 +21,8 @@ import InfoBadge from '@/components/_Atoms/badges/info-badge'
  * @param placeholder Placeholder del campo
  * @param startContent Contenido al inicio del campo
  * @param endContent Contenido al final del campo
- * @param maxCharacters Número máximo de caracteres
+ * @param maxCharacters Número máximo de caracteres+
+ * @param hidden Campo oculto
  * @default type 'text'
  *
  */
@@ -36,6 +37,7 @@ export default function TextField<T extends FieldValues>({
   startContent,
   endContent,
   maxCharacters,
+  hidden,
 }: {
   control: Control<T>
   name: Path<T>
@@ -46,6 +48,7 @@ export default function TextField<T extends FieldValues>({
   startContent?: React.ReactNode
   endContent?: React.ReactNode
   maxCharacters?: number | null
+  hidden?: boolean
 }) {
   return (
     <FormField
@@ -60,6 +63,7 @@ export default function TextField<T extends FieldValues>({
             </div>
             <FormControl>
               <Input
+                hidden={hidden}
                 className={
                   fieldState.isDirty && !fieldState.error
                     ? 'border border-emphasis'

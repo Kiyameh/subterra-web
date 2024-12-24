@@ -14,7 +14,7 @@ import {ContactFormValues} from '@/database/validation/platform.schemas'
 import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 
-//* 1. Funciones generales */
+//* 1. Funciones de consulta */
 
 /**
  * @version 1
@@ -58,9 +58,7 @@ export async function addContactMessage(message: ContactFormValues) {
   try {
     // Validar los datos:
     const validated = await contactFormSchema.parseAsync(message)
-    if (!validated) {
-      return {ok: false, message: 'Datos no válidos'} as Answer
-    }
+    if (!validated) throw new Error('Datos no válidos')
 
     // Buscar la plataforma subterra:
     await connectToMongoDB()
@@ -78,7 +76,7 @@ export async function addContactMessage(message: ContactFormValues) {
     return {ok: true, message: 'Mensaje enviado'} as Answer
   } catch (error) {
     console.error(error)
-    return {ok: false, content: error} as Answer
+    return {ok: false, message: 'Error desconocido'} as Answer
   }
 }
 
@@ -123,9 +121,7 @@ export async function addInstanceRequest(request: InstanceRequestFormValues) {
   try {
     // Validar los datos:
     const validated = await instanceRequestFormSchema.parseAsync(request)
-    if (!validated) {
-      return {ok: false, message: 'Datos no válidos'} as Answer
-    }
+    if (!validated) throw new Error('Datos no válidos')
 
     // Buscar la plataforma subterra:
     await connectToMongoDB()

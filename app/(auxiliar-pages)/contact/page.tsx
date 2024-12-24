@@ -1,15 +1,14 @@
 import {auth} from '@/auth'
 
-import ContactForm from '@/components/_Organisms/forms/contact-form'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
+import ContactForm from '@/components/_Organisms/forms/contact-form'
 import PageContainer from '@/components/theming/page-container'
 
 import {BiSolidMessage} from 'react-icons/bi'
 
 export default async function ContactPage() {
-  const session = await auth()
-  const user = session?.user
+  const user = (await auth())?.user
 
   return (
     <PageContainer>
@@ -25,7 +24,7 @@ export default async function ContactPage() {
           </CollapsibleBox>
         }
       >
-        <ContactForm commander={user || undefined} />
+        <ContactForm commander={user} />
       </CardWithHeader>
     </PageContainer>
   )

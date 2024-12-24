@@ -1,10 +1,25 @@
 import {model, models, Schema, Types, Document} from 'mongoose'
-import {contactSubjects} from './Platform.enums'
+
+/**
+ * @enum con los datos disponibles en el campo subject del formulario de contacto.
+ */
+export const contactSubjects = [
+  'Incidencia técnica',
+  'Solicitud de información',
+  'Sugerencia',
+  'Feedback plataforma',
+  'Otro',
+] as const
+
+/**
+ * @type Tipo del campo "subject" del formulario de contacto.
+ */
+export type ContactSubjects = (typeof contactSubjects)[number]
 
 //* INTERFACES:
 
 export interface ContactMessage extends Document {
-  user: string
+  user?: string
   email: string
   message: string
   subject: (typeof contactSubjects)[number]
@@ -29,6 +44,7 @@ export interface PlatformDocument extends Document {
   staff: Types.ObjectId[]
   instance_requests: InstanceRequest[]
   contact_messages: ContactMessage[]
+
   checkIsStaff(userId: string): boolean
   pushContactMessage(newMessage: ContactMessage): Promise<PlatformDocument>
   removeContactMessage(messageId: string): Promise<PlatformDocument>
@@ -55,7 +71,7 @@ const platformSchema = new Schema<PlatformDocument>({
   ],
   contact_messages: [
     {
-      user: {type: String, required: true},
+      user: {type: String},
       email: {type: String, required: true},
       subject: {type: String, enum: contactSubjects, required: true},
       message: {type: String, required: true},

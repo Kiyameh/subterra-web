@@ -9,7 +9,7 @@ import {
   explorationMaxCharacters,
 } from '@/database/validation/exploration.schemas'
 import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
-import {GroupIndex} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/services/group.actions'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'

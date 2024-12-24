@@ -1,5 +1,5 @@
 import React from 'react'
-import {GroupIndex} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/services/group.actions'
 import {FaUserGroup} from 'react-icons/fa6'
 
 /**

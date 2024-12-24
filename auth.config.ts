@@ -4,7 +4,7 @@ import Google from 'next-auth/providers/google'
 import {DefaultJWT} from 'next-auth/jwt'
 
 import {SignInValues} from '@/database/validation/auth.schemas'
-import {checkCredentials} from './database/services/user.services'
+import {checkCredentials} from './database/services/user.actions'
 import {UserDocument} from './database/models/User.model'
 
 // ? Extensión de las interfaces de User, token y session para añadir ID

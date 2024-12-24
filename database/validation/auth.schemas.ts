@@ -6,6 +6,7 @@ import {z} from 'zod'
 
 export const userMaxCharacters = {
   name: 20,
+  email: 99,
   fullname: 40,
   password: 20,
 }
@@ -15,9 +16,10 @@ export const userMaxCharacters = {
  */
 
 export const SignInSchema = z.object({
-  email: z.string().email({
-    message: 'Email no válido',
-  }),
+  email: z
+    .string()
+    .email({message: 'Email requerido'})
+    .max(userMaxCharacters.email, {message: 'Demasiado largo'}),
   password: z
     .string()
     .min(1, {message: 'Contraseña requerida'})
@@ -44,7 +46,10 @@ export const SignUpSchema = z
       .string()
       .max(userMaxCharacters.fullname, {message: 'Demasiado largo'})
       .trim(),
-    email: z.string().email({message: 'Email incorrecto'}),
+    email: z
+      .string()
+      .email({message: 'Email requerido'})
+      .max(userMaxCharacters.email, {message: 'Demasiado largo'}),
     password: z
       .string()
       .min(8, {message: 'Mínimo 8 caracteres'})

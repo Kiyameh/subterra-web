@@ -1,6 +1,6 @@
 import React from 'react'
-import {PopulatedInstance} from '@/database/models/Instance.model'
 import Link from 'next/link'
+import {InstanceWithOwner} from '@/database/services/instance.actions'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
@@ -20,7 +20,7 @@ export default function InstanceCard({
   glassmorphism = false,
   className,
 }: {
-  instance: PopulatedInstance
+  instance: InstanceWithOwner
   glassmorphism?: boolean
   className?: string
 }) {

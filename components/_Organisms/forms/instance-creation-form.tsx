@@ -4,9 +4,12 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/answer.type'
-import {InstanceFormValues} from '@/database/validation/instance.schemas'
+import {
+  InstanceFormValues,
+  instanceMaxCharacters,
+} from '@/database/validation/instance.schemas'
 import {InstanceFormSchema} from '@/database/validation/instance.schemas'
-import {createInstance} from '@/database/services/instance.services'
+import {createInstance} from '@/database/services/instance.actions'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
@@ -14,6 +17,8 @@ import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import BooleanField from '@/components/_Atoms/fields/boolean-field'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+import {Button} from '@/components/ui/button'
 
 const EMPTY_INSTANCE: InstanceFormValues = {
   name: '',
@@ -54,6 +59,12 @@ export default function InstanceCreationForm({
     })
   }
 
+  function handleReset(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    form.reset()
+    setDbAnswer(null)
+  }
+
   return (
     <Form {...form}>
       <form
@@ -64,26 +75,31 @@ export default function InstanceCreationForm({
           control={form.control}
           name="name"
           label="Nombre corto"
+          maxCharacters={instanceMaxCharacters.name}
         />
         <TextField
           control={form.control}
           name="fullname"
           label="Nombre completo"
+          maxCharacters={instanceMaxCharacters.fullname}
         />
         <TextField
           control={form.control}
           name="acronym"
           label="Siglas"
+          maxCharacters={instanceMaxCharacters.acronym}
         />
         <TextAreaField
           control={form.control}
           name="description"
           label="Descripción"
+          maxCharacters={instanceMaxCharacters.description}
         />
         <TextField
           control={form.control}
           name="territory"
           label="Territorio"
+          maxCharacters={instanceMaxCharacters.territory}
         />
         <TextField
           control={form.control}
@@ -105,9 +121,15 @@ export default function InstanceCreationForm({
           name="public_edition"
           label="Edición pública"
         />
+        <ReactHookFormErrorBox errors={form.formState.errors} />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
-          <p>Instancia creadad</p>
+          <Button
+            variant="secondary"
+            onClick={handleReset}
+          >
+            Crear otra instancia
+          </Button>
         ) : (
           <SubmitButton
             label="Crear instancia"

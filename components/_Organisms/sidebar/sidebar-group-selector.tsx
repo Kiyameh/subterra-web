@@ -20,7 +20,7 @@ import {LuChevronsUpDown} from 'react-icons/lu'
 import {FaUserGroup} from 'react-icons/fa6'
 import {MdNavigateNext} from 'react-icons/md'
 
-import {GroupIndex} from '@/database/models/Group.model'
+import {GroupIndex} from '@/database/services/group.actions'
 import {Button} from '../../ui/button'
 
 interface Props {
@@ -30,8 +30,8 @@ interface Props {
 
 /**
  * Panel de selección de grupo para colocar en un Sidebar
- * @param groupsIndex - Lista de grupos <PopulatedGroup[]>
- * @param currentGroupIndex - Grupo actual <PopulatedGroup>
+ * @param groupsIndex - Lista de grupos <GroupWithUsers[]>
+ * @param currentGroupIndex - Grupo actual <GroupWithUsers>
  */
 
 export default function SidebarGroupSelector({

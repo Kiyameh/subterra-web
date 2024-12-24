@@ -1,6 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {checkIsEditor} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.actions'
 import EditDocumentBanner from '@/components/_Molecules/interactives/document-notification-area/edit-document-banner'
 
 export default async function DocumentNotificationArea({
@@ -14,9 +14,7 @@ export default async function DocumentNotificationArea({
   const userId = (await auth())?.user?._id as string | null
 
   // Validar roles de usuario
-  const isEditor = (await checkIsEditor(userId, instanceName)).ok as
-    | boolean
-    | null
+  const isEditor = await checkIsEditor(userId, instanceName)
 
   // Definir etiquetas
 

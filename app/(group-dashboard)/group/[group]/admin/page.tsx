@@ -1,20 +1,19 @@
 import React from 'react'
+import Link from 'next/link'
 import {auth} from '@/auth'
-import {getOneGroup} from '@/database/services/group.services'
-import {PopulatedGroup} from '@/database/models/Group.model'
+import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import PendingRequestBanner from '@/components/_Molecules/interactives/pending-request-banner'
 import PageContainer from '@/components/theming/page-container'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import GroupEditionForm from '@/components/_Organisms/forms/group-edition-form'
-import {FiBox} from 'react-icons/fi'
-import {MdModeEdit} from 'react-icons/md'
 import SquareButton from '@/components/_Atoms/buttons/square-button'
-import {RiAddBoxLine} from 'react-icons/ri'
-import Link from 'next/link'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
+import {RiAddBoxLine} from 'react-icons/ri'
+import {FiBox} from 'react-icons/fi'
+import {MdModeEdit} from 'react-icons/md'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -28,7 +27,7 @@ export default async function GroupAdminPage({params}: PageProps) {
   const userId = (await auth())?.user?._id as string | null
 
   // Obtener el grupo
-  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+  const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   // Peticiones de membresía pendientes
   const request = group?.member_requests

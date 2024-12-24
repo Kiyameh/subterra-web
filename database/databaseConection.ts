@@ -14,7 +14,7 @@ export async function connectToMongoDB(): Promise<Connection> {
   const conectionURI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}Mgo$@subterradb.c0hrufd.mongodb.net/?retryWrites=true&w=majority`
 
   if (cachedConnection) {
-    console.log('<Mongoose> Usando conexión cacheada')
+    //console.error('<Mongoose> Usando conexión cacheada')
     return cachedConnection
   }
 
@@ -24,7 +24,7 @@ export async function connectToMongoDB(): Promise<Connection> {
     // Cachear la conexión
     cachedConnection = cnx.connection
     // Mensaje de conexión exitosa
-    console.log('<Mongoose> DB conectada')
+    //console.error('<Mongoose> DB conectada')
     return cachedConnection
   } catch (error) {
     console.error(error)

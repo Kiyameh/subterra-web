@@ -1,7 +1,7 @@
 import React from 'react'
 import {auth} from '@/auth'
 import UnauthorizedCard from '@/components/_Molecules/cards/401-unauthorized'
-import {checkIsEditor} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.actions'
 
 interface LayoutProps {
   params: Promise<{instance: string}>
@@ -16,7 +16,7 @@ export default async function EditorLayout({params, children}: LayoutProps) {
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isEditor = (await checkIsEditor(userId, instanceName)).ok as boolean
+  const isEditor = await checkIsEditor(userId, instanceName)
 
   if (!isEditor) return <UnauthorizedCard />
 

@@ -104,7 +104,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
     setDbAnswer(null)
     startTransition(async () => {
       const answer = await FakeValitationFunction(values)
-      console.log(answer.content)
+      console.error(answer.content)
       setDbAnswer(answer)
     })
   }

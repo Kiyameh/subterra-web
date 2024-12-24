@@ -4,13 +4,13 @@ import {TextSlot} from '../_Atoms/slots/text-slots'
 import {MultiChipSlot} from '../_Atoms/slots/chip-slots'
 import {IoMdInformationCircle} from 'react-icons/io'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
-import {PopulatedGroup} from '@/database/models/Group.model'
-import {getOneGroup} from '@/database/services/group.services'
+
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
+import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
 export default async function GroupInfoCard({groupName}: {groupName: string}) {
   // Obtener el grupo
-  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+  const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   return (
     <BasicCard

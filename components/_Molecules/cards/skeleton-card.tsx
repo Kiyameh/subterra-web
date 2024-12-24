@@ -1,16 +1,27 @@
-import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import React from 'react'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+
+/**
+ * @version 1
+ * @description Esqueleto de card
+ * @param defaultWidth Ancho por defecto ["sm": 384, "md": 460, "lg": 600, "xl": 940, "xxl": 1220]
+ * @param glassmorphism Añadir efecto Glassmorphism
+ * @param className Clases adicionales para componente Card
+ */
 
 export default function SkeletonCard({
   defaultWidth = 'md',
+  glassmorphism,
   className,
 }: {
   defaultWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  glassmorphism?: boolean
   className?: string
 }) {
   return (
     <BasicCard
       className={className}
+      glassmorphism={glassmorphism}
       defaultWidth={defaultWidth}
     >
       <div className="flex flex-row gap-4">

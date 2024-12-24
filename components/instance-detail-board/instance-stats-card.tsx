@@ -2,11 +2,11 @@ import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
-import {PopulatedInstance} from '@/database/models/Instance.model'
 import {
   getInstanceStats,
-  getOneInstance,
-} from '@/database/services/instance.services'
+  InstanceWithUsers,
+} from '@/database/services/instance.actions'
+import {getOneInstance} from '@/database/services/instance.actions'
 import React from 'react'
 import {ImStatsBars} from 'react-icons/im'
 
@@ -17,7 +17,7 @@ export default async function InstanceStatsCard({
 }) {
   // Obtener la instancia
   const instance = (await getOneInstance(instanceName))
-    .content as PopulatedInstance | null
+    .content as InstanceWithUsers | null
 
   if (!instance) {
     return (

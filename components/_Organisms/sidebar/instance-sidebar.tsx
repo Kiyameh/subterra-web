@@ -2,10 +2,10 @@ import * as React from 'react'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
 
-import {InstanceIndex} from '@/database/models/Instance.model'
-import {checkIsCoordinator} from '@/database/services/instance.services'
-import {checkIsEditor} from '@/database/services/instance.services'
-import {getInstancesIndex} from '@/database/services/instance.services'
+import {InstanceIndex} from '@/database/services/instance.actions'
+import {checkIsCoordinator} from '@/database/services/instance.actions'
+import {checkIsEditor} from '@/database/services/instance.actions'
+import {getInstancesIndex} from '@/database/services/instance.actions'
 
 import {
   Sidebar,
@@ -45,10 +45,9 @@ export default async function InstanceSidebar({
   ) as InstanceIndex | null
 
   // Comprobar si el usuario es editor de la instancia:
-  const isEditor = (await checkIsEditor(user?._id, instanceName)).ok as boolean
+  const isEditor = await checkIsEditor(user?._id, instanceName)
   // Comprobar si el usuario es coordinador de la instancia:
-  const isCoordinator = (await checkIsCoordinator(instanceName, user?._id))
-    .ok as boolean
+  const isCoordinator = await checkIsCoordinator(user?._id, instanceName)
   return (
     <Sidebar
       collapsible="icon"

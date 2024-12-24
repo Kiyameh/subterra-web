@@ -1,14 +1,13 @@
 import React from 'react'
 
-import {getSomeInstances} from '@/database/services/instance.services'
-import {PopulatedInstance} from '@/database/models/Instance.model'
-import {getOneGroup} from '@/database/services/group.services'
-import {PopulatedGroup} from '@/database/models/Group.model'
+import {getSomeInstances} from '@/database/services/instance.actions'
+import {InstanceWithUsers} from '@/database/services/instance.actions'
 
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import GroupInstancesTable, {
   GroupInstancesTableRow,
 } from './group-instances-table'
+import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
 export default async function GroupInstancesBoard({
   groupName,
@@ -16,12 +15,12 @@ export default async function GroupInstancesBoard({
   groupName: string
 }) {
   // Obtener el grupo
-  const group = (await getOneGroup(groupName)).content as PopulatedGroup | null
+  const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   // Obtener instancias
-  const instances = (await getSomeInstances(group?.instances)).content as
-    | PopulatedInstance[]
-    | null
+  const instances = (
+    await getSomeInstances(group?.instances.map((instance) => instance._id))
+  ).content as InstanceWithUsers[] | null
 
   // Validar roles de usuario
   if (!group || !instances) {
@@ -41,7 +40,7 @@ export default async function GroupInstancesBoard({
     fullname: instance.fullname,
     territory: instance.territory,
     editors: instance.editors.map((editor) => editor.name),
-    coordinator: instance.coordinator.name,
+    coordinators: instance.coordinators.map((coordinator) => coordinator.name),
   }))
 
   return <GroupInstancesTable rows={rows} />

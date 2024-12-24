@@ -1,12 +1,12 @@
 import React from 'react'
-import {PopulatedInstance} from '@/database/models/Instance.model'
+import {InstanceWithUsers} from '@/database/services/instance.actions'
+import {getOneInstance} from '@/database/services/instance.actions'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {IoMdInformationCircle} from 'react-icons/io'
-import {getOneInstance} from '@/database/services/instance.services'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
 export default async function InstanceInfoCard({
@@ -16,7 +16,7 @@ export default async function InstanceInfoCard({
 }) {
   // Obtener la instancia
   const instance = (await getOneInstance(instanceName))
-    .content as PopulatedInstance | null
+    .content as InstanceWithUsers | null
 
   return (
     <BasicCard

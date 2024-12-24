@@ -17,7 +17,7 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
 import {FaUserLock} from 'react-icons/fa6'
-import {promoteCoordinator} from '@/database/services/instance.services'
+import {promoteCoordinator} from '@/database/services/instance.actions'
 
 /**
  * @version 1

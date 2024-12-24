@@ -2,10 +2,10 @@ import * as React from 'react'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
 
-import {GroupIndex} from '@/database/models/Group.model'
-import {checkIsAdmin} from '@/database/services/group.services'
-import {checkIsMember} from '@/database/services/group.services'
-import {getGroupsIndex} from '@/database/services/group.services'
+import {GroupIndex} from '@/database/services/group.actions'
+import {checkIsAdmin} from '@/database/services/group.actions'
+import {checkIsMember} from '@/database/services/group.actions'
+import {getGroupsIndex} from '@/database/services/group.actions'
 
 import {
   Sidebar,
@@ -41,11 +41,10 @@ export default async function GroupSidebar({
   ) as GroupIndex | null
 
   // Comprobar si el usuario es miembro del grupo:
-  const isMember = (await checkIsMember(groupName, user?._id)).ok as boolean
+  const isMember = await checkIsMember(user?._id, groupName)
 
   // Comprobar si el usuario es admin del grupo:
-  const isAdmin = (await checkIsAdmin(groupName, user?._id)).ok as boolean
-
+  const isAdmin = await checkIsAdmin(user?._id, groupName)
   return (
     <Sidebar
       collapsible="icon"

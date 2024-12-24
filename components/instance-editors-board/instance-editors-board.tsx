@@ -1,15 +1,15 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {
-  checkIsCoordinator,
-  getOneInstance,
-} from '@/database/services/instance.services'
 
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import {PopulatedInstance} from '@/database/models/Instance.model'
 import InstanceEditorsTable, {
   InstanceEditorsTableRow,
 } from '@/components/instance-editors-board/instance-editors-table'
+import {
+  checkIsCoordinator,
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/instance.actions'
 
 export default async function InstasnceEditorsBoard({
   instanceName,
@@ -18,14 +18,14 @@ export default async function InstasnceEditorsBoard({
 }) {
   // Obtener la instancia
   const instance = (await getOneInstance(instanceName))
-    .content as PopulatedInstance | null
+    .content as InstanceWithUsers | null
+  console.log(instance)
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isCoordinator = (await checkIsCoordinator(instanceName, userId))
-    .ok as boolean
+  const isCoordinator = await checkIsCoordinator(userId, instanceName)
 
   if (!instance) {
     return (
@@ -43,7 +43,9 @@ export default async function InstasnceEditorsBoard({
     image: editor.image,
     fullname: editor.fullname,
     email: editor.email,
-    isCoordinator: instance.coordinator._id.toString() === editor._id,
+    isCoordinator: instance.coordinators
+      .map((c) => c._id.toString())
+      .includes(editor._id),
   }))
 
   return (

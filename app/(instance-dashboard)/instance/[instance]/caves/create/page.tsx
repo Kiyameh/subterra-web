@@ -5,7 +5,7 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import CaveCreationForm from '@/components/_Organisms/forms/cave-creation-form'
 import PageContainer from '@/components/theming/page-container'
-import {getInstanceId} from '@/database/services/instance.services'
+import {getInstanceId} from '@/database/services/instance.actions'
 import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
 import {LuPlusCircle} from 'react-icons/lu'
 

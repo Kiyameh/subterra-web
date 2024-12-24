@@ -24,7 +24,7 @@ export interface GroupMembersTableRow {
   name: string
   image: string | undefined
   fullname: string | undefined
-  email: string
+  email: string | undefined
   isAdmin: boolean
 }
 

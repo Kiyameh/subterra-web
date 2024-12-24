@@ -1,7 +1,7 @@
 import React from 'react'
 import {auth} from '@/auth'
 import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
-import {checkIsEditor} from '@/database/services/instance.services'
+import {checkIsEditor} from '@/database/services/instance.actions'
 import AllCavesTable from '@/components/cave-list-board/all-caves-table'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 
@@ -19,7 +19,7 @@ export default async function CaveListBoard({
   const userId = (await auth())?.user?._id
 
   // Validar roles de usuario
-  const isEditor = (await checkIsEditor(userId, instanceName)).ok as boolean
+  const isEditor = await checkIsEditor(userId, instanceName)
 
   if (!cavesIndex)
     return (

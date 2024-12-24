@@ -16,7 +16,7 @@ export interface GroupInstancesTableRow {
   name: string
   fullname: string | undefined
   territory: string | undefined
-  coordinator: string
+  coordinators: string[]
   editors: string[]
 }
 
@@ -50,12 +50,14 @@ export default function GroupInstancesTable({
       header: 'Coordinador',
       cell: ({row}) => (
         <div className="flex gap-2">
-          <Badge
-            variant="secondary"
-            key={row.original.coordinator}
-          >
-            {row.original.coordinator}
-          </Badge>
+          {row.original.coordinators.map((coordinator) => (
+            <Badge
+              variant="secondary"
+              key={coordinator}
+            >
+              {coordinator}
+            </Badge>
+          ))}
         </div>
       ),
     },

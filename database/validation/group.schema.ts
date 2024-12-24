@@ -11,7 +11,6 @@ const countryNames = countries.map((country) => country.native)
  * @const Nombres de provincias para las validaciones
  */
 const stateNames = states.map((state) => state.name)
-
 /**
  * @const Máximos de caracteres permitidos en los campos de un grupo
  */
@@ -28,6 +27,7 @@ export const groupMaxCharacters = {
   postal_code: 99999,
   city: 100,
   phone: 20,
+  email: 99,
   webpage: 100,
 }
 
@@ -102,7 +102,11 @@ export const GroupFormSchema = z.object({
     .string()
     .max(groupMaxCharacters.phone, {message: 'Demasiado largo'})
     .optional(),
-  email: z.string().email(),
+  email: z
+    .string()
+    .email({message: 'Email incorrecto'})
+    .max(groupMaxCharacters.email, {message: 'Demasiado largo'})
+    .optional(),
   webpage: z
     .string()
     .max(groupMaxCharacters.webpage, {message: 'Demasiado largo'})

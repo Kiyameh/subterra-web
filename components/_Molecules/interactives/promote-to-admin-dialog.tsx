@@ -2,7 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {promoteAdmin} from '@/database/services/group.services'
+import {promoteAdmin} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/answer.type'
 
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
@@ -78,9 +78,8 @@ export default function PromoteToAdminDialog({
           title="¿Estás seguro?"
           color="destructive"
         >
-          Solo puede haber un administrador por grupo, esta acción te
-          reemplazará como administrador del grupo y le dará a este usuario
-          todos tus permisos.
+          Esta acción convertirá a este miembro en administrador del grupo,
+          dandole acceso a todas las funciones de administración.
         </CollapsibleBox>
         <DbAwnserBox answer={dbAnswer} />
         <DialogFooter className="mt-6">

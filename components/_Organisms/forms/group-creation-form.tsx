@@ -3,10 +3,14 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {GroupFormValues} from '@/database/validation/group.schema'
+import {
+  GroupFormValues,
+  groupMaxCharacters,
+} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {createGroup} from '@/database/services/group.services'
+import {createGroup} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/answer.type'
+import {groupCategories} from '@/database/models/Group.enums'
 
 import {Form} from '@/components/ui/form'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
@@ -21,7 +25,6 @@ import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 
 import {TbWorld} from 'react-icons/tb'
 import {MdOutlineAlternateEmail} from 'react-icons/md'
-import {groupCategories} from '@/database/models/Group.enums'
 
 /**
  * @version 1
@@ -90,6 +93,7 @@ export default function GroupCreationForm({commander}: {commander: string}) {
           name="fullname"
           label="Nombre completo"
           placeholder="Grupo espeleológico Arcaute"
+          maxCharacters={groupMaxCharacters.fullname}
         />
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-4">
@@ -98,6 +102,7 @@ export default function GroupCreationForm({commander}: {commander: string}) {
               name="acronym"
               label="Acrónimo"
               placeholder="GEA"
+              maxCharacters={groupMaxCharacters.acronym}
             />
           </div>
           <div className="col-span-8">
@@ -107,6 +112,7 @@ export default function GroupCreationForm({commander}: {commander: string}) {
               label="Nombre corto"
               placeholder="arcaute"
               description="Este nombre será utilizado en la URL - subterra.app/group/nombre-corto"
+              maxCharacters={groupMaxCharacters.name}
             />
           </div>
         </div>
@@ -123,6 +129,7 @@ export default function GroupCreationForm({commander}: {commander: string}) {
           name="description"
           label="Texto de presentación"
           placeholder="El grupo lleva el apellido del famoso espeleólogo belga Félix Ruiz de Arcaute..."
+          maxCharacters={groupMaxCharacters.description}
         />
         <TextField
           control={form.control}

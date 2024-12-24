@@ -4,9 +4,9 @@ import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import PageContainer from '@/components/theming/page-container'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import {GroupIndex} from '@/database/models/Group.model'
-import {getOneGroupIndex} from '@/database/services/group.services'
+
 import {BiSolidMessage} from 'react-icons/bi'
+import {getOneGroupIndex, GroupIndex} from '@/database/services/group.actions'
 
 interface PageProps {
   params: Promise<{group: string}>
