@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
-import UserDropdownMenuContent from '@/components/account/user-dropdown-menu-content'
+import UserDropdownMenuContent from '@/components/floating-user-control/user-dropdown-menu-content'
 import {LuChevronsUpDown} from 'react-icons/lu'
 import {Session} from 'next-auth'
 

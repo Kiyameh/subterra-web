@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import AvatarButton from './avatar-button'
-import UserDropdownMenuContent from '@/components/account/user-dropdown-menu-content'
+import UserDropdownMenuContent from '@/components/floating-user-control/user-dropdown-menu-content'
 import {Session} from 'next-auth'
 
 interface Props {

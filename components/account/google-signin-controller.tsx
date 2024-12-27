@@ -2,7 +2,7 @@ import {signIn} from '@/auth'
 import {defaultAuthRedirect} from '@/routes'
 
 /**
- * Conponente que envuelve a otros elementos y los convierte en un botón para iniciar sesión con Google OAuth
+ * Componente que envuelve a otros elementos y los convierte en un botón para iniciar sesión con Google OAuth
  */
 export function SignInController({
   children,

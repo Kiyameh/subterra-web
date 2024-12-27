@@ -7,7 +7,7 @@ import Footer from '@/app/(landing)/Footer'
 
 import DesktopNav from '@/components/_Organisms/navs/nav-desktop'
 import MobileNav from '@/components/_Organisms/navs/nav-mobile'
-import FloatingAccountControls from '@/components/account/floating-account-controls'
+import FloatingAccountControls from '@/components/floating-user-control/floating-account-controls'
 
 //* Constantes:
 const sections = [

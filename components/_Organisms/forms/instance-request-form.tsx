@@ -66,12 +66,12 @@ export default function InstanceRequestForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <div className="flex gap-2 justify-stretch">
-          <div className="w-full">
+        <div className="flex gap-2 justify-evenly flex-wrap">
+          <div className="w-full max-w-sm">
             <span className="text-muted-foreground text-sm">Solicitante:</span>
             <UserProfileCard user={commander} />
           </div>
-          <div className="w-full">
+          <div className="w-full max-w-sm">
             <span className="text-muted-foreground text-sm">En nombre de:</span>
             <GroupProfileCard groupIndex={groupIndex} />
           </div>

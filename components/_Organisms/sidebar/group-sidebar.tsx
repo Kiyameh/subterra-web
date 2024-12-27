@@ -57,7 +57,6 @@ export default async function GroupSidebar({
           currentGroupIndex={currentGroupIndex}
         />
       </SidebarHeader>
-
       <SidebarContent>
         <SidebarRoleIndicator
           isEditor={isMember}

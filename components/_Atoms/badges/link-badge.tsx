@@ -58,7 +58,7 @@ export default function LinkBadge({
           className="w-fit"
         >
           <ResponsiveTooltip content={href}>
-            <Badge className="select-none rounded-full min-w-11 w-fit bg-muted hover:bg-muted-foreground/50 border border-muted-foreground cursor-pointer space-x-1">
+            <Badge className="select-none rounded-full min-w-28 w-fit bg-muted hover:bg-muted-foreground/50 border border-muted-foreground cursor-pointer space-x-1">
               <span className="hover:text-primary text-xs font-normal text-foreground/80 ">
                 {showText || value}
               </span>
