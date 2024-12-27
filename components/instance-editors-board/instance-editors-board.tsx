@@ -11,6 +11,12 @@ import {
   InstanceWithUsers,
 } from '@/database/services/instance.actions'
 
+/**
+ * @version 1
+ * @description Board de editores de una instancia
+ * @param instanceName Nombre de la instancia
+ */
+
 export default async function InstasnceEditorsBoard({
   instanceName,
 }: {

@@ -6,6 +6,10 @@ import {
 } from '@/database/services/instance.actions'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Panel que muestra todas las instancias
+ */
 export default async function AllInstancesPanel() {
   const instances = (await getAllInstances()).content as InstanceWithOwner[]
 

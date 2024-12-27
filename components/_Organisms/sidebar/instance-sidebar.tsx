@@ -27,6 +27,11 @@ interface InstanceSidebarProps extends React.ComponentProps<typeof Sidebar> {
   instanceName: string
 }
 
+/**
+ * @version 1
+ * @description Sidebar para instancias
+ * @param instanceName Nombre de la instancia
+ */
 export default async function InstanceSidebar({
   instanceName,
   ...props

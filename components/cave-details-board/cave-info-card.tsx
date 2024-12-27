@@ -15,6 +15,12 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 
 import {IoMdInformationCircle} from 'react-icons/io'
 
+/**
+ * @version 1
+ * @description Muestra la información general de una cavidad
+ * @param caveId Id de la cavidad
+ */
+
 export default async function CaveInfoCard({caveId}: {caveId: string}) {
   // Obtener la cavidad
   const cave = (await getPopulatedCave(caveId)).content as PopulatedCave | null

@@ -1,6 +1,11 @@
 import {cn} from '@/lib/utils'
 import React from 'react'
 
+/**
+ * @version 1
+ * @description Skeleton de un header
+ * @param classNeme Clases extra
+ */
 export default function SkeletonHeader({className}: {className?: string}) {
   return (
     <div

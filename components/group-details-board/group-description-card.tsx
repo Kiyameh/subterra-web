@@ -8,6 +8,12 @@ import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Muestra la descripción de un grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function GroupDescriptionCard({
   groupName,
 }: {

@@ -16,14 +16,12 @@ import {LuChevronsUpDown} from 'react-icons/lu'
 import {Session} from 'next-auth'
 
 /**
- * Panel de navegación de usuario para colocar en un Sidebar
+ * @version 1
+ * @description Panel de navegación de usuario para colocar en un Sidebar
  * @param user - Usuario actual de la sesión
  */
-interface SidebarMenuUserProps {
-  user: Session['user']
-}
 
-export default function SidebarUserMenu({user}: SidebarMenuUserProps) {
+export default function SidebarUserMenu({user}: {user: Session['user']}) {
   const {isMobile} = useSidebar()
 
   return (

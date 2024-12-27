@@ -9,6 +9,12 @@ import {IoMdInformationCircle} from 'react-icons/io'
 import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Muestra la información de un sistema
+ * @param systemId Id del sistema
+ */
+
 export default async function SystemInfoCard({systemId}: {systemId: string}) {
   // Obtener el sistema
   const system = (await getPlainSystem(systemId)).content as PlainSystem | null

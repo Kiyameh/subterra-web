@@ -5,16 +5,16 @@ import useCurrentSection from '@/hooks/use-current-section'
 import Link from 'next/link'
 import React from 'react'
 
-interface DesktopNavProps {
-  sections: Array<{id: string; label: string}>
-}
-
 /**
- * Navegación entres secciones para la versión desktop
- * type Section = {{id: string; label: string}}
- * @param {Section[]} sections
+ * @version 1
+ * @description Barra de navegación para escritorio
+ * @param sections Array de secciones de la página {id: string, label: string}
  */
-export default function DesktopNav({sections}: DesktopNavProps) {
+export default function DesktopNav({
+  sections,
+}: {
+  sections: Array<{id: string; label: string}>
+}) {
   const currentSection = useCurrentSection(sections)
 
   return (

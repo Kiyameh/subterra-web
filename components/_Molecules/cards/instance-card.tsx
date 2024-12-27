@@ -15,6 +15,14 @@ import {HiLink} from 'react-icons/hi'
 import {CardDescription, CardTitle} from '@/components/ui/card'
 import {LuBox} from 'react-icons/lu'
 
+/**
+ * @version 1
+ * @description Card personalizada para mostrar una instancia
+ * @param instance Instancia a mostrar
+ * @param glassmorphism Efecto de vidrio
+ * @param className Clases extra
+ */
+
 export default function InstanceCard({
   instance,
   glassmorphism = false,

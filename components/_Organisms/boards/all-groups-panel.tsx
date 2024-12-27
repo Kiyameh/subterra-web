@@ -5,6 +5,11 @@ import {GroupIndex} from '@/database/services/group.actions'
 import {GroupProfileCard} from '@/components/_Atoms/slots/group-slots'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Panel que muestra todos los grupos
+ */
+
 export default async function AllGroupsPanel() {
   const groups = (await getGroupsIndex()).content as GroupIndex[]
   if (!groups) return <FetchingErrorButton />

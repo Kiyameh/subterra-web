@@ -7,7 +7,8 @@ import Link from 'next/link'
 import {BiLogIn} from 'react-icons/bi'
 
 /**
- * Botón de inicio de sesión para colocar en un Sidebar
+ * @version 1
+ * @description Botón de inicio de sesión para colocar en un Sidebar
  */
 
 export default function SidebarLoginButton() {

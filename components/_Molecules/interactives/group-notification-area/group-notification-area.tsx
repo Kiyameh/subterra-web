@@ -8,6 +8,12 @@ import {
 } from '@/database/services/group.actions'
 import MembershipRequestBanner from './membership-request-banner'
 
+/**
+ * @version 1
+ * @description Área de notificación para página de presetanción de grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function GroupNotificationArea({
   groupName,
 }: {

@@ -9,6 +9,11 @@ import {ExplorationSlot} from '@/components/_Atoms/slots/documents-slots'
 
 import {MdOutlineExplore} from 'react-icons/md'
 
+/**
+ * @version 1
+ * @description Muestra las exploraciones de una cavidad
+ * @param caveId Id de la cavidad
+ */
 export default async function ExplorationsCards({caveId}: {caveId: string}) {
   // Obtener la cavidad
   const cave = (await getPopulatedCave(caveId)).content as PopulatedCave | null

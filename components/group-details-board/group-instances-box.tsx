@@ -6,6 +6,12 @@ import React from 'react'
 import InstanceCard from '../_Molecules/cards/instance-card'
 import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
+/**
+ * @version 1
+ * @description Muestra las instancias de un grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function GroupInstancesBox({
   groupName,
 }: {

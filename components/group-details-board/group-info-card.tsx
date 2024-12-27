@@ -8,6 +8,12 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
+/**
+ * @version 1
+ * @description Muestra la información de un grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function GroupInfoCard({groupName}: {groupName: string}) {
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as GroupWithUsers | null

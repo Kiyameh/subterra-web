@@ -3,6 +3,13 @@ import {auth} from '@/auth'
 import {checkIsEditor} from '@/database/services/instance.actions'
 import EditDocumentBanner from '@/components/_Molecules/interactives/document-notification-area/edit-document-banner'
 
+/**
+ * @version 1
+ * @description Área de notificación para documentos cave, system  y exploration
+ * @param instanceName Nombre de la instancia
+ * @param type Tipo de documento
+ */
+
 export default async function DocumentNotificationArea({
   instanceName,
   type,

@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-// Icons
 import {LuChevronsUpDown} from 'react-icons/lu'
 import {LuBox} from 'react-icons/lu'
 
@@ -25,13 +24,9 @@ import {Button} from '../../ui/button'
 import {MdNavigateNext} from 'react-icons/md'
 import {InstanceIndex} from '@/database/services/instance.actions'
 
-interface Props {
-  instancesIndex: InstanceIndex[] | null
-  currentInstanceIndex: InstanceIndex | null
-}
-
 /**
- * Panel de selección de instancias para colocar en un Sidebar
+ * @version 1
+ * @description Panel de selección de instancias para colocar en un Sidebar
  * @param instancesIndex - Lista de instancias <InstanceWithUsers[]>
  * @param currentInstanceIndex - Instancia actual
  */
@@ -39,7 +34,10 @@ interface Props {
 export default function SidebarInstanceSelector({
   instancesIndex,
   currentInstanceIndex,
-}: Props) {
+}: {
+  instancesIndex: InstanceIndex[] | null
+  currentInstanceIndex: InstanceIndex | null
+}) {
   const {isMobile} = useSidebar()
 
   return (

@@ -5,6 +5,12 @@ import {checkIsEditor} from '@/database/services/instance.actions'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllSystemsTable from '@/components/system-list-board/all-systems-table'
 
+/**
+ * @version 1
+ * @description Board con todos los sistemas
+ * @param instanceName Nombre de la instancia
+ */
+
 export default async function SystemListBoard({
   instanceName,
 }: {

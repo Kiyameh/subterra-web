@@ -12,6 +12,12 @@ import {PlainCave} from '@/database/services/cave.actions'
 import {PlainExploration} from '@/database/services/exploration.actions'
 import {PlainSystem} from '@/database/services/system.actions'
 
+/**
+ * @version 1
+ * @description Slot que muestra una exploración con sus fechas y un botón para acceder a la vista de detalle.
+ * @param exploration Objeto de exploración
+ */
+
 export function ExplorationSlot({
   exploration,
 }: {
@@ -53,6 +59,12 @@ export function ExplorationSlot({
     </div>
   )
 }
+/**
+ * @version 1
+ * @description Slot que muestra una cueva con sus dimensiones y un botón para acceder a la vista de detalle.
+ * @param cave Objeto de cueva
+ */
+
 export function CaveSlot({cave}: {cave: PlainCave}) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
@@ -83,6 +95,11 @@ export function CaveSlot({cave}: {cave: PlainCave}) {
     </div>
   )
 }
+/**
+ * @version 1
+ * @description Slot que muestra un sistema con sus dimensiones y un botón para acceder a la vista de detalle.
+ * @param system Objeto de sistema
+ */
 export function SystemSlot({system}: {system: PlainSystem}) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()

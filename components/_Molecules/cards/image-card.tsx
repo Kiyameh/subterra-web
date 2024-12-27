@@ -3,11 +3,14 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import React from 'react'
 import {FaRegImage} from 'react-icons/fa'
 
-interface ImageCardProps {
-  src?: string
-  alt?: string
-}
-export default function ImageCard({}: ImageCardProps) {
+/**
+ * @version BETA
+ * @description Card personalizada para mostrar una imagen
+ * @param src Ruta de la imagen
+ * @param alt Texto alternativo de la imagen
+ */
+
+export default function ImageCard({}: {src?: string; alt?: string}) {
   return (
     <BasicCard
       key="image_card"

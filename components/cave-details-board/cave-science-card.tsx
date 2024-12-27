@@ -9,6 +9,12 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 
 import {MdOutlineScience} from 'react-icons/md'
 
+/**
+ * @version 1
+ * @description Muestra la información científica de una cavidad
+ * @param caveId Id de la cavidad
+ */
+
 export default async function CaveScienceCard({caveId}: {caveId: string}) {
   // Obtener la cavidad
   const cave = (await getPlainCave(caveId)).content as PlainCave | null

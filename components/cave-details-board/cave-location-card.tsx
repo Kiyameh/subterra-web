@@ -13,6 +13,12 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 
 import {FaMapLocationDot} from 'react-icons/fa6'
 
+/**
+ * @version 1
+ * @description Muestra la localización de una cavidad
+ * @param caveId Id de la cavidad
+ */
+
 export default async function CaveLocationCard({caveId}: {caveId: string}) {
   // Obtener la cavidad
   const cave = (await getPlainCave(caveId)).content as PlainCave | null

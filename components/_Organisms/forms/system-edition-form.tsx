@@ -33,7 +33,7 @@ import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 /**
  * @version 1
  * @description Formulario para editar un sistema
- * @param commanderId Editor que crea la cavidad
+ * @param commanderId Editor que crea el sistema
  * @param system Sistema a editar
  */
 

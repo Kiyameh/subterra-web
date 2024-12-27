@@ -8,6 +8,11 @@ import {checkIsEditor} from '@/database/services/instance.actions'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import AllExplorationsTable from '@/components/exploration-list-board/all-explorations-table'
 
+/**
+ * @version 1
+ * @description Board con la lista de exploraciones
+ * @param instanceName Nombre de la instancia
+ */
 export default async function ExplorationListBoard({
   instanceName,
 }: {

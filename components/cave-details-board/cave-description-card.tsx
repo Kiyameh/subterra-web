@@ -10,6 +10,12 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 
 import {BsCardText} from 'react-icons/bs'
 
+/**
+ * @version 1
+ * @description Muestra la descripción de una cavidad
+ * @param caveId Id de la cavidad
+ */
+
 export default async function CaveDescriptionCard({caveId}: {caveId: string}) {
   // Obtener la cavidad
   const cave = (await getPlainCave(caveId)).content as PlainCave | null

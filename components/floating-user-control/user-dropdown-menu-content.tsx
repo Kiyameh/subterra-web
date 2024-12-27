@@ -13,11 +13,17 @@ import {useRouter} from 'next/navigation'
 import {signOut} from 'next-auth/react'
 import {Session} from 'next-auth'
 
-interface Props {
-  user: Session['user']
-}
+/**
+ * @version 1
+ * @description Componente que renderiza el contenido del menú flotante de usuario
+ * @param user - Usuario de la sesión
+ */
 
-export default function UserDropdownMenuContent({user}: Props) {
+export default function UserDropdownMenuContent({
+  user,
+}: {
+  user: Session['user']
+}) {
   const router = useRouter()
 
   return (

@@ -29,20 +29,19 @@ import {GrChapterAdd} from 'react-icons/gr'
 import {FaUserEdit} from 'react-icons/fa'
 import {IoMdInformationCircleOutline} from 'react-icons/io'
 
-interface Props {
-  isEditor: boolean
-  isCoordinator: boolean
-}
-
 /**
- * Panel de navegación principal de instancias para colocar en un sidebar
+ * @version 1
+ * @description Panel de navegación principal de instancias para colocar en un sidebar
  * @param isEditor Si el usuario es editor
  * @param isCoordinator Si el usuario es administrador
  */
 export default function SidebarInstanceNavigation({
   isEditor,
   isCoordinator,
-}: Props) {
+}: {
+  isEditor: boolean
+  isCoordinator: boolean
+}) {
   const {instance} = useParams()
   const pathName = usePathname()
 

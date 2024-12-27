@@ -5,6 +5,10 @@ import {Button} from '@/components/ui/button'
 import {BiCommentError} from 'react-icons/bi'
 import {MdOutlineRefresh} from 'react-icons/md'
 
+/**
+ * @version 1
+ * @description Mensaje de error al cargar datos con botón de recarga de página
+ */
 export default function FetchingErrorButton() {
   const router = useRouter()
   return (

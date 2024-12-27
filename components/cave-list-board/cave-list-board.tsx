@@ -5,6 +5,12 @@ import {checkIsEditor} from '@/database/services/instance.actions'
 import AllCavesTable from '@/components/cave-list-board/all-caves-table'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 
+/**
+ * @version 1
+ * @description Board con la lista de cuevas
+ * @param instanceName Nombre de la instancia
+ */
+
 export default async function CaveListBoard({
   instanceName,
 }: {

@@ -16,6 +16,11 @@ import {MdOutlineTextSnippet} from 'react-icons/md'
 import {MdOutlineCookie} from 'react-icons/md'
 import {PiAvocadoFill} from 'react-icons/pi'
 
+/**
+ * @version 1
+ * @description Dropdown de navegación principal de la plataforma con icono de apertura
+ */
+
 export default function SubterraDropdown() {
   return (
     <DropdownMenu>

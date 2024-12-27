@@ -19,6 +19,13 @@ import {TbEditCircle} from 'react-icons/tb'
 import {FaMagnifyingGlass} from 'react-icons/fa6'
 import {FaRegCompass} from 'react-icons/fa'
 
+/**
+ * @version 1
+ * @description Muestra una tabla con todas las exploraciones de una instancia
+ * @param explorationsIndex Índice de exploraciones
+ * @param instanceName Nombre de la instancia
+ * @param isEditor Si el usuario es editor
+ */
 export default function AllExplorationTable({
   explorationsIndex,
   instanceName,

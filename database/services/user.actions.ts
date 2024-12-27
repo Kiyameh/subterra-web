@@ -11,15 +11,9 @@ import User, {UserObject} from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 
 /**
- * Función de registro de nuevo usuario
+ * @version 1
+ * @description Función para registrar un usuario
  * @param values SignUpValues - Valores de registro
- * @returns
- * answer{
- * ok: boolean,
- * code: number,
- * message: string,
- * redirect?: '/auth/login'
- * }
  */
 export async function signUp(values: SignUpValues) {
   //1. Validación de datos
@@ -47,7 +41,6 @@ export async function signUp(values: SignUpValues) {
       ok: true,
       code: 200,
       message: 'Usuario creado',
-      redirect: '/auth/login',
     } as Answer
   } catch (e) {
     return decodeMongoError(e)
@@ -55,16 +48,9 @@ export async function signUp(values: SignUpValues) {
 }
 
 /**
- * Función de autenticación de usuario
- * @param credentials {email,password} - Credenciales de usuario
- * @returns
- * answer{
- * ok: boolean,
- * code: number,
- * message: string,
- * content?: UserObject
- * redirect?: "/"
- * }
+ * @version 1
+ * @description Función para comprobar las credenciales de un usuario
+ * @param credentials SignInValues - Credenciales de inicio de sesión
  */
 export async function checkCredentials(
   credentials: SignInValues
@@ -111,15 +97,3 @@ export async function checkCredentials(
     return {ok: false, code: 500, message: 'Error en el servidor'} as Answer
   }
 }
-
-/**
- * Función para obtener un usuario por su id
- * @param id <string> id del usuario
- * @returns
- * answer{
- * ok: boolean,
- * code: number,
- * message: string,
- * content?: PopulatedUser
- * }
- */

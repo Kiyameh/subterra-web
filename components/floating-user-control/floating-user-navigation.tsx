@@ -9,11 +9,17 @@ import AvatarButton from './avatar-button'
 import UserDropdownMenuContent from '@/components/floating-user-control/user-dropdown-menu-content'
 import {Session} from 'next-auth'
 
-interface Props {
-  user: Session['user']
-}
+/**
+ * @version 1
+ * @description Componente que renderiza un menú flotante con opciones de usuario
+ * @param user - Usuario de la sesión
+ */
 
-export default function FloatingUserNavigation({user}: Props) {
+export default function FloatingUserNavigation({
+  user,
+}: {
+  user: Session['user']
+}) {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger>

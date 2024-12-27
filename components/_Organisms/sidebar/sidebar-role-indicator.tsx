@@ -3,16 +3,9 @@ import React from 'react'
 import {SidebarGroup, useSidebar} from '@/components/ui/sidebar'
 import {AdminBadge, EditorBadge} from '../../_Atoms/slots/user-slots'
 
-interface SidebarRoleIndicatorProps {
-  isEditor: boolean
-  isAdmin: boolean
-  editorTag?: string
-  adminTag?: string
-  editorText?: string
-  adminText?: string
-}
 /**
- * Componente para sidebar que indica el rol del usuario
+ * @version 1
+ * @description Componente para sidebar que indica el rol del usuario
  * @param isEditor
  * @param isAdmin
  * @param editorTag default: 'Editor'
@@ -28,7 +21,14 @@ export default function SidebarRoleIndicator({
   adminTag = 'Admin',
   editorText = 'Eres editor de esta instancia',
   adminText = 'Eres administrador de esta instancia',
-}: SidebarRoleIndicatorProps) {
+}: {
+  isEditor: boolean
+  isAdmin: boolean
+  editorTag?: string
+  adminTag?: string
+  editorText?: string
+  adminText?: string
+}) {
   const isOpen = useSidebar().open
   return (
     <SidebarGroup className="flex flex-row gap-2">

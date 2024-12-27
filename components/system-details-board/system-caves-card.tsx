@@ -8,6 +8,12 @@ import {
   PopulatedSystem,
 } from '@/database/services/system.actions'
 
+/**
+ * @version 1
+ * @description Muestra las cavidades de un sistema
+ * @param systemId Id del sistema
+ */
+
 export default async function SystemCavesCard({systemId}: {systemId: string}) {
   // Obtener el sistema
   const system = (await getPopulatedSystem(systemId))

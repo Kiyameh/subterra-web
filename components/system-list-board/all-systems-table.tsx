@@ -19,6 +19,14 @@ import {PiCirclesThreeBold} from 'react-icons/pi'
 import {TbEditCircle} from 'react-icons/tb'
 import {FaMagnifyingGlass} from 'react-icons/fa6'
 
+/**
+ * @version 1
+ * @description Muestra una tabla con todos los sistemas de una instancia
+ * @param systemIndex Lista de sistemas
+ * @param instanceName Nombre de la instancia
+ * @param isEditor Si el usuario es editor
+ */
+
 export default function AllSystemTable({
   systemIndex,
   instanceName,

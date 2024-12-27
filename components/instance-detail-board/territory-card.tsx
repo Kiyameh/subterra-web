@@ -6,6 +6,11 @@ import {getOneInstance} from '@/database/services/instance.actions'
 import React from 'react'
 import {IoMdMap} from 'react-icons/io'
 
+/**
+ * @version 1
+ * @description Muestra el territorio de una instancia
+ * @param instanceName Nombre de la instancia
+ */
 export default async function TerritoryCard({
   instanceName,
 }: {

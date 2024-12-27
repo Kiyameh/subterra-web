@@ -4,6 +4,15 @@ import Link from 'next/link'
 import {FaAnchor} from 'react-icons/fa'
 import ResponsiveTooltip from './responsive-tooltip'
 
+/**
+ * @version 1
+ * @description Badge para referencias a otros documentos de la plataforma
+ * @param value Objeto con la información de la referencia {name, _id}
+ * @param baseUrl URL base a la que redirigir
+ * @param showText Texto a mostrar en el badge
+ * @param type Tipo de referencia (cave, system, exploration, group)
+ */
+
 export default function RefBadge({
   value,
   baseUrl,

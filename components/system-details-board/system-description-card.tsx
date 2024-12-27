@@ -10,6 +10,12 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 
 import {BsCardText} from 'react-icons/bs'
 
+/**
+ * @version 1
+ * @description Muestra la descripción de un sistema
+ * @param systemId Id del sistema
+ */
+
 export default async function SystemDescriptionCard({
   systemId,
 }: {

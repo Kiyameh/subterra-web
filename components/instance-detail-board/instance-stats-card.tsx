@@ -10,6 +10,12 @@ import {getOneInstance} from '@/database/services/instance.actions'
 import React from 'react'
 import {ImStatsBars} from 'react-icons/im'
 
+/**
+ * @version 1
+ * @description Muestra las estadísticas de una instancia
+ * @param instanceName Nombre de la instancia
+ */
+
 export default async function InstanceStatsCard({
   instanceName,
 }: {

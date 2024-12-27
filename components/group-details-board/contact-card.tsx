@@ -8,6 +8,12 @@ import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Muestra la información de contacto de un grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function ContactCard({groupName}: {groupName: string}) {
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as GroupWithUsers | null

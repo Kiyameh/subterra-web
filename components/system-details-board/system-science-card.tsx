@@ -9,6 +9,12 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 
 import {MdOutlineScience} from 'react-icons/md'
 
+/**
+ * @version 1
+ * @description Muestra la información científica de un sistema
+ * @param systemId Id del sistema
+ */
+
 export default async function SystemScienceCard({
   systemId,
 }: {

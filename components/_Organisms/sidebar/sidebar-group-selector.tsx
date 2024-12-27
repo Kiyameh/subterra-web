@@ -23,13 +23,9 @@ import {MdNavigateNext} from 'react-icons/md'
 import {GroupIndex} from '@/database/services/group.actions'
 import {Button} from '../../ui/button'
 
-interface Props {
-  groupsIndex: GroupIndex[] | null
-  currentGroupIndex: GroupIndex | null
-}
-
 /**
- * Panel de selección de grupo para colocar en un Sidebar
+ * @version 1
+ * @description Panel de selección de grupo para colocar en un Sidebar
  * @param groupsIndex - Lista de grupos <GroupWithUsers[]>
  * @param currentGroupIndex - Grupo actual <GroupWithUsers>
  */
@@ -37,7 +33,10 @@ interface Props {
 export default function SidebarGroupSelector({
   groupsIndex,
   currentGroupIndex,
-}: Props) {
+}: {
+  groupsIndex: GroupIndex[] | null
+  currentGroupIndex: GroupIndex | null
+}) {
   const {isMobile} = useSidebar()
 
   return (

@@ -8,6 +8,12 @@ import {
   PopulatedExploration,
 } from '@/database/services/exploration.actions'
 
+/**
+ * @version 1
+ * @description Muestra las cavidades de una exploración
+ * @param explorationId Id de la exploración
+ */
+
 export default async function ExplorationCavesCard({
   explorationId,
 }: {

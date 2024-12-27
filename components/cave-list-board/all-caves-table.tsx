@@ -16,6 +16,14 @@ import DistanceBadge from '@/components/_Atoms/badges/distance-badge'
 import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'
 import {CaveIndex} from '@/database/services/cave.actions'
 
+/**
+ * @version 1
+ * @description Muestra una tabla con todas las cavidades de una instancia
+ * @param cavesIndex Índice de cavidades
+ * @param instanceName Nombre de la instancia
+ * @param isEditor Si el usuario es editor
+ */
+
 export default function AllCavesTable({
   cavesIndex,
   instanceName,

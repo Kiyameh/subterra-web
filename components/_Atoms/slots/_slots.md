@@ -22,4 +22,8 @@ Campos para mostrar una información junto con un label. Todos admiten valores n
 - UserProfileCard
 - GroupProfileCard
 
+- CaveSlot
+- SystemSlot
+- ExplorationSlot
+
 > Nota: Actualiza esta lista conforme se añadan nuevos componentes.

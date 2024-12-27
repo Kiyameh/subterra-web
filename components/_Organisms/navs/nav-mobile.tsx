@@ -4,16 +4,16 @@ import useCurrentSection from '@/hooks/use-current-section'
 import useScrollingVisibility from '@/hooks/use-scrolling-visibility'
 import Link from 'next/link'
 
-interface MobileNavProps {
-  sections: Array<{id: string; label: string}>
-}
-
 /**
- * Componenten de navegación entre secciones para la versión mobile
- * type Section = {id: string; label: string}
- * @param {Section[]} sections - Array de secciones de la página
+ * @version 1
+ * @description Barra de navegación para movil
+ * @param sections Array de secciones de la página {id: string, label: string}
  */
-export default function MobileNav({sections}: MobileNavProps) {
+export default function MobileNav({
+  sections,
+}: {
+  sections: Array<{id: string; label: string}>
+}) {
   const currentSection = useCurrentSection(sections)
   const isVisible = useScrollingVisibility(1000)
 

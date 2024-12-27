@@ -2,13 +2,16 @@ import {SidebarGroup, SidebarGroupLabel} from '@/components/ui/sidebar'
 import {Session} from 'next-auth'
 import {FaInfo} from 'react-icons/fa'
 
-interface Props {
+/**
+ * @version BETA
+ * @description Navegación de favoritos en la barra lateral
+ * @param user Usuario de la sesión
+ */
+export default function SidebarFavNavigation({
+  user,
+}: {
   user: Session['user'] | null
-}
-
-//TODO: Implementar funcionalidad
-//TODO: Documentar
-export default function SidebarFavNavigation({user}: Props) {
+}) {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>{`Favoritos de ${user?.name}`}</SidebarGroupLabel>

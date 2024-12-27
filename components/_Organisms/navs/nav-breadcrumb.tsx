@@ -8,6 +8,10 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 
+/**
+ * @version 1
+ * @description Breadcumb de navegación para los dashboards
+ */
 export default function NavigationBreadcrumb() {
   const pathname = usePathname()
   const segments = pathname.split('/').filter((part) => part)

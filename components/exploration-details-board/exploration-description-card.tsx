@@ -9,6 +9,11 @@ import {
 } from '@/database/services/exploration.actions'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Muestra la descripción de una exploración
+ * @param explorationId Id de la exploración
+ */
 export default async function ExplorationDescriptionCard({
   explorationId,
 }: {

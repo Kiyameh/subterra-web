@@ -10,13 +10,9 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 
-interface SidebarSearchBarProps {
-  placeholder?: string
-  baseUrl: string
-}
-
 /**
- * Barra de búsqueda para el sidebar
+ * @version 1
+ * @description Barra de búsqueda para el sidebar
  * @param placeholder - Placeholder del input
  * @param baseUrl - URL base para la búsqueda
  * Redirige a la url --> ${baseUrl}/search?query=:query
@@ -25,7 +21,10 @@ interface SidebarSearchBarProps {
 export default function SidebarSearchBar({
   placeholder = 'Buscar...',
   baseUrl,
-}: SidebarSearchBarProps) {
+}: {
+  placeholder?: string
+  baseUrl: string
+}) {
   const isOpen = useSidebar().open
   const router = useRouter()
   const [query, setQuery] = React.useState('')

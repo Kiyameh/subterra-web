@@ -9,6 +9,12 @@ import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {IoMdInformationCircle} from 'react-icons/io'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
+/**
+ * @version 1
+ * @description Muestra la información de una instancia
+ * @param instanceName Nombre de la instancia
+ */
+
 export default async function InstanceInfoCard({
   instanceName,
 }: {

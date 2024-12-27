@@ -9,6 +9,12 @@ import GroupInstancesTable, {
 } from './group-instances-table'
 import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
+/**
+ * @version 1
+ * @description Board de instancias de un grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function GroupInstancesBoard({
   groupName,
 }: {

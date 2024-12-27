@@ -46,9 +46,9 @@ const EMPTY_EXPLORATION: ExplorationFormValues = {
 
 /**
  * @version 1
- * @description Formulario para crear una cavidad
+ * @description Formulario para crear una exploración
  * @param instanceId Id de la instancia
- * @param commanderId Editor que crea la cavidad
+ * @param commanderId Editor que crea la exploración
  * @param groupIndex Índice de grupos
  * @param caveIndex Índice de cavidades
  */

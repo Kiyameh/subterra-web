@@ -25,6 +25,11 @@ interface GroupSidebarProps extends React.ComponentProps<typeof Sidebar> {
   groupName: string
 }
 
+/**
+ * @version 1
+ * @description Sidebar para grupos
+ * @param groupName Nombre del grupo
+ */
 export default async function GroupSidebar({
   groupName,
   ...props

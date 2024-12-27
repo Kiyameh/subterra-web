@@ -59,9 +59,9 @@ const EMPTY_SYSTEM: SystemFormValues = {
 
 /**
  * @version 1
- * @description Formulario para crear una cavidad
+ * @description Formulario para crear un sistema
  * @param instanceId Id de la instancia
- * @param commanderId Editor que crea la cavidad
+ * @param commanderId Editor que crea el sistema
  */
 
 export default function SystemCreationForm({

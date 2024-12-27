@@ -10,6 +10,7 @@ Componentes contenedores
 
 - CollapsibleBox
 - DbAnswerBox
+- ReactHookFormErrorBox
 
 - Divider
 

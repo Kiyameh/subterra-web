@@ -14,18 +14,20 @@ import {FaUserGroup} from 'react-icons/fa6'
 import {FaGear} from 'react-icons/fa6'
 import {FiBox} from 'react-icons/fi'
 
-interface Props {
-  isMember: boolean
-  isAdmin: boolean
-}
-
 /**
- * Panel de navegación principal de grupos para colocar en un sidebar
+ * @version 1
+ * @description Panel de navegación principal de grupos para colocar en un sidebar
  * @param isMember - Si el usuario es miembro
  * @param isAdmin - Si el usuario es administrador
  */
 
-export default function SidebarGroupNavigation({isMember, isAdmin}: Props) {
+export default function SidebarGroupNavigation({
+  isMember,
+  isAdmin,
+}: {
+  isMember: boolean
+  isAdmin: boolean
+}) {
   const {group} = useParams()
   const pathName = usePathname()
 

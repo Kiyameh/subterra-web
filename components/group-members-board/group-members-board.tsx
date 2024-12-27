@@ -10,6 +10,12 @@ import {
   checkIsAdmin,
 } from '@/database/services/group.actions'
 
+/**
+ * @version 1
+ * @description Board de miembros de un grupo
+ * @param groupName Nombre del grupo
+ */
+
 export default async function GroupMembersBoard({
   groupName,
 }: {
