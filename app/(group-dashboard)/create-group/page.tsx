@@ -1,11 +1,12 @@
 import {auth} from '@/auth'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import BackButton from '@/components/_Atoms/buttons/back-button'
-import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {FiAlertTriangle} from 'react-icons/fi'
 import PageContainer from '@/components/theming/page-container'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import GroupCreationForm from '@/components/_Organisms/forms/group-creation-form'
+import LoginWrapper from '@/components/_Atoms/wrappers/login-wrapper'
+import {Button} from '@/components/ui/button'
 
 export default async function GroupCreationPage() {
   const session = await auth()
@@ -28,10 +29,9 @@ export default async function GroupCreationPage() {
           cardFooter={
             <div className="flex items-center gap-2 w-full">
               <BackButton />
-              <LinkButton
-                href="/auth/login"
-                label="Iniciar sesión"
-              />
+              <LoginWrapper>
+                <Button>Iniciar sesión</Button>
+              </LoginWrapper>
             </div>
           }
         >

@@ -1,14 +1,16 @@
 'use client'
 import React from 'react'
 import {useRouter} from 'next/navigation'
-import {Input} from '@/components/ui/input'
-import {ArrowRight, Search} from 'lucide-react'
+
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import {Input} from '@/components/ui/input'
+
+import {ArrowRight, Search} from 'lucide-react'
 
 /**
  * @version 1
@@ -28,6 +30,7 @@ export default function SidebarSearchBar({
   const isOpen = useSidebar().open
   const router = useRouter()
   const [query, setQuery] = React.useState('')
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (query.trim()) {

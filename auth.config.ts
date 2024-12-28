@@ -4,8 +4,9 @@ import Google from 'next-auth/providers/google'
 import {DefaultJWT} from 'next-auth/jwt'
 
 import {SignInValues} from '@/database/validation/auth.schemas'
-import {checkCredentials} from './database/services/user.actions'
-import {UserDocument} from './database/models/User.model'
+import {checkCredentials} from '@/database/services/user.actions'
+import {findUserByEmail} from '@/database/services/user.actions'
+import {saveExternalUser} from '@/database/services/user.actions'
 
 // ? Extensión de las interfaces de User, token y session para añadir ID
 // Tipos de usuario extendidos con ID:
@@ -29,9 +30,14 @@ declare module 'next-auth' {
 }
 
 //? Configuración de next-auth
-
 export const authConfig: NextAuthConfig = {
+  // Páginas personalizadas:
+  pages: {
+    signIn: '/auth/login',
+    error: '/auth/error',
+  },
   providers: [
+    // Configuración de inicio de sesión con credenciales:
     Credentials({
       credentials: {
         email: {},
@@ -39,43 +45,53 @@ export const authConfig: NextAuthConfig = {
       },
       authorize: async (credentials) => {
         // Comprobar credenciales:
-        const response = await checkCredentials(credentials as SignInValues)
-
-        if (response.ok) {
-          // Responder con los datos del usuario que se guardarán en el token:
-          const user = response.content as UserDocument
-          return {
-            email: user.email,
-            name: user.name,
-            image: user.image,
-            _id: user._id,
-          }
-        } else {
-          // Ir a la pantalla de SinginError
-          throw new Error(response.message)
-        }
-
-        return null
+        //? Retorna un objeto con el usuario si las credenciales son correctas, en caso contrario false
+        return await checkCredentials(credentials as SignInValues)
       },
     }),
-    Google({}),
+    // Configuración de inicio de sesión con Google:
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
   callbacks: {
-    async jwt({token, user}) {
-      const extendedUser = user as ExtendedUser
-      // Introducir roles en el token:
-      if (extendedUser) {
-        token._id = extendedUser._id
+    // Función que se ejecuta al iniciar sesión:
+    async signIn({account, profile}) {
+      // En caso de iniciar sesión con Google:
+      if (account?.provider === 'google') {
+        // Buscar usuario en base de datos:
+        const existingUser = await findUserByEmail(profile?.email)
+        if (!existingUser) {
+          // Guardar usuario externo si no se encuentra en la base de datos:
+          const saved = await saveExternalUser(profile)
+          if (!saved) throw new Error('Error al guardar el usuario externo')
+        }
+      }
+
+      return true
+    },
+
+    // Función que se ejecuta al crear un token:
+    async jwt({token, user, account}) {
+      // Añadir ID de usuario al token
+      if (account?.provider === 'google') {
+        // Si se inicia sesión con Google, buscar usuario en base de datos:
+        const dbUser = await findUserByEmail(user?.email)
+        token._id = dbUser._id.toString()
+      } else if (user) {
+        // Si se inicia sesión con credenciales, añadir ID de usuario al token:
+        token._id = (user as ExtendedUser)._id
       }
 
       return token
     },
+    // Función que se ejecuta al crear una sesión:
     async session({session, token}) {
-      // Introducir roles e ID en la sesión:
+      // Introducir ID en la sesión:
       if (session?.user) {
         session.user._id = token._id
       }
-
       return session
     },
   },

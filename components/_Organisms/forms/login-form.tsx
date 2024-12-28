@@ -2,7 +2,7 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {useRouter} from 'next/navigation'
+import {useRouter, useSearchParams} from 'next/navigation'
 
 import {SignInSchema, SignInValues} from '@/database/validation/auth.schemas'
 import {signIn} from 'next-auth/react'
@@ -19,7 +19,11 @@ import SubmitButton from '@/components/_Atoms/buttons/submit-button'
  */
 
 export default function LoginForm() {
+  // Página de la que proviene el usuario:
+  const searchParams = useSearchParams()
   const router = useRouter()
+  const src = searchParams.get('src')
+
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -36,25 +40,27 @@ export default function LoginForm() {
     setDbAnswer(null)
     // Iniciar el inicio de sesión con next-auth
     startTransition(async () => {
-      const answer = await signIn('credentials', {
+      const response = await signIn('credentials', {
         email: values.email,
         password: values.password,
         redirect: false,
       })
-      if (answer?.ok) {
-        setDbAnswer({
-          ok: true,
-          message: 'Sesión iniciada',
-        })
-        // Redirigir a la página anterior
-        setTimeout(() => {
-          router.back()
-        }, 500)
-      } else {
+
+      console.log(response)
+
+      if (response?.error) {
         setDbAnswer({
           ok: false,
           message: 'Credenciales incorrectas',
         })
+      } else {
+        setDbAnswer({
+          ok: true,
+          message: 'Sesión iniciada',
+        })
+
+        // Redirigir a la página de origen
+        router.push(src || '/')
       }
     })
   }
