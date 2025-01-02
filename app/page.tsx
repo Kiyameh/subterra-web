@@ -3,7 +3,7 @@ import AboutSection from '@/app/(landing)/about-section'
 import HowToSection from '@/app/(landing)/how-to-section'
 import InstancesSection from '@/app/(landing)/instances-section'
 import GroupsSection from '@/app/(landing)/groups-section'
-import Footer from '@/app/(landing)/Footer'
+import Footer from '@/app/(landing)/footer'
 
 import DesktopNav from '@/components/_Organisms/navs/nav-desktop'
 import MobileNav from '@/components/_Organisms/navs/nav-mobile'

@@ -15,6 +15,7 @@ import {GrHelpBook} from 'react-icons/gr'
 import {MdOutlineTextSnippet} from 'react-icons/md'
 import {MdOutlineCookie} from 'react-icons/md'
 import {PiAvocadoFill} from 'react-icons/pi'
+import {MdOutlinePrivacyTip} from 'react-icons/md'
 
 /**
  * @version 1
@@ -80,6 +81,13 @@ export default function SubterraDropdown() {
             <DropdownMenuItem className="justify-between px-2 cursor-pointer">
               Lo de las cookies
               <MdOutlineCookie className="text-muted-foreground" />
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/privacy-policy">
+            <DropdownMenuItem className="justify-between px-2 cursor-pointer">
+              Política de privacidad
+              <MdOutlinePrivacyTip className="text-muted-foreground" />
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
