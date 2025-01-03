@@ -87,7 +87,7 @@ export async function checkCredentials(credentials: SignInValues) {
   }
 }
 
-export async function saveExternalUser(profile: Profile | undefined) {
+export async function signUpWithGoogle(profile: Profile | undefined) {
   try {
     //? Checkeo de email_verified para evitar usuarios no verificados en el proveedor de OAuth
     if (!profile || !profile.email_verified) return false // Perfil no válido

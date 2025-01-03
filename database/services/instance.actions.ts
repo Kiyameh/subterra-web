@@ -35,7 +35,7 @@ export async function createInstance(
   try {
     // Validación:
     const validated = await InstanceFormSchema.parseAsync(values)
-    if (!validated) throw new Error('Datos no validos')
+    if (!validated || !commanderId) throw new Error('Datos no validos')
 
     // Validar staff
     await connectToMongoDB()
@@ -58,9 +58,11 @@ export async function createInstance(
     const newInstance = new Instance(instanceValues)
 
     // Obtener el usuario coordinador e insertar instancia:
-    const user = await User.findById(coordinator)
-    await user.pushEditorOf(newInstance._id, session)
-    const updatedUser = await user.pushCoordinatorOf(newInstance._id, session)
+    const updatedUser = await User.findOneAndUpdate(
+      {_id: coordinator},
+      {$push: {editorOf: newInstance._id, coordinatorOf: newInstance._id}},
+      {session: session}
+    )
 
     // Guardar la nueva instancia:
     const savedInstance = await newInstance.save({session: session})

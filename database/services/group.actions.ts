@@ -32,9 +32,6 @@ export async function createGroup(
     const validated = await GroupFormSchema.parseAsync(values)
     if (!validated || !commanderId) throw new Error('Datos no válidos')
 
-    // Crear nuevo grupo con los valores:
-    const newGroup = new Group(values)
-
     // Iniciar transacción para garantizar la integridad de los datos
     //? https://mongoosejs.com/docs/transactions.html
 
@@ -42,12 +39,13 @@ export async function createGroup(
     const session = await conection.startSession()
     session.startTransaction()
 
+    // Crear nuevo grupo con los valores:
+    const newGroup = new Group(values)
+
     // Insertar el grupo en el usuario como memberOf y adminOf
     const updatedUser = await User.findOneAndUpdate(
       {_id: commanderId},
-      {
-        $push: {memberOf: newGroup._id, adminOf: newGroup._id},
-      },
+      {$push: {memberOf: newGroup._id, adminOf: newGroup._id}},
       {session: session}
     )
 

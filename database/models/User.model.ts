@@ -1,4 +1,4 @@
-import {Document, Schema, models, model, Types, ClientSession} from 'mongoose'
+import {Document, Schema, models, model, Types} from 'mongoose'
 import bcrypt from 'bcryptjs'
 import {InstanceObject} from '../services/instance.actions'
 import {GroupObject} from '../services/group.actions'
@@ -28,51 +28,14 @@ export interface UserDocument extends Document {
   fav_explorations: Types.ObjectId[]
 
   comparePassword(candidatePassword: string): Promise<boolean>
-  pushAdminOf(groupId: string, session?: ClientSession): Promise<UserDocument>
-  removeAdminOf(groupId: string, session?: ClientSession): Promise<UserDocument>
-  pushMemberOf(groupId: string, session?: ClientSession): Promise<UserDocument>
-  removeMemberOf(
-    groupId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  pushCoordinatorOf(
-    instanceId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  removeCoordinatorOf(
-    instanceId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  pushEditorOf(
-    instanceId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  removeEditorOf(
-    instanceId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  pushViewerOf(
-    instanceId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  removeViewerOf(
-    instanceId: string,
-    session?: ClientSession
-  ): Promise<UserDocument>
-  pushFavCave(caveId: string): Promise<UserDocument>
-  removeFavCave(caveId: string): Promise<UserDocument>
-  pushFavSystem(systemId: string): Promise<UserDocument>
-  removeFavSystem(systemId: string): Promise<UserDocument>
-  pushFavExploration(explorationId: string): Promise<UserDocument>
-  removeFavExploration(explorationId: string): Promise<UserDocument>
 }
 
 //* ESQUEMA:
 export const userSchema = new Schema<UserDocument>(
   {
     //Datos generales
-    name: {type: String, required: true, unique: true},
-    email: {type: String, required: true, unique: true},
+    name: {type: String, required: true, unique: true, trim: true},
+    email: {type: String, required: true, unique: true, trim: true},
     email_verified: {type: Date, default: null},
     OAuthId: {type: String},
     fullname: {type: String},
@@ -117,7 +80,6 @@ userSchema.pre('save', async function (this: UserDocument, next) {
 //* MÉTODOS ESTATICOS:
 
 //* MÉTODOS DE INSTANCIA:
-
 /** Método de instancia que compara una contraseña candidata con la contraseña de usuario */
 userSchema.methods.comparePassword = async function (
   candidatePassword: string
@@ -125,134 +87,6 @@ userSchema.methods.comparePassword = async function (
   const user = this as UserDocument
   if (!user.password) return false
   return bcrypt.compare(candidatePassword, user.password).catch(() => false)
-}
-
-userSchema.methods.pushAdminOf = async function (
-  groupId: string,
-  session?: ClientSession
-) {
-  this.adminOf.push(groupId)
-  return this.save(session)
-}
-
-userSchema.methods.removeAdminOf = async function (
-  groupId: string,
-  session?: ClientSession
-) {
-  this.adminOf = this.adminOf.filter(
-    (group: Types.ObjectId) => group.toString() !== groupId
-  )
-  return this.save(session)
-}
-
-userSchema.methods.pushMemberOf = async function (
-  groupId: string,
-  session?: ClientSession
-) {
-  this.memberOf.push(groupId)
-  return this.save(session)
-}
-
-userSchema.methods.removeMemberOf = async function (
-  groupId: string,
-  session?: ClientSession
-) {
-  this.memberOf = this.memberOf.filter(
-    (group: Types.ObjectId) => group.toString() !== groupId
-  )
-  return this.save(session)
-}
-
-userSchema.methods.pushCoordinatorOf = async function (
-  instanceId: string,
-  session?: ClientSession
-) {
-  this.coordinatorOf.push(instanceId)
-  return this.save(session)
-}
-
-userSchema.methods.removeCoordinatorOf = async function (
-  instanceId: string,
-  session?: ClientSession
-) {
-  this.coordinatorOf = this.coordinatorOf.filter(
-    (instance: Types.ObjectId) => instance.toString() !== instanceId
-  )
-  return this.save(session)
-}
-
-userSchema.methods.pushEditorOf = async function (
-  instanceId: string,
-  session?: ClientSession
-) {
-  this.editorOf.push(instanceId)
-  return this.save(session)
-}
-
-userSchema.methods.removeEditorOf = async function (
-  instanceId: string,
-  session?: ClientSession
-) {
-  this.editorOf = this.editorOf.filter(
-    (instance: Types.ObjectId) => instance.toString() !== instanceId
-  )
-  return this.save(session)
-}
-
-userSchema.methods.pushViewerOf = async function (
-  instanceId: string,
-  session?: ClientSession
-) {
-  this.viewerOf.push(instanceId)
-  return this.save(session)
-}
-
-userSchema.methods.removeViewerOf = async function (
-  instanceId: string,
-  session?: ClientSession
-) {
-  this.viewerOf = this.viewerOf.filter(
-    (instance: Types.ObjectId) => instance.toString() !== instanceId
-  )
-  return this.save(session)
-}
-
-userSchema.methods.pushFavCave = async function (caveId: string) {
-  this.fav_caves.push(caveId)
-  return this.save()
-}
-
-userSchema.methods.removeFavCave = async function (caveId: string) {
-  this.fav_caves = this.fav_caves.filter(
-    (cave: Types.ObjectId) => cave.toString() !== caveId
-  )
-  return this.save()
-}
-
-userSchema.methods.pushFavSystem = async function (systemId: string) {
-  this.fav_systems.push(systemId)
-  return this.save()
-}
-
-userSchema.methods.removeFavSystem = async function (systemId: string) {
-  this.fav_systems = this.fav_systems.filter(
-    (system: Types.ObjectId) => system.toString() !== systemId
-  )
-  return this.save()
-}
-
-userSchema.methods.pushFavExploration = async function (explorationId: string) {
-  this.fav_explorations.push(explorationId)
-  return this.save()
-}
-
-userSchema.methods.removeFavExploration = async function (
-  explorationId: string
-) {
-  this.fav_explorations = this.fav_explorations.filter(
-    (exploration: Types.ObjectId) => exploration.toString() !== explorationId
-  )
-  return this.save()
 }
 
 //* MODELO:
