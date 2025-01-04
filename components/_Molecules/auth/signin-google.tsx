@@ -9,7 +9,8 @@ import {useSearchParams} from 'next/navigation'
  * @version 1
  * @description Botón de inicio de sesión con Google
  */
-export default function GoogleButton() {
+
+export default function SigninGoogle() {
   const searchParams = useSearchParams()
   const src = searchParams.get('src')
 

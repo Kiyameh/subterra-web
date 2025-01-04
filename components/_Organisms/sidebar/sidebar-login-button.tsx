@@ -1,4 +1,4 @@
-import LoginWrapper from '@/components/_Atoms/wrappers/login-wrapper'
+import LoginWrapper from '@/components/_Molecules/auth/login-wrapper'
 import {
   SidebarMenu,
   SidebarMenuButton,

@@ -9,7 +9,7 @@ import {Answer} from '@/database/types/answer.type'
 import {connectToMongoDB} from '@/database/databaseConection'
 import User from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Profile} from 'next-auth'
+import {signIn} from '@/auth'
 
 /**
  * @version 1
@@ -25,8 +25,16 @@ export async function signUp(values: SignUpValues) {
   if (!validationResult.success) {
     return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
   }
-  //2. Añadir a la base de datos
   const {name, fullname, email, password} = validationResult.data
+
+  //2: Enviar email de confirmación
+  await signIn('resend', {
+    email,
+    redirect: false, // no redirigir actualmente
+    redirectTo: '/auth/verify-email', // url de redirección enviada en el email
+  })
+
+  //3. Añadir a la base de datos
   try {
     const newUser = new User({
       name,
@@ -41,10 +49,29 @@ export async function signUp(values: SignUpValues) {
     return {
       ok: true,
       code: 200,
-      message: 'Usuario creado',
+      message: `Se ha enviado un email de confirmación a ${email}, por favor revisa tu bandeja de entrada`,
     } as Answer
   } catch (e) {
+    console.error(e)
     return decodeMongoError(e)
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para comprobar si un email ha sido verificado
+ * @param email
+ */
+
+export async function checkVerifiedEmail(email: string) {
+  try {
+    await connectToMongoDB()
+    const user = await User.findOne({email})
+
+    return user?.email_verified
+  } catch (error) {
+    console.error(error)
+    return null
   }
 }
 
@@ -71,7 +98,6 @@ export async function checkCredentials(credentials: SignInValues) {
     const validPass = await user.comparePassword(password)
 
     // 4. Devolver respuesta sin password
-
     if (validPass)
       return {
         email: user.email,
@@ -87,25 +113,6 @@ export async function checkCredentials(credentials: SignInValues) {
   }
 }
 
-export async function signUpWithGoogle(profile: Profile | undefined) {
-  try {
-    //? Checkeo de email_verified para evitar usuarios no verificados en el proveedor de OAuth
-    if (!profile || !profile.email_verified) return false // Perfil no válido
-
-    const newUser = new User({
-      name: profile.name,
-      email: profile.email,
-      email_verified: new Date(),
-      OAuthId: profile.sub,
-    })
-    await newUser.save()
-    return true
-  } catch (error) {
-    console.error(error)
-    return false // Error al insertar usuario en la DB o error al buscarlo
-  }
-}
-
 export async function findUserByEmail(email: string | null | undefined) {
   try {
     await connectToMongoDB()
@@ -114,5 +121,14 @@ export async function findUserByEmail(email: string | null | undefined) {
   } catch (error) {
     console.error(error)
     return null
+  }
+}
+
+export async function verifyEmail(email: string | null | undefined) {
+  try {
+    await connectToMongoDB()
+    await User.findOneAndUpdate({email}, {email_verified: true}, {new: true})
+  } catch (error) {
+    console.error(error)
   }
 }

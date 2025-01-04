@@ -2,7 +2,6 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {useRouter} from 'next/navigation'
 
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
 import {signUp} from '@/database/services/user.actions'
@@ -28,7 +27,6 @@ const EMPTY_USER: SignUpValues = {
  */
 
 export default function RegisterForm() {
-  const router = useRouter()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
@@ -42,12 +40,6 @@ export default function RegisterForm() {
     startTransition(async () => {
       const answer = await signUp(values)
       setDbAnswer(answer)
-      if (answer.ok) {
-        setTimeout(() => {
-          // Redirigir a login
-          router.replace('/auth/login')
-        }, 500)
-      }
     })
   }
 

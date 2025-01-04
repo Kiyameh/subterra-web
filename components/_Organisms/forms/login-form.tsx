@@ -12,6 +12,7 @@ import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
+import {Button} from '@/components/ui/button'
 
 /**
  * @version 1
@@ -45,13 +46,15 @@ export default function LoginForm() {
         password: values.password,
         redirect: false,
       })
-
-      console.log(response)
-
-      if (response?.error) {
+      if (response?.error && response.code === 'not_verified') {
         setDbAnswer({
           ok: false,
-          message: 'Credenciales incorrectas',
+          message: 'Email no verificado',
+        })
+      } else if (response?.error) {
+        setDbAnswer({
+          ok: false,
+          message: 'Credencial incorrectas',
         })
       } else {
         setDbAnswer({
@@ -90,6 +93,27 @@ export default function LoginForm() {
           <DbAwnserBox answer={dbAnswer} />
           <SubmitButton isPending={isPending} />
         </form>
+
+        {dbAnswer?.message === 'Email no verificado' && (
+          <Button
+            className="w-full"
+            variant="secondary"
+            onClick={() => {
+              setDbAnswer({
+                ok: true,
+                message:
+                  'Email de confirmación reenviado, revisa tu bandeja de entrada',
+              })
+              signIn('resend', {
+                email: form.getValues('email'),
+                redirect: false, // no redirigir actualmente
+                redirectTo: '/auth/verify-email', // url de redirección enviada en el email
+              })
+            }}
+          >
+            Reenviar email de confirmación
+          </Button>
+        )}
       </Form>
     </>
   )

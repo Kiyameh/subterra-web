@@ -5,7 +5,7 @@ import {FiAlertTriangle} from 'react-icons/fi'
 import PageContainer from '@/components/theming/page-container'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import GroupCreationForm from '@/components/_Organisms/forms/group-creation-form'
-import LoginWrapper from '@/components/_Atoms/wrappers/login-wrapper'
+import LoginWrapper from '@/components/_Molecules/auth/login-wrapper'
 import {Button} from '@/components/ui/button'
 
 export default async function GroupCreationPage() {

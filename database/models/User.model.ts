@@ -16,7 +16,7 @@ export interface UserDocument extends Document {
   // Datos generales:
   name: string
   email: string
-  email_verified: Date
+  email_verified: boolean
   OAuthId?: string
   fullname?: string
   password?: string
@@ -36,7 +36,7 @@ export const userSchema = new Schema<UserDocument>(
     //Datos generales
     name: {type: String, required: true, unique: true, trim: true},
     email: {type: String, required: true, unique: true, trim: true},
-    email_verified: {type: Date, default: null},
+    email_verified: {type: Boolean, default: false},
     OAuthId: {type: String},
     fullname: {type: String},
     password: {type: String, select: false}, //! Ocultada por defecto

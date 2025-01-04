@@ -2,7 +2,7 @@
 import {Button} from '@/components/ui/button'
 import React from 'react'
 import {MdOutlineAdd} from 'react-icons/md'
-import LoginWrapper from '../_Atoms/wrappers/login-wrapper'
+import LoginWrapper from '../_Molecules/auth/login-wrapper'
 
 /**
  * @version 1

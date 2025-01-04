@@ -4,7 +4,7 @@ import React from 'react'
 import {Button} from '@/components/ui/button'
 import MembershipRequestDialog from '@/components/_Molecules/interactives/group-notification-area/membership-request-dialog'
 import {IoCloseSharp} from 'react-icons/io5'
-import LoginWrapper from '@/components/_Atoms/wrappers/login-wrapper'
+import LoginWrapper from '@/components/_Molecules/auth/login-wrapper'
 
 /**
  * @version 1

@@ -25,7 +25,6 @@ export default async function InstasnceEditorsBoard({
   // Obtener la instancia
   const instance = (await getOneInstance(instanceName))
     .content as InstanceWithUsers | null
-  console.log(instance)
 
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id

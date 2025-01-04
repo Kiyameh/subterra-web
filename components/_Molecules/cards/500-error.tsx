@@ -10,8 +10,8 @@ import {FaLaptopCode} from 'react-icons/fa'
  * @param title Título de la card
  * @param text Texto de la card
  * @default
- * 'En desarrollo'
- * 'Funcionalidad en desarrollo. Próximamente estará disponible'
+ * 'Algo ha ido mal'
+ * 'No eres tu, somos nosotros. Estamos trabajando para solucionar el problema'
  */
 
 export default function ErrorCard({

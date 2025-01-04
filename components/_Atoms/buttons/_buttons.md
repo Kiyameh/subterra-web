@@ -9,7 +9,6 @@ Componentes de interacción. Botones y controles de diferentes tipos
 - LinkButton
 - SquareButton
 - SubmitButton
-- GoogleButton
 - FetchingErrorButton
 
 > Nota: Actualiza esta lista conforme se añadan nuevos componentes.
