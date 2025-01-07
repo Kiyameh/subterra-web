@@ -7,7 +7,7 @@ import GroupsSection from '@/app/(landing)/groups-section'
 import DesktopNav from '@/components/_Organisms/navs/nav-desktop'
 import MobileNav from '@/components/_Organisms/navs/nav-mobile'
 import FloatingAccountControls from '@/components/floating-user-control/floating-account-controls'
-import Footer from './(landing)/footer'
+import LandingFooter from '@/components/_Organisms/navs/landing-footer'
 
 //* Constantes:
 const sections = [
@@ -38,7 +38,7 @@ export default function HomePage() {
         <GroupsSection />
       </main>
       <footer>
-        <Footer />
+        <LandingFooter />
       </footer>
     </>
   )

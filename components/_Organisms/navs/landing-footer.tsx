@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import SubterraLogo from '@/components/branding/subterra-logo'
 
-export default function Footer() {
+export default function LandingFooter() {
   return (
     <footer className="text-sm h-auto p-4 w-full bg-card flex flex-col justify-center items-center space-y-4">
       <div className="flex justify-center space-x-6 items-center">

@@ -7,7 +7,7 @@ import {
 } from '@/database/validation/auth.schemas'
 import {Answer} from '@/database/types/answer.type'
 import {connectToMongoDB} from '@/database/databaseConection'
-import User from '@/database/models/User.model'
+import User, {UserDocument} from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 import {signIn} from '@/auth'
 
@@ -113,6 +113,12 @@ export async function checkCredentials(credentials: SignInValues) {
   }
 }
 
+/**
+ * @version 1
+ * @description Función para buscar un usuario por email
+ * @param email string - Email del usuario
+ */
+
 export async function findUserByEmail(email: string | null | undefined) {
   try {
     await connectToMongoDB()
@@ -123,6 +129,45 @@ export async function findUserByEmail(email: string | null | undefined) {
     return null
   }
 }
+
+/**
+ * @version 1
+ * @description Función para buscar un usuario por id
+ * @param id
+ */
+export async function getFullUser(id: string | null | undefined) {
+  try {
+    await connectToMongoDB()
+    const user = await User.findById(id)
+      .populate('memberOf', 'name fullname')
+      .populate('adminOf', 'name fullname')
+      .populate('editorOf', 'name fullname')
+      .populate('coordinatorOf', 'name fullname')
+      .populate('viewerOf', 'name fullname')
+    return user
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export interface FullUser
+  extends Omit<
+    UserDocument,
+    'memberOf' | 'adminOf' | 'editorOf' | 'coordinatorOf' | 'viewerOf'
+  > {
+  memberOf: {id: string; name: string; fullname: string}[]
+  adminOf: {id: string; name: string; fullname: string}[]
+  editorOf: {id: string; name: string; fullname: string}[]
+  coordinatorOf: {id: string; name: string; fullname: string}[]
+  viewerOf: {id: string; name: string; fullname: string}[]
+}
+
+/**
+ * @version 1
+ * @description Función para verificar un email
+ * @param email
+ */
 
 export async function verifyEmail(email: string | null | undefined) {
   try {
