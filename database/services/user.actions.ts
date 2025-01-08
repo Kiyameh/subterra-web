@@ -151,6 +151,9 @@ export async function getFullUser(id: string | null | undefined) {
   }
 }
 
+/**
+ * @type Retorno de la función getFullUser
+ */
 export interface FullUser
   extends Omit<
     UserDocument,
