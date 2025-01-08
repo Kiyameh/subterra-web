@@ -95,18 +95,12 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
   // 5. Callbacks:
   callbacks: {
-    async signIn({user, account}) {
-      // Si se inicia sesión con Google o con Magic Link, se confirma el email:
-
-      if (account?.provider === 'google' || account?.provider === 'resend') {
-        await verifyEmail(user.email)
-      }
-      return true
-    },
     // 5.1 Callback al crear el token:
     async jwt({token, user, account}) {
       if (account?.provider === 'google' || account?.provider === 'resend') {
-        // Si se inicia sesión con Google o MagicLink, buscar usuario en base de datos y añadir _id al token:
+        // Verificar el email:
+        await verifyEmail(user.email)
+        // Buscar usuario en base de datos y añadir _id al token:
         const dbUser = await findUserByEmail(user?.email)
         token._id = dbUser._id.toString()
       } else if (user) {
