@@ -1,57 +1,31 @@
-import Link from 'next/link'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
-import PageContainer from '@/components/theming/page-container'
-import SquareButton from '@/components/_Atoms/buttons/square-button'
 import React from 'react'
 import {PiAvocadoFill} from 'react-icons/pi'
-import {BiMessageDots} from 'react-icons/bi'
-import {FiBox} from 'react-icons/fi'
-import {TbComponents} from 'react-icons/tb'
-import {MdDataObject} from 'react-icons/md'
+import {getOnePlatform} from '@/database/services/platform.services'
+import {PlatformObject} from '@/database/models/Platform.model'
+import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 
-export default function StaffDashboardLanding() {
+export default async function StaffDashboardLanding() {
+  const subterra = (await getOnePlatform('subterra'))
+    .content as PlatformObject | null
   return (
-    <PageContainer>
-      <BasicCard
-        glassmorphism
-        cardHeader={
-          <div className="flex items-center gap-3">
-            <PiAvocadoFill className="text-4xl text-staff" />
-            <h1 className="text-xl">Administración de Subterra.app</h1>
-          </div>
-        }
-      >
-        <div className="flex flex-row gap-2 items-center justify-center">
-          <Link href="/admin/contact-messages">
-            <SquareButton
-              color="staff"
-              icon={<BiMessageDots />}
-              text="Mensajes de contacto"
-            />
-          </Link>
-          <Link href="/admin/instance-request">
-            <SquareButton
-              color="staff"
-              icon={<FiBox />}
-              text="Solicitudes de instancia"
-            />
-          </Link>
-          <Link href="/admin/component-showcase">
-            <SquareButton
-              color="staff"
-              icon={<TbComponents />}
-              text="Muestrario componentes"
-            />
-          </Link>
-          <Link href="/admin/object-viewer">
-            <SquareButton
-              color="staff"
-              icon={<MdDataObject />}
-              text="Visor de objetos"
-            />
-          </Link>
+    <BasicCard
+      glassmorphism
+      cardHeader={
+        <div className="flex items-center gap-3">
+          <PiAvocadoFill className="text-4xl text-staff" />
+          <h1 className="text-xl">Administración de Subterra.app</h1>
         </div>
-      </BasicCard>
-    </PageContainer>
+      }
+    >
+      <TextSlot
+        label="Mensajes de contacto"
+        value={subterra?.contact_messages.length}
+      />
+      <TextSlot
+        label="Solicitudes de instancia"
+        value={subterra?.instance_requests.length}
+      />
+    </BasicCard>
   )
 }

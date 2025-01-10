@@ -1,6 +1,5 @@
 'use client'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import PageContainer from '@/components/theming/page-container'
 import React from 'react'
 import {Button} from '@/components/ui/button'
 
@@ -52,13 +51,11 @@ export default function ObjectViewerPage() {
   }
 
   return (
-    <PageContainer>
-      <CardWithHeader
-        cardSubHeader="Object Viewer"
-        defaultWidth="xl"
-      >
-        <JsonViewer data={exampleUser} />
-      </CardWithHeader>
-    </PageContainer>
+    <CardWithHeader
+      cardSubHeader="Object Viewer"
+      defaultWidth="xl"
+    >
+      <JsonViewer data={exampleUser} />
+    </CardWithHeader>
   )
 }

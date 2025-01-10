@@ -22,16 +22,17 @@ export default function SimpleBox({
   className?: string
 }) {
   const sizeMap = {
-    md: 'w-[460px]',
-    lg: 'w-[600px]',
-    xl: 'w-[800px]',
-    xxl: 'w-[1024px]',
+    sm: 'w-[384px] max-w-[90vw]',
+    md: 'w-[460px] max-w-[90vw]',
+    lg: 'w-[600px] max-w-[90vw]',
+    xl: 'w-[940px] max-w-[90vw]',
+    xxl: 'w-[1220px] max-w-[90vw]',
   }
   const width = sizeMap[defaultWidth]
   const glass = glassmorphism ? 'bg-black bg-opacity-50 backdrop-blur-sm' : ''
 
   const style = cn(
-    'max-w-[90%]	border border-muted-foreground flex flex-col justify-between p-6 rounded-xl',
+    'max-w-[90%] bg-card border border-muted-foreground flex flex-col justify-between p-6 rounded-xl',
     glass,
     width,
     className

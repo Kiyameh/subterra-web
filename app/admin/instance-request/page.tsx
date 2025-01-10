@@ -3,7 +3,6 @@ import {auth} from '@/auth'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
 
-import PageContainer from '@/components/theming/page-container'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import InstanceCreationForm from '@/components/_Organisms/forms/instance-creation-form'
 import InstanceMessagesBoard from '@/components/_Organisms/boards/instance-messages-board'
@@ -18,13 +17,13 @@ export default async function CreateInstancePage() {
   const userId = session?.user?._id
 
   return (
-    <PageContainer className="flex flex-row gap-4">
+    <div className="flex flex-row gap-4">
       {subterra && (
         <InstanceMessagesBoard messages={subterra.instance_requests} />
       )}
       {userId && (
         <BasicCard
-          defaultWidth="xl"
+          defaultWidth="lg"
           cardHeader={
             <div className="flex items-center gap-2 text-xl">
               <LuBox className="text-3xl text-staff" />
@@ -35,6 +34,6 @@ export default async function CreateInstancePage() {
           <InstanceCreationForm commanderId={userId} />
         </BasicCard>
       )}
-    </PageContainer>
+    </div>
   )
 }

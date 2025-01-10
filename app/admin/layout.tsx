@@ -3,6 +3,7 @@ import PageContainer from '@/components/theming/page-container'
 import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
+import StaffNavigation from '@/components/_Organisms/navs/staff-navigation'
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const subterra = (await getOnePlatform('subterra'))
@@ -24,5 +25,10 @@ export default async function Layout({children}: {children: React.ReactNode}) {
     )
   }
 
-  return <>{children}</>
+  return (
+    <PageContainer className="justify-start">
+      <StaffNavigation />
+      {children}
+    </PageContainer>
+  )
 }

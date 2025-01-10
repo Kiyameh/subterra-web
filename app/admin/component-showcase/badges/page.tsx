@@ -1,7 +1,5 @@
 import React from 'react'
 
-import PageContainer from '@/components/theming/page-container'
-
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import BooleanBadge from '@/components/_Atoms/badges/boolean-badge'
@@ -18,7 +16,7 @@ import ShortcutTooltip from '@/components/_Atoms/badges/shortcut-tooltip'
 
 export default function BadgesShowcasePage() {
   return (
-    <PageContainer className="flex flex-row gap-6">
+    <div className="flex flex-row gap-6">
       <CardWithHeader cardSubHeader="Badges showcase">
         <Divider text="Info Badge" />
         <div className="flex flex-row gap-6">
@@ -185,6 +183,6 @@ export default function BadgesShowcasePage() {
           </div>
         </ShortcutTooltip>
       </CardWithHeader>
-    </PageContainer>
+    </div>
   )
 }

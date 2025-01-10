@@ -1,6 +1,5 @@
 import React from 'react'
 
-import PageContainer from '@/components/theming/page-container'
 import {MultiTextSlot} from '@/components/_Atoms/slots/text-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {MultiChipSlot} from '@/components/_Atoms/slots/chip-slots'
@@ -23,7 +22,7 @@ import {BiAlarmAdd} from 'react-icons/bi'
 
 export default function SlotsShowcasePage() {
   return (
-    <PageContainer className="flex flex-row gap-6 flex-wrap">
+    <div className="flex flex-row gap-6 flex-wrap">
       <CardWithHeader cardSubHeader="Slots showcase">
         <TextSlot
           label="TextSlot"
@@ -234,6 +233,6 @@ export default function SlotsShowcasePage() {
           }}
         />
       </BasicCard>
-    </PageContainer>
+    </div>
   )
 }

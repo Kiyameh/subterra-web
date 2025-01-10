@@ -34,7 +34,7 @@ export default function InstanceMessagesBoard({
 
   return (
     <CardWithHeader
-      defaultWidth="xl"
+      defaultWidth="lg"
       cardSubHeader={
         <div className="flex items-center gap-2 text-xl">
           <BiMessageAltAdd className="text-3xl text-staff" />
