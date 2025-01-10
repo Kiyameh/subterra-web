@@ -9,6 +9,8 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import SubterraDropdown from '@/components/_Organisms/navs/subterra-dropdown'
+import FloatingContactForm from '@/components/floating-contact-form/floating-contact'
+import {auth} from '@/auth'
 
 interface GroupDashboardLayoutProps {
   params: Promise<{group: string}>
@@ -25,6 +27,9 @@ export default async function GroupDashboardLayout({
 }: GroupDashboardLayoutProps) {
   // Obtener nombre del grupo de la URL:
   const groupName = (await params).group
+
+  // Obtener el suario actual:
+  const user = (await auth())?.user
   return (
     <SidebarProvider>
       {/* Componente de la barra lateral del grupo */}
@@ -45,6 +50,9 @@ export default async function GroupDashboardLayout({
           {children}
         </main>
       </SidebarInset>
+      <nav className="fixed top-6 right-6 z-50 md:bottom-6 md:top-auto">
+        <FloatingContactForm commander={user} />
+      </nav>
     </SidebarProvider>
   )
 }

@@ -1,5 +1,9 @@
 'use server'
 import {
+  ProfileEditSchema,
+  ProfileEditValues,
+  ResetPassSchema,
+  ResetPassValues,
   SignInSchema,
   SignInValues,
   SignUpSchema,
@@ -178,5 +182,59 @@ export async function verifyEmail(email: string | null | undefined) {
     await User.findOneAndUpdate({email}, {email_verified: true}, {new: true})
   } catch (error) {
     console.error(error)
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para actualizar la contraseña de un usuario
+ * @param values ResetPassValues - Valores de actualización
+ */
+
+export async function updatePassword(values: ResetPassValues) {
+  //1. Validación de datos
+  const validationResult = ResetPassSchema.safeParse(values)
+  if (!validationResult.success) {
+    return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
+  }
+  const {email, password} = validationResult.data
+
+  //2. Actualizar contraseña
+  try {
+    await connectToMongoDB()
+    const userToUpdate = await User.findOne({email}).select('password')
+    userToUpdate.password = password
+    await userToUpdate.save()
+
+    return {ok: true, code: 200, message: 'Contraseña actualizada'} as Answer
+  } catch (error) {
+    console.error(error)
+    return decodeMongoError(error)
+  }
+}
+
+/**
+ * @version 1
+ * @description Función para actualizar un usuario
+ * @param values SignUpValues - Valores de actualización
+ */
+
+export async function updateUser(values: ProfileEditValues) {
+  //1. Validación de datos
+  const validationResult = ProfileEditSchema.safeParse(values)
+  console.log(validationResult.error)
+  if (!validationResult.success) {
+    return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
+  }
+  const {email, name, fullname} = validationResult.data
+
+  //2. Actualizar usuario
+  try {
+    await connectToMongoDB()
+    await User.findOneAndUpdate({email}, {name, fullname})
+    return {ok: true, code: 200, message: 'Usuario actualizado'} as Answer
+  } catch (error) {
+    console.error(error)
+    return decodeMongoError(error)
   }
 }

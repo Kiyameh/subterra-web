@@ -1,11 +1,19 @@
 import React from 'react'
-import InDevelopmentCard from '@/components/_Molecules/cards/501-not-implemented'
+import {auth} from '@/auth'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import ResetPassForm from '@/components/_Organisms/forms/reset-pass-form'
+import ErrorCard from '@/components/_Molecules/cards/500-error'
 
-export default function ResetPasswordPage() {
+export default async function ResetPasswordPage() {
+  // 1. Obtener datos del usuario
+  // Obtener el id del usuario
+  const user = (await auth())?.user
+
+  if (!user) return <ErrorCard />
+
   return (
-    <InDevelopmentCard
-      title="Reiniciar contraseña"
-      text="Esta página está en desarrollo"
-    />
+    <CardWithHeader cardSubHeader="Cambiar contraseña">
+      <ResetPassForm user={user} />
+    </CardWithHeader>
   )
 }

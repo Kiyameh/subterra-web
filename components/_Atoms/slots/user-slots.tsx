@@ -15,7 +15,7 @@ export function UserProfileCard({user}: {user: Session['user']}) {
   return (
     <div className="flex items-center gap-4 p-4 rounded-lg border border-muted-foreground">
       <Avatar>
-        {user.image && (
+        {user?.image && (
           <AvatarImage
             src={user.image}
             alt="Avatar"

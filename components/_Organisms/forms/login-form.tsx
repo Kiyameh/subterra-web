@@ -54,7 +54,7 @@ export default function LoginForm() {
       } else if (response?.error) {
         setDbAnswer({
           ok: false,
-          message: 'Credencial incorrectas',
+          message: 'Credenciales incorrectas',
         })
       } else {
         setDbAnswer({
@@ -112,6 +112,26 @@ export default function LoginForm() {
             }}
           >
             Reenviar email de confirmación
+          </Button>
+        )}
+        {dbAnswer?.message === 'Credenciales incorrectas' && (
+          <Button
+            className="w-full"
+            variant="ghost"
+            onClick={() => {
+              setDbAnswer({
+                ok: true,
+                message:
+                  'Email de recuperación enviado, revisa tu bandeja de entrada',
+              })
+              signIn('resend', {
+                email: form.getValues('email'),
+                redirect: false, // no redirigir actualmente
+                redirectTo: '/auth/reset-pass', // url de redirección enviada en el email
+              })
+            }}
+          >
+            Recuperar contraseña
           </Button>
         )}
       </Form>

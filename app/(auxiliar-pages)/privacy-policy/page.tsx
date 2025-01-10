@@ -23,10 +23,10 @@ export default function PrivacyPage() {
             plataforma. Puedes ponerte en contacto con él a traves del correo
             electrónico{' '}
             <a
-              href="mailto:kiyameh@outlook.com"
+              href="mailto:info@subterra.app"
               className="underline text-staff"
             >
-              kiyameh@outlook.com
+              info@subterra.app
             </a>
           </p>
 

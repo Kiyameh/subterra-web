@@ -1,16 +1,13 @@
 import {auth} from '@/auth'
 import {FullUser, getFullUser} from '@/database/services/user.actions'
-import {
-  AdminBadge,
-  EditorBadge,
-  UserProfileCard,
-} from '@/components/_Atoms/slots/user-slots'
+import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
-import {User} from 'next-auth'
 import {FaCheck} from 'react-icons/fa'
 import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
 import Divider from '@/components/_Atoms/boxes/divider'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
+import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
 /**
  * @version 1
@@ -20,33 +17,68 @@ import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 export default async function ProfilePanel() {
   const userId = (await auth())?.user._id
   const user: FullUser | undefined = await getFullUser(userId)
+
+  if (!user) return <FetchingErrorButton />
+
+  const {
+    name,
+    fullname,
+    image,
+    email,
+    memberOf,
+    adminOf,
+    editorOf,
+    coordinatorOf,
+    email_verified,
+  } = user
+
   return (
     <div className="space-y-4">
-      <UserProfileCard user={user as User} />
+      <div className="flex justify-center">
+        <Avatar className="w-14 h-14">
+          {image && (
+            <AvatarImage
+              src={image}
+              alt="Avatar"
+            />
+          )}
+          <AvatarFallback className="bg-primary">
+            {name?.slice(0, 2).toUpperCase() || 'US'}
+          </AvatarFallback>
+        </Avatar>
+      </div>
       <div className="space-y-2">
         <TextSlot
+          label="Nombre de usuario"
+          value={name}
+        />
+        <TextSlot
           label="Nombre completo"
-          value={user?.fullname}
+          value={fullname}
         />
         <TextSlot
           label="Email"
-          value={user?.email}
+          value={email}
           endAdornment={
-            user?.email_verified && (
+            email_verified && (
               <ResponsiveTooltip content="Email verificado">
                 <FaCheck className="text-success-foreground" />
               </ResponsiveTooltip>
             )
           }
         />
+      </div>
+      <div className="space-y-4 py-4">
         <Divider text="Grupos" />
         <div className="ml-5">
-          <EditorBadge
-            label="Miembro"
-            helperText="Eres miembro"
-          />
+          {memberOf?.length > 0 && (
+            <EditorBadge
+              label="Miembro"
+              helperText="Eres miembro"
+            />
+          )}
         </div>
-        {user?.memberOf.map((group) => (
+        {memberOf.map((group) => (
           <LinkSlot
             key={group.id}
             label={group.fullname}
@@ -55,10 +87,8 @@ export default async function ProfilePanel() {
             showText="Acceder"
           />
         ))}
-        <div className="ml-5">
-          <AdminBadge />
-        </div>
-        {user?.adminOf.map((group) => (
+        <div className="ml-5">{adminOf?.length > 0 && <AdminBadge />}</div>
+        {adminOf.map((group) => (
           <LinkSlot
             key={group.id}
             label={group.fullname}
@@ -68,7 +98,10 @@ export default async function ProfilePanel() {
           />
         ))}
         <Divider text="Instancias " />
-        {user?.viewerOf.map((instance) => (
+        <div className="ml-5">
+          {editorOf?.length > 0 && <EditorBadge label="Editor" />}
+        </div>
+        {editorOf.map((instance) => (
           <LinkSlot
             key={instance.id}
             label={instance.fullname}
@@ -78,24 +111,14 @@ export default async function ProfilePanel() {
           />
         ))}
         <div className="ml-5">
-          <EditorBadge label="Editor" />
+          {coordinatorOf?.length > 0 && (
+            <AdminBadge
+              label="Coordinador"
+              helperText="Eres coordinador"
+            />
+          )}
         </div>
-        {user?.editorOf.map((instance) => (
-          <LinkSlot
-            key={instance.id}
-            label={instance.fullname}
-            value={`/instance/${instance.name}`}
-            type="internal"
-            showText="Acceder"
-          />
-        ))}
-        <div className="ml-5">
-          <AdminBadge
-            label="Coordinador"
-            helperText="Eres coordinador"
-          />
-        </div>
-        {user?.coordinatorOf.map((instance) => (
+        {coordinatorOf.map((instance) => (
           <LinkSlot
             key={instance.id}
             label={instance.fullname}

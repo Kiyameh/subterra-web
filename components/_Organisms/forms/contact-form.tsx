@@ -19,6 +19,9 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 import BackButton from '@/components/_Atoms/buttons/back-button'
+import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
+
+import {BiSolidMessage} from 'react-icons/bi'
 
 /**
  * @version 1
@@ -53,38 +56,63 @@ export default function ContactForm({
   })
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6"
+    <>
+      <CollapsibleBox
+        title="Contacto"
+        icon={<BiSolidMessage />}
+        color="info"
+        className="mb-4"
       >
-        {commander ? (
-          <UserProfileCard user={commander} />
-        ) : (
-          <TextField
+        <p>● Envía un mensaje a los administradores de la plataforma.</p>
+        <p>● Ten paciencia, responderán lo antes posible.</p>
+        <p>
+          ● También puedes enviar un correo a:{' '}
+          <a
+            href="mailto:info@subterra.app"
+            className="text-emphasis"
+          >
+            info@subterra.app
+          </a>
+        </p>
+      </CollapsibleBox>
+
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
+          {commander ? (
+            <UserProfileCard user={commander} />
+          ) : (
+            <TextField
+              control={form.control}
+              name="email"
+              label="Correo electrónico"
+              placeholder="arcaute@mail.com"
+            />
+          )}
+          <SelectField
             control={form.control}
-            name="email"
-            label="Correo electrónico"
-            placeholder="arcaute@mail.com"
+            name="subject"
+            label="Asunto"
+            options={contactSubjects as unknown as string[]}
+            placeholder="Selecciona un asunto"
           />
-        )}
-        <SelectField
-          control={form.control}
-          name="subject"
-          label="Asunto"
-          options={contactSubjects as unknown as string[]}
-          placeholder="Selecciona un asunto"
-        />
-        <TextAreaField
-          control={form.control}
-          name="message"
-          label="Mensaje"
-          placeholder="Escribe tu mensaje aquí"
-          maxCharacters={contactMaxCharacters.message}
-        />
-        <DbAwnserBox answer={dbAnswer} />
-        {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
-      </form>
-    </Form>
+          <TextAreaField
+            control={form.control}
+            name="message"
+            label="Mensaje"
+            placeholder="Escribe tu mensaje aquí"
+            maxCharacters={contactMaxCharacters.message}
+          />
+          <DbAwnserBox answer={dbAnswer} />
+          {dbAnswer?.ok ? (
+            <BackButton />
+          ) : (
+            <SubmitButton isPending={isPending} />
+          )}
+        </form>
+      </Form>
+    </>
   )
 }

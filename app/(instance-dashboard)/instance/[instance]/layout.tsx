@@ -9,6 +9,8 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import SubterraDropdown from '@/components/_Organisms/navs/subterra-dropdown'
+import FloatingContactForm from '@/components/floating-contact-form/floating-contact'
+import {auth} from '@/auth'
 
 interface InstanceDashboardLayoutProps {
   params: Promise<{instance: string}>
@@ -25,6 +27,10 @@ export default async function InstanceDashboardLayout({
 }: InstanceDashboardLayoutProps) {
   // Obtener nombre de la instancia de la URL:
   const instanceName = (await params).instance
+
+  // Obtener el suario actual:
+  const user = (await auth())?.user
+
   return (
     <SidebarProvider>
       {/* Componente de la barra lateral de instancia */}
@@ -46,6 +52,9 @@ export default async function InstanceDashboardLayout({
           {children}
         </main>
       </SidebarInset>
+      <nav className="fixed top-6 right-6 z-50 md:bottom-6 md:top-auto">
+        <FloatingContactForm commander={user} />
+      </nav>
     </SidebarProvider>
   )
 }
