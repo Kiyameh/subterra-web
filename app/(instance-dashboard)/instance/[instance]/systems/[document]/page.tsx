@@ -1,14 +1,14 @@
 import PageContainer from '@/components/theming/page-container'
-import ImageCard from '@/components/_Molecules/cards/image-card'
-import SystemInfoCard from '@/components/system-details-board/system-info-card'
-import SystemCavesCard from '@/components/system-details-board/system-caves-card'
-import SystemHeader from '@/components/system-details-board/system-header'
-import SystemDescriptionCard from '@/components/system-details-board/system-description-card'
-import SystemScienceCard from '@/components/system-details-board/system-science-card'
-import SkeletonHeader from '@/components/_Molecules/cards/skelenton-header'
+import ImageCard from '@/components/cards/image-card'
+import SystemInfoCard from '@/components/_document-pages/system-details-board/system-info-card'
+import SystemCavesCard from '@/components/_document-pages/system-details-board/system-caves-card'
+import SystemHeader from '@/components/_document-pages/system-details-board/system-header'
+import SystemDescriptionCard from '@/components/_document-pages/system-details-board/system-description-card'
+import SystemScienceCard from '@/components/_document-pages/system-details-board/system-science-card'
+import SkeletonHeader from '@/components/cards/skelenton-header'
 import {Suspense} from 'react'
-import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import DocumentNotificationArea from '@/components/_Molecules/interactives/document-notification-area/document-notification-area'
+import SkeletonCard from '@/components/cards/skeleton-card'
+import DocumentNotificationArea from '@/components/_document-pages/document-notification-area/document-notification-area'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>

@@ -1,8 +1,8 @@
 import {auth} from '@/auth'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
-import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
-import ExplorationEditionForm from '@/components/_Organisms/forms/exploration-edition-form'
+import NotFoundCard from '@/components/cards/404-not-found'
+import ExplorationEditionForm from '@/components/_document-pages/exploration-edition-form'
 import PageContainer from '@/components/theming/page-container'
 import {
   getPlainExploration,

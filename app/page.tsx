@@ -4,10 +4,10 @@ import HowToSection from '@/app/(landing)/how-to-section'
 import InstancesSection from '@/app/(landing)/instances-section'
 import GroupsSection from '@/app/(landing)/groups-section'
 
-import DesktopNav from '@/components/_Organisms/navs/nav-desktop'
-import MobileNav from '@/components/_Organisms/navs/nav-mobile'
-import FloatingAccountControls from '@/components/floating-user-control/floating-account-controls'
-import LandingFooter from '@/components/_Organisms/navs/landing-footer'
+import DesktopNav from '@/components/navigations/landing-nav-desktop'
+import MobileNav from '@/components/navigations/landing-nav-mobile'
+import FloatingAccountControls from '@/components/_authentication/floating-user-control/floating-account-controls'
+import LandingFooter from '@/components/navigations/landing-footer'
 
 //* Constantes:
 const sections = [

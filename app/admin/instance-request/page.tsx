@@ -4,8 +4,8 @@ import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
 
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
-import InstanceCreationForm from '@/components/_Organisms/forms/instance-creation-form'
-import InstanceMessagesBoard from '@/components/_Organisms/boards/instance-messages-board'
+import InstanceCreationForm from '@/components/_staff-dashboard/instance-creation-form'
+import InstanceMessagesBoard from '@/components/_staff-dashboard/instance-messages-board'
 
 import {LuBox} from 'react-icons/lu'
 

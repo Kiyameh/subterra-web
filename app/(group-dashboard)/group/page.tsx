@@ -1,6 +1,6 @@
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import AllGroupsPanel from '@/components/_Organisms/boards/all-groups-panel'
+import SkeletonCard from '@/components/cards/skeleton-card'
+import AllGroupsPanel from '@/components/_group-dashboard/all-groups-panel'
 import PageContainer from '@/components/theming/page-container'
 import React, {Suspense} from 'react'
 import {FaUserGroup} from 'react-icons/fa6'

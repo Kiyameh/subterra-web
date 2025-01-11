@@ -1,9 +1,9 @@
 import {auth} from '@/auth'
-import InstanceRequestForm from '@/components/_Organisms/forms/instance-request-form'
+import InstanceRequestForm from '@/components/_group-dashboard/instance-request-form'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import PageContainer from '@/components/theming/page-container'
-import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
+import NotFoundCard from '@/components/cards/404-not-found'
 
 import {BiSolidMessage} from 'react-icons/bi'
 import {getOneGroupIndex, GroupIndex} from '@/database/services/group.actions'

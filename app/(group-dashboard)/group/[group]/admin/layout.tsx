@@ -1,7 +1,7 @@
 import React from 'react'
 import {auth} from '@/auth'
 import {checkIsAdmin} from '@/database/services/group.actions'
-import UnauthorizedCard from '@/components/_Molecules/cards/401-unauthorized'
+import UnauthorizedCard from '@/components/cards/401-unauthorized'
 
 interface LayoutProps {
   params: Promise<{group: string}>

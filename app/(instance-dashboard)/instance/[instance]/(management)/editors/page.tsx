@@ -1,7 +1,7 @@
 import {Suspense} from 'react'
-import InstasnceEditorsBoard from '@/components/instance-editors-board/instance-editors-board'
+import InstasnceEditorsBoard from '@/components/_instance-dashboard/instance-editors-board/instance-editors-board'
 import PageContainer from '@/components/theming/page-container'
-import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
+import SkeletonCard from '@/components/cards/skeleton-card'
 
 interface PageProps {
   params: Promise<{instance: string}>

@@ -1,15 +1,15 @@
 import React from 'react'
 import ShortcutTooltip from '@/components/_Atoms/badges/shortcut-tooltip'
-import NavigationBreadcrumb from '@/components/_Organisms/navs/nav-breadcrumb'
-import GroupSidebar from '@/components/_Organisms/sidebar/group-sidebar'
+import NavigationBreadcrumb from '@/components/navigations/dashboard-breadcrumb'
+import GroupSidebar from '@/components/_group-dashboard/group-sidebar/group-sidebar'
 
 import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import SubterraDropdown from '@/components/_Organisms/navs/subterra-dropdown'
-import FloatingContactForm from '@/components/floating-contact-form/floating-contact'
+import SubterraDropdown from '@/components/navigations/subterra-dropdown'
+import FloatingContactForm from '@/components/_staff-dashboard/floating-contact-form/floating-contact'
 import {auth} from '@/auth'
 
 interface GroupDashboardLayoutProps {

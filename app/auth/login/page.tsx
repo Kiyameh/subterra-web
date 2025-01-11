@@ -2,8 +2,8 @@ import React, {Suspense} from 'react'
 import Divider from '@/components/_Atoms/boxes/divider'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import LoginForm from '@/components/_Organisms/forms/login-form'
-import SigninGoogle from '@/components/_Molecules/auth/signin-google'
+import LoginForm from '@/components/_authentication/login-form'
+import SigninGoogle from '@/components/_authentication/signin-google'
 
 export default function LoginPage() {
   return (

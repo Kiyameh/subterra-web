@@ -1,7 +1,7 @@
 import {Suspense} from 'react'
 import PageContainer from '@/components/theming/page-container'
-import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import GroupInstancesBoard from '@/components/group-instances-board/group-instances-board'
+import SkeletonCard from '@/components/cards/skeleton-card'
+import GroupInstancesBoard from '@/components/_group-dashboard/group-instances-board/group-instances-board'
 
 interface PageProps {
   params: Promise<{group: string}>

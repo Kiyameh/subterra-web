@@ -1,6 +1,6 @@
 import {Suspense} from 'react'
-import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import SystemListBoard from '@/components/system-list-board/system-list-board'
+import SkeletonCard from '@/components/cards/skeleton-card'
+import SystemListBoard from '@/components/_document-pages/system-list-board/system-list-board'
 import PageContainer from '@/components/theming/page-container'
 
 interface PageProps {

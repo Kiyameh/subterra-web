@@ -1,6 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
-import UnauthorizedCard from '@/components/_Molecules/cards/401-unauthorized'
+import UnauthorizedCard from '@/components/cards/401-unauthorized'
 import {checkIsCoordinator} from '@/database/services/instance.actions'
 
 interface LayoutProps {

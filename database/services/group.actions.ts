@@ -10,7 +10,7 @@ import {GroupDocument} from '@/database/models/Group.model'
 
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {MemberRequestValues} from '@/components/_Molecules/interactives/group-notification-area/membership-request-dialog'
+import {MemberRequestValues} from '@/components/_group-dashboard/group-notification-area/membership-request-dialog'
 import Instance from '../models/Instance.model'
 import {InstanceIndex} from './instance.actions'
 
@@ -394,6 +394,18 @@ export async function promoteAdmin(groupId: string, userId: string | null) {
 export async function demoteAdmin(groupId: string, userId: string | null) {
   try {
     await connectToMongoDB()
+
+    const isAnotherAdmin = await User.find({
+      adminOf: {$in: [groupId]},
+    })
+      .select('_id')
+      .exec()
+
+    if (isAnotherAdmin.length < 2)
+      return {
+        ok: false,
+        message: 'No hay otro administrador, elige a uno primero',
+      } as Answer
 
     const updatedUser = await User.findOneAndUpdate(
       {_id: userId},

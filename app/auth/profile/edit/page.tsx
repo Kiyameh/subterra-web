@@ -1,8 +1,8 @@
 import React from 'react'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import {auth} from '@/auth'
-import ProfileEditForm from '@/components/_Organisms/forms/profile-edit-form'
-import ErrorCard from '@/components/_Molecules/cards/500-error'
+import ProfileEditForm from '@/components/_authentication/profile-edit-form'
+import ErrorCard from '@/components/cards/500-error'
 import {FullUser, getFullUser} from '@/database/services/user.actions'
 
 export default async function EditProfilePage() {

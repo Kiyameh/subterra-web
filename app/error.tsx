@@ -1,5 +1,5 @@
 'use client'
-import ErrorCard from '@/components/_Molecules/cards/500-error'
+import ErrorCard from '@/components/cards/500-error'
 import PageContainer from '@/components/theming/page-container'
 
 export default function NotFound() {

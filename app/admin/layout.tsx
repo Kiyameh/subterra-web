@@ -1,9 +1,9 @@
 import {auth} from '@/auth'
 import PageContainer from '@/components/theming/page-container'
-import NotFoundCard from '@/components/_Molecules/cards/404-not-found'
+import NotFoundCard from '@/components/cards/404-not-found'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/platform.services'
-import StaffNavigation from '@/components/_Organisms/navs/staff-navigation'
+import StaffNavigation from '@/components/_staff-dashboard/staff-nav'
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const subterra = (await getOnePlatform('subterra'))

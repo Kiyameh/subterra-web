@@ -615,7 +615,18 @@ export async function demoteCoordinator(
   try {
     await connectToMongoDB()
 
-    // TODO: Validar commander
+    const isAnotherCoordinator = await User.find({
+      coordinatorOf: {$in: [instanceId]},
+    })
+      .select('_id')
+      .exec()
+
+    if (isAnotherCoordinator.length < 2) {
+      return {
+        ok: false,
+        message: 'No hay otro coordinador, elige a uno primero',
+      } as Answer
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,

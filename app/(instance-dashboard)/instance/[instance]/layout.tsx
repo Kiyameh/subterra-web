@@ -1,15 +1,15 @@
 import React from 'react'
 import ShortcutTooltip from '@/components/_Atoms/badges/shortcut-tooltip'
-import NavigationBreadcrumb from '@/components/_Organisms/navs/nav-breadcrumb'
-import InstanceSidebar from '@/components/_Organisms/sidebar/instance-sidebar'
+import NavigationBreadcrumb from '@/components/navigations/dashboard-breadcrumb'
+import InstanceSidebar from '@/components/_instance-dashboard/instace-sidebar/instance-sidebar'
 
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import SubterraDropdown from '@/components/_Organisms/navs/subterra-dropdown'
-import FloatingContactForm from '@/components/floating-contact-form/floating-contact'
+import SubterraDropdown from '@/components/navigations/subterra-dropdown'
+import FloatingContactForm from '@/components/_staff-dashboard/floating-contact-form/floating-contact'
 import {auth} from '@/auth'
 
 interface InstanceDashboardLayoutProps {

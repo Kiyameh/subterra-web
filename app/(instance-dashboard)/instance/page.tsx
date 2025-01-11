@@ -1,6 +1,6 @@
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import SkeletonCard from '@/components/_Molecules/cards/skeleton-card'
-import AllInstancesPanel from '@/components/_Organisms/boards/all-instances-panel'
+import SkeletonCard from '@/components/cards/skeleton-card'
+import AllInstancesPanel from '@/components/_instance-dashboard/all-instances-panel'
 import PageContainer from '@/components/theming/page-container'
 import {Suspense} from 'react'
 
