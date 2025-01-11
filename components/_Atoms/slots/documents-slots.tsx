@@ -8,9 +8,12 @@ import {Button} from '@/components/ui/button'
 import {FaAnchor} from 'react-icons/fa'
 import {FaRegCircle} from 'react-icons/fa6'
 import {PiCirclesThreeBold} from 'react-icons/pi'
-import {PlainCave} from '@/database/services/cave.actions'
-import {PlainExploration} from '@/database/services/exploration.actions'
-import {PlainSystem} from '@/database/services/system.actions'
+import {CaveIndex, PlainCave} from '@/database/services/cave.actions'
+import {
+  ExplorationIndex,
+  PlainExploration,
+} from '@/database/services/exploration.actions'
+import {PlainSystem, SystemIndex} from '@/database/services/system.actions'
 
 /**
  * @version 1
@@ -21,7 +24,7 @@ import {PlainSystem} from '@/database/services/system.actions'
 export function ExplorationSlot({
   exploration,
 }: {
-  exploration: PlainExploration
+  exploration: PlainExploration | ExplorationIndex
 }) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
@@ -65,7 +68,7 @@ export function ExplorationSlot({
  * @param cave Objeto de cueva
  */
 
-export function CaveSlot({cave}: {cave: PlainCave}) {
+export function CaveSlot({cave}: {cave: PlainCave | CaveIndex}) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
 
@@ -100,7 +103,7 @@ export function CaveSlot({cave}: {cave: PlainCave}) {
  * @description Slot que muestra un sistema con sus dimensiones y un botón para acceder a la vista de detalle.
  * @param system Objeto de sistema
  */
-export function SystemSlot({system}: {system: PlainSystem}) {
+export function SystemSlot({system}: {system: PlainSystem | SystemIndex}) {
   // Obtener la instancia actual
   const {instance} = useParams<{instance: string; document: string}>()
 

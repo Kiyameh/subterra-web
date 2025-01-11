@@ -8,6 +8,9 @@ import Divider from '@/components/_Atoms/boxes/divider'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
+import {getOnePlatform} from '@/database/services/platform.services'
+import {PlatformObject} from '@/database/models/Platform.model'
+import LinkButton from '../_Atoms/buttons/link-button'
 
 /**
  * @version 1
@@ -17,6 +20,9 @@ import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-butt
 export default async function ProfilePanel() {
   const userId = (await auth())?.user._id
   const user: FullUser | undefined = await getFullUser(userId)
+  const subterra = (await getOnePlatform('subterra')).content as
+    | PlatformObject
+    | undefined
 
   if (!user) return <FetchingErrorButton />
 
@@ -47,6 +53,7 @@ export default async function ProfilePanel() {
           </AvatarFallback>
         </Avatar>
       </div>
+
       <div className="space-y-2">
         <TextSlot
           label="Nombre de usuario"
@@ -128,6 +135,12 @@ export default async function ProfilePanel() {
           />
         ))}
       </div>
+      {userId && subterra?.staff.includes(userId) && (
+        <LinkButton
+          href="/admin"
+          label="Administración de subterra"
+        />
+      )}
     </div>
   )
 }

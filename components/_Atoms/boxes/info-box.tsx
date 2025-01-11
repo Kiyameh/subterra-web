@@ -20,7 +20,7 @@ export default function InfoBox({
   children,
   className,
 }: {
-  title: React.ReactNode
+  title?: React.ReactNode
   color?: 'info' | 'success' | 'warning' | 'destructive'
   icon?: React.ReactNode
   children?: React.ReactNode
