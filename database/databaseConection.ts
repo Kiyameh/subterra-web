@@ -12,7 +12,7 @@ export async function connectToMongoDB(): Promise<Connection> {
   // 2. Uri de conexión:
   const {DB_USER, DB_PASSWORD} = process.env
   if (!DB_USER || !DB_PASSWORD) throw new Error('ENV no definidas')
-  const conectionURI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}Mgo$@subterradb.c0hrufd.mongodb.net/?retryWrites=true&w=majority`
+  const conectionURI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@subterradb.c0hrufd.mongodb.net/?retryWrites=true&w=majority`
 
   // 3. Opciones de conexión
   const options = {
