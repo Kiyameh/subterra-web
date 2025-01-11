@@ -3,9 +3,8 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {Answer} from '@/database/types/answer.type'
-import {demoteCoordinator} from '@/database/services/instance.actions'
 
-import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
+import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
 import {
   Dialog,
@@ -17,18 +16,20 @@ import {
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
-import {IoClose} from 'react-icons/io5'
+import {FaUserTimes} from 'react-icons/fa'
+import {IoIosWarning} from 'react-icons/io'
+import {demoteCoordinator} from '@/database/services/instance.actions'
 
 /**
  * @version 1
- * @description Diálogo para eliminar coordinador
- * @param instanceId  Id de instancia al que se envía la solicitud
- * @param userId  Id del usuario a revocar
+ * @description Diálogo para renunciar como coordinador de una instancia
+ * @param instanceId  Id de la instancia al que se envía la solicitud
+ * @param userId  Id del usuario a promocionar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function RevokeCoordDialog({
+export default function ResignCoordinatorDialog({
   userId,
   instanceId,
   isOpen,
@@ -71,18 +72,19 @@ export default function RevokeCoordDialog({
       <DialogContent className="bg-card w-[460px] max-w-[90%]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <IoClose />
-            Eliminar coordinador
+            <FaUserTimes />
+            Renunciar como coordinador
           </DialogTitle>
         </DialogHeader>
-        <CollapsibleBox
+        <InfoBox
           title="¿Estás seguro?"
           color="destructive"
+          icon={<IoIosWarning />}
         >
-          Estas a punto de eliminar este usuario como coordinador de la
-          instancia, esta acción es irreversible. No podras continuar si no hay
-          otro usuario coordinador.
-        </CollapsibleBox>
+          Vas a renunciar como coordinador de esta instancia. Pasaras a ser
+          editor. No puedes renunciar si eres el único coordinador.
+        </InfoBox>
+
         <DbAwnserBox answer={dbAnswer} />
         <DialogFooter className="mt-6">
           <Button

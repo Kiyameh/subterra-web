@@ -22,14 +22,14 @@ import {removeEditor} from '@/database/services/instance.actions'
 
 /**
  * @version 1
- * @description Diálogo para eliminar un editor de una instancia
+ * @description Diálogo para renunciar como editor de una instancia
  * @param instanceId  Id de la instancia al que se envía la solicitud
- * @param userId  Id del usuario a eliminar
+ * @param userId  Id del usuario a promocionar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function RemoveEditorDialog({
+export default function ResignEditorDialog({
   userId,
   instanceId,
   isOpen,
@@ -73,7 +73,7 @@ export default function RemoveEditorDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
             <FaUserTimes />
-            Eliminar editor
+            Renunciar como editor
           </DialogTitle>
         </DialogHeader>
         <InfoBox
@@ -81,8 +81,8 @@ export default function RemoveEditorDialog({
           color="destructive"
           icon={<IoIosWarning />}
         >
-          El usuario pasara a ser un invitado común sin permisos de edición.
-          Esta acción es irreversible
+          Vas a renunciar como editor de esta instancia. Perderás todos los
+          permisos de edición.
         </InfoBox>
 
         <DbAwnserBox answer={dbAnswer} />

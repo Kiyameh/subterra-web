@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/sidebar'
 
 import SidebarInstanceSelector from './sidebar-instance-selector'
-import SidebarRoleIndicator from './sidebar-role-indicator'
+import SidebarInstanceRoleBox from './sidebar-instance-role-box'
 import SidebarSearchBar from './sidebar-search-bar'
 import SidebarInstanceNavigation from './sidebar-instance-navigation'
 import SidebarFavNavigation from './sidebar-fav-navigation'
@@ -67,13 +67,11 @@ export default async function InstanceSidebar({
       </SidebarHeader>
       <SidebarContent>
         <>
-          <SidebarRoleIndicator
+          <SidebarInstanceRoleBox
             isEditor={isEditor}
-            editorTag="Editor"
-            editorText="Eres editor de esta instancia"
-            isAdmin={isCoordinator}
-            adminTag="Coordinador"
-            adminText="Eres coordinador de esta instancia"
+            isCoordinator={isCoordinator}
+            instanceId={currentInstanceIndex?._id}
+            userId={user?._id}
           />
           {currentInstanceIndex && (
             <>

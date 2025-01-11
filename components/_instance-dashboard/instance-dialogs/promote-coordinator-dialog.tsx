@@ -4,7 +4,6 @@ import {useRouter} from 'next/navigation'
 
 import {Answer} from '@/database/types/answer.type'
 
-import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import {Button} from '@/components/ui/button'
 import {
   Dialog,
@@ -18,17 +17,18 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {FaUserLock} from 'react-icons/fa6'
 import {promoteCoordinator} from '@/database/services/instance.actions'
+import InfoBox from '@/components/_Atoms/boxes/info-box'
 
 /**
  * @version 1
- * @description Diálogo para promoción de un editor como coordinador de una instancia
+ * @description Diálogo para promoción de un editor a coordinador de una instancia
  * @param instanceId  Id de la instancia al que se envía la solicitud
  * @param userId  Id del usuario a promocionar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function PromoteToCoordinatorDialog({
+export default function PromoteCoordinatorDialog({
   userId,
   instanceId,
   isOpen,
@@ -75,14 +75,14 @@ export default function PromoteToCoordinatorDialog({
             Promocionar como coordinador
           </DialogTitle>
         </DialogHeader>
-        <CollapsibleBox
+
+        <InfoBox
           title="¿Estás seguro?"
-          color="destructive"
+          color="info"
         >
-          Solo puede haber un coordinador de instancia, esta acción te
-          reemplazará como coordinador de la instancia y le dará a este usuario
-          todos tus permisos.
-        </CollapsibleBox>
+          Vas a promocionar a este usuario a coordinador. Esta acción le dará
+          todos los permisos asociados.
+        </InfoBox>
         <DbAwnserBox answer={dbAnswer} />
         <DialogFooter className="mt-6">
           <Button

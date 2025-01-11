@@ -11,14 +11,14 @@ import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
 
 import {FaUserEdit} from 'react-icons/fa'
 import {RiArrowUpDoubleLine} from 'react-icons/ri'
-import {IoClose} from 'react-icons/io5'
+import {IoClose, IoPersonAdd} from 'react-icons/io5'
 import {MdOutlineAdminPanelSettings} from 'react-icons/md'
 
 import CardTitle from '@/components/_Atoms/boxes/card-title'
-import PromoteToCoordinatorDialog from '@/components/_instance-dashboard/instance-editors-board/promote-to-coordinator-dialog'
-import RemoveEditorDialog from '@/components/_instance-dashboard/instance-editors-board/remove-editor-dialog'
+import PromoteCoordinatorDialog from '@/components/_instance-dashboard/instance-dialogs/promote-coordinator-dialog'
+import RemoveEditorDialog from '@/components/_instance-dashboard/instance-dialogs/remove-editor-dialog'
 import LinkBadge from '@/components/_Atoms/badges/link-badge'
-import RevokeCoordDialog from './revoke-coord-dialog'
+import PromoteEditorDialog from '../instance-dialogs/promote-editor-dialog'
 
 // Interfaz de las filas de la tabla
 export interface InstanceEditorsTableRow {
@@ -50,9 +50,10 @@ export default function InstanceEditorsTable({
   const [selectedEditor, setSelectedEditor] = React.useState<string | null>(
     null
   )
-  const [removeDialogOpen, setRemoveDialogOpen] = React.useState(false)
-  const [promoteDialogOpen, setPromoteDialogOpen] = React.useState(false)
-  const [revokeDialogOpen, setRevokeDialogOpen] = React.useState(false)
+  const [removeEditorOpen, setRemoveEditorOpen] = React.useState(false)
+  const [promoteEditorOpen, setPromoteEditorOpen] = React.useState(false)
+  const [promoteCoordinatorOpen, setPromoteCoordinatorOpen] =
+    React.useState(false)
 
   // Definición de las columnas de la tabla
   const columns: ColumnDef<InstanceEditorsTableRow>[] = [
@@ -109,43 +110,34 @@ export default function InstanceEditorsTable({
           ' '
         ),
       cell: ({row}) => {
-        return adminActions && row.original.isCoordinator ? (
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => {
-              setSelectedEditor(row.original._id)
-              setRevokeDialogOpen(true)
-            }}
-          >
-            <IoClose />
-            Eliminar coord.
-          </Button>
-        ) : (
-          <div className="flex gap-2">
-            <Button
-              variant="admin"
-              size="sm"
-              onClick={() => {
-                setSelectedEditor(row.original._id)
-                setPromoteDialogOpen(true)
-              }}
-            >
-              <RiArrowUpDoubleLine />
-              Promocionar
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => {
-                setSelectedEditor(row.original._id)
-                setRemoveDialogOpen(true)
-              }}
-            >
-              <IoClose />
-              Eliminar editor
-            </Button>
-          </div>
+        return (
+          adminActions &&
+          !row.original.isCoordinator && (
+            <div className="flex gap-2">
+              <Button
+                variant="admin"
+                size="sm"
+                onClick={() => {
+                  setSelectedEditor(row.original._id)
+                  setPromoteCoordinatorOpen(true)
+                }}
+              >
+                <RiArrowUpDoubleLine />
+                Promocionar
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => {
+                  setSelectedEditor(row.original._id)
+                  setRemoveEditorOpen(true)
+                }}
+              >
+                <IoClose />
+                Eliminar editor
+              </Button>
+            </div>
+          )
         )
       },
     },
@@ -165,23 +157,32 @@ export default function InstanceEditorsTable({
         columns={columns}
         data={rows}
       />
-      <PromoteToCoordinatorDialog
-        isOpen={promoteDialogOpen}
+      {adminActions && (
+        <Button
+          variant="secondary"
+          className="w-fit"
+          onClick={() => setPromoteEditorOpen(true)}
+        >
+          <IoPersonAdd />
+          Añadir nuevo editor
+        </Button>
+      )}
+      <PromoteCoordinatorDialog
+        isOpen={promoteCoordinatorOpen}
         instanceId={instanceId}
         userId={selectedEditor}
-        onOpenChange={setPromoteDialogOpen}
-      />
-      <RevokeCoordDialog
-        isOpen={revokeDialogOpen}
-        instanceId={instanceId}
-        userId={selectedEditor}
-        onOpenChange={setRevokeDialogOpen}
+        onOpenChange={setPromoteCoordinatorOpen}
       />
       <RemoveEditorDialog
-        isOpen={removeDialogOpen}
+        isOpen={removeEditorOpen}
         instanceId={instanceId}
         userId={selectedEditor}
-        onOpenChange={setRemoveDialogOpen}
+        onOpenChange={setRemoveEditorOpen}
+      />
+      <PromoteEditorDialog
+        isOpen={promoteEditorOpen}
+        instanceId={instanceId}
+        onOpenChange={setPromoteEditorOpen}
       />
     </BasicCard>
   )
