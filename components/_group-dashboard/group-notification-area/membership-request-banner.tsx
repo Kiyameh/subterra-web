@@ -2,7 +2,7 @@
 import React from 'react'
 
 import {Button} from '@/components/ui/button'
-import MembershipRequestDialog from '@/components/_group-dashboard/group-notification-area/membership-request-dialog'
+import MembershipRequestDialog from '@/components/_group-dashboard/group-dialogs/membership-request-dialog'
 import {IoCloseSharp} from 'react-icons/io5'
 import LoginWrapper from '@/components/_authentication/login-wrapper'
 

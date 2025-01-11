@@ -28,7 +28,7 @@ import {FaUserLock} from 'react-icons/fa6'
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function PromoteToAdminDialog({
+export default function PromoteAdminDialog({
   userId,
   groupId,
   isOpen,

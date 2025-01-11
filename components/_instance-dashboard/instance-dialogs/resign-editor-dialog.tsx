@@ -24,7 +24,7 @@ import {removeEditor} from '@/database/services/instance.actions'
  * @version 1
  * @description Diálogo para renunciar como editor de una instancia
  * @param instanceId  Id de la instancia al que se envía la solicitud
- * @param userId  Id del usuario a promocionar
+ * @param userId  Id del usuario a eliminar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */

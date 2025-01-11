@@ -15,13 +15,11 @@ import ResignCoordinatorDialog from '../instance-dialogs/resign-coordinator-dial
 
 /**
  * @version 1
- * @description Componente para sidebar que indica el rol del usuario
+ * @description Componente para sidebar de instancia que indica el rol del usuario
  * @param isEditor
  * @param isAdmin
- * @param editorTag default: 'Editor'
- * @param adminTag default: 'Admin'
- * @param editorText default: 'Eres editor de esta instancia'
- * @param adminText default: 'Eres administrador de esta instancia'
+ * @param instanceId Id de la instancia
+ * @param userId Id del usuario
  */
 
 export default function SidebarInstanceRoleBox({
@@ -64,10 +62,7 @@ export default function SidebarInstanceRoleBox({
               <FaGear className="text-muted-foreground" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem
-                onClick={() => setResignEditorOpen(true)}
-                disabled={!isEditor}
-              >
+              <DropdownMenuItem onClick={() => setResignEditorOpen(true)}>
                 <IoClose />
                 Renunciar como editor
               </DropdownMenuItem>

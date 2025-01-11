@@ -2,10 +2,9 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {demoteAdmin} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/answer.type'
 
-import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
+import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
 import {
   Dialog,
@@ -17,18 +16,20 @@ import {
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
-import {IoClose} from 'react-icons/io5'
+import {FaUserTimes} from 'react-icons/fa'
+import {IoIosWarning} from 'react-icons/io'
+import {demoteAdmin} from '@/database/services/group.actions'
 
 /**
  * @version 1
- * @description Diálogo para renunciar como administrador
+ * @description Diálogo para renunciar como administrador de un grupo
  * @param groupId  Id del grupo al que se envía la solicitud
- * @param userId  Id del usuario a revocar
+ * @param userId  Id del usuario a degradar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function RevokeAdminDialog({
+export default function ResignAdminDialog({
   userId,
   groupId,
   isOpen,
@@ -71,18 +72,19 @@ export default function RevokeAdminDialog({
       <DialogContent className="bg-card w-[460px] max-w-[90%]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <IoClose />
-            Eliminar administrador
+            <FaUserTimes />
+            Renunciar como administrador
           </DialogTitle>
         </DialogHeader>
-        <CollapsibleBox
+        <InfoBox
           title="¿Estás seguro?"
           color="destructive"
+          icon={<IoIosWarning />}
         >
-          Estas a punto de eliminar este usuario como administrador del grupo,
-          esta acción es irreversible. No podras continuar si no hay otro
-          usuario administrador.
-        </CollapsibleBox>
+          Vas a renunciar como administrador de este grupo. Pasaras a ser solo
+          miembro. No puedes renunciar si eres el único administrador.
+        </InfoBox>
+
         <DbAwnserBox answer={dbAnswer} />
         <DialogFooter className="mt-6">
           <Button

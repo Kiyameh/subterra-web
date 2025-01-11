@@ -15,7 +15,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import SidebarGroupSelector from './sidebar-group-selector'
-import SidebarRoleIndicator from './sidebar-role-indicator'
+import SidebarGroupRoleBox from './sidebar-group-role-box'
 import SidebarGroupNavigation from './sidebar-group-navigation'
 import SidebarUserMenu from './sidebar-user-menu'
 import SidebarLoginButton from './sidebar-login-button'
@@ -62,12 +62,11 @@ export default async function GroupSidebar({
         />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarRoleIndicator
-          isEditor={isMember}
-          editorTag="Miembro"
-          editorText="Eres miembro de este grupo"
+        <SidebarGroupRoleBox
+          isMember={isMember}
           isAdmin={isAdmin}
-          adminText="Eres administrador de este grupo"
+          groupId={currentGroupIndex?._id}
+          userId={user?._id}
         />
         {currentGroupIndex && (
           <SidebarGroupNavigation

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import PendingRequestDialog from '@/components/_group-dashboard/pending-request-dialog'
+import PendingRequestDialog from '@/components/_group-dashboard/group-dialogs/pending-request-dialog'
 
 import {Button} from '@/components/ui/button'
 import {TiUserAdd} from 'react-icons/ti'

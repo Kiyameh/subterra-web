@@ -18,25 +18,25 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {FaUserTimes} from 'react-icons/fa'
 import {IoIosWarning} from 'react-icons/io'
-import {demoteCoordinator} from '@/database/services/instance.actions'
+import {removeMember} from '@/database/services/group.actions'
 
 /**
  * @version 1
- * @description Diálogo para renunciar como coordinador de una instancia
- * @param instanceId  Id de la instancia al que se envía la solicitud
+ * @description Diálogo para renunciar como miembro de un grupo
+ * @param groupId  Id del grupo al que se envía la solicitud
  * @param userId  Id del usuario a eliminar
  * @param isOpen  Estado de apertura del diálogo
  * @param onOpenChange  Función para cambiar el estado de apertura del diálogo
  */
 
-export default function ResignCoordinatorDialog({
+export default function ResignMemberDialog({
   userId,
-  instanceId,
+  groupId,
   isOpen,
   onOpenChange,
 }: {
   userId: string | null
-  instanceId: string
+  groupId: string
   isOpen: boolean
   onOpenChange: (open: boolean) => void
 }) {
@@ -47,7 +47,7 @@ export default function ResignCoordinatorDialog({
   const handleAccept = () => {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await demoteCoordinator(instanceId, userId)
+      const answer = await removeMember(groupId, userId)
       if (answer.ok) {
         setDbAnswer(null)
         onOpenChange(false)
@@ -73,7 +73,7 @@ export default function ResignCoordinatorDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
             <FaUserTimes />
-            Renunciar como coordinador
+            Renunciar como miembro
           </DialogTitle>
         </DialogHeader>
         <InfoBox
@@ -81,8 +81,8 @@ export default function ResignCoordinatorDialog({
           color="destructive"
           icon={<IoIosWarning />}
         >
-          Vas a renunciar como coordinador de esta instancia. Pasaras a ser solo
-          editor. No puedes renunciar si eres el único coordinador.
+          Vas a renunciar como miembro de este grupo. Si deseas volver a formar
+          parte tendrás que enviar una solicitud de nuevo.
         </InfoBox>
 
         <DbAwnserBox answer={dbAnswer} />

@@ -4,7 +4,7 @@ import {auth} from '@/auth'
 import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
 
 import NotFoundCard from '@/components/cards/404-not-found'
-import PendingRequestBanner from '@/components/_group-dashboard/pending-request-banner'
+import PendingRequestBanner from '@/components/_group-dashboard/group-notification-area/pending-request-banner'
 import PageContainer from '@/components/theming/page-container'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import GroupEditionForm from '@/components/_group-dashboard/group-edition-form'
@@ -14,6 +14,8 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {RiAddBoxLine} from 'react-icons/ri'
 import {FiBox} from 'react-icons/fi'
 import {MdModeEdit} from 'react-icons/md'
+import {BiMessageDetail} from 'react-icons/bi'
+import {FaInfoCircle} from 'react-icons/fa'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -60,33 +62,48 @@ export default async function GroupAdminPage({params}: PageProps) {
           />
         }
       >
-        <div className="flex flex-row gap-4 flex-wrap items-center justify-center">
-          {group.instances.length < 3 && (
-            <Link href={'admin/instance-request'}>
+        <div className="flex flex-col gap-2 items-center justify-center">
+          <div className="flex flex-row gap-4 flex-wrap items-center justify-center">
+            {group.instances.length < 3 && (
+              <Link href={'admin/instance-request'}>
+                <SquareButton
+                  text="Solicitar una instancia"
+                  icon={<RiAddBoxLine />}
+                  color="admin"
+                />
+              </Link>
+            )}
+            <Link href={'/contact'}>
               <SquareButton
-                text="Solicitar una instancia"
-                icon={<RiAddBoxLine />}
+                text="Contacto"
+                icon={<BiMessageDetail />}
                 color="admin"
               />
             </Link>
-          )}
-          <div>
-            <InfoBox
-              title={
-                <span>
-                  Tu grupo tiene
-                  <span className="font-semibold text-info-foreground px-1">
-                    {group.instances.length}
-                  </span>
-                  instancias
-                </span>
-              }
-            >
-              {group.instances.length === 3
-                ? 'Has alcanzado el límite de instancias, elimina una para solicitar otra'
-                : 'Puedes solicitar hasta tres instancias'}
-            </InfoBox>
           </div>
+          <InfoBox
+            className="max-w-md"
+            icon={<FaInfoCircle />}
+            title={
+              <span>
+                Tu grupo tiene
+                <span className="font-semibold text-info-foreground px-1">
+                  {group.instances.length}
+                </span>
+                instancias
+              </span>
+            }
+          >
+            {group.instances.length === 3
+              ? 'Has alcanzado el límite de instancias, elimina una para solicitar otra'
+              : 'Puedes solicitar hasta tres instancias'}
+          </InfoBox>
+          <InfoBox
+            title={
+              'Para dar de baja una instancia, o para cualquier otra consulta, contacta con nosotros'
+            }
+            className="max-w-md"
+          />
         </div>
       </BasicCard>
 

@@ -8,8 +8,8 @@ import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import {Button} from '@/components/ui/button'
 
 import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
-import PromoteToAdminDialog from '@/components/_group-dashboard/group-members-board/promote-to-admin-dialog'
-import RemoveMemberDialog from '@/components/_group-dashboard/group-members-board/remove-member-dialog'
+import PromoteAdminDialog from '@/components/_group-dashboard/group-dialogs/promote-admin-dialog'
+import RemoveMemberDialog from '@/components/_group-dashboard/group-dialogs/remove-member-dialog'
 
 import {FaUser} from 'react-icons/fa'
 import {RiArrowUpDoubleLine} from 'react-icons/ri'
@@ -18,7 +18,6 @@ import {IoClose} from 'react-icons/io5'
 
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import LinkBadge from '@/components/_Atoms/badges/link-badge'
-import RevokeAdminDialog from './revoke-admin-dialog'
 
 // Interfaz de las filas de la tabla
 export interface GroupMembersTableRow {
@@ -52,7 +51,6 @@ export default function GroupMembersTable({
   )
   const [removeDialogOpen, setRemoveDialogOpen] = React.useState(false)
   const [promoteDialogOpen, setPromoteDialogOpen] = React.useState(false)
-  const [revokeDialogOpen, setRevokeDialogOpen] = React.useState(false)
 
   // Definición de las columnas de la tabla
   const columns: ColumnDef<GroupMembersTableRow>[] = [
@@ -109,43 +107,34 @@ export default function GroupMembersTable({
           ' '
         ),
       cell: ({row}) => {
-        return adminActions && row.original.isAdmin ? (
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => {
-              setSelectedMember(row.original._id)
-              setRevokeDialogOpen(true)
-            }}
-          >
-            <IoClose />
-            Eliminar admin
-          </Button>
-        ) : (
-          <div className="flex gap-2">
-            <Button
-              variant="admin"
-              size="sm"
-              onClick={() => {
-                setSelectedMember(row.original._id)
-                setPromoteDialogOpen(true)
-              }}
-            >
-              <RiArrowUpDoubleLine />
-              Promocionar
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => {
-                setSelectedMember(row.original._id)
-                setRemoveDialogOpen(true)
-              }}
-            >
-              <IoClose />
-              Eliminar miembro
-            </Button>
-          </div>
+        return (
+          adminActions &&
+          !row.original.isAdmin && (
+            <div className="flex gap-2">
+              <Button
+                variant="admin"
+                size="sm"
+                onClick={() => {
+                  setSelectedMember(row.original._id)
+                  setPromoteDialogOpen(true)
+                }}
+              >
+                <RiArrowUpDoubleLine />
+                Promocionar
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => {
+                  setSelectedMember(row.original._id)
+                  setRemoveDialogOpen(true)
+                }}
+              >
+                <IoClose />
+                Eliminar miembro
+              </Button>
+            </div>
+          )
         )
       },
     },
@@ -165,18 +154,13 @@ export default function GroupMembersTable({
         columns={columns}
         data={rows}
       />
-      <PromoteToAdminDialog
+      <PromoteAdminDialog
         isOpen={promoteDialogOpen}
         groupId={groupId}
         userId={selectedMember}
         onOpenChange={setPromoteDialogOpen}
       />
-      <RevokeAdminDialog
-        isOpen={revokeDialogOpen}
-        groupId={groupId}
-        userId={selectedMember}
-        onOpenChange={setRevokeDialogOpen}
-      />
+
       <RemoveMemberDialog
         isOpen={removeDialogOpen}
         groupId={groupId}

@@ -10,7 +10,7 @@ import {GroupDocument} from '@/database/models/Group.model'
 
 import {GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {MemberRequestValues} from '@/components/_group-dashboard/group-notification-area/membership-request-dialog'
+import {MemberRequestValues} from '@/components/_group-dashboard/group-dialogs/membership-request-dialog'
 import Instance from '../models/Instance.model'
 import {InstanceIndex} from './instance.actions'
 
