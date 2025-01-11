@@ -18,6 +18,7 @@ import {
   ProfileEditValues,
 } from '@/database/validation/auth.schemas'
 import {Button} from '@/components/ui/button'
+import DeleteUserDialog from './delete-user-dialog'
 
 interface UserWithFullname extends User {
   fullname: string | undefined
@@ -31,6 +32,7 @@ interface UserWithFullname extends User {
 export default function ProfileEditForm({user}: {user: UserWithFullname}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
+  const [dialogOpen, setDialogOpen] = React.useState(false)
 
   const form = useForm({
     resolver: zodResolver(ProfileEditSchema),
@@ -45,47 +47,69 @@ export default function ProfileEditForm({user}: {user: UserWithFullname}) {
     })
   }
 
+  if (!user.email) return null
+
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6"
-      >
-        <TextField
-          control={form.control}
-          name="name"
-          label="Nombre de usuario"
-          placeholder="Arcaute"
-        />
-        <TextField
-          control={form.control}
-          name="fullname"
-          label="Nombre completo"
-          placeholder="Félix Ruiz de Arcaute"
-        />
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
+          <TextField
+            control={form.control}
+            name="name"
+            label="Nombre de usuario"
+            placeholder="Arcaute"
+          />
+          <TextField
+            control={form.control}
+            name="fullname"
+            label="Nombre completo"
+            placeholder="Félix Ruiz de Arcaute"
+          />
 
-        <DbAwnserBox answer={dbAnswer} />
-        {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
-      </form>
+          <DbAwnserBox answer={dbAnswer} />
+          {dbAnswer?.ok ? (
+            <BackButton />
+          ) : (
+            <SubmitButton isPending={isPending} />
+          )}
+        </form>
 
-      <Button
-        className="w-full"
-        variant="ghost"
-        onClick={() => {
-          setDbAnswer({
-            ok: true,
-            message:
-              'Email de recuperación enviado, revisa tu bandeja de entrada',
-          })
-          signIn('resend', {
-            email: form.getValues('email'),
-            redirect: false, // no redirigir actualmente
-            redirectTo: '/auth/reset-pass', // url de redirección enviada en el email
-          })
-        }}
-      >
-        Solicitar reinicio de contraseña
-      </Button>
-    </Form>
+        <Button
+          type="reset"
+          className="w-full"
+          variant="ghost"
+          onClick={() => {
+            setDbAnswer({
+              ok: true,
+              message:
+                'Email de recuperación enviado, revisa tu bandeja de entrada',
+            })
+            signIn('resend', {
+              email: form.getValues('email'),
+              redirect: false, // no redirigir actualmente
+              redirectTo: '/auth/reset-pass', // url de redirección enviada en el email
+            })
+          }}
+        >
+          Solicitar reinicio de contraseña
+        </Button>
+        <Button
+          type="reset"
+          className="w-full"
+          variant="ghost"
+          onClick={() => setDialogOpen(true)}
+        >
+          Eliminar perfil
+        </Button>
+      </Form>
+      <DeleteUserDialog
+        userEmail={user.email}
+        isOpen={dialogOpen}
+        onOpenChange={setDialogOpen}
+      />
+    </>
   )
 }

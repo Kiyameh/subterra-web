@@ -9,6 +9,8 @@ import {RiForbidFill} from 'react-icons/ri'
  * @description Card personalizada para mostrar que una funcionalidad está en desarrollo
  * @param title Título de la card
  * @param text Texto de la card
+ * @param redirectLabel Texto del botón de redirección
+ * @param redirectUrl URL a la que redirige el botón
  * @default
  * 'No autorizado'
  * 'Ups, parece que no estas autorizado para esto. Contacta con el responsable para obtener acceso'
@@ -17,9 +19,13 @@ import {RiForbidFill} from 'react-icons/ri'
 export default function UnauthorizedCard({
   title = 'No autorizado',
   text = 'Ups, parece que no estas autorizado para esto. Contacta con el responsable para obtener acceso',
+  redirectLabel,
+  redirectUrl,
 }: {
   title?: string
   text?: string
+  redirectLabel?: string
+  redirectUrl?: string
 }) {
   return (
     <BasicCard
@@ -41,7 +47,15 @@ export default function UnauthorizedCard({
       }
       cardFooter={
         <div className="w-full gap-2 flex justify-between">
-          <BackButton />
+          {redirectUrl ? (
+            <LinkButton
+              label={redirectLabel || 'Volver'}
+              href={redirectUrl}
+              variant={'secondary'}
+            />
+          ) : (
+            <BackButton />
+          )}
           <LinkButton
             label="Enviar comentarios"
             href="/contact"
