@@ -100,7 +100,7 @@ export default async function GroupAdminPage({params}: PageProps) {
           </InfoBox>
           <InfoBox
             title={
-              'Para dar de baja una instancia, o para cualquier otra consulta, contacta con nosotros'
+              'Para eliminar el grupo, para dar de baja una instancia, o para cualquier otra consulta, contacta con nosotros'
             }
             className="max-w-md"
           />

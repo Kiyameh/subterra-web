@@ -3,7 +3,6 @@ import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import SquareButton from '@/components/_Atoms/buttons/square-button'
 import PageContainer from '@/components/theming/page-container'
-import Link from 'next/link'
 import {RxNotionLogo} from 'react-icons/rx'
 import {FaMapSigns} from 'react-icons/fa'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
@@ -20,13 +19,17 @@ export default function NextPage() {
         }
       >
         <div className="space-y-4 flex flex-col items-center">
-          <Link href="https://woolly-silk-b0e.notion.site/Roadmap-1781a4be7fa680a8a249d092c79d51b1?pvs=4">
+          <a
+            href="https://woolly-silk-b0e.notion.site/Roadmap-1781a4be7fa680a8a249d092c79d51b1?pvs=4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <SquareButton
               icon={<RxNotionLogo />}
               text="Hoja de ruta"
               color="staff"
             />
-          </Link>
+          </a>
           <InfoBox
             title="Funcionalidades en desarrollo"
             color="info"

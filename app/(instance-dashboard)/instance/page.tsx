@@ -3,8 +3,11 @@ import SkeletonCard from '@/components/cards/skeleton-card'
 import AllInstancesPanel from '@/components/_instance-dashboard/all-instances-panel'
 import PageContainer from '@/components/theming/page-container'
 import {Suspense} from 'react'
+import {connection} from 'next/server'
 
-export default function InstanceListPage() {
+export default async function InstanceListPage() {
+  // Forzar renderizado dinámico:
+  await connection()
   return (
     <PageContainer>
       <CardWithHeader

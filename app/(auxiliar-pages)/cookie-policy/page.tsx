@@ -12,8 +12,8 @@ export default function CookiePolicyPage() {
           <p>
             Las cookies son pequeños archivos de texto que se almacenan en tu
             dispositivo cuando visitas un sitio web. Estas cookies ayudan a que
-            el sitio funcione correctamente, mejoren tu experiencia de usuario y
-            proporcionen información a los propietarios del sitio sobre cómo se
+            el sitio funcione correctamente, mejoran tu experiencia de usuario y
+            proporcionan información a los propietarios del sitio sobre cómo se
             está utilizando la plataforma.
           </p>
 

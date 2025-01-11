@@ -1,11 +1,14 @@
+import React, {Suspense} from 'react'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import SkeletonCard from '@/components/cards/skeleton-card'
 import AllGroupsPanel from '@/components/_group-dashboard/all-groups-panel'
 import PageContainer from '@/components/theming/page-container'
-import React, {Suspense} from 'react'
 import {FaUserGroup} from 'react-icons/fa6'
+import {connection} from 'next/server'
 
-export default function GroupListPage() {
+export default async function GroupListPage() {
+  // Forzar renderizado dinámico:
+  await connection()
   return (
     <PageContainer>
       <Suspense fallback={<SkeletonCard defaultWidth="md" />}>

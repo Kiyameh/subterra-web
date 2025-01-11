@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import React from 'react'
 
 import {
@@ -20,7 +21,7 @@ import {RiInputField} from 'react-icons/ri'
 import {BsTextareaResize} from 'react-icons/bs'
 import {BsAppIndicator} from 'react-icons/bs'
 import {CgPlayButtonR} from 'react-icons/cg'
-import Link from 'next/link'
+import {IoMdClose} from 'react-icons/io'
 
 export default function StaffNavigation() {
   return (
@@ -67,10 +68,6 @@ export default function StaffNavigation() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavItem
-            href="/admin"
-            icon={<FaHome className="text-staff" />}
-          />
-          <NavItem
             label="Mensajes de contacto"
             href="/admin/contact-messages"
             icon={<BiMessageDots />}
@@ -85,6 +82,14 @@ export default function StaffNavigation() {
             label="Visor objetos"
             href="/admin/object-viewer"
             icon={<MdDataObject />}
+          />
+          <NavItem
+            href="/admin"
+            icon={<FaHome className="text-staff" />}
+          />
+          <NavItem
+            href="/"
+            icon={<IoMdClose className="text-destructive-foreground" />}
           />
         </NavigationMenuList>
       </NavigationMenu>

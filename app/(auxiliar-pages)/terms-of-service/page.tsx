@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
               <li>
                 Asimismo, eres responsable de que dichos datos no incurran en
                 acciones ilegales, ofensivas o abusivas, vulneren los derechos
-                de terceros (incluidos derechos de autor), o que no se ajusten
+                de terceros (incluidos derechos de autor), y de que se ajusten
                 al contenido de la plataforma.
               </li>
               <li>

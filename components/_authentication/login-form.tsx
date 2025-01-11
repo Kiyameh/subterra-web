@@ -2,7 +2,7 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {useRouter, useSearchParams} from 'next/navigation'
+import {useSearchParams} from 'next/navigation'
 
 import {SignInSchema, SignInValues} from '@/database/validation/auth.schemas'
 import {signIn} from 'next-auth/react'
@@ -22,7 +22,6 @@ import {Button} from '@/components/ui/button'
 export default function LoginForm() {
   // Página de la que proviene el usuario:
   const searchParams = useSearchParams()
-  const router = useRouter()
   const src = searchParams.get('src')
 
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
@@ -45,6 +44,7 @@ export default function LoginForm() {
         email: values.email,
         password: values.password,
         redirect: false,
+        redirectTo: src || '/',
       })
       if (response?.error && response.code === 'not_verified') {
         setDbAnswer({
@@ -61,9 +61,6 @@ export default function LoginForm() {
           ok: true,
           message: 'Sesión iniciada',
         })
-
-        // Redirigir a la página de origen
-        router.push(src || '/')
       }
     })
   }
