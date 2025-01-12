@@ -4,8 +4,6 @@ import {
   ProfileEditValues,
   ResetPassSchema,
   ResetPassValues,
-  SignInSchema,
-  SignInValues,
   SignUpSchema,
   SignUpValues,
 } from '@/database/validation/auth.schemas'
@@ -13,7 +11,36 @@ import {Answer} from '@/database/types/answer.type'
 import {connectToMongoDB} from '@/database/databaseConection'
 import User, {UserDocument} from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
+import Group from '../models/Group.model'
+import Instance from '../models/Instance.model'
 import {signIn} from '@/auth'
+import {AuthError} from 'next-auth'
+
+/**
+ * @version 1
+ * @description Función para iniciar sesión mediante next-auth (signin)
+ * @param formData FormData - Datos del formulario
+ * @param callbackUrl string - URL de redirección
+ */
+
+export async function loginUser(formData: FormData, callbackUrl: string) {
+  try {
+    await signIn('credentials', {
+      email: formData.get('email'),
+      password: formData.get('password'),
+      redirect: true,
+      redirectTo: callbackUrl,
+    })
+  } catch (error) {
+    if (error instanceof AuthError) {
+      // Está ocurriendo un error de autenticación
+      return false
+    } else {
+      // Está ocurriendo un error de redirección de next
+      throw error
+    }
+  }
+}
 
 /**
  * @version 1
@@ -31,29 +58,19 @@ export async function signUp(values: SignUpValues) {
   }
   const {name, fullname, email, password} = validationResult.data
 
-  //2: Enviar email de confirmación
-  await signIn('resend', {
-    email,
-    redirect: false, // no redirigir actualmente
-    redirectTo: '/auth/verify-email', // url de redirección enviada en el email
-  })
-
-  //3. Añadir a la base de datos
+  //2. Actualizar datos de usuario
   try {
-    const newUser = new User({
-      name,
-      fullname,
-      email,
-      password,
-    })
-    await connectToMongoDB()
-    await newUser.save()
+    const user = await User.findOne({email})
+    user.name = name
+    user.fullname = fullname
+    user.password = password
+    user.save()
 
     //3. Devolver respuesta
     return {
       ok: true,
       code: 200,
-      message: `Se ha enviado un email de confirmación a ${email}, por favor revisa tu bandeja de entrada`,
+      message: `Datos actualizados correctamente`,
     } as Answer
   } catch (e) {
     console.error(e)
@@ -62,41 +79,22 @@ export async function signUp(values: SignUpValues) {
 }
 
 /**
- * @version 1
- * @description Función para comprobar si un email ha sido verificado
- * @param email
- */
-
-export async function checkVerifiedEmail(email: string) {
-  try {
-    await connectToMongoDB()
-    const user = await User.findOne({email})
-
-    return user?.email_verified
-  } catch (error) {
-    console.error(error)
-    return null
-  }
-}
-
-/**
- * @version 1
+ * @version 2
  * @description Función para comprobar las credenciales de un usuario
- * @param credentials SignInValues - Credenciales de inicio de sesión
+ * @param email string - Email del usuario
+ * @param password string - Contraseña del usuario
  */
-export async function checkCredentials(credentials: SignInValues) {
-  try {
-    //1. Validación de datos (ZOD)
-    const validationResult = SignInSchema.safeParse(credentials)
-    if (!validationResult.success) throw new Error('Datos inválidos')
 
+export async function findUserByCredentials(email: string, password: string) {
+  try {
     // 2. Buscar usuario en base de datos (MONGOOSE
-    const {email, password} = validationResult.data
     await connectToMongoDB()
-    const user = await User.findOne({
-      email: email,
-    }).select('password email image _id name')
-    if (!user) throw new Error('Usuario no encontrado')
+
+    const user = await User.findOne({email: email}).select(
+      'password email image _id name'
+    )
+
+    if (!user) return null
 
     // 3. Comprobar credenciales
     const validPass = await user.comparePassword(password)
@@ -143,11 +141,15 @@ export async function getFullUser(id: string | null | undefined) {
   try {
     await connectToMongoDB()
     const user = await User.findById(id)
-      .populate('memberOf', 'name fullname')
-      .populate('adminOf', 'name fullname')
-      .populate('editorOf', 'name fullname')
-      .populate('coordinatorOf', 'name fullname')
-      .populate('viewerOf', 'name fullname')
+      .populate({path: 'memberOf', select: 'name fullname', model: Group})
+      .populate({path: 'adminOf', select: 'name fullname', model: Group})
+      .populate({path: 'editorOf', select: 'name fullname', model: Instance})
+      .populate({
+        path: 'coordinatorOf',
+        select: 'name fullname',
+        model: Instance,
+      })
+      .populate({path: 'viewerOf', select: 'name fullname', model: Instance})
     return user
   } catch (error) {
     console.error(error)

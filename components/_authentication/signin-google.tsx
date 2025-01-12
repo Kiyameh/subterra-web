@@ -12,17 +12,12 @@ import {useSearchParams} from 'next/navigation'
 
 export default function SigninGoogle() {
   const searchParams = useSearchParams()
-  const src = searchParams.get('src')
+  const callbackUrl = searchParams.get('callbackUrl') || '/'
 
-  function handleSignIn() {
-    signIn('google', {
-      redirectTo: src || '/',
-    })
-  }
   return (
     <Button
       className="w-full text-gray-600 font-bold bg-white hover:bg-blue-200"
-      onClick={handleSignIn}
+      onClick={() => signIn('google', {callbackUrl})}
     >
       Continua con
       <FcGoogle className="h-8 w-8" />

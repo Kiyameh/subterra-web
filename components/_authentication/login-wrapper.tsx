@@ -1,12 +1,19 @@
 'use client'
-import {usePathname, useRouter} from 'next/navigation'
 import React from 'react'
+import {signIn} from 'next-auth/react'
 
+/**
+ * @version 1
+ * @description Componente que envuelve a otros componentes y los comvierte en un enlace para iniciar sesión. Añade a la url callbackUrl de next-auth
+ */
 export default function LoginWrapper({children}: {children: React.ReactNode}) {
-  const path = usePathname()
-  const router = useRouter()
-
   return (
-    <div onClick={() => router.push(`/auth/login?src=${path}`)}>{children}</div>
+    <div
+      onClick={async () => {
+        await signIn()
+      }}
+    >
+      {children}
+    </div>
   )
 }

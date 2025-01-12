@@ -4,8 +4,16 @@ import LinkButton from '@/components/_Atoms/buttons/link-button'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import LoginForm from '@/components/_authentication/login-form'
 import SigninGoogle from '@/components/_authentication/signin-google'
+import {auth} from '@/auth'
+import {redirect} from 'next/navigation'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const user = (await auth())?.user
+
+  // Si hay usuario, reenviar a la página de perfil:
+
+  if (user?.name) redirect('/auth/profile')
+
   return (
     <CardWithHeader>
       <Suspense>

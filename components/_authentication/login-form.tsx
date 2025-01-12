@@ -1,18 +1,14 @@
 'use client'
 import React from 'react'
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
 import {useSearchParams} from 'next/navigation'
 
-import {SignInSchema, SignInValues} from '@/database/validation/auth.schemas'
-import {signIn} from 'next-auth/react'
 import {Answer} from '@/database/types/answer.type'
 
-import {Form} from '@/components/ui/form'
-import TextField from '@/components/_Atoms/fields/text-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
-import {Button} from '@/components/ui/button'
+import {Input} from '../ui/input'
+import LinkButton from '../_Atoms/buttons/link-button'
+import {loginUser} from '@/database/services/user.actions'
 
 /**
  * @version 1
@@ -21,117 +17,60 @@ import {Button} from '@/components/ui/button'
 
 export default function LoginForm() {
   // Página de la que proviene el usuario:
-  const searchParams = useSearchParams()
-  const src = searchParams.get('src')
+  const params = useSearchParams()
+  const callbackUrl = params.get('callbackUrl') || '/'
 
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm({
-    resolver: zodResolver(SignInSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    } as SignInValues,
-  })
-
-  const onSubmit = (values: SignInValues) => {
-    // Vaciar el mensaje de error
-    setDbAnswer(null)
-    // Iniciar el inicio de sesión con next-auth
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     startTransition(async () => {
-      const response = await signIn('credentials', {
-        email: values.email,
-        password: values.password,
-        redirect: false,
-        redirectTo: src || '/',
-      })
-      if (response?.error && response.code === 'not_verified') {
-        setDbAnswer({
-          ok: false,
-          message: 'Email no verificado',
-        })
-      } else if (response?.error) {
-        setDbAnswer({
-          ok: false,
-          message: 'Credenciales incorrectas',
-        })
-      } else {
-        setDbAnswer({
-          ok: true,
-          message: 'Sesión iniciada',
-        })
+      setDbAnswer(null)
+      event.preventDefault()
+      const formData = new FormData(event.currentTarget)
+
+      const success = await loginUser(formData, callbackUrl)
+
+      if (!success) {
+        setDbAnswer({ok: false, message: 'Credenciales incorrectas'})
       }
     })
   }
 
   return (
     <>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6"
-        >
-          <TextField
-            control={form.control}
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-6"
+      >
+        <label htmlFor="email">
+          Email
+          <Input
             name="email"
-            label="Correo electrónico"
-            placeholder="arcaute@mail.com"
             type="email"
+            placeholder="arcaute@mail.com"
           />
-          <TextField
-            control={form.control}
+        </label>
+        <label htmlFor="password">
+          Contraseña
+          <Input
             name="password"
-            label="Contraseña"
-            placeholder="******"
             type="password"
+            placeholder="******"
           />
+        </label>
 
-          <DbAwnserBox answer={dbAnswer} />
-          <SubmitButton isPending={isPending} />
-        </form>
-
-        {dbAnswer?.message === 'Email no verificado' && (
-          <Button
-            className="w-full"
-            variant="secondary"
-            onClick={() => {
-              setDbAnswer({
-                ok: true,
-                message:
-                  'Email de confirmación reenviado, revisa tu bandeja de entrada',
-              })
-              signIn('resend', {
-                email: form.getValues('email'),
-                redirect: false, // no redirigir actualmente
-                redirectTo: '/auth/verify-email', // url de redirección enviada en el email
-              })
-            }}
-          >
-            Reenviar email de confirmación
-          </Button>
-        )}
-        {dbAnswer?.message === 'Credenciales incorrectas' && (
-          <Button
-            className="w-full"
-            variant="ghost"
-            onClick={() => {
-              setDbAnswer({
-                ok: true,
-                message:
-                  'Email de recuperación enviado, revisa tu bandeja de entrada',
-              })
-              signIn('resend', {
-                email: form.getValues('email'),
-                redirect: false, // no redirigir actualmente
-                redirectTo: '/auth/reset-pass', // url de redirección enviada en el email
-              })
-            }}
-          >
-            Recuperar contraseña
-          </Button>
-        )}
-      </Form>
+        <DbAwnserBox answer={dbAnswer} />
+        <SubmitButton isPending={isPending} />
+      </form>
+      {dbAnswer?.message === 'Credenciales incorrectas' && (
+        <LinkButton
+          href="/auth/forgot-password"
+          label="Recuperar contraseña"
+          variant="ghost"
+          className="w-full"
+        />
+      )}
     </>
   )
 }

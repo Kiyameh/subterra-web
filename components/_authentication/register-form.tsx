@@ -11,28 +11,30 @@ import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
-import BackButton from '@/components/_Atoms/buttons/back-button'
-
-const EMPTY_USER: SignUpValues = {
-  email: '',
-  name: '',
-  fullname: '',
-  password: '',
-  passwordConfirmation: '',
-}
+import {User} from 'next-auth'
+import {UserProfileCard} from '../_Atoms/slots/user-slots'
+import {signIn, signOut} from 'next-auth/react'
+import {Button} from '../ui/button'
 
 /**
  * @version 1
  * @description Formulario de registro
+ * @param user User - Usuario autenticado
  */
 
-export default function RegisterForm() {
+export default function RegisterForm({user}: {user: User}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm({
     resolver: zodResolver(SignUpSchema),
-    defaultValues: EMPTY_USER,
+    defaultValues: {
+      email: user.email as string,
+      password: '',
+      passwordConfirmation: '',
+      name: '',
+      fullname: '',
+    },
   })
 
   const onSubmit = (values: SignUpValues) => {
@@ -43,19 +45,26 @@ export default function RegisterForm() {
     })
   }
 
+  const handleReSignin = async () => {
+    await signOut({
+      redirect: false,
+    })
+    await signIn('credentials', {
+      email: user.email as string,
+      password: form.getValues('password') as string,
+      redirect: true,
+      redirectTo: '/',
+    })
+  }
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <TextField
-          control={form.control}
-          name="email"
-          label="Correo electrónico"
-          placeholder="arcaute@mail.com"
-          type="email"
-        />
+        <UserProfileCard user={user} />
+
         <TextField
           control={form.control}
           name="password"
@@ -83,7 +92,16 @@ export default function RegisterForm() {
         />
 
         <DbAwnserBox answer={dbAnswer} />
-        {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
+        {dbAnswer?.ok ? (
+          <Button
+            variant="secondary"
+            onClick={handleReSignin}
+          >
+            Ir a Subterra
+          </Button>
+        ) : (
+          <SubmitButton isPending={isPending} />
+        )}
       </form>
     </Form>
   )

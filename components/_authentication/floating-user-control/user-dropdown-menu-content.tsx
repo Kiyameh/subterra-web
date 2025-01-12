@@ -30,7 +30,7 @@ export default function UserDropdownMenuContent({
     <>
       <DropdownMenuLabel>
         <span className="text-primary font-bold mr-1">@</span>
-        {user.name}
+        {user.name || user.email}
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuItem

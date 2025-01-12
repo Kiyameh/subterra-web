@@ -1,11 +1,24 @@
 import React from 'react'
-import InDevelopmentCard from '@/components/cards/501-not-implemented'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import {CardTitle} from '@/components/ui/card'
+import ResendSigninForm from '@/components/_authentication/resend-signin-form'
+import InfoBox from '@/components/_Atoms/boxes/info-box'
+import {MdPassword} from 'react-icons/md'
 
 export default function ForgotPasswordPage() {
   return (
-    <InDevelopmentCard
-      title="Contraseña olvidada"
-      text="Esta página está en desarrollo"
-    />
+    <CardWithHeader
+      cardSubHeader={<CardTitle title="Reinicia tu contraseña" />}
+    >
+      <InfoBox
+        title="Email de recuperación"
+        icon={<MdPassword />}
+      >
+        Introduce tu email. Si esta registrado, recibirás un enlace para
+        reiniciar tu contraseña.
+      </InfoBox>
+
+      <ResendSigninForm emailCallbackUrl="/auth/reset-pass" />
+    </CardWithHeader>
   )
 }

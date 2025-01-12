@@ -1,4 +1,4 @@
-import NextAuth, {CredentialsSignin} from 'next-auth'
+import NextAuth from 'next-auth'
 import {MongoDBAdapter} from '@auth/mongodb-adapter'
 import type {DefaultSession, User} from 'next-auth'
 import type {DefaultJWT} from 'next-auth/jwt'
@@ -9,20 +9,14 @@ import Resend from 'next-auth/providers/resend'
 
 import databaseClient from '@/database/databaseClient'
 import {
-  checkCredentials,
-  checkVerifiedEmail,
+  findUserByCredentials,
   verifyEmail,
 } from '@/database/services/user.actions'
 import {findUserByEmail} from '@/database/services/user.actions'
-import {SignInValues} from '@/database/validation/auth.schemas'
 import {
   verifyMailHTMLTemplate,
   verifyMailTextTemplate,
 } from './mail/account-verification'
-
-class NotVerifiedError extends CredentialsSignin {
-  code = 'not_verified'
-}
 
 export const {auth, handlers, signIn, signOut} = NextAuth({
   // 1. Estrategia de inicio de sesión:
@@ -36,39 +30,23 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
   // 4. Proveedores de inicio de sesión:
   providers: [
-    //4.1 Proveedor de credenciales:
     Credentials({
       credentials: {
         email: {},
         password: {},
       },
       authorize: async (credentials) => {
-        const verified = await checkVerifiedEmail(credentials.email as string)
-
-        if (!verified) throw new NotVerifiedError('Email no verificado')
-
-        const validUser = await checkCredentials(credentials as SignInValues)
-
-        if (!validUser) throw new Error('Credenciales incorrectas')
-
-        return validUser
+        if (!credentials.email || !credentials.password) return null
+        return await findUserByCredentials(
+          credentials.email as string,
+          credentials.password as string
+        )
       },
     }),
-    // 4.2 Proveedor de Google:
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      profile(profile) {
-        return {
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-          emailVerified: profile.email_verified, // Para confirmar email
-        }
-      },
-    }),
+    Google,
     Resend({
       from: 'info@mail.subterra.app',
+      // Función para enviar el email de verificación (modelo en text y html):
       sendVerificationRequest: async (params) => {
         const {identifier: to, provider, url} = params
         const {host} = new URL(url)
