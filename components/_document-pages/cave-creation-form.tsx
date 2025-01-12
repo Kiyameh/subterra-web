@@ -398,7 +398,7 @@ export default function CaveCreationForm({
               variant="secondary"
               onClick={handleReset}
             >
-              Crear otro cavidad
+              Crear otra cavidad
             </Button>
           </div>
         ) : (

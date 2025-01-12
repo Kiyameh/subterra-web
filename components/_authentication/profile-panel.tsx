@@ -35,7 +35,6 @@ export default async function ProfilePanel() {
     adminOf,
     editorOf,
     coordinatorOf,
-    email_verified,
   } = user
 
   return (
@@ -67,11 +66,9 @@ export default async function ProfilePanel() {
           label="Email"
           value={email}
           endAdornment={
-            email_verified && (
-              <ResponsiveTooltip content="Email verificado">
-                <FaCheck className="text-success-foreground" />
-              </ResponsiveTooltip>
-            )
+            <ResponsiveTooltip content="Email verificado">
+              <FaCheck className="text-success-foreground" />
+            </ResponsiveTooltip>
           }
         />
       </div>

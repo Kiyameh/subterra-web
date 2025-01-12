@@ -96,6 +96,7 @@ export default function RegisterForm({user}: {user: User}) {
           <Button
             variant="secondary"
             onClick={handleReSignin}
+            className="w-full"
           >
             Ir a Subterra
           </Button>

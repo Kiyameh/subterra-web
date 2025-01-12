@@ -194,7 +194,7 @@ export default function SidebarInstanceNavigation({
           </Collapsible>
         </SidebarMenu>
       </SidebarGroup>
-      {isCoordinator && (
+      {isEditor && (
         <SidebarGroup>
           <SidebarGroupLabel>Área administración</SidebarGroupLabel>
           <SidebarMenu>
@@ -211,19 +211,21 @@ export default function SidebarInstanceNavigation({
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
-                tooltip="Editar instancia"
-              >
-                <Link href={`/instance/${instance}/admin`}>
-                  <span className="text-admin">
-                    <FaGear />
-                  </span>
-                  <span>Editar instancia</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            {isCoordinator && (
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  tooltip="Editar instancia"
+                >
+                  <Link href={`/instance/${instance}/admin`}>
+                    <span className="text-admin">
+                      <FaGear />
+                    </span>
+                    <span>Editar instancia</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
           </SidebarMenu>
         </SidebarGroup>
       )}

@@ -7,6 +7,7 @@ import PageContainer from '@/components/theming/page-container'
 import {getPlainCave} from '@/database/services/cave.actions'
 import {PlainCave} from '@/database/services/cave.actions'
 import {LuPlusCircle} from 'react-icons/lu'
+import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>
@@ -15,11 +16,19 @@ export default async function CaveEditionPage({params}: PageProps) {
   // Obtener el id del documento
   const caveId = (await params).document
 
+  // Obtener el nombre de la instancia
+  const instanceName = (await params).instance
+
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
   // Obtener la cavidad
   const cave = (await getPlainCave(caveId)).content as PlainCave | null
+
+  // Obtener el índice del sistema
+  const systemIndex = (await getSystemIndex(instanceName)).content as
+    | SystemIndex[]
+    | undefined
 
   if (!cave) {
     return (
@@ -47,6 +56,7 @@ export default async function CaveEditionPage({params}: PageProps) {
           <CaveEditionForm
             commanderId={userId}
             cave={cave}
+            systemIndex={systemIndex}
           />
         </BasicCard>
       ) : (

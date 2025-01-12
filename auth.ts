@@ -8,27 +8,18 @@ import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
 
 import databaseClient from '@/database/databaseClient'
-import {
-  findUserByCredentials,
-  verifyEmail,
-} from '@/database/services/user.actions'
+import {findUserByCredentials} from '@/database/services/user.actions'
 import {findUserByEmail} from '@/database/services/user.actions'
-import {
-  verifyMailHTMLTemplate,
-  verifyMailTextTemplate,
-} from './mail/account-verification'
+
+import {verifyMailTextTemplate} from '@/mail/account-verification'
+import {verifyMailHTMLTemplate} from '@/mail/account-verification'
 
 export const {auth, handlers, signIn, signOut} = NextAuth({
-  // 1. Estrategia de inicio de sesión:
   session: {strategy: 'jwt'},
-  // 2. Páginas personalizadas:
+  adapter: MongoDBAdapter(databaseClient, {databaseName: 'subterra'}),
   pages: {
     signIn: '/auth/login',
   },
-  // 3. Adaptador de base de datos:
-  adapter: MongoDBAdapter(databaseClient, {databaseName: 'subterra'}),
-
-  // 4. Proveedores de inicio de sesión:
   providers: [
     Credentials({
       credentials: {
@@ -71,13 +62,10 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
     }),
   ],
 
-  // 5. Callbacks:
   callbacks: {
-    // 5.1 Callback al crear el token:
+    // 1 Callback al crear el token:
     async jwt({token, user, account}) {
       if (account?.provider === 'google' || account?.provider === 'resend') {
-        // Verificar el email:
-        await verifyEmail(user.email)
         // Buscar usuario en base de datos y añadir _id al token:
         const dbUser = await findUserByEmail(user?.email)
         token._id = dbUser._id.toString()
@@ -88,7 +76,7 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
       return token
     },
-    // 5.2 Callback al crear la sesión:
+    // 2 Callback al crear la sesión:
     async session({session, token}) {
       // Introducir _id en la sesión:
       if (session?.user) {

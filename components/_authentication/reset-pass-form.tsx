@@ -13,10 +13,10 @@ import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
-import BackButton from '@/components/_Atoms/buttons/back-button'
 import {User} from 'next-auth'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 import {updatePassword} from '@/database/services/user.actions'
+import LinkButton from '../_Atoms/buttons/link-button'
 
 /**
  * @version 1
@@ -66,7 +66,14 @@ export default function ResetPassForm({user}: {user: User}) {
         />
 
         <DbAwnserBox answer={dbAnswer} />
-        {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
+        {dbAnswer?.ok ? (
+          <LinkButton
+            label="Volver"
+            href="/"
+          />
+        ) : (
+          <SubmitButton isPending={isPending} />
+        )}
       </form>
     </Form>
   )

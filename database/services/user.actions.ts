@@ -174,21 +174,6 @@ export interface FullUser
 
 /**
  * @version 1
- * @description Función para verificar un email
- * @param email
- */
-
-export async function verifyEmail(email: string | null | undefined) {
-  try {
-    await connectToMongoDB()
-    await User.findOneAndUpdate({email}, {email_verified: true}, {new: true})
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-/**
- * @version 1
  * @description Función para actualizar la contraseña de un usuario
  * @param values ResetPassValues - Valores de actualización
  */

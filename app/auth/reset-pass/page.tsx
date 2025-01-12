@@ -1,8 +1,8 @@
 import React from 'react'
 import {auth} from '@/auth'
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import ResetPassForm from '@/components/_authentication/reset-pass-form'
 import {redirect} from 'next/navigation'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
 
 export default async function ResetPasswordPage() {
   // 1. Obtener datos del usuario
@@ -12,8 +12,8 @@ export default async function ResetPasswordPage() {
   if (!user) redirect('/auth/login')
 
   return (
-    <CardWithHeader cardSubHeader="Cambiar contraseña">
+    <BasicCard cardHeader="Cambiar contraseña">
       <ResetPassForm user={user} />
-    </CardWithHeader>
+    </BasicCard>
   )
 }

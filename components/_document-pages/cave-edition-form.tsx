@@ -27,7 +27,9 @@ import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import Divider from '@/components/_Atoms/boxes/divider'
 import SelectField from '@/components/_Atoms/fields/select-field'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
+import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 
+import {SystemIndex} from '@/database/services/system.actions'
 import {BsExclamationTriangle} from 'react-icons/bs'
 import {Button} from '@/components/ui/button'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
@@ -40,14 +42,17 @@ import LinkButton from '@/components/_Atoms/buttons/link-button'
  * @description Formulario para editar una cavidad
  * @param commanderId Editor que crea la cavidad
  * @param cave Cavidad a editar
+ * @param systemIndex Índice de sistemas kársticos
  */
 
 export default function CaveEditionForm({
   commanderId,
   cave,
+  systemIndex,
 }: {
   commanderId: string
   cave: PlainCave
+  systemIndex: SystemIndex[] | undefined
 }) {
   const params: {instance: string; document: string} = useParams()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
@@ -93,6 +98,13 @@ export default function CaveEditionForm({
               </div>
             </AccordionTrigger>
             <AccordionContent className="space-y-6 p-2 py-6">
+              <RefSelectField
+                control={form.control}
+                name="system"
+                label="Sistema karstico"
+                noOptionsText="Todavía no hay ningun sistema creado"
+                index={systemIndex}
+              />
               <TextField
                 control={form.control}
                 name="catalog"
