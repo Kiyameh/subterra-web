@@ -62,6 +62,7 @@ export default function TextAreaField<T extends FieldValues>({
             <div className="flex flex-row-reverse justify-between">
               <span className="text-muted-foreground text-xs">
                 {maxCharacters &&
+                  control._getWatch(name) &&
                   control._getWatch(name).length + '/' + maxCharacters}
               </span>
               <FormMessage />

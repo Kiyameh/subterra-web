@@ -15,6 +15,18 @@ export interface UtmCoordinate {
   hemisphere: 'N' | 'S'
 }
 
+export interface Geolocation {
+  date: Date
+  author?: string
+}
+
+export interface HistoricalExploration {
+  date: Date
+  author?: string
+  publication?: string
+  description?: string
+}
+
 export interface CaveDocument extends Document {
   //* Añadidos por Mongo:
   //  _id: Types.ObjectId
@@ -49,6 +61,10 @@ export interface CaveDocument extends Document {
   toponymy?: string[]
   massif?: string
   location_description?: string
+  geolocations?: Geolocation[]
+
+  //* Datos exploración:
+  historical_explorations?: HistoricalExploration[]
 
   //* Datos científicos:
   geolog_age?: string
@@ -74,7 +90,7 @@ const caveSchema = new Schema<CaveDocument>(
     //* Datos troncales:
     catalog: {type: String},
     initials: {type: [String]},
-    name: {type: String, required: true, unique: true},
+    name: {type: String, required: true},
     alt_names: {type: [String]},
 
     //* Datos descriptivos:
@@ -106,6 +122,22 @@ const caveSchema = new Schema<CaveDocument>(
     toponymy: {type: [String]},
     massif: {type: String},
     location_description: {type: String},
+    geolocations: [
+      {
+        date: {type: Date, required: true},
+        author: {type: String},
+      },
+    ],
+
+    //* Datos exploración:
+    historical_explorations: [
+      {
+        date: {type: Date, required: true},
+        author: {type: String},
+        publication: {type: String},
+        description: {type: String},
+      },
+    ],
 
     //* Datos científicos:
     geolog_age: {type: String},

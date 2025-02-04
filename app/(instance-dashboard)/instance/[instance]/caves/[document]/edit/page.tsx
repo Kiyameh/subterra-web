@@ -15,16 +15,16 @@ interface PageProps {
 export default async function CaveEditionPage({params}: PageProps) {
   // Obtener el id del documento
   const caveId = (await params).document
-
+  console.log(caveId)
   // Obtener el nombre de la instancia
   const instanceName = (await params).instance
-
+  console.log(instanceName)
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
   // Obtener la cavidad
   const cave = (await getPlainCave(caveId)).content as PlainCave | null
-
+  console.log(cave)
   // Obtener el índice del sistema
   const systemIndex = (await getSystemIndex(instanceName)).content as
     | SystemIndex[]

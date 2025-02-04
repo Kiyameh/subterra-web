@@ -16,7 +16,7 @@ export const caveMaxCharacters = {
   initials: 10,
   alt_names: 40,
 
-  description: 1000,
+  description: 5000,
   regulation_description: 1000,
   length: 400000,
   depth: 2500,
