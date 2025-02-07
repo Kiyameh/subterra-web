@@ -166,7 +166,7 @@ export default function SidebarInstanceNavigation({
                       isActive={pathName.includes('/explorations/list')}
                     >
                       <Link href={`/instance/${instance}/explorations/list`}>
-                        <span>Ultimas exploraciones</span>
+                        <span>Últimas exploraciones</span>
                       </Link>
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>

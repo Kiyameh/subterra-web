@@ -154,7 +154,7 @@ export default function AllExplorationTable({
       className="w-full"
       cardHeader={
         <CardTitle
-          title={`Ultimas exploraciones de ${instanceName}`}
+          title={`Últimas exploraciones de ${instanceName}`}
           icon={<FaRegCompass />}
         />
       }

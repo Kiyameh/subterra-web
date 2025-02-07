@@ -23,7 +23,7 @@ export default async function ExplorationsCards({caveId}: {caveId: string}) {
       key="explorations_card"
       cardHeader={
         <CardTitle
-          title={'Ultimas exploraciones'}
+          title={'Últimas exploraciones'}
           icon={<MdOutlineExplore />}
         />
       }

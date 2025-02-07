@@ -65,7 +65,7 @@ export default async function CaveInfoCard({caveId}: {caveId: string}) {
             values={cave.cave_shapes}
           />
           <BooleanSlot
-            label="Regalaciones"
+            label="Regulaciones"
             value={cave.regulations}
           />
           <TextSlot

@@ -1,11 +1,11 @@
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
-import SquareButton from '@/components/_Atoms/buttons/square-button'
 import PageContainer from '@/components/theming/page-container'
-import {RxNotionLogo} from 'react-icons/rx'
+import {RxGithubLogo} from 'react-icons/rx'
 import {FaMapSigns} from 'react-icons/fa'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
+import {Button} from '@/components/ui/button'
 
 export default function NextPage() {
   return (
@@ -20,15 +20,24 @@ export default function NextPage() {
       >
         <div className="space-y-4 flex flex-col items-center">
           <a
-            href="https://woolly-silk-b0e.notion.site/Roadmap-1781a4be7fa680a8a249d092c79d51b1?pvs=4"
+            href="https://github.com/users/Kiyameh/projects/2/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <SquareButton
-              icon={<RxNotionLogo />}
-              text="Hoja de ruta"
-              color="staff"
-            />
+            <Button>
+              <RxGithubLogo />
+              Versión 1.2.0 - Coventosa
+            </Button>
+          </a>
+          <a
+            href="https://github.com/users/Kiyameh/projects/4/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button>
+              <RxGithubLogo />
+              Versión 1.3.0 - Ormazarreta
+            </Button>
           </a>
           <InfoBox
             title="Funcionalidades en desarrollo"
@@ -37,8 +46,8 @@ export default function NextPage() {
           >
             <div className="space-y-4">
               <p>
-                ● En este enlace puedes acceder a la página de Notion con las
-                funcionalidades que están planificadas.
+                ● En los enlaces de GitHub puedes consultar las próximas
+                novedades que estamos desarrollando
               </p>
               <p>
                 ● Puedes dejarnos tus comentarios en el formulario de contacto o
