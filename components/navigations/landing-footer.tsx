@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import SubterraLogo from '@/components/branding/subterra-logo'
+import {SubterraLogoSm} from '@/components/branding/subterra-logo'
 
 export default function LandingFooter() {
   return (
@@ -32,10 +32,7 @@ export default function LandingFooter() {
             </Link>
           </li>
         </ul>
-        <SubterraLogo
-          size="small"
-          customWidth={50}
-        />
+        <SubterraLogoSm />
         <ul className="flex flex-col justify-center items-start">
           <li>
             <Link

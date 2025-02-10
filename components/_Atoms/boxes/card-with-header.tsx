@@ -1,7 +1,7 @@
 import React from 'react'
 import {cn} from '@/lib/utils'
 import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card'
-import SubterraLogo from '@/components/branding/subterra-logo'
+import {SubterraLogoMd} from '@/components/branding/subterra-logo'
 import BackButton from '@/components/_Atoms/buttons/back-button'
 
 /**
@@ -52,7 +52,7 @@ export default function CardWithHeader({
       <div>
         <CardHeader>
           <div className="flex justify-between items-center">
-            <SubterraLogo size="medium" />
+            <SubterraLogoMd />
             <BackButton size="sm" />
           </div>
         </CardHeader>

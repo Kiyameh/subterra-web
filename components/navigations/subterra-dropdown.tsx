@@ -1,4 +1,4 @@
-import SubterraLogo from '@/components/branding/subterra-logo'
+import {SubterraLogoIcon} from '@/components/branding/subterra-logo'
 import {Button} from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -31,10 +31,7 @@ export default function SubterraDropdown() {
             'flex items-center hover:bg-primary hover:bg-opacity-10 transition-colors ease-linear p-1 px-2 rounded-md cursor-pointer'
           }
         >
-          <SubterraLogo
-            size="small"
-            customWidth={20}
-          />
+          <SubterraLogoIcon />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

@@ -23,21 +23,25 @@ export default function NextPage() {
             href="https://github.com/users/Kiyameh/projects/2/"
             target="_blank"
             rel="noopener noreferrer"
+            className="flex items-center gap-2"
           >
             <Button>
               <RxGithubLogo />
               Versión 1.2.0 - Coventosa
             </Button>
+            <span className="text-muted-foreground text-sm">Próximamente</span>
           </a>
           <a
             href="https://github.com/users/Kiyameh/projects/4/"
             target="_blank"
             rel="noopener noreferrer"
+            className="flex items-center gap-2"
           >
             <Button>
               <RxGithubLogo />
               Versión 1.3.0 - Ormazarreta
             </Button>
+            <span className="text-muted-foreground text-sm">Próximamente</span>
           </a>
           <InfoBox
             title="Funcionalidades en desarrollo"
