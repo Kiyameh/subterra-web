@@ -59,6 +59,8 @@ export default function BasicCard({
             <Image
               src={image}
               alt="Imagen decorativa de la card"
+              width={460}
+              height={200}
             />
           </div>
         )}

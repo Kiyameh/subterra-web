@@ -2,8 +2,11 @@
 
 Componentes de marca
 
-## Componentes revisados (nov24)
+## Componentes revisados (feb2025)
 
-- SubterraLogo
+- SubterraLogoSm
+- SubterraLogoMd
+- SubterraLogoLg
+- SubterraLogoIcon
 
 > Nota: Actualiza esta lista conforme se añadan nuevos componentes.
