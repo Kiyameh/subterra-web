@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import {Button, ButtonProps} from '../../ui/button'
 import {useRouter} from 'next/navigation'
+import {Button, ButtonProps} from '@/components/ui/button'
 import {TiBackspaceOutline} from 'react-icons/ti'
 import {cn} from '@/lib/utils'
 
@@ -37,6 +37,7 @@ export default function BackButton({
 
   return (
     <Button
+      aria-label="Volver"
       className={classes}
       size={size}
       variant={ghost ? 'ghost' : 'secondary'}

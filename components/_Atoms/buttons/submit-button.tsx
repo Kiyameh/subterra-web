@@ -18,11 +18,20 @@ export default function SubmitButton({
 }) {
   return (
     <Button
+      aria-label={label}
       type="submit"
       className="w-full"
       disabled={isPending}
     >
-      {isPending ? <Loader2 className="animate-spin" /> : label}
+      {isPending ? (
+        <Loader2
+          className="animate-spin"
+          aria-label="Cargando"
+          role="img"
+        />
+      ) : (
+        label
+      )}
     </Button>
   )
 }

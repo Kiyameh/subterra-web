@@ -1,25 +1,25 @@
-import {render, screen, fireEvent} from '@testing-library/react'
-import {describe, expect, it, Mock, vi} from 'vitest'
-import {useRouter} from 'next/navigation'
+import {render, fireEvent} from '@testing-library/react'
+import {describe, expect, it, vi} from 'vitest'
 import BackButton from './back-button'
 
 // Mock useRouter
+const backMock = vi.fn()
 vi.mock('next/navigation', () => ({
-  useRouter: vi.fn(),
+  useRouter: () => ({
+    back: backMock,
+  }),
 }))
 
 describe('BackButton', () => {
-  it('should navigate back when clicked', () => {
-    const mockRouter = {
-      back: vi.fn(),
-    }
-    const useRouterMock = useRouter as Mock
-    useRouterMock.mockReturnValue(mockRouter)
+  beforeEach(() => {
+    backMock.mockClear()
+  })
 
-    render(<BackButton />)
-    fireEvent.click(screen.getByRole('button'))
-
-    expect(mockRouter.back).toHaveBeenCalledTimes(1)
+  it('navigate back when clicked', () => {
+    const {getByRole} = render(<BackButton />)
+    const button = getByRole('button', {name: 'Volver'})
+    fireEvent.click(button)
+    expect(backMock).toHaveBeenCalledTimes(1)
   })
 
   it('renders the button correctly with default size', () => {

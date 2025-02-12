@@ -1,21 +1,18 @@
 import {render, screen} from '@testing-library/react'
-import {beforeEach, describe, expect, it, Mock, vi} from 'vitest'
-import {useRouter} from 'next/navigation'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 import CardWithHeader from './card-with-header'
 
 // Mock useRouter
+const backMock = vi.fn()
 vi.mock('next/navigation', () => ({
-  useRouter: vi.fn(),
+  useRouter: () => ({
+    back: backMock,
+  }),
 }))
 
-describe('CardWithHeader component', () => {
-  const mockRouter = {
-    back: vi.fn(),
-  }
-
+describe('CardWithHeader', () => {
   beforeEach(() => {
-    const useRouterMock = useRouter as Mock
-    useRouterMock.mockReturnValue(mockRouter)
+    backMock.mockClear()
   })
 
   it('renders the CardWithHeader component with children', () => {

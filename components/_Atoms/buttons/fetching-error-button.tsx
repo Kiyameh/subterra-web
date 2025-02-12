@@ -18,6 +18,7 @@ export default function FetchingErrorButton() {
         <p>Error al cargar</p>
         <p>los datos</p>
         <Button
+          aria-label="Recargar datos"
           variant="ghost"
           size="icon"
           onClick={() => router.refresh()}
