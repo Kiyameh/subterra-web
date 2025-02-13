@@ -29,8 +29,16 @@ export default function ShortcutTooltip({
   return (
     <TooltipProvider delayDuration={300}>
       <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent className="border-transparent bg-transparent">
+        <TooltipTrigger
+          asChild
+          role="tooltip-trigger"
+        >
+          {children}
+        </TooltipTrigger>
+        <TooltipContent
+          role="tooltip-content"
+          className="border-transparent bg-transparent"
+        >
           {keys.map((key, index) => (
             <span key={index}>
               <span className="rounded border border-muted-foreground bg-muted px-1 py-[2px] shadow-md">

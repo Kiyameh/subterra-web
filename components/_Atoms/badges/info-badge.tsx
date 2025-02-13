@@ -49,10 +49,18 @@ export default function InfoBadge({
         {label ? (
           <Badge className="bg-muted hover:bg-gray-600 cursor-help">
             {label}
-            {withIcon && <MdInfo className={cn('ml-2 text-base', iconColor)} />}
+            {withIcon && (
+              <MdInfo
+                role="icon"
+                className={cn('ml-2 text-base', iconColor)}
+              />
+            )}
           </Badge>
         ) : (
-          <MdInfo className={cn('text-base', iconColor)} />
+          <MdInfo
+            role="icon"
+            className={cn('text-base', iconColor)}
+          />
         )}
       </ResponsiveTooltip>
     </>

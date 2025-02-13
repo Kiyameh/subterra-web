@@ -54,6 +54,7 @@ export default function ResponsiveTooltip({
     <TooltipProvider>
       <Tooltip open={visible}>
         <TooltipTrigger
+          role="tooltip-trigger"
           asChild
           onTouchStart={handleTouch}
           onMouseEnter={() => setVisible(true)}
@@ -62,13 +63,14 @@ export default function ResponsiveTooltip({
           {children}
         </TooltipTrigger>
         <TooltipContent
+          role="tooltip-content"
           className={cn(
-            ' font-bold border border-muted-foreground',
+            'font-bold border border-muted-foreground',
             bgColor,
             className
           )}
         >
-          {content}
+          <div>{content}</div>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

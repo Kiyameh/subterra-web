@@ -23,13 +23,13 @@ export default function LinkBadge({
 }) {
   const icon =
     type === 'email' ? (
-      <MdEmail />
+      <MdEmail role="icon" />
     ) : type === 'phone' ? (
-      <MdPhone />
+      <MdPhone role="icon" />
     ) : type === 'internal' ? (
-      <MdLink />
+      <MdLink role="icon" />
     ) : type === 'external' ? (
-      <MdOpenInNew />
+      <MdOpenInNew role="icon" />
     ) : null
 
   const protocolPattern = /^(?:f|ht)tps?:\/\//i
@@ -58,7 +58,10 @@ export default function LinkBadge({
           className="w-fit"
         >
           <ResponsiveTooltip content={href}>
-            <Badge className="select-none rounded-full min-w-28 w-fit bg-muted hover:bg-muted-foreground/50 border border-muted-foreground cursor-pointer space-x-1">
+            <Badge
+              className="select-none rounded-full min-w-28 w-fit bg-muted hover:bg-muted-foreground/50 border border-muted-foreground cursor-pointer space-x-1"
+              role="badge"
+            >
               <span className="hover:text-primary text-xs font-normal text-foreground/80 ">
                 {showText || value}
               </span>
