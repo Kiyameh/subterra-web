@@ -47,6 +47,7 @@ export default function TimeBadge({
     <>
       {valueInSeconds && (
         <Badge
+          role="badge"
           onClick={handleClick}
           className="select-none flex flex-row gap-1 flex-nowrap rounded-full min-w-11 w-fit bg-muted hover:bg-muted-foreground/50 border border-muted-foreground text-xs font-normal text-foreground/80 cursor-pointer"
         >
