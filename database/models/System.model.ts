@@ -27,7 +27,6 @@ export interface SystemDocument extends Document {
   length?: number
   depth?: number
   massif?: string
-  main_image?: string
 
   //* Datos científicos:
   geolog_age?: string
@@ -62,7 +61,6 @@ const systemSchema = new Schema<SystemDocument>({
   length: {type: Number},
   depth: {type: Number},
   massif: {type: String},
-  main_image: {type: String},
 
   //* Datos científicos:
   geolog_age: {type: String},

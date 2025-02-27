@@ -38,7 +38,6 @@ const EMPTY_GROUP: GroupFormValues = {
   acronym: '',
   description: '',
   group_categories: [],
-  main_image: '',
   logo_image: '',
   street: '',
   portal_number: '',

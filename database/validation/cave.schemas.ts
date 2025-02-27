@@ -107,7 +107,6 @@ export const CaveFormSchema = z.object({
       message: '¡Enhorabuena! Has encontrado la cueva más profunda del mundo',
     })
     .optional(),
-  main_image: z.string().optional(),
 
   //* Datos localización:
   coordinates: z.object({

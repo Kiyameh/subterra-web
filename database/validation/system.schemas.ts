@@ -106,7 +106,6 @@ export const SystemFormSchema = z.object({
       message: '¡Enhorabuena! Has encontrado el sistema más profundo del mundo',
     })
     .optional(),
-  main_image: z.string().optional(),
   massif: z
     .string()
     .max(systemMaxCharacters.massif, {message: 'Máximo 120 caracteres'})

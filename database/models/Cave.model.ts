@@ -2,18 +2,12 @@ import {model, models, Schema, Types, Document} from 'mongoose'
 import {utmZones} from '@/database/models/Cave.enums'
 import {caveShapes} from '@/database/models/Cave.enums'
 import {coordProyections} from '@/database/models/Cave.enums'
+import {UtmCoordinate} from '@/database/types/coordinates.type'
+import Topography from '@/database/types/topography.type'
+import {Picture} from '@/database/types/picture.type'
+import {Installation} from '../types/installation.type'
 
 //* INTERFACES:
-
-export interface UtmCoordinate {
-  x_coord: number
-  y_coord: number
-  z_coord?: number
-  coord_proyec: (typeof coordProyections)[number]
-  coord_format: 'UTM'
-  utm_zone: (typeof utmZones)[number]
-  hemisphere: 'N' | 'S'
-}
 
 export interface Geolocation {
   date: Date
@@ -52,7 +46,6 @@ export interface CaveDocument extends Document {
   regulation_description?: string
   length?: number
   depth?: number
-  main_image?: string
 
   //* Datos localización:
   coordinates?: UtmCoordinate
@@ -76,6 +69,11 @@ export interface CaveDocument extends Document {
   biolog?: string
   hidrolog_system?: string
   hidrolog_subsystem?: string
+
+  //* Adjuntos:
+  topographies?: Topography[]
+  pictures?: Picture[]
+  installations?: Installation[]
 }
 
 //* ESQUEMA:
@@ -100,7 +98,6 @@ const caveSchema = new Schema<CaveDocument>(
     regulation_description: {type: String},
     length: {type: Number},
     depth: {type: Number},
-    main_image: {type: String},
 
     //* Datos localización:
     coordinates: {

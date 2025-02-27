@@ -43,7 +43,6 @@ const EMPTY_SYSTEM: SystemFormValues = {
   exploration_description: '',
   length: 0,
   depth: 0,
-  main_image: '',
   massif: '',
 
   geolog_age: '',
