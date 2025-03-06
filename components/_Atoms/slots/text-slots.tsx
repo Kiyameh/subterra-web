@@ -1,3 +1,4 @@
+import {ScrollArea} from '@/components/ui/scroll-area'
 import {cn} from '@/lib/utils'
 import React from 'react'
 
@@ -29,7 +30,11 @@ export function TextSlot({
     >
       <span className="text-muted-foreground text-sm">{label}</span>
       <div className="flex gap-1 items-center">
-        <span className="text-sm">{value}</span>
+        <ScrollArea>
+          <div className="max-h-96 whitespace-pre-line break-words text-sm">
+            {value}
+          </div>
+        </ScrollArea>
         <span>{endAdornment}</span>
       </div>
     </div>

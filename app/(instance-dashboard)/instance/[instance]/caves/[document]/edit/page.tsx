@@ -22,7 +22,6 @@ export default async function CaveEditionPage({params}: PageProps) {
 
   // Obtener la cavidad
   const cave = (await getPlainCave(caveId)).content as PlainCave | null
-  console.log(cave)
   // Obtener el índice del sistema
   const systemIndex = (await getSystemIndex(instanceName)).content as
     | SystemIndex[]

@@ -2,7 +2,8 @@ import {z} from 'zod'
 
 export const PictureSchema = z.object({
   author: z.string().optional(),
-  date: z.date().optional(),
+  //? Obligar a que sea una fecha
+  date: z.coerce.date().optional(),
   description: z.string().optional(),
   file_src: z.string(),
   publicId: z.string().optional(),

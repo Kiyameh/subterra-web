@@ -82,6 +82,11 @@ export default async function CaveLocationCard({caveId}: {caveId: string}) {
             label="Macizo"
             value={cave.massif}
           />
+          <Divider />
+          <TextSlot
+            label="Descipción del acceso"
+            value={cave.location_description}
+          />
         </>
       )}
     </BasicCard>

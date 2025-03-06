@@ -475,7 +475,7 @@ export function ImageUploader<T extends FieldValues>({
                   {picture.date && (
                     <div>
                       <span className="text-xs text-muted-foreground">
-                        {picture.date.toLocaleDateString('es-ES', {
+                        {new Date(picture.date).toLocaleDateString('es-ES', {
                           weekday: 'long',
                           year: 'numeric',
                           month: 'short',
