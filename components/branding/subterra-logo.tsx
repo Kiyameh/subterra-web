@@ -7,13 +7,14 @@ import Image from 'next/image'
  * @description Logo de Subterra en 20x20px
  */
 
-export function SubterraLogoIcon() {
+export function SubterraLogoIcon({...props}) {
   return (
     <Image
       src="/logos/logo_small_dark.svg"
       alt="Subterra Logo"
       width="20"
       height="20"
+      {...props}
     />
   )
 }
@@ -22,13 +23,14 @@ export function SubterraLogoIcon() {
  * @version 1
  * @description Logo de Subterra en 50x50px
  */
-export function SubterraLogoSm() {
+export function SubterraLogoSm({...props}) {
   return (
     <Image
       src="/logos/logo_small_dark.svg"
       alt="Subterra Logo"
       width="50"
       height="50"
+      {...props}
     />
   )
 }
@@ -37,13 +39,14 @@ export function SubterraLogoSm() {
  * @version 1
  * @description Logo de Subterra en 140x26px
  */
-export function SubterraLogoMd() {
+export function SubterraLogoMd({...props}) {
   return (
     <Image
       src="/logos/logo_medium_dark.svg"
       alt="Subterra Logo"
       width="140"
       height="26"
+      {...props}
     />
   )
 }
@@ -53,13 +56,14 @@ export function SubterraLogoMd() {
  * @description Logo de Subterra en 300x142px
  */
 
-export function SubterraLogoLg() {
+export function SubterraLogoLg({...props}) {
   return (
     <Image
       src="/logos/logo_big_dark.svg"
       alt="Subterra Logo"
       width="300"
       height="142"
+      {...props}
     />
   )
 }
