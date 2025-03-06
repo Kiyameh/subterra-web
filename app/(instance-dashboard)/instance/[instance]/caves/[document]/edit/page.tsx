@@ -1,8 +1,8 @@
 import {auth} from '@/auth'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
+import CaveEditionForm from '@/components/_document-pages/cave-edition-board/cave-edition-form'
 import NotFoundCard from '@/components/cards/404-not-found'
-import CaveEditionForm from '@/components/_document-pages/cave-edition-form'
 import PageContainer from '@/components/theming/page-container'
 import {getPlainCave} from '@/database/services/cave.actions'
 import {PlainCave} from '@/database/services/cave.actions'
@@ -15,10 +15,8 @@ interface PageProps {
 export default async function CaveEditionPage({params}: PageProps) {
   // Obtener el id del documento
   const caveId = (await params).document
-  console.log(caveId)
   // Obtener el nombre de la instancia
   const instanceName = (await params).instance
-  console.log(instanceName)
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 

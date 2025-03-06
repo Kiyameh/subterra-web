@@ -20,6 +20,9 @@ import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
 import CountryField from '@/components/_Atoms/fields/country-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
+import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+import {ImageUploader} from '@/components/_document-pages/cave-edition-board/image-uploader'
+import {PictureSchema} from '@/database/types/picture.type'
 
 const FakeFormSchema = z.object({
   text: z.string().max(120).optional(),
@@ -37,6 +40,7 @@ const FakeFormSchema = z.object({
   province: z.string().optional(),
   time: z.coerce.number().optional(),
   distance: z.coerce.number().optional(),
+  pictures: z.array(PictureSchema),
 })
 
 type FakeFormValues = z.infer<typeof FakeFormSchema>
@@ -57,6 +61,7 @@ const EMPTY_VALUES: FakeFormValues = {
   province: '',
   time: 0,
   distance: 0,
+  pictures: [],
 }
 
 const EXAMPLE_VALUES: FakeFormValues = {
@@ -75,7 +80,20 @@ const EXAMPLE_VALUES: FakeFormValues = {
   province: 'Barcelona',
   time: 3600,
   distance: 1200,
+  pictures: [
+    {
+      file_src:
+        'https://res.cloudinary.com/da247ao6q/image/upload/v1740660117/cld-sample-3.jpg',
+      description: 'EjemploDeImagen',
+    },
+  ],
 }
+
+/**
+ * @version 2
+ * @description Formulario de ejemplo para probar los campos de formulario.
+ * @param empty Si se quiere que el formulario esté vacío.
+ */
 
 export default function FakeForm({empty}: {empty?: boolean}) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
@@ -217,11 +235,17 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           label="Distancia total"
           description="Distancia total"
         />
+        <ImageUploader
+          control={form.control}
+          name="pictures"
+          maxImages={10}
+        />
 
         <div className="text-destructive-foreground text-sm">
           {!form.formState.isValid && form.formState.isDirty && (
             <p>Algunos datos introducidos no son correctos</p>
           )}
+          <ReactHookFormErrorBox errors={form.formState.errors} />
         </div>
         <DbAwnserBox answer={dbAnswer} />
         <SubmitButton

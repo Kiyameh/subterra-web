@@ -82,12 +82,14 @@ export async function updateCave(
     const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
+    console.log(values)
     // Actualizar la cueva:
     await connectToMongoDB()
     const updatedCave = await Cave.findByIdAndUpdate(caveId, values, {
       new: true,
     })
     if (!updatedCave) throw new Error('Error al actualizar la cueva')
+    console.log(updatedCave)
 
     return {
       ok: true,

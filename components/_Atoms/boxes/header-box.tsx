@@ -21,7 +21,7 @@ export default function HeaderBox({
   return (
     <div
       className={cn(
-        'max-w-7xl w-full px-2 py-1 mb-4 mt-6  bg-gradient-to-tl from-muted to-card rounded-lg flex gap-2 items-center justify-center text-card-foreground border border-muted-foreground',
+        'w-full px-2 py-1 mb-2 mt-6  bg-gradient-to-tl from-muted to-card rounded-lg flex gap-2 items-center justify-center text-card-foreground border border-muted-foreground',
         className
       )}
     >

@@ -1,7 +1,6 @@
 import React from 'react'
 import FakeForm from './fake-form'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
-import FileField from '@/components/_Atoms/fields/file-field'
 
 export default function FieldsShowcasePage() {
   return (
@@ -11,9 +10,6 @@ export default function FieldsShowcasePage() {
       </BasicCard>
       <BasicCard cardHeader="Fake Form">
         <FakeForm />
-      </BasicCard>
-      <BasicCard cardHeader="Upload image">
-        <FileField />
       </BasicCard>
     </div>
   )
