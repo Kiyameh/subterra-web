@@ -1,9 +1,10 @@
 import {z} from 'zod'
 
 export const TopographySchema = z.object({
-  authors: z.string().optional(),
+  author: z.string().optional(),
   groups: z.string().optional(),
-  date: z.date().optional(),
+  //? Obligar a que sea una fecha
+  date: z.coerce.date().optional(),
   description: z.string().optional(),
   file_src: z.string(),
   type: z.enum(['plan', 'proyected', 'developed', '3D', 'other']).optional(),

@@ -1,6 +1,6 @@
 import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {UseFormReturn} from 'react-hook-form'
-import {ImageUploader} from './image-uploader'
+import {PictureUploader} from './file-uploader/picture-uploader'
 
 /**
  * @version 1
@@ -14,7 +14,7 @@ export default function CavePicturesFormFragment({
   form: UseFormReturn<CaveFormValues>
 }) {
   return (
-    <ImageUploader
+    <PictureUploader
       control={form.control}
       name="pictures"
       maxImages={10}

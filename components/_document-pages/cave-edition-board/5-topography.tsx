@@ -1,5 +1,6 @@
 import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {UseFormReturn} from 'react-hook-form'
+import {TopographyUploader} from './file-uploader/topography-uploader'
 
 /**
  * @version 1
@@ -12,6 +13,11 @@ export default function CaveTopographyFormFragment({
 }: {
   form: UseFormReturn<CaveFormValues>
 }) {
-  console.log(form)
-  return <div className="space-y-6 p-2 py-6">IMPUT DE TOPOGRAFÍA</div>
+  return (
+    <TopographyUploader
+      control={form.control}
+      name="topographies"
+      maxFiles={10}
+    />
+  )
 }
