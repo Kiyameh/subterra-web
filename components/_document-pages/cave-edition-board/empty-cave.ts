@@ -41,4 +41,8 @@ export const EMPTY_CAVE: CaveFormValues = {
     hemisphere: 'N',
     utm_zone: '30',
   },
+
+  pictures: [],
+  topographies: [],
+  installations: [],
 }

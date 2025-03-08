@@ -18,15 +18,16 @@ import {AiOutlineDelete} from 'react-icons/ai'
 import {FaDownload} from 'react-icons/fa6'
 import {IoMdPrint} from 'react-icons/io'
 import {FaRegStar} from 'react-icons/fa'
+import {toast} from 'sonner'
 
 /**
  * @version 1
- * @description Barra de herramientas para cavidad
+ * @description Barra de herramientas para sistema
  * @param isEditor Si el usuario es editor
  * @param commanderId Id del editor
  */
 
-export default function CaveToolBar({
+export default function SystemToolBar({
   isEditor,
   commanderId,
 }: {
@@ -43,8 +44,11 @@ export default function CaveToolBar({
           <MenubarTrigger
             className="space-x-1 cursor-pointer"
             onClick={
-              //TODO: Asignar funcionalidad
-              () => console.log('Favorito')
+              () =>
+                toast('Funcionalidad en desarrollo', {
+                  description: 'Pronto estará disponible',
+                })
+              // TODO: Implementar funcionalidad
             }
           >
             <FaRegStar />
@@ -55,8 +59,11 @@ export default function CaveToolBar({
           <MenubarTrigger
             className="space-x-1 cursor-pointer"
             onClick={
-              //TODO: Asignar funcionalidad
-              () => console.log('Descargar')
+              () =>
+                toast('Funcionalidad en desarrollo', {
+                  description: 'Pronto estará disponible',
+                })
+              // TODO: Implementar funcionalidad
             }
           >
             <FaDownload />
@@ -67,8 +74,11 @@ export default function CaveToolBar({
           <MenubarTrigger
             className="space-x-1 cursor-pointer"
             onClick={
-              //TODO: Asignar funcionalidad
-              () => console.log('Imprimir')
+              () =>
+                toast('Funcionalidad en desarrollo', {
+                  description: 'Pronto estará disponible',
+                })
+              // TODO: Implementar funcionalidad
             }
           >
             <IoMdPrint />
@@ -85,11 +95,6 @@ export default function CaveToolBar({
               <Link href={`${document}/edit?section=general`}>
                 <MenubarItem className="cursor-pointer">
                   Datos generales
-                </MenubarItem>
-              </Link>
-              <Link href={`${document}/edit?section=location`}>
-                <MenubarItem className="cursor-pointer">
-                  Datos localización
                 </MenubarItem>
               </Link>
               <Link href={`${document}/edit?section=science`}>
@@ -109,7 +114,7 @@ export default function CaveToolBar({
                 className="text-destructive-foreground cursor-pointer"
               >
                 <AiOutlineDelete />
-                Eliminar cavidad
+                Eliminar sistema
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
@@ -120,7 +125,7 @@ export default function CaveToolBar({
           commanderId={commanderId}
           isOpen={isOpen}
           onOpenChange={setIsOpen}
-          type="cave"
+          type="system"
         />
       )}
     </>

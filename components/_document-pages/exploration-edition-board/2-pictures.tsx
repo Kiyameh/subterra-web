@@ -1,17 +1,17 @@
-import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {UseFormReturn} from 'react-hook-form'
 import {PictureUploader} from '../file-uploader/picture-uploader'
+import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
 
 /**
  * @version 1
- * @description Fragmento del formulario de edición o creación de cuevas para la sección de imágenes.
+ * @description Fragmento del formulario de edición o creación de exploraciones para la sección de imágenes.
  * @param form - Objeto de formulario de react-hook-form.
  */
 
-export default function CavePicturesFormFragment({
+export default function ExplorationPicturesFormFragment({
   form,
 }: {
-  form: UseFormReturn<CaveFormValues>
+  form: UseFormReturn<ExplorationFormValues>
 }) {
   return (
     <PictureUploader

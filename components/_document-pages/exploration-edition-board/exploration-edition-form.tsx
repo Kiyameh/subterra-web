@@ -7,22 +7,23 @@ import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/answer.type'
 import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
-import {explorationMaxCharacters} from '@/database/validation/exploration.schemas'
 import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
-import TextField from '@/components/_Atoms/fields/text-field'
-import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
-import TextAreaField from '@/components/_Atoms/fields/text-area-field'
-import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
+
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
-import TimeField from '@/components/_Atoms/fields/time-field'
 import {PlainExploration} from '@/database/services/exploration.actions'
 import {updateExploration} from '@/database/services/exploration.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+import {PiNumberCircleOneFill, PiNumberCircleTwoFill} from 'react-icons/pi'
+import ExplorationGeneralFormFragment from './1-general'
+import ExplorationPicturesFormFragment from './2-pictures'
+import {CaveIndex} from '@/database/services/cave.actions'
+import {GroupIndex} from '@/database/services/group.actions'
 
 /**
  * @version 1
@@ -34,9 +35,13 @@ import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 export default function ExplorationEditionForm({
   commanderId,
   exploration,
+  caveIndex,
+  groupIndex,
 }: {
   commanderId: string
   exploration: PlainExploration
+  caveIndex: CaveIndex[] | undefined
+  groupIndex: GroupIndex[] | undefined
 }) {
   const params: {instance: string; document: string} = useParams()
 
@@ -73,63 +78,6 @@ export default function ExplorationEditionForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <TextField
-          control={form.control}
-          name="name"
-          label="Titulo de la exploracion"
-          maxCharacters={explorationMaxCharacters.name}
-        />
-        <MultiDateField
-          control={form.control}
-          name="dates"
-          label="Fechas de la exploración"
-        />
-
-        <TimeField
-          control={form.control}
-          name="cave_time"
-          label="Tiempo en cueva"
-          description="Tiempo aproximado de trabajo dentro de cavidad"
-        />
-
-        <MultiTextField
-          control={form.control}
-          name="participants"
-          label="Participantes"
-          description="Introduce los participantes separados por enter"
-        />
-        <MultiTextField
-          control={form.control}
-          name="collaborators"
-          label="Colaboradores"
-          description="Introduce personas o entidades colaboradoras separadas por enter"
-        />
-
-        <TextAreaField
-          control={form.control}
-          name="description"
-          label="Relato de la exploración"
-          maxCharacters={explorationMaxCharacters.description}
-        />
-
-        <TextAreaField
-          control={form.control}
-          name="incidents"
-          label="Incidentes ocurridos"
-          maxCharacters={explorationMaxCharacters.incidents}
-        />
-        <TextAreaField
-          control={form.control}
-          name="inventory"
-          label="Inventario de la exploración"
-          maxCharacters={explorationMaxCharacters.inventory}
-        />
-        <TextAreaField
-          control={form.control}
-          name="pending_work"
-          label="Trabajos pendientes"
-          maxCharacters={explorationMaxCharacters.pending_work}
-        />
         <ReactHookFormErrorBox errors={form.formState.errors} />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (
@@ -151,6 +99,36 @@ export default function ExplorationEditionForm({
             </Button>
           </div>
         )}
+        <Tabs defaultValue="general">
+          <TabsList className="mx-auto h-auto mb-2 flex bg-transparent">
+            <TabsTrigger
+              value="general"
+              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
+            >
+              <PiNumberCircleOneFill className="group data-[state=active]:text-primary text-2xl rounded-full" />
+              General
+            </TabsTrigger>
+
+            <TabsTrigger
+              value="pictures"
+              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
+            >
+              <PiNumberCircleTwoFill className="text-2xl rounded-full" />
+              Imagenes
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="general">
+            <ExplorationGeneralFormFragment
+              form={form}
+              caveIndex={caveIndex}
+              groupIndex={groupIndex}
+            />
+          </TabsContent>
+
+          <TabsContent value="pictures">
+            <ExplorationPicturesFormFragment form={form} />
+          </TabsContent>
+        </Tabs>
       </form>
     </Form>
   )

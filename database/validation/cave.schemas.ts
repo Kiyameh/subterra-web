@@ -1,8 +1,8 @@
 import {z} from 'zod'
 import {caveShapes, coordProyections, utmZones} from '../models/Cave.enums'
-import {PictureSchema} from '../types/picture.type'
-import {TopographySchema} from '../types/topography.type'
-import {InstallationSchema} from '../types/installation.type'
+import {PictureSchema} from '@/database/types/picture.type'
+import {TopographySchema} from '@/database/types/topography.type'
+import {InstallationSchema} from '@/database/types/installation.type'
 
 /**
  * @const Expresión regular para un string hexadecimal de 24 caracteres (ObjectId)

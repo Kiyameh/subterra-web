@@ -1,17 +1,17 @@
-import {CaveFormValues} from '@/database/validation/cave.schemas'
+import {SystemFormValues} from '@/database/validation/system.schemas'
 import {UseFormReturn} from 'react-hook-form'
 import {TopographyUploader} from '../file-uploader/topography-uploader'
 
 /**
  * @version 1
- * @description Fragmento del formulario de edición o creación de cuevas para la sección de topografías.
+ * @description Fragmento del formulario de edición o creación de sistemas para la sección de topografías.
  * @param form - Objeto de formulario de react-hook-form.
  */
 
-export default function CaveTopographyFormFragment({
+export default function SystemTopographyFormFragment({
   form,
 }: {
-  form: UseFormReturn<CaveFormValues>
+  form: UseFormReturn<SystemFormValues>
 }) {
   return (
     <TopographyUploader

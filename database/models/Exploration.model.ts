@@ -1,4 +1,5 @@
 import {model, models, Schema, Types, Document} from 'mongoose'
+import {Picture} from '../types/picture.type'
 
 //* INTERFACES:
 
@@ -27,6 +28,9 @@ export interface ExplorationDocument extends Document {
   incidents?: string
   inventory?: string
   pending_work?: string
+
+  //* Adjuntos:
+  pictures?: Picture[]
 }
 
 //* ESQUEMA:
@@ -50,6 +54,19 @@ const explorationSchema = new Schema<ExplorationDocument>(
     incidents: {type: String},
     inventory: {type: String},
     pending_work: {type: String},
+
+    //* Adjuntos:
+    pictures: {
+      type: [
+        {
+          author: {type: String},
+          date: {type: Date},
+          description: {type: String},
+          file_src: {type: String},
+          publicId: {type: String},
+        },
+      ],
+    },
   },
   {timestamps: true}
 )

@@ -1,13 +1,12 @@
 import {Suspense} from 'react'
 import PageContainer from '@/components/theming/page-container'
-import ImageCard from '@/components/cards/image-card'
 import ExplorationInfoCard from '@/components/_document-pages/exploration-details-board/exploration-info-card'
 import ExplorationDescriptionCard from '@/components/_document-pages/exploration-details-board/exploration-description-card'
-import DocumentNotificationArea from '@/components/_document-pages/document-notification-area/document-notification-area'
 import ExplorationHeader from '@/components/_document-pages/exploration-details-board/exploration-header'
 import SkeletonHeader from '@/components/cards/skelenton-header'
 import ExplorationCavesCard from '@/components/_document-pages/exploration-details-board/exploration-caves-card'
 import SkeletonCard from '@/components/cards/skeleton-card'
+import PicturesLoader from '@/components/_document-pages/_shared-cards/pictures-loader'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>
@@ -19,18 +18,15 @@ export default async function ExplorationDetailPage({params}: PageProps) {
 
   return (
     <PageContainer className="justify-start">
-      <Suspense fallback={null}>
-        <DocumentNotificationArea
-          instanceName={instance}
-          type="exploration"
-        />
-      </Suspense>
-
-      <ImageCard />
-
-      <Suspense fallback={<SkeletonHeader />}>
-        <ExplorationHeader explorationId={document} />
-      </Suspense>
+      {/* Header */}
+      <div className="flex flex-col items-center w-full">
+        <Suspense fallback={<SkeletonHeader />}>
+          <ExplorationHeader
+            explorationId={document}
+            instanceName={instance}
+          />
+        </Suspense>
+      </div>
 
       <div className="flex gap-4 flex-wrap justify-center">
         <Suspense fallback={<SkeletonCard />}>
@@ -43,6 +39,10 @@ export default async function ExplorationDetailPage({params}: PageProps) {
 
         <Suspense fallback={<SkeletonCard />}>
           <ExplorationCavesCard explorationId={document} />
+        </Suspense>
+
+        <Suspense fallback={<SkeletonCard />}>
+          <PicturesLoader explorationId={document} />
         </Suspense>
       </div>
     </PageContainer>

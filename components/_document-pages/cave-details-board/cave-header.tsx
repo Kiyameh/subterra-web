@@ -2,9 +2,10 @@ import React from 'react'
 import {getPlainCave, PlainCave} from '@/database/services/cave.actions'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import {FaRegCircle} from 'react-icons/fa'
-import CaveToolBar from '../cave-toolbar/cave-toolbar'
+import CaveToolBar from '../_toolbars/cave-toolbar'
 import {auth} from '@/auth'
 import {checkIsEditor} from '@/database/services/instance.actions'
+import MainPictureCard from '../_shared-cards/main-picture-card'
 
 /**
  * @version 2
@@ -31,6 +32,12 @@ export default async function CaveHeader({
 
   return (
     <div className="w-full">
+      {cave?.pictures?.[0] && (
+        <MainPictureCard
+          src={cave?.pictures?.[0].file_src ?? null}
+          alt={cave?.pictures?.[0].description}
+        />
+      )}
       <HeaderBox
         text={cave?.name || caveId}
         icon={<FaRegCircle />}

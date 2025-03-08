@@ -4,64 +4,58 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/answer.type'
-import {CaveFormValues} from '@/database/validation/cave.schemas'
-import {CaveFormSchema} from '@/database/validation/cave.schemas'
+import {SystemFormValues} from '@/database/validation/system.schemas'
+import {SystemFormSchema} from '@/database/validation/system.schemas'
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
-import {createCave} from '@/database/services/cave.actions'
-import {SystemIndex} from '@/database/services/system.actions'
+import {createSystem} from '@/database/services/system.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-import {EMPTY_CAVE} from './empty-cave'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
-import CaveGeneralFormFragment from './1-general'
-import CaveLocationFormFragment from './2-location'
-import CaveScienceFormFragment from './3-sciences'
-import CavePicturesFormFragment from './4-pictures'
-import CaveTopographyFormFragment from './5-topography'
+import {EMPTY_SYSTEM} from './empty-system'
 import {
-  PiNumberCircleFiveFill,
   PiNumberCircleFourFill,
   PiNumberCircleOneFill,
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
+import SystemGeneralFormFragment from './1-general'
+import SystemScienceFormFragment from './2-sciences'
+import SystemTopographyFormFragment from './4-topography'
+import SystemPicturesFormFragment from './3-pictures'
 
 /**
  * @version 2
- * @description Formulario para crear una cavidad
+ * @description Formulario para crear un sistema
  * @param instanceId Id de la instancia
- * @param commanderId Editor que crea la cavidad
- * @param systemIndex Índice de los sistemas
+ * @param commanderId Editor que crea el sistema
  */
 
-export default function CaveCreationForm({
+export default function SystemCreationForm({
   instanceId,
   commanderId,
-  systemIndex,
 }: {
   instanceId: string
   commanderId: string
-  systemIndex: SystemIndex[] | undefined
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
 
-  const form = useForm<CaveFormValues>({
-    resolver: zodResolver(CaveFormSchema),
+  const form = useForm<SystemFormValues>({
+    resolver: zodResolver(SystemFormSchema),
     defaultValues: {
-      ...EMPTY_CAVE,
+      ...EMPTY_SYSTEM,
       instances: [instanceId],
     },
   })
 
-  function onSubmit(values: CaveFormValues) {
+  function onSubmit(values: SystemFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await createCave(values, commanderId)
+      const answer = await createSystem(values, commanderId)
       setDbAnswer(answer)
     })
   }
@@ -69,12 +63,13 @@ export default function CaveCreationForm({
   function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     form.reset({
-      ...EMPTY_CAVE,
+      ...EMPTY_SYSTEM,
       instances: [instanceId],
     })
     window.scrollTo(0, 0)
     setDbAnswer(null)
   }
+
   return (
     <Form {...form}>
       <form
@@ -90,52 +85,41 @@ export default function CaveCreationForm({
               <PiNumberCircleOneFill className="group data-[state=active]:text-primary text-2xl rounded-full" />
               General
             </TabsTrigger>
-            <TabsTrigger
-              value="location"
-              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
-            >
-              <PiNumberCircleTwoFill className="text-2xl rounded-full" />
-              Localización
-            </TabsTrigger>
+
             <TabsTrigger
               value="science"
               className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
             >
-              <PiNumberCircleThreeFill className="text-2xl rounded-full" />
+              <PiNumberCircleTwoFill className="text-2xl rounded-full" />
               Ciencias
             </TabsTrigger>
             <TabsTrigger
               value="topography"
               className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
             >
-              <PiNumberCircleFourFill className="text-2xl rounded-full" />
+              <PiNumberCircleThreeFill className="text-2xl rounded-full" />
               Topografía
             </TabsTrigger>
             <TabsTrigger
               value="pictures"
               className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
             >
-              <PiNumberCircleFiveFill className="text-2xl rounded-full" />
+              <PiNumberCircleFourFill className="text-2xl rounded-full" />
               Imagenes
             </TabsTrigger>
           </TabsList>
           <TabsContent value="general">
-            <CaveGeneralFormFragment
-              form={form}
-              systemIndex={systemIndex}
-            />
+            <SystemGeneralFormFragment form={form} />
           </TabsContent>
-          <TabsContent value="location">
-            <CaveLocationFormFragment form={form} />
-          </TabsContent>
+
           <TabsContent value="science">
-            <CaveScienceFormFragment form={form} />
+            <SystemScienceFormFragment form={form} />
           </TabsContent>
           <TabsContent value="topography">
-            <CaveTopographyFormFragment form={form} />
+            <SystemTopographyFormFragment form={form} />
           </TabsContent>
           <TabsContent value="pictures">
-            <CavePicturesFormFragment form={form} />
+            <SystemPicturesFormFragment form={form} />
           </TabsContent>
         </Tabs>
 
@@ -145,19 +129,19 @@ export default function CaveCreationForm({
         {dbAnswer?.ok ? (
           <div className="flex flex-row gap-2">
             <LinkButton
-              label="Ver cavidad"
+              label="Ver sistema"
               href={`${dbAnswer._id}`}
             />
             <Button
               variant="secondary"
               onClick={handleReset}
             >
-              Crear otra cavidad
+              Crear otro sistema
             </Button>
           </div>
         ) : (
           <SubmitButton
-            label="Crear cavidad"
+            label="Crear sistema"
             isPending={isPending}
           />
         )}

@@ -1,4 +1,5 @@
 import {z} from 'zod'
+import {PictureSchema} from '@/database/types/picture.type'
 
 /**
  * @const Expresión regular para un string hexadecimal de 24 caracteres (ObjectId)
@@ -89,6 +90,9 @@ export const ExplorationFormSchema = z.object({
     .string()
     .max(explorationMaxCharacters.pending_work, {message: 'Demasiado largo'})
     .optional(),
+
+  //* Datos adjuntos:
+  pictures: z.array(PictureSchema).optional(),
 })
 
 /**

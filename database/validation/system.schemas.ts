@@ -1,4 +1,7 @@
 import {z} from 'zod'
+import {PictureSchema} from '@/database/types/picture.type'
+import {TopographySchema} from '@/database/types/topography.type'
+import {InstallationSchema} from '@/database/types/installation.type'
 
 /**
  * @const Expresión regular para un string hexadecimal de 24 caracteres (ObjectId)
@@ -148,6 +151,11 @@ export const SystemFormSchema = z.object({
     .string()
     .max(systemMaxCharacters.hidrolog_subsystem, {message: 'Demasiado largo'})
     .optional(),
+
+  //* Datos adjuntos:
+  topographies: z.array(TopographySchema).optional(),
+  pictures: z.array(PictureSchema).optional(),
+  installations: z.array(InstallationSchema).optional(),
 })
 
 /**

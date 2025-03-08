@@ -8,8 +8,8 @@ import SkeletonHeader from '@/components/cards/skelenton-header'
 import SkeletonCard from '@/components/cards/skeleton-card'
 import CaveDescriptionCard from '@/components/_document-pages/cave-details-board/cave-description-card'
 import CaveScienceCard from '@/components/_document-pages/cave-details-board/cave-science-card'
-import PicturesLoader from '@/components/_document-pages/cave-details-board/pictures-loader'
-import TopographiesLoader from '@/components/_document-pages/cave-details-board/topographies-loader'
+import PicturesLoader from '@/components/_document-pages/_shared-cards/pictures-loader'
+import TopographiesLoader from '@/components/_document-pages/_shared-cards/topographies-loader'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>
@@ -22,12 +22,14 @@ export default async function CaveDetailPage({params}: PageProps) {
   return (
     <PageContainer className="justify-start">
       {/* Header */}
-      <Suspense fallback={<SkeletonHeader />}>
-        <CaveHeader
-          caveId={document}
-          instanceName={instance}
-        />
-      </Suspense>
+      <div className="flex flex-col items-center w-full">
+        <Suspense fallback={<SkeletonHeader />}>
+          <CaveHeader
+            caveId={document}
+            instanceName={instance}
+          />
+        </Suspense>
+      </div>
 
       {/* Content */}
       <div className="flex gap-4 flex-wrap justify-center">
