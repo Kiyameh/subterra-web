@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import {Badge} from '@/components/ui/badge'
 import {Button} from '@/components/ui/button'
 import {Card, CardContent, CardFooter} from '@/components/ui/card'
 import {Picture} from '@/database/types/picture.type'
@@ -7,6 +6,7 @@ import {Topography} from '@/database/types/topography.type'
 import {Loader2, TrashIcon} from 'lucide-react'
 import {PiFilePdfThin} from 'react-icons/pi'
 import {DiIllustrator} from 'react-icons/di'
+import TopographyTypeBadge from '@/components/_Atoms/badges/topography-type-badge'
 
 /**
  * @version 1
@@ -93,24 +93,4 @@ export default function UploadedFileCard({
       </CardFooter>
     </Card>
   )
-}
-
-function TopographyTypeBadge({type}: {type: Topography['type']}) {
-  let text = 'otra'
-  switch (type) {
-    case 'plan':
-      text = 'Planta'
-      break
-    case 'proyected':
-      text = 'Alzado proyectado'
-      break
-    case 'developed':
-      text = 'Alzado desarrollado'
-      break
-    case '3D':
-      text = '3D'
-      break
-  }
-
-  return <Badge variant="secondary">{text}</Badge>
 }

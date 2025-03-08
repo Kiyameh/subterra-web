@@ -21,7 +21,6 @@ import CountryField from '@/components/_Atoms/fields/country-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-import {ImageUploader} from '@/components/_document-pages/cave-edition-board/image-uploader'
 import {PictureSchema} from '@/database/types/picture.type'
 
 const FakeFormSchema = z.object({
@@ -234,11 +233,6 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           name="distance"
           label="Distancia total"
           description="Distancia total"
-        />
-        <ImageUploader
-          control={form.control}
-          name="pictures"
-          maxImages={10}
         />
 
         <div className="text-destructive-foreground text-sm">
