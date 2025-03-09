@@ -44,10 +44,10 @@ export default function LandingFooter() {
           </li>
           <li>
             <Link
-              href="/next"
+              href="/versions"
               className="text-yellow-500"
             >
-              Próximas novedades
+              Versiones y novedades
             </Link>
           </li>
           <li>

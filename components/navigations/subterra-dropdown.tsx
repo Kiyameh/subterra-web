@@ -16,6 +16,7 @@ import {MdOutlineTextSnippet} from 'react-icons/md'
 import {MdOutlineCookie} from 'react-icons/md'
 import {PiAvocadoFill} from 'react-icons/pi'
 import {MdOutlinePrivacyTip} from 'react-icons/md'
+import {versions} from '../versioning/versions'
 
 /**
  * @version 1
@@ -101,15 +102,15 @@ export default function SubterraDropdown() {
             </div>
           </div>
 
-          <p>Estas viendo la versión 1.0.0</p>
+          <p>{`Estas viendo la versión ${versions[0].version}`}</p>
           <p>¿Quieres ver las proximas novedades?</p>
-          <Link href="/next">
+          <Link href="/versions">
             <Button
               size="sm"
-              variant="ghost"
+              variant="link"
               className="w-full"
             >
-              Lo que se viene
+              Versiones
             </Button>
           </Link>
         </div>
