@@ -97,23 +97,22 @@ export default function InstanceCard({
         </Link>
       )}
 
-      {public_visibility && (
-        <div className="flex items-center gap-2">
-          <MdVisibility />
-          Visibilidad:{' '}
-          {public_visibility ? (
-            <InfoBadge
-              label="Pública"
-              description="Cualquier persona puede ver"
-            />
-          ) : (
-            <InfoBadge
-              label="Solo autorizados"
-              description="Solo usuarios autorizados"
-            />
-          )}
-        </div>
-      )}
+      <div className="flex items-center gap-2">
+        <MdVisibility />
+        Visibilidad:{' '}
+        {public_visibility ? (
+          <InfoBadge
+            label="Pública"
+            description="Cualquier persona puede ver"
+          />
+        ) : (
+          <InfoBadge
+            label="Miembros"
+            color="warning"
+            description="Solo miembros del grupo"
+          />
+        )}
+      </div>
       <div className="flex items-center gap-2">
         <MdModeEdit />
         Edición:{' '}
@@ -125,6 +124,7 @@ export default function InstanceCard({
         ) : (
           <InfoBadge
             label="Privada"
+            color="warning"
             description="Solo usuarios autorizados"
           />
         )}

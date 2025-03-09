@@ -21,11 +21,13 @@ export default function UnauthorizedCard({
   text = 'Ups, parece que no estas autorizado para esto. Contacta con el responsable para obtener acceso',
   redirectLabel,
   redirectUrl,
+  showContactButton = true,
 }: {
   title?: string
   text?: string
   redirectLabel?: string
   redirectUrl?: string
+  showContactButton?: boolean
 }) {
   return (
     <BasicCard
@@ -56,10 +58,12 @@ export default function UnauthorizedCard({
           ) : (
             <BackButton />
           )}
-          <LinkButton
-            label="Enviar comentarios"
-            href="/contact"
-          />
+          {showContactButton && (
+            <LinkButton
+              label="Enviar comentarios"
+              href="/contact"
+            />
+          )}
         </div>
       }
     >
