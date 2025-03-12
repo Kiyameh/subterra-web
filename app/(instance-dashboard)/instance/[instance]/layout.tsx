@@ -68,7 +68,7 @@ export default async function InstanceDashboardLayout({
           <SubterraDropdown />
         </header>
         {/* Contenido de la página */}
-        <main className="flex h-full items-center justify-center">
+        <main>
           {!isPublic && !isEditor ? (
             <PageContainer>
               <UnauthorizedCard
@@ -80,7 +80,7 @@ export default async function InstanceDashboardLayout({
               />
             </PageContainer>
           ) : (
-            <div>{children}</div>
+            <div className="h-full">{children}</div>
           )}
         </main>
       </SidebarInset>

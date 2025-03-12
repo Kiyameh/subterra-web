@@ -21,24 +21,7 @@ import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 import {PiNumberCircleOneFill, PiNumberCircleTwoFill} from 'react-icons/pi'
 import ExplorationGeneralFormFragment from './1-general'
 import ExplorationPicturesFormFragment from './2-pictures'
-
-const EMPTY_EXPLORATION: ExplorationFormValues = {
-  instances: [],
-  groups: [],
-  caves: [],
-  datatype: 'exploration',
-
-  name: '',
-  dates: [],
-  cave_time: 0,
-  participants: [],
-  collaborators: [],
-
-  description: '',
-  incidents: '',
-  inventory: '',
-  pending_work: '',
-}
+import {EMPTY_EXPLORATION} from './empty-exploration'
 
 /**
  * @version 1
