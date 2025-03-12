@@ -1,8 +1,10 @@
+'use client'
 import LoginWrapper from '@/components/_authentication/login-wrapper'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import {BiLogIn} from 'react-icons/bi'
 
@@ -12,11 +14,16 @@ import {BiLogIn} from 'react-icons/bi'
  */
 
 export default function SidebarLoginButton() {
+  const {isMobile, toggleSidebar} = useSidebar()
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <LoginWrapper>
-          <SidebarMenuButton>
+          <SidebarMenuButton
+            onClick={() => {
+              if (isMobile) toggleSidebar()
+            }}
+          >
             <BiLogIn className="scale-125" />
             <span>Iniciar sesión</span>
           </SidebarMenuButton>

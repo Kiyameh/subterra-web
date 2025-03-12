@@ -22,7 +22,7 @@ import {Session} from 'next-auth'
  */
 
 export default function SidebarUserMenu({user}: {user: Session['user']}) {
-  const {isMobile} = useSidebar()
+  const {isMobile, toggleSidebar} = useSidebar()
 
   return (
     <SidebarMenu>
@@ -59,6 +59,9 @@ export default function SidebarUserMenu({user}: {user: Session['user']}) {
             side={isMobile ? 'bottom' : 'right'}
             align="end"
             sideOffset={4}
+            onClick={() => {
+              if (isMobile) toggleSidebar()
+            }}
           >
             <UserDropdownMenuContent user={user} />
           </DropdownMenuContent>

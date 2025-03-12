@@ -16,6 +16,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@/components/ui/sidebar'
 
 import {ChevronRight} from 'lucide-react'
@@ -44,6 +45,7 @@ export default function SidebarInstanceNavigation({
 }) {
   const {instance} = useParams()
   const pathName = usePathname()
+  const {isMobile, toggleSidebar} = useSidebar()
 
   return (
     <>
@@ -76,6 +78,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubButton
                       asChild
                       isActive={pathName.includes('/caves/list')}
+                      onClick={() => {
+                        if (isMobile) toggleSidebar()
+                      }}
                     >
                       <Link href={`/instance/${instance}/caves/list`}>
                         <span>Listado completo</span>
@@ -87,6 +92,9 @@ export default function SidebarInstanceNavigation({
                       <SidebarMenuSubButton
                         asChild
                         isActive={pathName.includes('/caves/create')}
+                        onClick={() => {
+                          if (isMobile) toggleSidebar()
+                        }}
                       >
                         <Link href={`/instance/${instance}/caves/create`}>
                           <span className="text-editor">
@@ -119,6 +127,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubButton
                       asChild
                       isActive={pathName.includes('/systems/list')}
+                      onClick={() => {
+                        if (isMobile) toggleSidebar()
+                      }}
                     >
                       <Link href={`/instance/${instance}/systems/list`}>
                         <span>Listado completo</span>
@@ -131,6 +142,9 @@ export default function SidebarInstanceNavigation({
                       <SidebarMenuSubButton
                         asChild
                         isActive={pathName.includes('/systems/create')}
+                        onClick={() => {
+                          if (isMobile) toggleSidebar()
+                        }}
                       >
                         <Link href={`/instance/${instance}/systems/create`}>
                           <span className="text-editor">
@@ -164,6 +178,9 @@ export default function SidebarInstanceNavigation({
                     <SidebarMenuSubButton
                       asChild
                       isActive={pathName.includes('/explorations/list')}
+                      onClick={() => {
+                        if (isMobile) toggleSidebar()
+                      }}
                     >
                       <Link href={`/instance/${instance}/explorations/list`}>
                         <span>Últimas exploraciones</span>
@@ -175,6 +192,9 @@ export default function SidebarInstanceNavigation({
                       <SidebarMenuSubButton
                         asChild
                         isActive={pathName.includes('/explorations/create')}
+                        onClick={() => {
+                          if (isMobile) toggleSidebar()
+                        }}
                       >
                         <Link
                           href={`/instance/${instance}/explorations/create`}
@@ -202,6 +222,9 @@ export default function SidebarInstanceNavigation({
               <SidebarMenuButton
                 asChild
                 tooltip="Lista de editores"
+                onClick={() => {
+                  if (isMobile) toggleSidebar()
+                }}
               >
                 <Link href={`/instance/${instance}/editors`}>
                   <span className="text-editor">
@@ -216,6 +239,9 @@ export default function SidebarInstanceNavigation({
                 <SidebarMenuButton
                   asChild
                   tooltip="Editar instancia"
+                  onClick={() => {
+                    if (isMobile) toggleSidebar()
+                  }}
                 >
                   <Link href={`/instance/${instance}/admin`}>
                     <span className="text-admin">

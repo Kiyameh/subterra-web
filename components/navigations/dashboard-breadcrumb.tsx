@@ -18,7 +18,7 @@ export default function NavigationBreadcrumb() {
 
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className="hidden md:flex">
         {segments.map((part, index) => {
           const href = '/' + segments.slice(0, index + 1).join('/')
 

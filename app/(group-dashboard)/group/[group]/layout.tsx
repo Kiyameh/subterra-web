@@ -36,7 +36,7 @@ export default async function GroupDashboardLayout({
       <GroupSidebar groupName={groupName} />
       <SidebarInset className="bg-inherit">
         {/* Encabezado de la página */}
-        <header className="flex h-12 md:h-10 items-center justify-between pr-4 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10 ">
+        <header className="flex h-12 md:h-10 items-center justify-between pr-4 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10 fixed top-0 w-full z-50">
           <div className="flex flex-row gap-2 items-center">
             <ShortcutTooltip shortcut="Ctrl+B">
               <SidebarTrigger className="mx-2 text-primary md:text-foreground scale-125 md:scale-100" />

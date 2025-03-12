@@ -76,52 +76,54 @@ export default function SystemCreationForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
-        <Tabs defaultValue="general">
-          <TabsList className="mx-auto h-auto mb-2 flex bg-transparent">
-            <TabsTrigger
-              value="general"
-              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
-            >
-              <PiNumberCircleOneFill className="group data-[state=active]:text-primary text-2xl rounded-full" />
-              General
-            </TabsTrigger>
+        {!form.formState.isSubmitSuccessful && (
+          <Tabs defaultValue="general">
+            <TabsList className="mx-auto h-auto mb-2 flex flex-wrap bg-transparent">
+              <TabsTrigger
+                value="general"
+                className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
+              >
+                <PiNumberCircleOneFill className="group data-[state=active]:text-primary text-2xl rounded-full" />
+                General
+              </TabsTrigger>
 
-            <TabsTrigger
-              value="science"
-              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
-            >
-              <PiNumberCircleTwoFill className="text-2xl rounded-full" />
-              Ciencias
-            </TabsTrigger>
-            <TabsTrigger
-              value="topography"
-              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
-            >
-              <PiNumberCircleThreeFill className="text-2xl rounded-full" />
-              Topografía
-            </TabsTrigger>
-            <TabsTrigger
-              value="pictures"
-              className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
-            >
-              <PiNumberCircleFourFill className="text-2xl rounded-full" />
-              Imagenes
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="general">
-            <SystemGeneralFormFragment form={form} />
-          </TabsContent>
+              <TabsTrigger
+                value="science"
+                className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
+              >
+                <PiNumberCircleTwoFill className="text-2xl rounded-full" />
+                Ciencias
+              </TabsTrigger>
+              <TabsTrigger
+                value="topography"
+                className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
+              >
+                <PiNumberCircleThreeFill className="text-2xl rounded-full" />
+                Topografía
+              </TabsTrigger>
+              <TabsTrigger
+                value="pictures"
+                className="group data-[state=active]:bg-muted flex-1 flex-col p-3"
+              >
+                <PiNumberCircleFourFill className="text-2xl rounded-full" />
+                Imagenes
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="general">
+              <SystemGeneralFormFragment form={form} />
+            </TabsContent>
 
-          <TabsContent value="science">
-            <SystemScienceFormFragment form={form} />
-          </TabsContent>
-          <TabsContent value="topography">
-            <SystemTopographyFormFragment form={form} />
-          </TabsContent>
-          <TabsContent value="pictures">
-            <SystemPicturesFormFragment form={form} />
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="science">
+              <SystemScienceFormFragment form={form} />
+            </TabsContent>
+            <TabsContent value="topography">
+              <SystemTopographyFormFragment form={form} />
+            </TabsContent>
+            <TabsContent value="pictures">
+              <SystemPicturesFormFragment form={form} />
+            </TabsContent>
+          </Tabs>
+        )}
 
         <ReactHookFormErrorBox errors={form.formState.errors} />
 

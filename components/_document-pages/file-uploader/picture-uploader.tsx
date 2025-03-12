@@ -122,8 +122,9 @@ export function PictureUploader<T extends FieldValues>({
 
   return (
     /* Cabecera del componente */
+
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between">
         <p>
           Imagenes ({pictures.length}/{maxImages})
         </p>

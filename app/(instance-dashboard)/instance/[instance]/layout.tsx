@@ -57,7 +57,7 @@ export default async function InstanceDashboardLayout({
       <InstanceSidebar instanceName={instanceName} />
       <SidebarInset className="bg-inherit">
         {/* Encabezado de la página */}
-        <header className="flex h-12 md:h-10 items-center justify-between pr-4 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10 ">
+        <header className="flex h-12 md:h-10 items-center justify-between pr-4 bg-card transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-10 fixed top-0 w-full z-50">
           {/* Botón de la barra lateral */}
           <div className="flex flex-row gap-2 items-center">
             <ShortcutTooltip shortcut="Ctrl+B">
@@ -84,7 +84,7 @@ export default async function InstanceDashboardLayout({
           )}
         </main>
       </SidebarInset>
-      <nav className="fixed top-6 right-6 z-50 md:bottom-6 md:top-auto">
+      <nav className="fixed bottom-6 right-6 z-50 md:bottom-6 md:top-auto">
         <FloatingContactForm commander={user} />
       </nav>
     </SidebarProvider>

@@ -38,7 +38,7 @@ export default function SidebarInstanceSelector({
   instancesIndex: InstanceIndex[] | null
   currentInstanceIndex: InstanceIndex | null
 }) {
-  const {isMobile} = useSidebar()
+  const {isMobile, toggleSidebar} = useSidebar()
 
   return (
     <SidebarMenu>
@@ -94,6 +94,9 @@ export default function SidebarInstanceSelector({
                 <Link
                   key={index}
                   href={item.is_online ? `/instance/${item.name}` : '#'}
+                  onClick={() => {
+                    if (isMobile) toggleSidebar()
+                  }}
                 >
                   <DropdownMenuItem className="cursor-pointer flex justify-between">
                     <div className="flex items-center gap-2">

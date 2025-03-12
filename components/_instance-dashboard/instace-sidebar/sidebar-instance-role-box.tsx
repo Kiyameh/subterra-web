@@ -33,6 +33,7 @@ export default function SidebarInstanceRoleBox({
   instanceId: string | undefined
   userId: string | undefined
 }) {
+  const {isMobile, toggleSidebar} = useSidebar()
   const isOpen = useSidebar().open
 
   const [resignEditorOpen, setResignEditorOpen] = React.useState(false)
@@ -62,13 +63,21 @@ export default function SidebarInstanceRoleBox({
               <FaGear className="text-muted-foreground" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setResignEditorOpen(true)}>
+              <DropdownMenuItem
+                onClick={() => {
+                  setResignEditorOpen(true)
+                  if (isMobile) toggleSidebar()
+                }}
+              >
                 <IoClose />
                 Renunciar como editor
               </DropdownMenuItem>
               {isCoordinator && (
                 <DropdownMenuItem
-                  onClick={() => setResignCoordinatorOpen(true)}
+                  onClick={() => {
+                    setResignCoordinatorOpen(true)
+                    if (isMobile) toggleSidebar()
+                  }}
                 >
                   <IoClose />
                   Renunciar como coordinador

@@ -8,6 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import {IoMdInformationCircleOutline} from 'react-icons/io'
 import {FaUserGroup} from 'react-icons/fa6'
@@ -30,6 +31,7 @@ export default function SidebarGroupNavigation({
 }) {
   const {group} = useParams()
   const pathName = usePathname()
+  const {isMobile, toggleSidebar} = useSidebar()
 
   return (
     <>
@@ -37,7 +39,12 @@ export default function SidebarGroupNavigation({
         <SidebarGroupLabel>Área pública</SidebarGroupLabel>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+              asChild
+              onClick={() => {
+                if (isMobile) toggleSidebar()
+              }}
+            >
               <Link href={`/group/${group}`}>
                 <IoMdInformationCircleOutline />
                 <span>Página de presentación</span>
@@ -54,6 +61,9 @@ export default function SidebarGroupNavigation({
               <SidebarMenuButton
                 asChild
                 isActive={pathName.includes(`${group}/members`)}
+                onClick={() => {
+                  if (isMobile) toggleSidebar()
+                }}
               >
                 <Link href={`/group/${group}/members`}>
                   <FaUserGroup className="text-editor" />
@@ -65,6 +75,9 @@ export default function SidebarGroupNavigation({
               <SidebarMenuButton
                 asChild
                 isActive={pathName.includes(`${group}/instances`)}
+                onClick={() => {
+                  if (isMobile) toggleSidebar()
+                }}
               >
                 <Link href={`/group/${group}/instances`}>
                   <FiBox className="text-editor" />
@@ -77,6 +90,9 @@ export default function SidebarGroupNavigation({
                 <SidebarMenuButton
                   asChild
                   isActive={pathName.includes(`${group}/admin`)}
+                  onClick={() => {
+                    if (isMobile) toggleSidebar()
+                  }}
                 >
                   <Link href={`/group/${group}/admin`}>
                     <FaGear className="text-admin" />

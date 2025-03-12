@@ -37,7 +37,7 @@ export default function SidebarGroupSelector({
   groupsIndex: GroupIndex[] | null
   currentGroupIndex: GroupIndex | null
 }) {
-  const {isMobile} = useSidebar()
+  const {isMobile, toggleSidebar} = useSidebar()
 
   return (
     <SidebarMenu>
@@ -92,6 +92,9 @@ export default function SidebarGroupSelector({
                 <Link
                   key={index}
                   href={`/group/${item.name}`}
+                  onClick={() => {
+                    if (isMobile) toggleSidebar()
+                  }}
                 >
                   <DropdownMenuItem className="cursor-pointer flex justify-between">
                     <div className="flex items-center gap-2">

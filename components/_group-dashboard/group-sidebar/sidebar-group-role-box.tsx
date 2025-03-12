@@ -35,6 +35,8 @@ export default function SidebarGroupRoleBox({
 }) {
   const isOpen = useSidebar().open
 
+  const {isMobile, toggleSidebar} = useSidebar()
+
   const [resignMemberOpen, setResignMemberOpen] = React.useState(false)
   const [resignAdminOpen, setResignAdminOpen] = React.useState(false)
 
@@ -62,13 +64,23 @@ export default function SidebarGroupRoleBox({
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               {isMember && (
-                <DropdownMenuItem onClick={() => setResignMemberOpen(true)}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setResignMemberOpen(true)
+                    if (isMobile) toggleSidebar()
+                  }}
+                >
                   <IoClose />
                   Renunciar como miembro
                 </DropdownMenuItem>
               )}
               {isAdmin && (
-                <DropdownMenuItem onClick={() => setResignAdminOpen(true)}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setResignAdminOpen(true)
+                    if (isMobile) toggleSidebar()
+                  }}
+                >
                   <IoClose />
                   Renunciar como administrador
                 </DropdownMenuItem>
