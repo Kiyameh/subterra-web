@@ -11,6 +11,13 @@ import {
 import SubterraDropdown from '@/components/navigations/subterra-dropdown'
 import FloatingContactForm from '@/components/_staff-dashboard/floating-contact-form/floating-contact'
 import {auth} from '@/auth'
+import {
+  checkIsEditor,
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/instance.actions'
+import UnauthorizedCard from '@/components/cards/401-unauthorized'
+import PageContainer from '@/components/theming/page-container'
 
 interface InstanceDashboardLayoutProps {
   params: Promise<{instance: string}>
@@ -28,8 +35,21 @@ export default async function InstanceDashboardLayout({
   // Obtener nombre de la instancia de la URL:
   const instanceName = (await params).instance
 
+  // Obtener la instancia actual:
+  const instance = (await getOneInstance(instanceName))
+    .content as InstanceWithUsers
+
   // Obtener el suario actual:
   const user = (await auth())?.user
+
+  // Comprobar si la instancia es privada:
+  const isPublic = instance?.public_visibility
+
+  // Comprobar si el usuario es editor de la instancia:
+  const isEditor = await checkIsEditor(user?._id, instanceName)
+
+  // Obtener el nombre del grupo de la instancia:
+  const group = instance?.owner
 
   return (
     <SidebarProvider>
@@ -48,8 +68,20 @@ export default async function InstanceDashboardLayout({
           <SubterraDropdown />
         </header>
         {/* Contenido de la página */}
-        <main className="flex h-full items-center justify-center">
-          {children}
+        <main>
+          {!isPublic && !isEditor ? (
+            <PageContainer>
+              <UnauthorizedCard
+                title="Instancia privada"
+                text={`La instancia ${instanceName} es privada y solo puede ser accedida por editores. Pertenece a ${group.fullname}, si deseas acceder a ella, solicita permisos al grupo.`}
+                redirectUrl={`/group/${group.name}`}
+                redirectLabel={`Ir a ${group.fullname}`}
+                showContactButton={false}
+              />
+            </PageContainer>
+          ) : (
+            <div className="h-full">{children}</div>
+          )}
         </main>
       </SidebarInset>
       <nav className="fixed top-6 right-6 z-50 md:bottom-6 md:top-auto">

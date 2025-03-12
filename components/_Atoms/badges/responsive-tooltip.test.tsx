@@ -41,7 +41,6 @@ describe('ResponsiveTooltip', () => {
     const trigger = screen.getByText('Hover me')
     await userEvent.hover(trigger)
     const tooltip = screen.getByRole('tooltip-content')
-    console.log(tooltip)
     expect(tooltip).toHaveClass('bg-success')
   })
 

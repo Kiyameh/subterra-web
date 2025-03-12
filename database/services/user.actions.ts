@@ -209,7 +209,6 @@ export async function updatePassword(values: ResetPassValues) {
 export async function updateUser(values: ProfileEditValues) {
   //1. Validación de datos
   const validationResult = ProfileEditSchema.safeParse(values)
-  console.log(validationResult.error)
   if (!validationResult.success) {
     return {ok: false, code: 400, message: 'Datos inválidos'} as Answer
   }

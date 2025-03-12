@@ -24,7 +24,7 @@ import SidebarUserMenu from './sidebar-user-menu'
 import SidebarLoginButton from './sidebar-login-button'
 
 interface InstanceSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  instanceName: string
+  instanceName: string | undefined
 }
 
 /**
@@ -52,7 +52,7 @@ export default async function InstanceSidebar({
   // Comprobar si el usuario es editor de la instancia:
   const isEditor = await checkIsEditor(user?._id, instanceName)
   // Comprobar si el usuario es coordinador de la instancia:
-  const isCoordinator = await checkIsCoordinator(user?._id, instanceName)
+  const isCoordinator = await checkIsCoordinator(user?._id, instanceName || '')
   return (
     <Sidebar
       collapsible="icon"

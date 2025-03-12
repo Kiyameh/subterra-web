@@ -1,4 +1,7 @@
 import {z} from 'zod'
+import {PictureSchema} from '@/database/types/picture.type'
+import {TopographySchema} from '@/database/types/topography.type'
+import {InstallationSchema} from '@/database/types/installation.type'
 
 /**
  * @const Expresión regular para un string hexadecimal de 24 caracteres (ObjectId)
@@ -106,7 +109,6 @@ export const SystemFormSchema = z.object({
       message: '¡Enhorabuena! Has encontrado el sistema más profundo del mundo',
     })
     .optional(),
-  main_image: z.string().optional(),
   massif: z
     .string()
     .max(systemMaxCharacters.massif, {message: 'Máximo 120 caracteres'})
@@ -149,6 +151,11 @@ export const SystemFormSchema = z.object({
     .string()
     .max(systemMaxCharacters.hidrolog_subsystem, {message: 'Demasiado largo'})
     .optional(),
+
+  //* Datos adjuntos:
+  topographies: z.array(TopographySchema).optional(),
+  pictures: z.array(PictureSchema).optional(),
+  installations: z.array(InstallationSchema).optional(),
 })
 
 /**

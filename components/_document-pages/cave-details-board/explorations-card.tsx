@@ -18,6 +18,10 @@ export default async function ExplorationsCards({caveId}: {caveId: string}) {
   // Obtener la cavidad
   const cave = (await getPopulatedCave(caveId)).content as PopulatedCave | null
 
+  if (!cave || !cave?.explorations?.[0]) {
+    return null
+  }
+
   return (
     <BasicCard
       key="explorations_card"

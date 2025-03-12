@@ -27,7 +27,7 @@ export default function OnlineIndicator({
       >
         <div
           role="icon"
-          className={`w-3 h-3 rounded-full border border-black border-opacity-50 ${
+          className={`w-3 aspect-square rounded-full border border-black border-opacity-50 ${
             isOnline ? 'bg-success-foreground' : 'bg-destructive-foreground'
           }`}
         />

@@ -1,5 +1,8 @@
 import {z} from 'zod'
 import {caveShapes, coordProyections, utmZones} from '../models/Cave.enums'
+import {PictureSchema} from '@/database/types/picture.type'
+import {TopographySchema} from '@/database/types/topography.type'
+import {InstallationSchema} from '@/database/types/installation.type'
 
 /**
  * @const Expresión regular para un string hexadecimal de 24 caracteres (ObjectId)
@@ -39,6 +42,21 @@ export const caveMaxCharacters = {
   biolog: 1000,
   hidrolog_system: 40,
   hidrolog_subsystem: 40,
+
+  topography_autors: 40,
+  topography_groups: 40,
+  topography_description: 1000,
+
+  pictures_author: 40,
+  pictures_description: 1000,
+
+  installation_cave: 40,
+  installation_name: 40,
+  installation_description: 1000,
+  obstacle: 40,
+  obstacle_annotation: 200,
+  rope_annotation: 200,
+  anchor_annotation: 200,
 }
 
 /**
@@ -107,7 +125,6 @@ export const CaveFormSchema = z.object({
       message: '¡Enhorabuena! Has encontrado la cueva más profunda del mundo',
     })
     .optional(),
-  main_image: z.string().optional(),
 
   //* Datos localización:
   coordinates: z.object({
@@ -189,6 +206,11 @@ export const CaveFormSchema = z.object({
     .string()
     .max(caveMaxCharacters.hidrolog_subsystem, {message: 'Demasiado largo'})
     .optional(),
+
+  //* Datos adjuntos:
+  topographies: z.array(TopographySchema).optional(),
+  pictures: z.array(PictureSchema).optional(),
+  installations: z.array(InstallationSchema).optional(),
 })
 
 /**

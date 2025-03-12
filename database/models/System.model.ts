@@ -1,4 +1,7 @@
 import {model, models, Schema, Types, Document} from 'mongoose'
+import {Topography} from '../types/topography.type'
+import {Picture} from '../types/picture.type'
+import {Installation} from '../types/installation.type'
 
 //* INTERFACES:
 
@@ -27,7 +30,6 @@ export interface SystemDocument extends Document {
   length?: number
   depth?: number
   massif?: string
-  main_image?: string
 
   //* Datos científicos:
   geolog_age?: string
@@ -39,6 +41,11 @@ export interface SystemDocument extends Document {
   biolog?: string
   hidrolog_system?: string
   hidrolog_subsystem?: string
+
+  //* Adjuntos:
+  topographies?: Topography[]
+  pictures?: Picture[]
+  installations?: Installation[]
 }
 
 //* ESQUEMA:
@@ -62,7 +69,6 @@ const systemSchema = new Schema<SystemDocument>({
   length: {type: Number},
   depth: {type: Number},
   massif: {type: String},
-  main_image: {type: String},
 
   //* Datos científicos:
   geolog_age: {type: String},
@@ -74,6 +80,37 @@ const systemSchema = new Schema<SystemDocument>({
   biolog: {type: String},
   hidrolog_system: {type: String},
   hidrolog_subsystem: {type: String},
+
+  //* Adjuntos:
+  pictures: {
+    type: [
+      {
+        author: {type: String},
+        date: {type: Date},
+        description: {type: String},
+        file_src: {type: String},
+        publicId: {type: String},
+      },
+    ],
+  },
+  topographies: {
+    type: [
+      {
+        authors: {type: String},
+        groups: {type: String},
+        date: {type: Date},
+        description: {type: String},
+        file_src: {type: String},
+        publicId: {type: String},
+        type: {
+          type: String,
+          enum: ['plan', 'proyected', 'developed', '3D', 'other'],
+        },
+      },
+    ],
+  },
+
+  // TODO: Añadir instalaciones
 })
 
 //* MODELO:

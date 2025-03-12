@@ -1,6 +1,10 @@
 import type {Metadata} from 'next'
 import './globals.css'
 import {ThemeProvider} from '@/components/theming/theme-provider'
+import {Toaster} from '@/components/ui/sonner'
+import {versions} from '@/components/versioning/versions'
+import {features} from '@/components/versioning/features'
+import {UpdatesModal} from '@/components/versioning/updates-modal'
 
 export const metadata: Metadata = {
   title: 'Subterra.app',
@@ -25,6 +29,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster richColors />
+          <UpdatesModal
+            versions={versions}
+            features={features}
+          />
         </ThemeProvider>
       </body>
     </html>

@@ -2,13 +2,15 @@ import {auth} from '@/auth'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import NotFoundCard from '@/components/cards/404-not-found'
-import ExplorationEditionForm from '@/components/_document-pages/exploration-edition-form'
+import ExplorationEditionForm from '@/components/_document-pages/exploration-edition-board/exploration-edition-form'
 import PageContainer from '@/components/theming/page-container'
 import {
   getPlainExploration,
   PlainExploration,
 } from '@/database/services/exploration.actions'
 import {LuPlusCircle} from 'react-icons/lu'
+import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
+import {getGroupsIndex, GroupIndex} from '@/database/services/group.actions'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>
@@ -16,13 +18,24 @@ interface PageProps {
 export default async function ExplorationEditionPage({params}: PageProps) {
   // Obtener el id del documento
   const explorationId = (await params).document
-
+  // Obtener el nombre de la instancia
+  const instanceName = (await params).instance
   // Obtener el id del usuario
   const userId = (await auth())?.user?._id
 
   // Obtener la cavidad
   const exploration = (await getPlainExploration(explorationId))
     .content as PlainExploration | null
+
+  // Obtener el índice de cuevas
+  const caveIndex = (await getCaveIndex(instanceName)).content as
+    | CaveIndex[]
+    | undefined
+
+  // Obtener el índice de grupos
+  const groupIndex = (await getGroupsIndex()).content as
+    | GroupIndex[]
+    | undefined
 
   if (!exploration) {
     return (
@@ -50,6 +63,8 @@ export default async function ExplorationEditionPage({params}: PageProps) {
           <ExplorationEditionForm
             commanderId={userId}
             exploration={exploration}
+            caveIndex={caveIndex}
+            groupIndex={groupIndex}
           />
         </BasicCard>
       ) : (
