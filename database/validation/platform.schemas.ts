@@ -44,8 +44,8 @@ export const instanceRequestMaxCharacters = {
   fullname: 50,
   description: 1000,
   territory: 300,
-  roles: 300,
   message: 1000,
+  master_instance: 24,
 }
 
 /**
@@ -69,13 +69,12 @@ export const instanceRequestFormSchema = z.object({
     .string()
     .min(3, {message: 'Información territorial requerida'})
     .max(instanceRequestMaxCharacters.territory, {message: 'Demasiado largo'}),
-  roles: z
-    .string()
-    .min(3, {message: 'Roles requeridos'})
-    .max(instanceRequestMaxCharacters.roles, {message: 'Demasiado largo'}),
+  public_visibility: z.boolean(),
+  public_edition: z.boolean(),
   message: z
     .string()
     .max(instanceRequestMaxCharacters.message, {message: 'Demasiado largo'}),
+  master_instance: z.string().optional(),
 })
 
 /**

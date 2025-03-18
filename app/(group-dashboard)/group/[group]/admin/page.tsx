@@ -13,9 +13,12 @@ import InfoBox from '@/components/_Atoms/boxes/info-box'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {RiAddBoxLine} from 'react-icons/ri'
 import {FiBox} from 'react-icons/fi'
-import {MdModeEdit} from 'react-icons/md'
+import {MdModeEdit, MdPendingActions} from 'react-icons/md'
 import {BiMessageDetail} from 'react-icons/bi'
 import {FaInfoCircle} from 'react-icons/fa'
+import {getOnePlatform} from '@/database/services/platform.services'
+import {PlatformObject} from '@/database/models/Platform.model'
+import {PiWarningBold} from 'react-icons/pi'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -31,8 +34,19 @@ export default async function GroupAdminPage({params}: PageProps) {
   // Obtener el grupo
   const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
+  // Obtener la plataforma
+  const subterra = (await getOnePlatform('subterra'))
+    .content as PlatformObject | null
+
   // Peticiones de membresía pendientes
   const request = group?.member_requests
+
+  // Número de instancias
+  const numberOfInstances = group?.instances.length
+
+  const instanceRequests = subterra?.instance_requests.filter(
+    (request) => request.group === group?._id
+  ).length
 
   if (!group) {
     return (
@@ -62,49 +76,66 @@ export default async function GroupAdminPage({params}: PageProps) {
           />
         }
       >
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <div className="flex flex-row gap-4 flex-wrap items-center justify-center">
-            {group.instances.length < 3 && (
-              <Link href={'admin/instance-request'}>
+        {group && subterra ? (
+          <div className="flex flex-col gap-6 items-center justify-center">
+            <InfoBox
+              icon={<FaInfoCircle />}
+              title="Instancias"
+            >
+              <p>● Puedes solicitar hasta tres instancias</p>
+              <p>
+                ● Tu grupo tiene{' '}
+                <span className="text-info-foreground font-bold">
+                  {numberOfInstances}
+                </span>{' '}
+                instancia
+                <span>{numberOfInstances !== 1 && 's'}</span>
+              </p>
+              <p>
+                ● Para eliminar una instancia o para cualquier consulta, ponte
+                en contacto con la plataforma
+              </p>
+            </InfoBox>
+            <div className="flex flex-row gap-4 flex-wrap items-center justify-center">
+              {instanceRequests ? (
                 <SquareButton
-                  text="Solicitar una instancia"
-                  icon={<RiAddBoxLine />}
+                  text="Petición pendiente"
+                  icon={<MdPendingActions />}
+                  color="warning-foreground"
+                  disabled
+                />
+              ) : numberOfInstances == 3 ? (
+                <SquareButton
+                  text="Máximo de instancias"
+                  icon={<PiWarningBold />}
+                  color="destructive-foreground"
+                  disabled
+                />
+              ) : (
+                <Link href={'admin/instance-request'}>
+                  <SquareButton
+                    text="Solicitar una instancia"
+                    icon={<RiAddBoxLine />}
+                    color="admin"
+                  />
+                </Link>
+              )}
+
+              <Link href={'/contact'}>
+                <SquareButton
+                  text="Contacto"
+                  icon={<BiMessageDetail />}
                   color="admin"
                 />
               </Link>
-            )}
-            <Link href={'/contact'}>
-              <SquareButton
-                text="Contacto"
-                icon={<BiMessageDetail />}
-                color="admin"
-              />
-            </Link>
+            </div>
           </div>
-          <InfoBox
-            className="max-w-md"
-            icon={<FaInfoCircle />}
-            title={
-              <span>
-                Tu grupo tiene
-                <span className="font-semibold text-info-foreground px-1">
-                  {group.instances.length}
-                </span>
-                instancias
-              </span>
-            }
-          >
-            {group.instances.length === 3
-              ? 'Has alcanzado el límite de instancias, elimina una para solicitar otra'
-              : 'Puedes solicitar hasta tres instancias'}
-          </InfoBox>
-          <InfoBox
-            title={
-              'Para eliminar el grupo, para dar de baja una instancia, o para cualquier otra consulta, contacta con nosotros'
-            }
-            className="max-w-md"
-          />
-        </div>
+        ) : (
+          <div className="flex items-center gap-2 text-warning-foreground p-6">
+            <PiWarningBold /> Error al cargar los datos. Intentalo de nuevo más
+            tarde.
+          </div>
+        )}
       </BasicCard>
 
       <BasicCard

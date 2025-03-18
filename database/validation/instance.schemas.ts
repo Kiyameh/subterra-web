@@ -31,6 +31,11 @@ export const InstanceFormSchema = z.object({
     .min(1, {message: 'Requerido'})
     .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'}),
 
+  master_instance: z
+    .string()
+    .refine((val) => hex24Regex.test(val), {message: 'OID incorrecto'})
+    .optional(),
+
   // Datos generales:
   name: z
     .string()
@@ -71,6 +76,7 @@ export const UpdateInstanceFormSchema = InstanceFormSchema.omit({
   name: true,
   owner: true,
   coordinator: true,
+  master_instance: true,
 })
 
 /**

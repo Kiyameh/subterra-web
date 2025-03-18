@@ -46,7 +46,7 @@ export default async function GroupDashboardLayout({
           <SubterraDropdown />
         </header>
         {/* Contenido de la página */}
-        <main className="flex h-full items-center justify-center">
+        <main className="flex h-full items-center justify-center pt-10">
           {children}
         </main>
       </SidebarInset>

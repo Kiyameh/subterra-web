@@ -32,8 +32,10 @@ export interface InstanceRequest extends Document {
   fullname: string
   description: string
   territory: string
-  roles: string
+  public_visibility: boolean
+  public_edition: boolean
   message: string
+  master_instance?: string
   _id: Types.ObjectId
 }
 
@@ -65,8 +67,10 @@ const platformSchema = new Schema<PlatformDocument>({
       fullname: {type: String},
       description: {type: String},
       territory: {type: String},
-      roles: {type: String},
+      public_visibility: {type: Boolean},
+      public_edition: {type: Boolean},
       message: {type: String},
+      master_instance: {type: String},
     },
   ],
   contact_messages: [

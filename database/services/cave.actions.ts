@@ -140,6 +140,69 @@ export async function deleteCave(
 
 /**
  * @version 1
+ * @description Obtener el índice de cuevas combinando las cuevas de dos instancias
+ * @param masterId id de la instancia maestra
+ * @param branchedId id de la instancia subsidiaria
+ */
+
+/* export async function getMergedCaveIndex(masterId: string, branchedId: string) {
+  try {
+    await connectToMongoDB()
+
+    const masterInstanceCaves = await Cave.find({instances: {$in: [masterId]}})
+      .select(
+        '_id catalog initials name system length depth regulations massif'
+      )
+      .populate({
+        path: 'system',
+        select: 'name _id',
+        model: System,
+      })
+      .exec()
+
+    const branchedInstanceCaves = await CaveBranch.find({
+      instances: {$in: [branchedId]},
+    })
+      .select(
+        '_id catalog initials name system length depth regulations massif master_id'
+      )
+      .populate({
+        path: 'system',
+        select: 'name _id',
+        model: System,
+      })
+      .exec()
+
+    // Convertir a objeto plano para poder pasar a componentes cliente de Next
+    const branchedCavesPOJO = branchedInstanceCaves.map((cave) => {
+      return JSON.parse(JSON.stringify(cave))
+    })
+
+    const masterCavesPOJO = masterInstanceCaves.map((cave) => {
+      return JSON.parse(JSON.stringify(cave))
+    })
+
+    if (!masterCavesPOJO || !branchedCavesPOJO)
+      throw new Error('Error al obtener las cuevas')
+
+    // Combinar arrays:
+    const mergedCaves = mergeDocumentArrays(masterCavesPOJO, branchedCavesPOJO)
+
+    if (!mergedCaves) throw new Error('Error al combinar las cuevas')
+
+    return {
+      ok: true,
+      message: 'Índice de cuevas obtenido',
+      content: mergedCaves,
+    } as Answer
+  } catch (error) {
+    console.error(error)
+    return {ok: false, message: 'Error desconocido'} as Answer
+  }
+} */
+
+/**
+ * @version 1
  * @description Obtener el índice de cuevas de una instancia
  * @param instanceName Nombre de la instancia
  * @returns content: Índice de cuevas con los campos _id, catalog, initials, name, system, instances y cave_shapes

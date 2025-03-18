@@ -9,6 +9,7 @@ import {Button} from '../ui/button'
 import {BiMessageAltAdd} from 'react-icons/bi'
 import {MdDelete} from 'react-icons/md'
 import CardWithHeader from '../_Atoms/boxes/card-with-header'
+import {BooleanSlot} from '../_Atoms/slots/chip-slots'
 
 /**
  * @version 2
@@ -79,12 +80,20 @@ export default function InstanceMessagesBoard({
             value={card.territory}
           />
           <TextSlot
-            label="Roles"
-            value={card.roles}
-          />
-          <TextSlot
             label="Mensaje"
             value={card.message}
+          />
+          <TextSlot
+            label="Intancia Maestra"
+            value={card.master_instance}
+          />
+          <BooleanSlot
+            label="Visibilidad pública"
+            value={card.public_visibility}
+          />
+          <BooleanSlot
+            label="Edición pública"
+            value={card.public_edition}
           />
         </div>
       ))}

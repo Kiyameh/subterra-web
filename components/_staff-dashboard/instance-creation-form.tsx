@@ -19,6 +19,7 @@ import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import BooleanField from '@/components/_Atoms/fields/boolean-field'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 import {Button} from '@/components/ui/button'
+import Divider from '../_Atoms/boxes/divider'
 
 const EMPTY_INSTANCE: InstanceFormValues = {
   name: '',
@@ -30,6 +31,7 @@ const EMPTY_INSTANCE: InstanceFormValues = {
   coordinator: '',
   public_visibility: true,
   public_edition: false,
+  master_instance: '',
 }
 
 /**
@@ -121,6 +123,13 @@ export default function InstanceCreationForm({
           name="public_edition"
           label="Edición pública"
         />
+        <Divider text="Instancia Maestra" />
+        <TextField
+          control={form.control}
+          name="master_instance"
+          label="Instancia Maestra"
+        />
+
         <ReactHookFormErrorBox errors={form.formState.errors} />
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? (

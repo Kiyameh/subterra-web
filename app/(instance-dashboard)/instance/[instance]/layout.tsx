@@ -68,7 +68,7 @@ export default async function InstanceDashboardLayout({
           <SubterraDropdown />
         </header>
         {/* Contenido de la página */}
-        <main>
+        <main className="pt-10">
           {!isPublic && !isEditor ? (
             <PageContainer>
               <UnauthorizedCard

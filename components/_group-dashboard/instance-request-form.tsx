@@ -21,6 +21,11 @@ import BackButton from '@/components/_Atoms/buttons/back-button'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 
 import {FaInfoCircle} from 'react-icons/fa'
+import {InstanceIndex} from '@/database/services/instance.actions'
+import {RiCheckboxMultipleBlankFill} from 'react-icons/ri'
+import RefSelectField from '../_Atoms/fields/ref-select-field'
+import BooleanField from '../_Atoms/fields/boolean-field'
+import Link from 'next/link'
 
 /**
  * @version 1
@@ -32,9 +37,11 @@ import {FaInfoCircle} from 'react-icons/fa'
 export default function InstanceRequestForm({
   commander,
   groupIndex,
+  instanceIndex,
 }: {
   commander: Session['user']
   groupIndex: GroupIndex
+  instanceIndex: InstanceIndex[] | null
 }) {
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
@@ -55,7 +62,8 @@ export default function InstanceRequestForm({
       fullname: '',
       description: '',
       territory: '',
-      roles: '',
+      public_visibility: true,
+      public_edition: false,
       message: '',
     } as InstanceRequestFormValues,
   })
@@ -100,25 +108,6 @@ export default function InstanceRequestForm({
           placeholder="Límites del parque natural de la sierra de la cabra. Provincia de Nuevatierra"
           maxCharacters={instanceRequestMaxCharacters.territory}
         />
-        <CollapsibleBox
-          title="Gestión de permisos"
-          color="warning"
-          icon={<FaInfoCircle />}
-        >
-          <p>
-            Actualmente la visualización de las instancias es siempre pública.
-            Los permisos de edición pueden ser públicos o solo para miembros. Se
-            está trabajando en nuevos sistemas de permisos. Haznos saber como te
-            gustaría que fuerán estos permisos en tu instancia
-          </p>
-        </CollapsibleBox>
-        <TextAreaField
-          control={form.control}
-          name="roles"
-          label="Gestión de permisos"
-          placeholder="Describe como te gustaría que se gestionaran los permisos de tu instancia"
-          maxCharacters={instanceRequestMaxCharacters.roles}
-        />
         <TextAreaField
           control={form.control}
           name="message"
@@ -126,6 +115,64 @@ export default function InstanceRequestForm({
           placeholder="..."
           maxCharacters={instanceRequestMaxCharacters.message}
         />
+        <CollapsibleBox
+          title="Gestión de permisos"
+          color="warning"
+          icon={<FaInfoCircle />}
+        >
+          <div className="p-1 space-y-6">
+            <p>
+              ● Por defecto, las instancias de subterra se crean con visibilidad
+              pública. Esto significa que cualquier usuario podrá ver la
+              instancia y sus documentos. <br />● Puedes solicitar una instancia
+              privada, pero estan tienen un coste asociado para el mantenimiento
+              de la plataforma. Puedes consultar los precios{' '}
+              <Link
+                href="/prices"
+                className="text-primary hover:underline"
+              >
+                aquí
+              </Link>
+              . <br />
+              ● Por defecto, la edición de las instancias es solo para miembros
+              autorizados. Sin embargo, puedes solicitar que la edición sea
+              pública. <br />
+            </p>
+            <BooleanField
+              control={form.control}
+              name="public_visibility"
+              label="Visibilidad pública"
+              description="Cualquier usuario podrá ver la instancia"
+            />
+            <BooleanField
+              control={form.control}
+              name="public_edition"
+              label="Edición pública"
+              description="Cualquier usuario podrá editar la instancia"
+            />
+          </div>
+        </CollapsibleBox>
+
+        <CollapsibleBox
+          title="Instancia Subsidiaria"
+          color="warning"
+          icon={<RiCheckboxMultipleBlankFill />}
+        >
+          <p className="mb-6">
+            Puede solicitar que tu instancia sea subsidiaria de otra instancia.
+            Todos los documentos de la instancia maestra se podrán usar como
+            modelo para la instancia subsidiaria.
+          </p>
+          <div className="p-1">
+            <RefSelectField
+              control={form.control}
+              label="Instancia Maestra"
+              name="master_instance"
+              index={instanceIndex || []}
+            />
+          </div>
+        </CollapsibleBox>
+
         <DbAwnserBox answer={dbAnswer} />
         {dbAnswer?.ok ? <BackButton /> : <SubmitButton isPending={isPending} />}
       </form>

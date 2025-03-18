@@ -22,21 +22,23 @@ import Link from 'next/link'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
 import {Button} from '../../ui/button'
 import {MdNavigateNext} from 'react-icons/md'
-import {InstanceIndex} from '@/database/services/instance.actions'
+import {InstanceWithOwner} from '@/database/services/instance.actions'
+import {GrLock} from 'react-icons/gr'
+import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
 
 /**
  * @version 1
  * @description Panel de selección de instancias para colocar en un Sidebar
- * @param instancesIndex - Lista de instancias <InstanceWithUsers[]>
- * @param currentInstanceIndex - Instancia actual
+ * @param allInstances - Lista de instancias <InstanceWithOwner[]>
+ * @param currentInstance - Instancia actual
  */
 
 export default function SidebarInstanceSelector({
-  instancesIndex,
-  currentInstanceIndex,
+  allInstances,
+  currentInstance,
 }: {
-  instancesIndex: InstanceIndex[] | null
-  currentInstanceIndex: InstanceIndex | null
+  allInstances: InstanceWithOwner[] | null
+  currentInstance: InstanceWithOwner | null
 }) {
   const {isMobile, toggleSidebar} = useSidebar()
 
@@ -54,19 +56,19 @@ export default function SidebarInstanceSelector({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {currentInstanceIndex
-                    ? currentInstanceIndex.fullname
+                  {currentInstance
+                    ? currentInstance.fullname
                     : 'Selecciona una instancia'}
                 </span>
                 <span className="truncate text-xs">
-                  {currentInstanceIndex && currentInstanceIndex.territory}
+                  {currentInstance && currentInstance.territory}
                 </span>
               </div>
               <LuChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-80 rounded-lg"
+            className="w-auto min-w-80 rounded-lg"
             align="start"
             side={isMobile ? 'bottom' : 'right'}
             sideOffset={4}
@@ -89,8 +91,8 @@ export default function SidebarInstanceSelector({
                 </Link>
               </div>
             </DropdownMenuLabel>
-            {instancesIndex &&
-              instancesIndex.map((item, index) => (
+            {allInstances &&
+              allInstances.map((item, index) => (
                 <Link
                   key={index}
                   href={item.is_online ? `/instance/${item.name}` : '#'}
@@ -101,13 +103,30 @@ export default function SidebarInstanceSelector({
                   <DropdownMenuItem className="cursor-pointer flex justify-between">
                     <div className="flex items-center gap-2">
                       <div className="flex size-6 items-center justify-center rounded-sm border">
-                        <OnlineIndicator isOnline={item.is_online} />
+                        {item.public_visibility ? (
+                          <OnlineIndicator
+                            isOnline={item.is_online}
+                            onlineText="Instancia pública"
+                          />
+                        ) : (
+                          <ResponsiveTooltip
+                            color="warning"
+                            content="Instancia privada"
+                          >
+                            <GrLock className="text-destructive-foreground" />
+                          </ResponsiveTooltip>
+                        )}
                       </div>
-                      <span>{item.name}</span>
+                      <div>
+                        <p>{item.fullname}</p>
+                        <p className="text-muted-foreground text-sm">
+                          {item.owner.fullname}
+                        </p>
+                        <p className="text-muted-foreground text-sm">
+                          {item.territory}
+                        </p>
+                      </div>
                     </div>
-                    <span className="text-muted-foreground">
-                      {item.territory}
-                    </span>
                   </DropdownMenuItem>
                 </Link>
               ))}

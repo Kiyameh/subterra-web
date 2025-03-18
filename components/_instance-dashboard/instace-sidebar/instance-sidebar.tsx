@@ -2,10 +2,12 @@ import * as React from 'react'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
 
-import {InstanceIndex} from '@/database/services/instance.actions'
+import {
+  getAllInstances,
+  InstanceWithOwner,
+} from '@/database/services/instance.actions'
 import {checkIsCoordinator} from '@/database/services/instance.actions'
 import {checkIsEditor} from '@/database/services/instance.actions'
-import {getInstancesIndex} from '@/database/services/instance.actions'
 
 import {
   Sidebar,
@@ -40,14 +42,14 @@ export default async function InstanceSidebar({
   const user = (await auth())?.user as Session['user'] | null
 
   // Obtener el índice de instancias:
-  const instancesIndex = (await getInstancesIndex()).content as
-    | InstanceIndex[]
+  const allInstances = (await getAllInstances()).content as
+    | InstanceWithOwner[]
     | null
 
   // Obtener el índice de la instancia actual:
-  const currentInstanceIndex = instancesIndex?.find(
+  const currentInstance = allInstances?.find(
     (instance) => instance.name === instanceName
-  ) as InstanceIndex | null
+  ) as InstanceWithOwner | null
 
   // Comprobar si el usuario es editor de la instancia:
   const isEditor = await checkIsEditor(user?._id, instanceName)
@@ -61,8 +63,8 @@ export default async function InstanceSidebar({
       <SidebarHeader>
         {/*? null manejado en el componente:*/}
         <SidebarInstanceSelector
-          instancesIndex={instancesIndex}
-          currentInstanceIndex={currentInstanceIndex}
+          allInstances={allInstances}
+          currentInstance={currentInstance}
         />
       </SidebarHeader>
       <SidebarContent>
@@ -70,10 +72,10 @@ export default async function InstanceSidebar({
           <SidebarInstanceRoleBox
             isEditor={isEditor}
             isCoordinator={isCoordinator}
-            instanceId={currentInstanceIndex?._id}
+            instanceId={currentInstance?._id}
             userId={user?._id}
           />
-          {currentInstanceIndex && (
+          {currentInstance && (
             <>
               <SidebarSearchBar baseUrl={`/instance/${instanceName}`} />
               <SidebarInstanceNavigation

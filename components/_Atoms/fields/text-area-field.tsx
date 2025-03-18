@@ -51,8 +51,8 @@ export default function TextAreaField<T extends FieldValues>({
               <Textarea
                 className={
                   fieldState.isDirty && !fieldState.error
-                    ? 'border border-emphasis'
-                    : ''
+                    ? 'border border-emphasis bg-card'
+                    : 'bg-card'
                 }
                 id={name}
                 placeholder={placeholder}

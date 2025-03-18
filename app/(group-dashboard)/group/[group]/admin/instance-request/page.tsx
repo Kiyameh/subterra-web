@@ -7,6 +7,10 @@ import NotFoundCard from '@/components/cards/404-not-found'
 
 import {BiSolidMessage} from 'react-icons/bi'
 import {getOneGroupIndex, GroupIndex} from '@/database/services/group.actions'
+import {
+  getInstancesIndex,
+  InstanceIndex,
+} from '@/database/services/instance.actions'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -19,6 +23,12 @@ export default async function InstanceRequestPage({params}: PageProps) {
   // Obtener el Índice del grupo
   const groupIndex = (await getOneGroupIndex(groupName))
     .content as GroupIndex | null
+
+  // Obtener el Índice de instancias
+
+  const instanceIndex = (await getInstancesIndex()).content as
+    | InstanceIndex[]
+    | null
 
   // Obtener el usuario
   const user = (await auth())?.user
@@ -52,6 +62,7 @@ export default async function InstanceRequestPage({params}: PageProps) {
           <InstanceRequestForm
             commander={user}
             groupIndex={groupIndex}
+            instanceIndex={instanceIndex}
           />
         </CardWithHeader>
       ) : (

@@ -23,7 +23,7 @@ export interface HistoricalExploration {
 
 export interface CaveDocument extends Document {
   //* Añadidos por Mongo:
-  //  _id: Types.ObjectId
+  // _id: Types.ObjectId
   //  __v: number
   //  createdAt: Date
   //  updataedAt: Date

@@ -22,6 +22,7 @@ import {GroupIndex} from '@/database/services/group.actions'
 import {CaveIndex} from '@/database/services/cave.actions'
 import {ExplorationIndex} from '@/database/services/exploration.actions'
 import {SystemIndex} from '@/database/services/system.actions'
+import {InstanceIndex} from '@/database/services/instance.actions'
 
 /**
  * @version 2
@@ -62,6 +63,7 @@ export default function RefSelectField<T extends FieldValues>({
     | CaveIndex[]
     | SystemIndex[]
     | ExplorationIndex[]
+    | InstanceIndex[]
     | undefined
 }) {
   return (
@@ -97,8 +99,8 @@ export default function RefSelectField<T extends FieldValues>({
                     ref={field.ref}
                     className={
                       fieldState.isDirty && !fieldState.error
-                        ? 'border border-emphasis'
-                        : ''
+                        ? 'border border-emphasis bg-card'
+                        : 'bg-card'
                     }
                   >
                     <SelectValue placeholder={placeholder} />
