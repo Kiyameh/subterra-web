@@ -1,5 +1,4 @@
 import {auth} from '@/auth'
-import {FullUser, getFullUser} from '@/database/services/user.actions'
 import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {FaCheck} from 'react-icons/fa'
@@ -8,9 +7,13 @@ import Divider from '@/components/_Atoms/boxes/divider'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
-import {getOnePlatform} from '@/database/services/platform.services'
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 import {PlatformObject} from '@/database/models/Platform.model'
 import LinkButton from '../_Atoms/buttons/link-button'
+import {
+  getPopulatedUser,
+  PopulatedUser,
+} from '@/database/services/User/getPopulatedUser'
 
 /**
  * @version 1
@@ -19,8 +22,10 @@ import LinkButton from '../_Atoms/buttons/link-button'
 
 export default async function ProfilePanel() {
   const userId = (await auth())?.user._id
-  const user: FullUser | undefined = await getFullUser(userId)
-  const subterra = (await getOnePlatform('subterra')).content as
+  const user: PopulatedUser | undefined = await getPopulatedUser(userId)
+
+  // Obtener la plataforma
+  const subterra = (await getOnePlatform()).content as
     | PlatformObject
     | undefined
 

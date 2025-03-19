@@ -3,6 +3,7 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {Answer} from '@/database/types/Answer.type'
+import {deleteUser} from '@/database/services/User/deleteUser'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
@@ -18,7 +19,6 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {IoIosWarning} from 'react-icons/io'
 import {IoClose} from 'react-icons/io5'
-import {deleteUser} from '@/database/services/user.actions'
 import {signOut} from 'next-auth/react'
 
 /**

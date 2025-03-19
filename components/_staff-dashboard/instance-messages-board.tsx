@@ -1,8 +1,7 @@
 'use client'
 import React from 'react'
 import {PlatformObject} from '@/database/models/Platform.model'
-import {deleteInstanceRequest} from '@/database/services/platform.services'
-
+import {deleteInstanceRequest} from '@/database/services/Platform/deleteInstanceRequest'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {Button} from '../ui/button'
 

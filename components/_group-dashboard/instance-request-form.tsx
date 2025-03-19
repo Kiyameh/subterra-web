@@ -7,7 +7,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
 import {instanceRequestMaxCharacters} from '@/database/validation/platform.schemas'
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
-import {addInstanceRequest} from '@/database/services/platform.services'
+import {addInstanceRequest} from '@/database/services/Platform/addInstanceRequest'
 import {GroupIndex} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/Answer.type'
 

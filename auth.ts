@@ -6,10 +6,10 @@ import type {DefaultJWT} from 'next-auth/jwt'
 import Credentials from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
+import {findUserByCredentials} from '@/database/services/User/findUserByCredentials'
+import {findUserByEmail} from '@/database/services/User/findUserByEmail'
 
 import databaseClient from '@/database/databaseClient'
-import {findUserByCredentials} from '@/database/services/user.actions'
-import {findUserByEmail} from '@/database/services/user.actions'
 
 import {verifyMailTextTemplate} from '@/mail/account-verification'
 import {verifyMailHTMLTemplate} from '@/mail/account-verification'

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import {PlatformObject} from '@/database/models/Platform.model'
-import {deleteContactMessage} from '@/database/services/platform.services'
+import {deleteContactMessage} from '@/database/services/Platform/deleteContactMessage'
 
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
 import {LinkSlot} from '@/components/_Atoms/slots/link-slots'

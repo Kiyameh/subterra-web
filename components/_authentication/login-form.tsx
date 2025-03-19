@@ -6,9 +6,9 @@ import {Answer} from '@/database/types/Answer.type'
 
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
-import {Input} from '../ui/input'
-import LinkButton from '../_Atoms/buttons/link-button'
-import {loginUser} from '@/database/services/user.actions'
+import {Input} from '@/components/ui/input'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
+import {loginUser} from '@/database/services/User/loginUser'
 
 /**
  * @version 1

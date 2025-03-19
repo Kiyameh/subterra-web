@@ -2,6 +2,7 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
+import {updatePassword} from '@/database/services/User/updatePassword'
 
 import {
   ResetPassSchema,
@@ -15,8 +16,8 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import {User} from 'next-auth'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
-import {updatePassword} from '@/database/services/user.actions'
-import LinkButton from '../_Atoms/buttons/link-button'
+
+import LinkButton from '@/components/_Atoms/buttons/link-button'
 
 /**
  * @version 1

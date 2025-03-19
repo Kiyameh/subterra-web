@@ -1,11 +1,13 @@
 import {PlatformObject} from '@/database/models/Platform.model'
-import {getOnePlatform} from '@/database/services/platform.services'
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 
 import ContactMessagesBoard from '@/components/_staff-dashboard/contact-messages-board'
 
 export default async function StaffDashboardPage() {
-  const subterra = (await getOnePlatform('subterra'))
-    .content as PlatformObject | null
+  // Obtener la plataforma
+  const subterra = (await getOnePlatform()).content as
+    | PlatformObject
+    | undefined
 
   return (
     <div>

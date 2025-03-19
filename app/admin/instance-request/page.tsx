@@ -1,7 +1,7 @@
 import {auth} from '@/auth'
 
 import {PlatformObject} from '@/database/models/Platform.model'
-import {getOnePlatform} from '@/database/services/platform.services'
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import InstanceCreationForm from '@/components/_staff-dashboard/instance-creation-form'
@@ -10,9 +10,10 @@ import InstanceMessagesBoard from '@/components/_staff-dashboard/instance-messag
 import {LuBox} from 'react-icons/lu'
 
 export default async function CreateInstancePage() {
-  const subterra = (await getOnePlatform('subterra'))
-    .content as PlatformObject | null
-
+  // Obtener la plataforma
+  const subterra = (await getOnePlatform()).content as
+    | PlatformObject
+    | undefined
   const session = await auth()
   const userId = session?.user?._id
 

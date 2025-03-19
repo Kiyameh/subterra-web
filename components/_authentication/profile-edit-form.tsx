@@ -3,7 +3,7 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {updateUser} from '@/database/services/user.actions'
+import {updateUser} from '@/database/services/User/updateUser'
 import {Answer} from '@/database/types/Answer.type'
 import {signIn} from 'next-auth/react'
 

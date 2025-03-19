@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
-import {signUp} from '@/database/services/user.actions'
+import {signUp} from '@/database/services/User/signUp'
 import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'

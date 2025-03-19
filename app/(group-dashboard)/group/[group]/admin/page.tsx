@@ -16,9 +16,9 @@ import {FiBox} from 'react-icons/fi'
 import {MdModeEdit, MdPendingActions} from 'react-icons/md'
 import {BiMessageDetail} from 'react-icons/bi'
 import {FaInfoCircle} from 'react-icons/fa'
-import {getOnePlatform} from '@/database/services/platform.services'
 import {PlatformObject} from '@/database/models/Platform.model'
 import {PiWarningBold} from 'react-icons/pi'
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 
 interface PageProps {
   params: Promise<{group: string}>
@@ -35,8 +35,9 @@ export default async function GroupAdminPage({params}: PageProps) {
   const group = (await getOneGroup(groupName)).content as GroupWithUsers | null
 
   // Obtener la plataforma
-  const subterra = (await getOnePlatform('subterra'))
-    .content as PlatformObject | null
+  const subterra = (await getOnePlatform()).content as
+    | PlatformObject
+    | undefined
 
   // Peticiones de membresía pendientes
   const request = group?.member_requests
