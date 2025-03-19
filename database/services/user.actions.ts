@@ -7,7 +7,7 @@ import {
   SignUpSchema,
   SignUpValues,
 } from '@/database/validation/auth.schemas'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {connectToMongoDB} from '@/database/databaseConection'
 import User, {UserDocument} from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'

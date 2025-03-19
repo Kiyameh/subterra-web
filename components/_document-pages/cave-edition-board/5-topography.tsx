@@ -1,6 +1,6 @@
-import {CaveFormValues} from '@/database/validation/cave.schemas'
 import {UseFormReturn} from 'react-hook-form'
 import {TopographyUploader} from '../file-uploader/topography-uploader'
+import {CaveFormValues} from '@/database/types/Cave.type'
 
 /**
  * @version 1

@@ -6,7 +6,7 @@ import {format} from 'date-fns'
 import {ChevronLeft, ChevronRight} from 'lucide-react'
 import {Button} from '@/components/ui/button'
 import {Dialog, DialogContent, DialogTitle} from '@/components/ui/dialog'
-import {Picture} from '@/database/types/picture.type'
+import {Picture} from '@/database/types/Picture.type'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {FaImage} from 'react-icons/fa'
@@ -55,7 +55,7 @@ export default function PicturesCard({pictures}: {pictures: Picture[]}) {
                 onClick={() => openModal(index)}
               >
                 <Image
-                  src={picture.file_src || '/placeholder.svg'}
+                  src={picture.file_src || '/image-placeholder.svg'}
                   alt={picture.description || 'Gallery image'}
                   fill
                   className="object-cover"
@@ -76,7 +76,7 @@ export default function PicturesCard({pictures}: {pictures: Picture[]}) {
             </DialogTitle>
             {selectedPicture && (
               <Image
-                src={selectedPicture.file_src || '/placeholder.svg'}
+                src={selectedPicture.file_src || '/image-placeholder.svg'}
                 alt={selectedPicture.description || 'Imagen'}
                 fill
                 className="object-contain"

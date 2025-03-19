@@ -3,16 +3,17 @@ import {redirect, RedirectType} from 'next/navigation'
 
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {checkIsEditor} from './instance.actions'
 
 import Exploration from '@/database/models/Exploration.model'
-import {ExplorationDocument} from '@/database/models/Exploration.model'
-import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
-import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
+import {
+  ExplorationFormValues,
+  ExplorationSchema,
+} from '@/database/types/Exploration.type'
 
 import Cave from '@/database/models/Cave.model'
-import {CaveDocument} from '@/database/models/Cave.model'
+import {CaveDocument} from '@/database/types/Cave.type'
 
 import Group from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
@@ -20,6 +21,7 @@ import {GroupDocument} from '@/database/models/Group.model'
 import Instance from '@/database/models/Instance.model'
 import {PlainCave} from './cave.actions'
 import {GroupObject} from './group.actions'
+import {ExplorationDocument} from '../types/Exploration.type'
 
 //* 1. Funciones de escritura */
 
@@ -37,7 +39,7 @@ export async function createExploration(
 ): Promise<Answer> {
   try {
     // Validar los datos:
-    const validated = await ExplorationFormSchema.parseAsync(values)
+    const validated = await ExplorationSchema.parseAsync(values)
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
@@ -79,7 +81,7 @@ export async function updateExploration(
 ): Promise<Answer> {
   try {
     // Validar los datos:
-    const validated = await ExplorationFormSchema.parseAsync(values)
+    const validated = await ExplorationSchema.parseAsync(values)
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 

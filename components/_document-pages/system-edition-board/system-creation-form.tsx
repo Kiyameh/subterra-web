@@ -3,9 +3,8 @@ import React, {MouseEvent} from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/answer.type'
-import {SystemFormValues} from '@/database/validation/system.schemas'
-import {SystemFormSchema} from '@/database/validation/system.schemas'
+import {Answer} from '@/database/types/Answer.type'
+import {SystemFormValues, SystemSchema} from '@/database/types/System.type'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 
 import {Form} from '@/components/ui/form'
@@ -45,7 +44,7 @@ export default function SystemCreationForm({
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<SystemFormValues>({
-    resolver: zodResolver(SystemFormSchema),
+    resolver: zodResolver(SystemSchema),
     defaultValues: {
       ...EMPTY_SYSTEM,
       instances: [instanceId],

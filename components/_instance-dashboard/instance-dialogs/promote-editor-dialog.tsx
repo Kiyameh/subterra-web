@@ -7,7 +7,7 @@ import {Form} from '@/components/ui/form'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {addEditor} from '@/database/services/instance.actions'
 
 import {

@@ -1,5 +1,5 @@
 # Bienvenido a Subterra.app
-	
+
 [Ir a Subterra](https://www.subterra.app)
 
 Subterra.app es una base de datos para el almacenamiento de datos espeleológicos. En ella, los espeleólogos y los grupos pueden almacenar datos de sus exploraciones subterráneas.
@@ -8,7 +8,9 @@ Subterra es un proyecto de código abierto desarrollado por Andoni Abarzuza ([@k
 
 ## Versiones
 
-|Versión | Fecha de lanzamiento  |
-|--|--|
-| V.1.0.0 Piloto | Diciembre 2024  |
-| V.1.0.1 Coventosa | Enero 2025  |
+| Versión           | Fecha de lanzamiento |
+| ----------------- | -------------------- |
+| V.1.0 Piloto      | Octubre 2024         |
+| V.1.1 Gandara     | Nomviembre 2024      |
+| V.1.2 Coventosa   | Febrero 2025         |
+| V.1.3 Ormazarreta | Marzo 2025           |

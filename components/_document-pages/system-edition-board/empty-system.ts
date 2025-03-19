@@ -1,4 +1,4 @@
-import {SystemFormValues} from '@/database/validation/system.schemas'
+import {SystemFormValues} from '@/database/types/System.type'
 
 export const EMPTY_SYSTEM: SystemFormValues = {
   instances: [],
@@ -12,7 +12,6 @@ export const EMPTY_SYSTEM: SystemFormValues = {
   description: '',
   regulations: false,
   regulation_description: '',
-  exploration_description: '',
   length: 0,
   depth: 0,
   massif: '',

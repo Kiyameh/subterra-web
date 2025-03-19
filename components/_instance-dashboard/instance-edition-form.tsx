@@ -10,7 +10,7 @@ import {
   InstanceWithUsers,
   updateInstance,
 } from '@/database/services/instance.actions'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import TextField from '@/components/_Atoms/fields/text-field'

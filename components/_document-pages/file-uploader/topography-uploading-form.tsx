@@ -25,7 +25,7 @@ import React from 'react'
 import {cn} from '@/lib/utils'
 import {uploadToCloudinary} from '@/upload/actions'
 import {toast} from 'sonner'
-import {Topography} from '@/database/types/topography.type'
+import {Topography} from '@/database/types/Topography.type'
 import {
   Select,
   SelectContent,

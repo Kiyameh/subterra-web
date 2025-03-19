@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {z} from 'zod'
@@ -21,7 +21,7 @@ import CountryField from '@/components/_Atoms/fields/country-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-import {PictureSchema} from '@/database/types/picture.type'
+import {PictureSchema} from '@/database/types/Picture.type'
 
 const FakeFormSchema = z.object({
   text: z.string().max(120).optional(),
@@ -194,10 +194,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           label="Referencia"
           description="Referencia"
           placeholder="Selecciona una referencia"
-          index={[
-            {_id: '21', name: 'Referencia 21'},
-            {_id: '22', name: 'Referencia 22'},
-          ]}
+          index={[]}
         />
         <MultiRefSelectField
           control={form.control}
@@ -205,10 +202,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           label="Referencia múltiple"
           description="Referencia múltiple"
           placeholder="Selecciona varias referencias"
-          index={[
-            {_id: '21', name: 'Ejemplo1'},
-            {_id: '22', name: 'Ejemplo2'},
-          ]}
+          index={[]}
         />
         <PhoneField
           control={form.control}

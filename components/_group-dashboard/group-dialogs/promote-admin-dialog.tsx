@@ -3,7 +3,7 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {promoteAdmin} from '@/database/services/group.actions'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import {Button} from '@/components/ui/button'

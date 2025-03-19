@@ -4,9 +4,7 @@ import {useParams, useSearchParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/answer.type'
-import {CaveFormValues} from '@/database/validation/cave.schemas'
-import {CaveFormSchema} from '@/database/validation/cave.schemas'
+import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -30,6 +28,7 @@ import {
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
+import {CaveFormValues, CaveSchema} from '@/database/types/Cave.type'
 
 /**
  * @version 2
@@ -57,7 +56,7 @@ export default function CaveEditionForm({
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<CaveFormValues>({
-    resolver: zodResolver(CaveFormSchema),
+    resolver: zodResolver(CaveSchema),
     defaultValues: cave,
   })
 

@@ -1,23 +1,25 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {checkIsEditor} from '@/database/services/instance.actions'
 
 import Cave from '@/database/models/Cave.model'
-import {CaveDocument} from '@/database/models/Cave.model'
-import {CaveFormSchema} from '@/database/validation/cave.schemas'
-import {CaveFormValues} from '@/database/validation/cave.schemas'
 
 import System from '@/database/models/System.model'
-import {SystemDocument} from '@/database/models/System.model'
 import {PlainSystem} from '@/database/services/system.actions'
+import {
+  CaveDocument,
+  CaveFormValues,
+  CaveSchema,
+} from '@/database/types/Cave.type'
 
 import Exploration from '@/database/models/Exploration.model'
 import {PlainExploration} from '@/database/services/exploration.actions'
 
 import Instance from '@/database/models/Instance.model'
 import {redirect, RedirectType} from 'next/navigation'
+import {SystemDocument} from '../types/System.type'
 
 //* 1. Funciones de escritura */
 
@@ -35,7 +37,7 @@ export async function createCave(
 ): Promise<Answer> {
   try {
     // Validar los datos:
-    const validated = await CaveFormSchema.parseAsync(values)
+    const validated = await CaveSchema.parseAsync(values)
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
@@ -74,7 +76,7 @@ export async function updateCave(
 ): Promise<Answer> {
   try {
     // Validar los datos:
-    const validated = await CaveFormSchema.parseAsync(values)
+    const validated = await CaveSchema.parseAsync(values)
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 

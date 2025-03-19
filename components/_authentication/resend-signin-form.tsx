@@ -5,7 +5,7 @@ import SubmitButton from '../_Atoms/buttons/submit-button'
 import {Input} from '../ui/input'
 import {signIn} from 'next-auth/react'
 import DbAwnserBox from '../_Atoms/boxes/db-answer-box'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 export default function ResendSigninForm({
   emailCallbackUrl,

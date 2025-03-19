@@ -180,7 +180,7 @@ export default function VersionsBoard({
                   {feature.image_src && (
                     <div className="relative h-40 w-full mb-4 rounded-md overflow-hidden">
                       <Image
-                        src={feature.image_src || '/placeholder.svg'}
+                        src={feature.image_src || '/image-placeholder.svg'}
                         alt={feature.name}
                         fill
                         className="object-cover"

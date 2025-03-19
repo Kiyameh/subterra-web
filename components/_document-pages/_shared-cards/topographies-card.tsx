@@ -13,7 +13,7 @@ import {
 import {Button} from '@/components/ui/button'
 import {Dialog, DialogContent, DialogTitle} from '@/components/ui/dialog'
 import {Badge} from '@/components/ui/badge'
-import {Topography} from '@/database/types/topography.type'
+import {Topography} from '@/database/types/Topography.type'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {FaRegMap} from 'react-icons/fa'
@@ -30,7 +30,7 @@ function getFileType(url: string): 'image' | 'pdf' | 'ai' | 'unknown' {
   } else if (extension === 'ai') {
     return 'ai'
   } else {
-    if (url.includes('placeholder.svg')) {
+    if (url.includes('image-placeholder.svg')) {
       return 'image'
     }
     return 'unknown'
@@ -108,7 +108,7 @@ export default function TopographiesCard({
                 >
                   {fileType === 'image' ? (
                     <Image
-                      src={topography.file_src || '/placeholder.svg'}
+                      src={topography.file_src || '/image-placeholder.svg'}
                       alt={topography.description || 'Topography image'}
                       fill
                       className="object-cover"
@@ -144,7 +144,9 @@ export default function TopographiesCard({
               <>
                 {selectedFileType === 'image' && (
                   <Image
-                    src={selectedTopography.file_src || '/placeholder.svg'}
+                    src={
+                      selectedTopography.file_src || '/image-placeholder.svg'
+                    }
                     alt={selectedTopography.description || 'Topography image'}
                     fill
                     className="object-contain"

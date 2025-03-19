@@ -1,20 +1,22 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import Cave from '@/database/models/Cave.model'
-import {CaveDocument} from '@/database/models/Cave.model'
+import {CaveDocument} from '@/database/types/Cave.type'
 
 import System from '@/database/models/System.model'
-import {SystemDocument} from '@/database/models/System.model'
-import {SystemFormValues} from '../validation/system.schemas'
-import {SystemFormSchema} from '../validation/system.schemas'
 
-import Instance from '../models/Instance.model'
+import Instance from '@/database/models/Instance.model'
 import {PlainCave} from './cave.actions'
 import {redirect, RedirectType} from 'next/navigation'
 import {checkIsEditor} from './instance.actions'
+import {
+  SystemDocument,
+  SystemFormValues,
+  SystemSchema,
+} from '../types/System.type'
 
 //* 1. Funciones de escritura */
 
@@ -32,7 +34,7 @@ export async function createSystem(
 ): Promise<Answer> {
   try {
     // Validar los datos:
-    const validated = await SystemFormSchema.parseAsync(values)
+    const validated = await SystemSchema.parseAsync(values)
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 
@@ -72,7 +74,7 @@ export async function updateSystem(
 ): Promise<Answer> {
   try {
     // Validar los datos:
-    const validated = await SystemFormSchema.parseAsync(values)
+    const validated = await SystemSchema.parseAsync(values)
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
 

@@ -1,6 +1,6 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 
 import User, {UserIndex, UserObject} from '@/database/models/User.model'

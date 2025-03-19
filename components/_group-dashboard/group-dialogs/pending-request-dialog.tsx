@@ -2,7 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {
   acceptMemberRequest,
   GroupWithUsers,

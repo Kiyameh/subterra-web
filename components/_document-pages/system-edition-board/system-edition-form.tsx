@@ -5,9 +5,8 @@ import {useParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/answer.type'
-import {SystemFormValues} from '@/database/validation/system.schemas'
-import {SystemFormSchema} from '@/database/validation/system.schemas'
+import {Answer} from '@/database/types/Answer.type'
+import {SystemFormValues, SystemSchema} from '@/database/types/System.type'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -47,7 +46,7 @@ export default function SystemEditionForm({
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<SystemFormValues>({
-    resolver: zodResolver(SystemFormSchema),
+    resolver: zodResolver(SystemSchema),
     defaultValues: system,
   })
 

@@ -6,10 +6,8 @@ import TextField from '@/components/_Atoms/fields/text-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import {CaveIndex} from '@/database/services/cave.actions'
 import {GroupIndex} from '@/database/services/group.actions'
-import {
-  ExplorationFormValues,
-  explorationMaxCharacters,
-} from '@/database/validation/exploration.schemas'
+import {ExplorationFormValues} from '@/database/types/Exploration.type'
+import {hugeText, mediumText} from '@/database/validation/validationDefaults'
 
 import {UseFormReturn} from 'react-hook-form'
 
@@ -47,7 +45,7 @@ export default function ExplorationGeneralFormFragment({
         control={form.control}
         name="name"
         label="Titulo de la exploracion"
-        maxCharacters={explorationMaxCharacters.name}
+        maxCharacters={mediumText}
       />
       <MultiDateField
         control={form.control}
@@ -79,26 +77,26 @@ export default function ExplorationGeneralFormFragment({
         control={form.control}
         name="description"
         label="Relato de la exploración"
-        maxCharacters={explorationMaxCharacters.description}
+        maxCharacters={hugeText}
       />
 
       <TextAreaField
         control={form.control}
         name="incidents"
         label="Incidentes ocurridos"
-        maxCharacters={explorationMaxCharacters.incidents}
+        maxCharacters={hugeText}
       />
       <TextAreaField
         control={form.control}
         name="inventory"
         label="Inventario de la exploración"
-        maxCharacters={explorationMaxCharacters.inventory}
+        maxCharacters={hugeText}
       />
       <TextAreaField
         control={form.control}
         name="pending_work"
         label="Trabajos pendientes"
-        maxCharacters={explorationMaxCharacters.pending_work}
+        maxCharacters={hugeText}
       />
     </div>
   )

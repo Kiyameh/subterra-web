@@ -1,5 +1,5 @@
 import React from 'react'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {FaExclamationTriangle} from 'react-icons/fa'
 import {FaCheckCircle} from 'react-icons/fa'
 

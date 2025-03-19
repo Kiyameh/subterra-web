@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import {Button} from '@/components/ui/button'
 import {Card, CardContent, CardFooter} from '@/components/ui/card'
-import {Picture} from '@/database/types/picture.type'
-import {Topography} from '@/database/types/topography.type'
+import {Picture} from '@/database/types/Picture.type'
+import {Topography} from '@/database/types/Topography.type'
 import {Loader2, TrashIcon} from 'lucide-react'
 import {PiFilePdfThin} from 'react-icons/pi'
 import {DiIllustrator} from 'react-icons/di'
@@ -41,7 +41,7 @@ export default function UploadedFileCard({
           </div>
         ) : (
           <img
-            src={file.file_src || '/placeholder.svg'}
+            src={file.file_src || '/image-placeholder.svg'}
             alt={file.description || `Archivo ${index + 1}`}
             className="w-full h-full object-cover transition-transform group-hover:scale-105"
           />

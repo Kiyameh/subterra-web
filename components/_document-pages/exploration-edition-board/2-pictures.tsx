@@ -1,6 +1,6 @@
 import {UseFormReturn} from 'react-hook-form'
 import {PictureUploader} from '../file-uploader/picture-uploader'
-import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
+import {ExplorationFormValues} from '@/database/types/Exploration.type'
 
 /**
  * @version 1

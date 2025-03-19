@@ -7,7 +7,7 @@ import {
   ResetPassSchema,
   ResetPassValues,
 } from '@/database/validation/auth.schemas'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'

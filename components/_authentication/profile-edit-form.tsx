@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {updateUser} from '@/database/services/user.actions'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 import {signIn} from 'next-auth/react'
 
 import {Form} from '@/components/ui/form'

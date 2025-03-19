@@ -5,10 +5,11 @@ import {useParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/answer.type'
-import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
-import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
-
+import {Answer} from '@/database/types/Answer.type'
+import {
+  ExplorationFormValues,
+  ExplorationSchema,
+} from '@/database/types/Exploration.type'
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
@@ -49,7 +50,7 @@ export default function ExplorationEditionForm({
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<ExplorationFormValues>({
-    resolver: zodResolver(ExplorationFormSchema),
+    resolver: zodResolver(ExplorationSchema),
     defaultValues: exploration,
   })
 

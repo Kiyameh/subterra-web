@@ -5,7 +5,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
 import {signUp} from '@/database/services/user.actions'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'

@@ -1,4 +1,4 @@
-import {CaveFormValues} from '@/database/validation/cave.schemas'
+import {CaveFormValues} from '@/database/types/Cave.type'
 
 export const EMPTY_CAVE: CaveFormValues = {
   datatype: 'cave',
@@ -37,6 +37,7 @@ export const EMPTY_CAVE: CaveFormValues = {
     x_coord: 0,
     y_coord: 0,
     z_coord: 0,
+    coord_format: 'UTM',
     coord_proyec: 'ETRS89',
     hemisphere: 'N',
     utm_zone: '30',

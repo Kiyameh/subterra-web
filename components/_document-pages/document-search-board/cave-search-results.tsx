@@ -15,7 +15,7 @@ export default async function CaveSearchResults({
   if (!caves || !query) return null
 
   const filtered = caves.filter((cave) => {
-    return cave.name.toLowerCase().includes(query.toLowerCase())
+    return cave.name?.toLowerCase().includes(query.toLowerCase())
   })
 
   return (

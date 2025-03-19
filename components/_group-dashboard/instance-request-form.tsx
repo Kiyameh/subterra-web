@@ -9,7 +9,7 @@ import {instanceRequestMaxCharacters} from '@/database/validation/platform.schem
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 import {addInstanceRequest} from '@/database/services/platform.services'
 import {GroupIndex} from '@/database/services/group.actions'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'
 import {GroupProfileCard} from '@/components/_Atoms/slots/group-slots'

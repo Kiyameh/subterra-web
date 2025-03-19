@@ -1,55 +1,8 @@
-import {model, models, Schema, Types, Document} from 'mongoose'
-import {Topography} from '../types/topography.type'
-import {Picture} from '../types/picture.type'
-import {Installation} from '../types/installation.type'
-
-//* INTERFACES:
-
-export interface SystemDocument extends Document {
-  //* Añadidos por Mongo:
-  //  _id: Types.ObjectId
-  //  __v: number
-  //  createdAt: Date
-  //  updataedAt: Date
-
-  //* Manejo de relaciones:
-  datatype: 'system'
-  instances: Types.ObjectId[]
-
-  //* Datos troncales:
-  catalog?: string
-  initials?: string[]
-  name: string
-  alt_names?: string[]
-
-  //* Descripciónes:
-  description?: string
-  regulations?: boolean
-  regulation_description?: string
-  exploration_description?: string
-  length?: number
-  depth?: number
-  massif?: string
-
-  //* Datos científicos:
-  geolog_age?: string
-  geolog_litology?: string
-  arqueolog?: string
-  paleontolog?: string
-  mineralog?: string
-  contamination?: string
-  biolog?: string
-  hidrolog_system?: string
-  hidrolog_subsystem?: string
-
-  //* Adjuntos:
-  topographies?: Topography[]
-  pictures?: Picture[]
-  installations?: Installation[]
-}
+import {model, models, Schema} from 'mongoose'
+import {SystemDocument} from '../types/System.type'
+import {anchorTypes, anchorPurposes} from '../types/Installation.type'
 
 //* ESQUEMA:
-
 const systemSchema = new Schema<SystemDocument>({
   //* Manejo de relaciones:
   datatype: {type: String, required: true, default: 'system'},
@@ -65,7 +18,6 @@ const systemSchema = new Schema<SystemDocument>({
   description: {type: String},
   regulations: {type: Boolean},
   regulation_description: {type: String},
-  exploration_description: {type: String},
   length: {type: Number},
   depth: {type: Number},
   massif: {type: String},
@@ -80,6 +32,16 @@ const systemSchema = new Schema<SystemDocument>({
   biolog: {type: String},
   hidrolog_system: {type: String},
   hidrolog_subsystem: {type: String},
+
+  //* Datos exploración:
+  historical_explorations: [
+    {
+      date: {type: Date, required: true},
+      author: {type: String},
+      publication: {type: String},
+      description: {type: String},
+    },
+  ],
 
   //* Adjuntos:
   pictures: {
@@ -110,7 +72,38 @@ const systemSchema = new Schema<SystemDocument>({
     ],
   },
 
-  // TODO: Añadir instalaciones
+  installations: {
+    type: [
+      {
+        metadata: {
+          cave: {type: String},
+          name: {type: String},
+          description: {type: String},
+          date: {type: Date},
+        },
+        obstacles: [
+          {
+            obstacle: {type: String},
+            obstacle_annotation: {type: String},
+            ropes: [
+              {
+                length: {type: Number},
+                rope_annotation: {type: String},
+                anchors: [
+                  {
+                    amount: {type: Number},
+                    type: {type: String, enum: anchorTypes},
+                    purpose: {type: String, enum: anchorPurposes},
+                    anchor_annotation: {type: String},
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 })
 
 //* MODELO:

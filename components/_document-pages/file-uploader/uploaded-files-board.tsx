@@ -1,6 +1,6 @@
-import {Picture} from '@/database/types/picture.type'
+import {Picture} from '@/database/types/Picture.type'
 import UploadedFileCard from './uploaded-file-card'
-import {Topography} from '@/database/types/topography.type'
+import {Topography} from '@/database/types/Topography.type'
 
 /**
  * @version 1

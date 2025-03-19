@@ -5,12 +5,15 @@ import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
-import {caveShapes} from '@/database/models/Cave.enums'
 import {SystemIndex} from '@/database/services/system.actions'
+import {CaveFormValues, caveShapes} from '@/database/types/Cave.type'
 import {
-  CaveFormValues,
-  caveMaxCharacters,
-} from '@/database/validation/cave.schemas'
+  bigText,
+  hugeText,
+  smallText,
+  tinyText,
+} from '@/database/validation/validationDefaults'
+
 import {UseFormReturn} from 'react-hook-form'
 
 /**
@@ -42,7 +45,7 @@ export default function CaveGeneralFormFragment({
         label="Número de Catálogo externo"
         description="Referencia de catálogo en algún sistema externo a subterra"
         placeholder="CAT-123"
-        maxCharacters={caveMaxCharacters.catalog}
+        maxCharacters={tinyText}
       />
       <MultiTextField
         control={form.control}
@@ -56,7 +59,7 @@ export default function CaveGeneralFormFragment({
         name="name"
         label="Nombre"
         placeholder="Cueva del pirata"
-        maxCharacters={caveMaxCharacters.name}
+        maxCharacters={smallText}
       />
       <MultiTextField
         control={form.control}
@@ -75,7 +78,7 @@ export default function CaveGeneralFormFragment({
         control={form.control}
         name="description"
         label="Descripción"
-        maxCharacters={caveMaxCharacters.description}
+        maxCharacters={hugeText}
       />
       <BooleanField
         control={form.control}
@@ -86,7 +89,7 @@ export default function CaveGeneralFormFragment({
         control={form.control}
         name="regulation_description"
         label="Descripción de las regulaciones"
-        maxCharacters={caveMaxCharacters.regulation_description}
+        maxCharacters={bigText}
       />
       <DistanceField
         control={form.control}

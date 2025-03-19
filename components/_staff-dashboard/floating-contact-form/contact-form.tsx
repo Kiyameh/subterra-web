@@ -9,7 +9,7 @@ import {contactFormSchema} from '@/database/validation/platform.schemas'
 import {ContactFormValues} from '@/database/validation/platform.schemas'
 import {contactSubjects} from '@/database/models/Platform.model'
 import {addContactMessage} from '@/database/services/platform.services'
-import {Answer} from '@/database/types/answer.type'
+import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'

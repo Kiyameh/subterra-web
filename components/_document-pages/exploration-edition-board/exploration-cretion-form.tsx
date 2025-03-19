@@ -3,9 +3,11 @@ import React, {MouseEvent} from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/answer.type'
-import {ExplorationFormValues} from '@/database/validation/exploration.schemas'
-import {ExplorationFormSchema} from '@/database/validation/exploration.schemas'
+import {Answer} from '@/database/types/Answer.type'
+import {
+  ExplorationFormValues,
+  ExplorationSchema,
+} from '@/database/types/Exploration.type'
 import {GroupIndex} from '@/database/services/group.actions'
 
 import {Form} from '@/components/ui/form'
@@ -47,7 +49,7 @@ export default function ExplorationCreationForm({
   const [isPending, startTransition] = React.useTransition()
 
   const form = useForm<ExplorationFormValues>({
-    resolver: zodResolver(ExplorationFormSchema),
+    resolver: zodResolver(ExplorationSchema),
     defaultValues: {
       ...EMPTY_EXPLORATION,
       instances: [instanceId],

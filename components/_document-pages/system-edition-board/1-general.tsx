@@ -3,10 +3,14 @@ import DistanceField from '@/components/_Atoms/fields/distance-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
+import {SystemFormValues} from '@/database/types/System.type'
 import {
-  SystemFormValues,
-  systemMaxCharacters,
-} from '@/database/validation/system.schemas'
+  tinyText,
+  smallText,
+  bigText,
+  mediumText,
+} from '@/database/validation/validationDefaults'
+
 import {UseFormReturn} from 'react-hook-form'
 
 /**
@@ -28,7 +32,7 @@ export default function SystemGeneralFormFragment({
         label="Número de Catálogo externo"
         description="Referencia de catálogo en algún sistema externo a subterra"
         placeholder="CAT-333"
-        maxCharacters={systemMaxCharacters.catalog}
+        maxCharacters={tinyText}
       />
       <MultiTextField
         control={form.control}
@@ -42,7 +46,7 @@ export default function SystemGeneralFormFragment({
         name="name"
         label="Nombre del sistema"
         placeholder="Sistema de poniente"
-        maxCharacters={systemMaxCharacters.name}
+        maxCharacters={smallText}
       />
       <MultiTextField
         control={form.control}
@@ -60,14 +64,9 @@ export default function SystemGeneralFormFragment({
         control={form.control}
         name="regulation_description"
         label="Descripción de las regulaciones"
-        maxCharacters={systemMaxCharacters.regulation_description}
+        maxCharacters={bigText}
       />
-      <TextAreaField
-        control={form.control}
-        name="exploration_description"
-        label="Historia de las exploraciones"
-        maxCharacters={systemMaxCharacters.exploration_description}
-      />
+
       <DistanceField
         control={form.control}
         name="length"
@@ -86,7 +85,7 @@ export default function SystemGeneralFormFragment({
         name="massif"
         label="Macizo"
         placeholder="Macizo de poniente"
-        maxCharacters={systemMaxCharacters.massif}
+        maxCharacters={mediumText}
       />
     </div>
   )

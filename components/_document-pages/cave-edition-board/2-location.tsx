@@ -5,11 +5,9 @@ import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import SelectField from '@/components/_Atoms/fields/select-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
-import {utmZones} from '@/database/models/Cave.enums'
-import {
-  CaveFormValues,
-  caveMaxCharacters,
-} from '@/database/validation/cave.schemas'
+import {CaveFormValues} from '@/database/types/Cave.type'
+import {utmZones} from '@/database/types/UtmCoordinate.type'
+import {bigText, mediumText} from '@/database/validation/validationDefaults'
 import {UseFormReturn} from 'react-hook-form'
 import {BsExclamationTriangle} from 'react-icons/bs'
 
@@ -70,14 +68,14 @@ export default function CaveLocationFormFragment({
         name="municipality"
         label="Municipio"
         placeholder="Isla tortuga"
-        maxCharacters={caveMaxCharacters.municipality}
+        maxCharacters={mediumText}
       />
       <TextField
         control={form.control}
         name="locality"
         label="Localidad"
         placeholder="Tortuga"
-        maxCharacters={caveMaxCharacters.locality}
+        maxCharacters={mediumText}
       />
       <MultiTextField
         control={form.control}
@@ -91,13 +89,13 @@ export default function CaveLocationFormFragment({
         name="massif"
         label="Macizo"
         placeholder="Montes de poniente"
-        maxCharacters={caveMaxCharacters.massif}
+        maxCharacters={mediumText}
       />
       <TextAreaField
         control={form.control}
         name="location_description"
         label="Descripción de la localización"
-        maxCharacters={caveMaxCharacters.location_description}
+        maxCharacters={bigText}
       />
     </div>
   )
