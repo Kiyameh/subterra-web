@@ -1,5 +1,5 @@
-import SimpleBox from '@/components/_Atoms/boxes/simple-box'
-import PageContainer from '@/components/theming/page-container'
+import SimpleBox from '@/components/Molecules/boxes/simple-box'
+import PageContainer from '@/components/Organisms/theme/page-container'
 import {Victor_Mono} from 'next/font/google'
 import Link from 'next/link'
 

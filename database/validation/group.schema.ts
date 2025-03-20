@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {groupCategories} from '../models/Group.enums'
+import {groupCategories} from '@/database/models/Group.enums'
 import countries from '@/database/data/countries.json'
 import states from '@/database/data/states.json'
 

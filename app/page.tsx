@@ -1,13 +1,13 @@
-import WelcomeSection from '@/app/(landing)/welcome-section'
-import AboutSection from '@/app/(landing)/about-section'
-import HowToSection from '@/app/(landing)/how-to-section'
-import InstancesSection from '@/app/(landing)/instances-section'
-import GroupsSection from '@/app/(landing)/groups-section'
+import WelcomeSection from '@/app/(landing-sections)/welcome-section'
+import AboutSection from '@/app/(landing-sections)/about-section'
+import HowToSection from '@/app/(landing-sections)/how-to-section'
+import InstancesSection from '@/app/(landing-sections)/instances-section'
+import GroupsSection from '@/app/(landing-sections)/groups-section'
 
-import DesktopNav from '@/components/navigations/landing-nav-desktop'
-import MobileNav from '@/components/navigations/landing-nav-mobile'
-import FloatingAccountControls from '@/components/_authentication/floating-user-control/floating-account-controls'
-import LandingFooter from '@/components/navigations/landing-footer'
+import DesktopNav from '@/components/Organisms/navigation/landing-nav-desktop'
+import MobileNav from '@/components/Organisms/navigation/landing-nav-mobile'
+import FloatingAccountControls from '@/components/Organisms/authentication/floating-user-control/floating-account-controls'
+import LandingFooter from '@/components/Organisms/navigation/landing-footer'
 
 //* Constantes:
 const sections = [

@@ -1,8 +1,8 @@
 import React from 'react'
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import {CardTitle} from '@/components/ui/card'
-import ResendSigninForm from '@/components/_authentication/resend-signin-form'
-import InfoBox from '@/components/_Atoms/boxes/info-box'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import {CardTitle} from '@/components/Atoms/card'
+import ResendSigninForm from '@/components/Organisms/authentication/resend-signin-form'
+import InfoBox from '@/components/Molecules/boxes/info-box'
 import {MdPassword} from 'react-icons/md'
 
 export default function ForgotPasswordPage() {

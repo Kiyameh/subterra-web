@@ -5,7 +5,7 @@ import {Answer} from '@/database/types/Answer'
 import Group from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
 
-import {MemberRequestValues} from '@/components/_group-dashboard/group-dialogs/membership-request-dialog'
+import {MemberRequestValues} from '@/components/Templates/groups/group-dialogs/membership-request-dialog'
 
 //* 4. Funciones de peticiones de miembro */
 

@@ -1,5 +1,5 @@
-import InDevelopmentCard from '@/components/cards/501-not-implemented'
-import PageContainer from '@/components/theming/page-container'
+import InDevelopmentCard from '@/components/Organisms/containers/501-not-implemented'
+import PageContainer from '@/components/Organisms/theme/page-container'
 
 export default function DocsLandingPage() {
   return (

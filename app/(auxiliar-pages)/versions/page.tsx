@@ -1,8 +1,8 @@
-import PageContainer from '@/components/theming/page-container'
-import VersionsBoard from '@/components/versioning/versions-board'
-import {versions} from '@/components/versioning/versions'
-import {features} from '@/components/versioning/features'
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import PageContainer from '@/components/Organisms/theme/page-container'
+import VersionsBoard from '@/components/Templates/versions-board/versions-board'
+import {versions} from '@/components/Templates/versions-board/versions'
+import {features} from '@/components/Templates/versions-board/features'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 
 export default function VersionsPage() {
   return (

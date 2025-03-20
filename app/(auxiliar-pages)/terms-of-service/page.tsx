@@ -1,7 +1,7 @@
 import React from 'react'
-import PageContainer from '@/components/theming/page-container'
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import LinkButton from '@/components/_Atoms/buttons/link-button'
+import PageContainer from '@/components/Organisms/theme/page-container'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import LinkButton from '@/components/Molecules/buttons/link-button'
 
 export default function TermsOfServicePage() {
   return (

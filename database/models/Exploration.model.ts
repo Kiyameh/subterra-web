@@ -1,5 +1,5 @@
 import {model, models, Schema} from 'mongoose'
-import {ExplorationDocument} from '../types/Exploration'
+import {ExplorationDocument} from '@/database/types/Exploration'
 
 //* ESQUEMA:
 const ExplorationSchema = new Schema<ExplorationDocument>(

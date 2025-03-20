@@ -1,7 +1,7 @@
 import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 
-import ContactMessagesBoard from '@/components/_staff-dashboard/contact-messages-board'
+import ContactMessagesBoard from '@/components/Templates/staff-dashboard/contact-messages-board'
 
 export default async function StaffDashboardPage() {
   // Obtener la plataforma

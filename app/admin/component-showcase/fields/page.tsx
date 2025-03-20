@@ -1,6 +1,6 @@
 import React from 'react'
 import FakeForm from './fake-form'
-import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
 
 export default function FieldsShowcasePage() {
   return (

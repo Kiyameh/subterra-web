@@ -1,10 +1,10 @@
 import type {Metadata} from 'next'
 import './globals.css'
-import {ThemeProvider} from '@/components/theming/theme-provider'
-import {Toaster} from '@/components/ui/sonner'
-import {versions} from '@/components/versioning/versions'
-import {features} from '@/components/versioning/features'
-import {UpdatesModal} from '@/components/versioning/updates-modal'
+import {ThemeProvider} from '@/components/Organisms/theme/theme-provider'
+import {Toaster} from '@/components/Atoms/sonner'
+import {versions} from '@/components/Templates/versions-board/versions'
+import {features} from '@/components/Templates/versions-board/features'
+import {UpdatesModal} from '@/components/Templates/versions-board/updates-modal'
 
 export const metadata: Metadata = {
   title: 'Subterra.app',

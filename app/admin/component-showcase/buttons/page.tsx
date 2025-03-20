@@ -1,13 +1,13 @@
 import React from 'react'
 
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import DownAnchor from '@/components/_Atoms/buttons/down-anchor'
-import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
-import LinkButton from '@/components/_Atoms/buttons/link-button'
-import BackButton from '@/components/_Atoms/buttons/back-button'
-import SquareButton from '@/components/_Atoms/buttons/square-button'
-import SubmitButton from '@/components/_Atoms/buttons/submit-button'
-import Divider from '@/components/_Atoms/boxes/divider'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import DownAnchor from '@/components/Molecules/buttons/down-anchor'
+import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
+import LinkButton from '@/components/Molecules/buttons/link-button'
+import BackButton from '@/components/Molecules/buttons/back-button'
+import SquareButton from '@/components/Molecules/buttons/square-button'
+import SubmitButton from '@/components/Molecules/buttons/submit-button'
+import Divider from '@/components/Molecules/boxes/divider'
 
 import {BiMessageDots} from 'react-icons/bi'
 

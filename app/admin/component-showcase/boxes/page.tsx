@@ -1,16 +1,16 @@
 import React from 'react'
 
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
-import BasicCard from '@/components/_Atoms/boxes/basic-card'
-import CardTitle from '@/components/_Atoms/boxes/card-title'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
+import CardTitle from '@/components/Molecules/boxes/card-title'
 import {BiMessageDots} from 'react-icons/bi'
-import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
-import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
-import SimpleBox from '@/components/_Atoms/boxes/simple-box'
+import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
+import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
+import SimpleBox from '@/components/Molecules/boxes/simple-box'
 import {Answer} from '@/database/types/Answer'
-import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import InfoBox from '@/components/_Atoms/boxes/info-box'
-import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+import HeaderBox from '@/components/Molecules/boxes/header-box'
+import InfoBox from '@/components/Molecules/boxes/info-box'
+import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
 
 export default function BoxesShowcasePage() {
   return (
