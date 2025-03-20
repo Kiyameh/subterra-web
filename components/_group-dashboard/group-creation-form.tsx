@@ -8,9 +8,10 @@ import {
   groupMaxCharacters,
 } from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {createGroup} from '@/database/services/group.actions'
+
 import {Answer} from '@/database/types/Answer.type'
 import {groupCategories} from '@/database/models/Group.enums'
+import {createGroup} from '@/database/services/Group/createGroup'
 
 import {Form} from '@/components/ui/form'
 import LinkButton from '@/components/_Atoms/buttons/link-button'

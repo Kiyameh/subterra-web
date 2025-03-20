@@ -7,11 +7,11 @@ import Cave from '@/database/models/Cave.model'
 import {CaveDocument} from '@/database/types/Cave.type'
 
 import System from '@/database/models/System.model'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Instance from '@/database/models/Instance.model'
 import {PlainCave} from './cave.actions'
 import {redirect, RedirectType} from 'next/navigation'
-import {checkIsEditor} from './instance.actions'
 import {
   SystemDocument,
   SystemFormValues,

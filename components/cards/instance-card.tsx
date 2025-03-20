@@ -1,11 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
-import {InstanceWithOwner} from '@/database/services/instance.actions'
+import {InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
+
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
-
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
+
 import {MdOutlineTravelExplore} from 'react-icons/md'
 import {RiAdminLine} from 'react-icons/ri'
 import {MdVisibility} from 'react-icons/md'

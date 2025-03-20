@@ -4,6 +4,7 @@ import {useRouter} from 'next/navigation'
 
 import {Answer} from '@/database/types/Answer.type'
 
+import {removeMember} from '@/database/services/Group/membership/removeMember'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
 import {
@@ -18,7 +19,6 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {FaUserTimes} from 'react-icons/fa'
 import {IoIosWarning} from 'react-icons/io'
-import {removeMember} from '@/database/services/group.actions'
 
 /**
  * @version 1

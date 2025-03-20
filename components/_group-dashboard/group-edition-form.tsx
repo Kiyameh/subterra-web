@@ -8,7 +8,6 @@ import {
   groupMaxCharacters,
 } from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {GroupWithUsers, updateGroup} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/Answer.type'
 import {groupCategories} from '@/database/models/Group.enums'
 
@@ -24,6 +23,8 @@ import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 
 import {TbWorld} from 'react-icons/tb'
 import {MdOutlineAlternateEmail} from 'react-icons/md'
+import {GroupWithUsers} from '@/database/services/Group/getOneGroup'
+import {updateGroup} from '@/database/services/Group/updateGroup'
 
 /**
  * @version 1

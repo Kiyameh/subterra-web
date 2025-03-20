@@ -2,6 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
+import {promoteCoordinator} from '@/database/services/Instance/membership/promoteCoordinator'
 import {Answer} from '@/database/types/Answer.type'
 
 import {Button} from '@/components/ui/button'
@@ -16,7 +17,7 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
 import {FaUserLock} from 'react-icons/fa6'
-import {promoteCoordinator} from '@/database/services/instance.actions'
+
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 
 /**

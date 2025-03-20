@@ -7,8 +7,8 @@ import {Form} from '@/components/ui/form'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
+import {addEditor} from '@/database/services/Instance/membership/addEditor'
 import {Answer} from '@/database/types/Answer.type'
-import {addEditor} from '@/database/services/instance.actions'
 
 import {
   Dialog,

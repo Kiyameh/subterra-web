@@ -18,11 +18,11 @@ import {
 } from '@/components/ui/select'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {CaveIndex} from '@/database/services/cave.actions'
 import {ExplorationIndex} from '@/database/services/exploration.actions'
 import {SystemIndex} from '@/database/services/system.actions'
-import {InstanceIndex} from '@/database/services/instance.actions'
+import {InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
 
 /**
  * @version 2

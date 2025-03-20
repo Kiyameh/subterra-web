@@ -6,10 +6,10 @@ import InstanceEditorsTable, {
   InstanceEditorsTableRow,
 } from '@/components/_instance-dashboard/instance-editors-board/instance-editors-table'
 import {
-  checkIsCoordinator,
   getOneInstance,
   InstanceWithUsers,
-} from '@/database/services/instance.actions'
+} from '@/database/services/Instance/getOneInstance'
+import {checkIsCoordinator} from '@/database/services/Instance/membership/checkIsCoordinator'
 
 /**
  * @version 1

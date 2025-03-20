@@ -4,7 +4,7 @@ import {redirect, RedirectType} from 'next/navigation'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 import {Answer} from '@/database/types/Answer.type'
-import {checkIsEditor} from './instance.actions'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Exploration from '@/database/models/Exploration.model'
 import {
@@ -17,11 +17,11 @@ import {CaveDocument} from '@/database/types/Cave.type'
 
 import Group from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
+import {GroupObject} from '@/database/services/Group/getOneGroup'
 
 import Instance from '@/database/models/Instance.model'
-import {PlainCave} from './cave.actions'
-import {GroupObject} from './group.actions'
-import {ExplorationDocument} from '../types/Exploration.type'
+import {PlainCave} from '@/database/services/cave.actions'
+import {ExplorationDocument} from '@/database/types/Exploration.type'
 
 //* 1. Funciones de escritura */
 

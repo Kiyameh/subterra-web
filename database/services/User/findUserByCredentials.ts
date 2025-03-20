@@ -11,7 +11,7 @@ import User from '@/database/models/User.model'
 
 export async function findUserByCredentials(email: string, password: string) {
   try {
-    // 2. Buscar usuario en base de datos (MONGOOSE
+    // 2. Buscar usuario en base de datos (MONGOOSE)
     await connectToMongoDB()
 
     const user = await User.findOne({email: email}).select(

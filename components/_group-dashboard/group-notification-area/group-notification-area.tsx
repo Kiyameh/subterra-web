@@ -1,12 +1,12 @@
 import React from 'react'
 import {auth} from '@/auth'
+import {checkIsMember} from '@/database/services/Group/membership/checkIsMember'
 
+import MembershipRequestBanner from './membership-request-banner'
 import {
-  checkIsMember,
   getOneGroup,
   GroupWithUsers,
-} from '@/database/services/group.actions'
-import MembershipRequestBanner from './membership-request-banner'
+} from '@/database/services/Group/getOneGroup'
 
 /**
  * @version 1

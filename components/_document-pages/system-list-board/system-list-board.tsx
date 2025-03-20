@@ -1,7 +1,8 @@
 import React from 'react'
 import {auth} from '@/auth'
 import {SystemIndex, getSystemIndex} from '@/database/services/system.actions'
-import {checkIsEditor} from '@/database/services/instance.actions'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
 import NotFoundCard from '@/components/cards/404-not-found'
 import AllSystemsTable from '@/components/_document-pages/system-list-board/all-systems-table'
 

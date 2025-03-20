@@ -1,10 +1,11 @@
-import {
-  getSomeInstances,
-  InstanceWithUsers,
-} from '@/database/services/instance.actions'
 import React from 'react'
-import InstanceCard from '../../cards/instance-card'
-import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+import {
+  getOneGroup,
+  GroupWithUsers,
+} from '@/database/services/Group/getOneGroup'
+import InstanceCard from '@/components/cards/instance-card'
+import {InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+import {getSomeInstances} from '@/database/services/Instance/getSomeInstances'
 
 /**
  * @version 1

@@ -17,12 +17,13 @@ import {
 
 import {LuChevronsUpDown} from 'react-icons/lu'
 import {LuBox} from 'react-icons/lu'
+import {InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
 
 import Link from 'next/link'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
 import {Button} from '../../ui/button'
 import {MdNavigateNext} from 'react-icons/md'
-import {InstanceWithOwner} from '@/database/services/instance.actions'
+
 import {GrLock} from 'react-icons/gr'
 import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
 

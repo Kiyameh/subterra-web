@@ -11,13 +11,13 @@ import {
 import SubterraDropdown from '@/components/navigations/subterra-dropdown'
 import FloatingContactForm from '@/components/_staff-dashboard/floating-contact-form/floating-contact'
 import {auth} from '@/auth'
-import {
-  checkIsEditor,
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/instance.actions'
 import UnauthorizedCard from '@/components/cards/401-unauthorized'
 import PageContainer from '@/components/theming/page-container'
+import {
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/Instance/getOneInstance'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 interface InstanceDashboardLayoutProps {
   params: Promise<{instance: string}>

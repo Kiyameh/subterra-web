@@ -1,13 +1,15 @@
 import React from 'react'
 
-import {getSomeInstances} from '@/database/services/instance.actions'
-import {InstanceWithUsers} from '@/database/services/instance.actions'
-
 import NotFoundCard from '@/components/cards/404-not-found'
 import GroupInstancesTable, {
   GroupInstancesTableRow,
 } from './group-instances-table'
-import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+import {
+  getOneGroup,
+  GroupWithUsers,
+} from '@/database/services/Group/getOneGroup'
+import {InstanceWithUsers} from '@/database/services/Instance/getSomeInstances'
+import {getSomeInstances} from '@/database/services/Instance/getSomeInstances'
 
 /**
  * @version 1

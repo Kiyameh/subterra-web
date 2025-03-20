@@ -1,6 +1,9 @@
 import React from 'react'
-import {InstanceWithUsers} from '@/database/services/instance.actions'
-import {getOneInstance} from '@/database/services/instance.actions'
+import {
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/Instance/getOneInstance'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'

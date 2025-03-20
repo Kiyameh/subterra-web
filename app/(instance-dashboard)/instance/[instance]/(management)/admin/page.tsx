@@ -4,8 +4,10 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import NotFoundCard from '@/components/cards/404-not-found'
 import InstanceEditionForm from '@/components/_instance-dashboard/instance-edition-form'
 import PageContainer from '@/components/theming/page-container'
-import {InstanceWithUsers} from '@/database/services/instance.actions'
-import {getOneInstance} from '@/database/services/instance.actions'
+import {
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/Instance/getOneInstance'
 import {MdModeEdit} from 'react-icons/md'
 
 interface PageProps {

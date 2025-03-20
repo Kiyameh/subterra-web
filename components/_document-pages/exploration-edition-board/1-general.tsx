@@ -5,7 +5,7 @@ import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import {CaveIndex} from '@/database/services/cave.actions'
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {ExplorationFormValues} from '@/database/types/Exploration.type'
 import {hugeText, mediumText} from '@/database/validation/validationDefaults'
 

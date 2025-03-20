@@ -5,9 +5,9 @@ import {Session} from 'next-auth'
 import {
   getAllInstances,
   InstanceWithOwner,
-} from '@/database/services/instance.actions'
-import {checkIsCoordinator} from '@/database/services/instance.actions'
-import {checkIsEditor} from '@/database/services/instance.actions'
+} from '@/database/services/Instance/getAllInstances'
+import {checkIsCoordinator} from '@/database/services/Instance/membership/checkIsCoordinator'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import {
   Sidebar,

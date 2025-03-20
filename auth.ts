@@ -14,13 +14,14 @@ import databaseClient from '@/database/databaseClient'
 import {verifyMailTextTemplate} from '@/mail/account-verification'
 import {verifyMailHTMLTemplate} from '@/mail/account-verification'
 
-export const {auth, handlers, signIn, signOut} = NextAuth({
+export const {handlers, auth, signIn, signOut} = NextAuth({
   session: {strategy: 'jwt'},
   adapter: MongoDBAdapter(databaseClient, {databaseName: 'subterra'}),
   pages: {
     signIn: '/auth/login',
   },
   providers: [
+    Google,
     Credentials({
       credentials: {
         email: {},
@@ -34,7 +35,6 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
         )
       },
     }),
-    Google,
     Resend({
       from: 'info@mail.subterra.app',
       // Función para enviar el email de verificación (modelo en text y html):

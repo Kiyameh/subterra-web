@@ -3,6 +3,7 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {Answer} from '@/database/types/Answer.type'
+import {demoteAdmin} from '@/database/services/Group/membership/demoteAdmin'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
@@ -18,7 +19,6 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {FaUserTimes} from 'react-icons/fa'
 import {IoIosWarning} from 'react-icons/io'
-import {demoteAdmin} from '@/database/services/group.actions'
 
 /**
  * @version 1

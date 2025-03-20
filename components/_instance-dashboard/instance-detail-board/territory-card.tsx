@@ -1,9 +1,13 @@
+import React from 'react'
+import {
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/Instance/getOneInstance'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
-import {InstanceWithUsers} from '@/database/services/instance.actions'
-import {getOneInstance} from '@/database/services/instance.actions'
-import React from 'react'
+
 import {IoMdMap} from 'react-icons/io'
 
 /**

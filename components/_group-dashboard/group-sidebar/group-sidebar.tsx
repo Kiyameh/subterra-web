@@ -1,11 +1,10 @@
 import * as React from 'react'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
-
-import {GroupIndex} from '@/database/services/group.actions'
-import {checkIsAdmin} from '@/database/services/group.actions'
-import {checkIsMember} from '@/database/services/group.actions'
-import {getGroupsIndex} from '@/database/services/group.actions'
+import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {checkIsAdmin} from '@/database/services/Group/membership/checkIsAdmin'
+import {checkIsMember} from '@/database/services/Group/membership/checkIsMember'
 
 import {
   Sidebar,

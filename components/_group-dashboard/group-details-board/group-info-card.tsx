@@ -6,8 +6,10 @@ import {IoMdInformationCircle} from 'react-icons/io'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
-import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
-
+import {
+  getOneGroup,
+  GroupWithUsers,
+} from '@/database/services/Group/getOneGroup'
 /**
  * @version 1
  * @description Muestra la información de un grupo

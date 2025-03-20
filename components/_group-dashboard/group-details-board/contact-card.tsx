@@ -4,7 +4,10 @@ import {LinkSlot} from '../../_Atoms/slots/link-slots'
 import {TextSlot} from '../../_Atoms/slots/text-slots'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {MdAlternateEmail} from 'react-icons/md'
-import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+import {
+  getOneGroup,
+  GroupWithUsers,
+} from '@/database/services/Group/getOneGroup'
 
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 

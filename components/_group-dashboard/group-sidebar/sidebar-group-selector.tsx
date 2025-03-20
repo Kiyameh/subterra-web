@@ -20,7 +20,7 @@ import {LuChevronsUpDown} from 'react-icons/lu'
 import {FaUserGroup} from 'react-icons/fa6'
 import {MdNavigateNext} from 'react-icons/md'
 
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {Button} from '../../ui/button'
 
 /**

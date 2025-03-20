@@ -1,5 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
+import {checkIsAdmin} from '@/database/services/Group/membership/checkIsAdmin'
 
 import NotFoundCard from '@/components/cards/404-not-found'
 
@@ -7,8 +8,7 @@ import GroupMembersTable, {GroupMembersTableRow} from './group-members-table'
 import {
   getOneGroup,
   GroupWithUsers,
-  checkIsAdmin,
-} from '@/database/services/group.actions'
+} from '@/database/services/Group/getOneGroup'
 
 /**
  * @version 1

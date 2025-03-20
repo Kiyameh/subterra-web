@@ -9,7 +9,6 @@ import {
   instanceMaxCharacters,
 } from '@/database/validation/instance.schemas'
 import {InstanceFormSchema} from '@/database/validation/instance.schemas'
-import {createInstance} from '@/database/services/instance.actions'
 
 import {Form} from '@/components/ui/form'
 import TextField from '@/components/_Atoms/fields/text-field'
@@ -20,6 +19,7 @@ import BooleanField from '@/components/_Atoms/fields/boolean-field'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 import {Button} from '@/components/ui/button'
 import Divider from '../_Atoms/boxes/divider'
+import {createInstance} from '@/database/services/Instance/createInstance'
 
 const EMPTY_INSTANCE: InstanceFormValues = {
   name: '',

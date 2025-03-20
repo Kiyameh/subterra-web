@@ -3,7 +3,8 @@ import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import {PiCirclesThreeBold} from 'react-icons/pi'
 import {auth} from '@/auth'
-import {checkIsEditor} from '@/database/services/instance.actions'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
 import MainPictureCard from '../_shared-cards/main-picture-card'
 import SystemToolBar from '../_toolbars/system-toolbar'
 

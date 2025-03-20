@@ -2,11 +2,12 @@ import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import {getInstanceStats} from '@/database/services/Instance/getInstanceStats'
 import {
-  getInstanceStats,
+  getOneInstance,
   InstanceWithUsers,
-} from '@/database/services/instance.actions'
-import {getOneInstance} from '@/database/services/instance.actions'
+} from '@/database/services/Instance/getOneInstance'
+
 import React from 'react'
 import {ImStatsBars} from 'react-icons/im'
 

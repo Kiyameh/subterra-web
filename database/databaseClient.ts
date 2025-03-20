@@ -36,4 +36,6 @@ if (process.env.NODE_ENV === 'development') {
   databaseClient = new MongoClient(conectionURI, options)
 }
 
+// Exportar un MongoClient con alcance de módulo. Al hacer esto en un
+// módulo separado, el cliente puede ser compartido entre funciones.
 export default databaseClient

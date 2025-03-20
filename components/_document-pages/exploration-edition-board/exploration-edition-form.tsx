@@ -24,7 +24,7 @@ import {PiNumberCircleOneFill, PiNumberCircleTwoFill} from 'react-icons/pi'
 import ExplorationGeneralFormFragment from './1-general'
 import ExplorationPicturesFormFragment from './2-pictures'
 import {CaveIndex} from '@/database/services/cave.actions'
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 /**
  * @version 1

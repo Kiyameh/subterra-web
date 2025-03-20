@@ -4,11 +4,15 @@ import {Session} from 'next-auth'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
+import Link from 'next/link'
+import {InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
+import {RiCheckboxMultipleBlankFill} from 'react-icons/ri'
+
 import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
 import {instanceRequestMaxCharacters} from '@/database/validation/platform.schemas'
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 import {addInstanceRequest} from '@/database/services/Platform/addInstanceRequest'
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {Answer} from '@/database/types/Answer.type'
 
 import {Form} from '@/components/ui/form'
@@ -19,13 +23,10 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import BackButton from '@/components/_Atoms/buttons/back-button'
 import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
+import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
+import BooleanField from '@/components/_Atoms/fields/boolean-field'
 
 import {FaInfoCircle} from 'react-icons/fa'
-import {InstanceIndex} from '@/database/services/instance.actions'
-import {RiCheckboxMultipleBlankFill} from 'react-icons/ri'
-import RefSelectField from '../_Atoms/fields/ref-select-field'
-import BooleanField from '../_Atoms/fields/boolean-field'
-import Link from 'next/link'
 
 /**
  * @version 1

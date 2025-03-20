@@ -1,12 +1,11 @@
 import {Suspense} from 'react'
 import SkeletonCard from '@/components/cards/skeleton-card'
 import PageContainer from '@/components/theming/page-container'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/instance.actions'
+
 import NotFoundCard from '@/components/cards/404-not-found'
 import CaveTableLoader from '@/components/_document-pages/cave-list-board/cave-table-loader'
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {InstanceWithUsers} from '@/database/services/Instance/getSomeInstances'
 
 interface PageProps {
   params: Promise<{instance: string}>

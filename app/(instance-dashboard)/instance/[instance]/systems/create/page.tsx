@@ -6,9 +6,9 @@ import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'
 import NotFoundCard from '@/components/cards/404-not-found'
 import SystemCreationForm from '@/components/_document-pages/system-edition-board/system-creation-form'
 import PageContainer from '@/components/theming/page-container'
-import {getInstanceId} from '@/database/services/instance.actions'
 
 import {RiApps2AddLine} from 'react-icons/ri'
+import {getInstanceId} from '@/database/services/Instance/getInstanceId'
 
 interface PageProps {
   params: Promise<{instance: string}>

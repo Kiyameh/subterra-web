@@ -10,7 +10,8 @@ import {
 } from '@/database/services/exploration.actions'
 import {LuPlusCircle} from 'react-icons/lu'
 import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
-import {getGroupsIndex, GroupIndex} from '@/database/services/group.actions'
+import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>

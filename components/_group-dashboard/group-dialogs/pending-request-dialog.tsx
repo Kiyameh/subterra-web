@@ -3,11 +3,9 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {Answer} from '@/database/types/Answer.type'
-import {
-  acceptMemberRequest,
-  GroupWithUsers,
-  rejectMemberRequest,
-} from '@/database/services/group.actions'
+import {GroupWithUsers} from '@/database/services/Group/getOneGroup'
+import {acceptMemberRequest} from '@/database/services/Group/membership/acceptMemberRequest'
+import {rejectMemberRequest} from '@/database/services/Group/membership/rejectMemberRequest'
 
 import {ScrollArea} from '@/components/ui/scroll-area'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'

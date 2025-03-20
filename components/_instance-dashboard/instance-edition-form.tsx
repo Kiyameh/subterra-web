@@ -6,10 +6,9 @@ import {Form} from '@/components/ui/form'
 
 import {UpdateInstanceFormSchema} from '@/database/validation/instance.schemas'
 import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
-import {
-  InstanceWithUsers,
-  updateInstance,
-} from '@/database/services/instance.actions'
+import {InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+import {updateInstance} from '@/database/services/Instance/updateInstance'
+
 import {Answer} from '@/database/types/Answer.type'
 
 import LinkButton from '@/components/_Atoms/buttons/link-button'

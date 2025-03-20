@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/multi-select'
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {CaveIndex} from '@/database/services/cave.actions'
 import {ExplorationIndex} from '@/database/services/exploration.actions'
 import {SystemIndex} from '@/database/services/system.actions'

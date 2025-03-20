@@ -1,7 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import {auth} from '@/auth'
-import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+import {
+  getOneGroup,
+  GroupWithUsers,
+} from '@/database/services/Group/getOneGroup'
 
 import NotFoundCard from '@/components/cards/404-not-found'
 import PendingRequestBanner from '@/components/_group-dashboard/group-notification-area/pending-request-banner'

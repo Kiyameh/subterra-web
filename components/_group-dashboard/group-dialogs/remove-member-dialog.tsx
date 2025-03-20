@@ -2,8 +2,8 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {removeMember} from '@/database/services/group.actions'
 import {Answer} from '@/database/types/Answer.type'
+import {removeMember} from '@/database/services/Group/membership/removeMember'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'

@@ -6,7 +6,7 @@ import PendingRequestDialog from '@/components/_group-dashboard/group-dialogs/pe
 import {Button} from '@/components/ui/button'
 import {TiUserAdd} from 'react-icons/ti'
 import {IoCloseSharp} from 'react-icons/io5'
-import {GroupWithUsers} from '@/database/services/group.actions'
+import {GroupWithUsers} from '@/database/services/Group/getOneGroup'
 
 /**
  * @version 1

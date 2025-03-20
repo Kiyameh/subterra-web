@@ -8,7 +8,7 @@ import {
   ExplorationFormValues,
   ExplorationSchema,
 } from '@/database/types/Exploration.type'
-import {GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'

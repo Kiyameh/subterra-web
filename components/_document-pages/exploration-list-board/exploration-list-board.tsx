@@ -4,7 +4,7 @@ import {
   ExplorationIndex,
   getExplorationsIndex,
 } from '@/database/services/exploration.actions'
-import {checkIsEditor} from '@/database/services/instance.actions'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 import NotFoundCard from '@/components/cards/404-not-found'
 import AllExplorationsTable from '@/components/_document-pages/exploration-list-board/all-explorations-table'
 

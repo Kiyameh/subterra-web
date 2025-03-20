@@ -1,6 +1,9 @@
 import React from 'react'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import {getOneGroup, GroupWithUsers} from '@/database/services/group.actions'
+import {
+  getOneGroup,
+  GroupWithUsers,
+} from '@/database/services/Group/getOneGroup'
 
 import {FaUserGroup} from 'react-icons/fa6'
 

@@ -2,7 +2,7 @@
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 import {Answer} from '@/database/types/Answer.type'
-import {checkIsEditor} from '@/database/services/instance.actions'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Cave from '@/database/models/Cave.model'
 

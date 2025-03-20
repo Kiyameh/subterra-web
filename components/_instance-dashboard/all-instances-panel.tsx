@@ -3,7 +3,8 @@ import InstanceCard from '@/components/cards/instance-card'
 import {
   getAllInstances,
   InstanceWithOwner,
-} from '@/database/services/instance.actions'
+} from '@/database/services/Instance/getAllInstances'
+
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
 /**

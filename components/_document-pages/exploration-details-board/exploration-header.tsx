@@ -8,7 +8,7 @@ import HeaderBox from '@/components/_Atoms/boxes/header-box'
 
 import {IoCompassOutline} from 'react-icons/io5'
 import {auth} from '@/auth'
-import {checkIsEditor} from '@/database/services/instance.actions'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 import MainPictureCard from '../_shared-cards/main-picture-card'
 import ExplorationToolBar from '../_toolbars/exploration-toolbar'
 

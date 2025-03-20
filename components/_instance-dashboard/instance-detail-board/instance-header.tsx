@@ -1,7 +1,10 @@
 import React from 'react'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
-import {InstanceWithUsers} from '@/database/services/instance.actions'
-import {getOneInstance} from '@/database/services/instance.actions'
+import {
+  getOneInstance,
+  InstanceWithUsers,
+} from '@/database/services/Instance/getOneInstance'
+
 import {FiBox} from 'react-icons/fi'
 
 /**

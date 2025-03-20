@@ -2,6 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
+import {demoteCoordinator} from '@/database/services/Instance/membership/demoteCoordinator'
 import {Answer} from '@/database/types/Answer.type'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'
@@ -18,7 +19,6 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Loader2} from 'lucide-react'
 import {FaUserTimes} from 'react-icons/fa'
 import {IoIosWarning} from 'react-icons/io'
-import {demoteCoordinator} from '@/database/services/instance.actions'
 
 /**
  * @version 1

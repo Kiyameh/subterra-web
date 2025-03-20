@@ -6,11 +6,12 @@ import PageContainer from '@/components/theming/page-container'
 import NotFoundCard from '@/components/cards/404-not-found'
 
 import {BiSolidMessage} from 'react-icons/bi'
-import {getOneGroupIndex, GroupIndex} from '@/database/services/group.actions'
+import {GroupIndex} from '@/database/services/Group/getOneGrupoIndex'
+import {getOneGroupIndex} from '@/database/services/Group/getOneGrupoIndex'
 import {
   getInstancesIndex,
   InstanceIndex,
-} from '@/database/services/instance.actions'
+} from '@/database/services/Instance/getInstancesIndex'
 
 interface PageProps {
   params: Promise<{group: string}>

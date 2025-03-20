@@ -7,7 +7,7 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {z} from 'zod'
 import {Answer} from '@/database/types/Answer.type'
-import {addMemberRequest} from '@/database/services/group.actions'
+import {addMemberRequest} from '@/database/services/Group/membership/addMemberRequest'
 
 import {Button} from '@/components/ui/button'
 import {

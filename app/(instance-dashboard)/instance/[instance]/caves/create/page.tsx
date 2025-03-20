@@ -6,7 +6,7 @@ import CaveCreationForm from '@/components/_document-pages/cave-edition-board/ca
 import NotFoundCard from '@/components/cards/404-not-found'
 
 import PageContainer from '@/components/theming/page-container'
-import {getInstanceId} from '@/database/services/instance.actions'
+import {getInstanceId} from '@/database/services/Instance/getInstanceId'
 import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
 import {LuPlusCircle} from 'react-icons/lu'
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {checkIsMember} from '@/database/services/group.actions'
+import {checkIsMember} from '@/database/services/Group/membership/checkIsMember'
+
 import UnauthorizedCard from '@/components/cards/401-unauthorized'
 
 interface LayoutProps {
