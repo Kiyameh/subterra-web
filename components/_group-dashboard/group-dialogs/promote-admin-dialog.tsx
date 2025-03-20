@@ -2,7 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {promoteAdmin} from '@/database/services/Group/membership/promoteAdmin'
 
 import CollapsibleBox from '@/components/_Atoms/boxes/collapsible-box'

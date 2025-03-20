@@ -3,7 +3,7 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {demoteCoordinator} from '@/database/services/Instance/membership/demoteCoordinator'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'

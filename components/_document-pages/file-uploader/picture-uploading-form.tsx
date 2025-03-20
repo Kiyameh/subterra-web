@@ -24,7 +24,7 @@ import {
 import React from 'react'
 import {cn} from '@/lib/utils'
 import {uploadToCloudinary} from '@/upload/actions'
-import {Picture} from '@/database/types/Picture.type'
+import {Picture} from '@/database/types/Picture'
 import {toast} from 'sonner'
 
 /**

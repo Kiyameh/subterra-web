@@ -1,4 +1,4 @@
-import {CaveFormValues} from '@/database/types/Cave.type'
+import {CaveFormValues} from '@/database/types/Cave'
 
 export const EMPTY_CAVE: CaveFormValues = {
   datatype: 'cave',

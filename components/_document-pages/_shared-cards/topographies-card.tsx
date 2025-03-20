@@ -13,7 +13,7 @@ import {
 import {Button} from '@/components/ui/button'
 import {Dialog, DialogContent, DialogTitle} from '@/components/ui/dialog'
 import {Badge} from '@/components/ui/badge'
-import {Topography} from '@/database/types/Topography.type'
+import {Topography} from '@/database/types/Topography'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {FaRegMap} from 'react-icons/fa'

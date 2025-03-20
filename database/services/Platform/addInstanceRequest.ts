@@ -1,6 +1,6 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import Platform from '@/database/models/Platform.model'
 
 import {InstanceRequest} from '@/database/models/Platform.model'

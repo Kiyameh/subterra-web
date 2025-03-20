@@ -3,17 +3,17 @@ import {redirect, RedirectType} from 'next/navigation'
 
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Exploration from '@/database/models/Exploration.model'
 import {
   ExplorationFormValues,
   ExplorationSchema,
-} from '@/database/types/Exploration.type'
+} from '@/database/types/Exploration'
 
 import Cave from '@/database/models/Cave.model'
-import {CaveDocument} from '@/database/types/Cave.type'
+import {CaveDocument} from '@/database/types/Cave'
 
 import Group from '@/database/models/Group.model'
 import {GroupDocument} from '@/database/models/Group.model'
@@ -21,7 +21,7 @@ import {GroupObject} from '@/database/services/Group/getOneGroup'
 
 import Instance from '@/database/models/Instance.model'
 import {PlainCave} from '@/database/services/cave.actions'
-import {ExplorationDocument} from '@/database/types/Exploration.type'
+import {ExplorationDocument} from '@/database/types/Exploration'
 
 //* 1. Funciones de escritura */
 

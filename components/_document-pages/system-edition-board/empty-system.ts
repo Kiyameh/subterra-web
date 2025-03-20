@@ -1,4 +1,4 @@
-import {SystemFormValues} from '@/database/types/System.type'
+import {SystemFormValues} from '@/database/types/System'
 
 export const EMPTY_SYSTEM: SystemFormValues = {
   instances: [],

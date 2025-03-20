@@ -1,6 +1,6 @@
 import {UseFormReturn} from 'react-hook-form'
 import {PictureUploader} from '../file-uploader/picture-uploader'
-import {CaveFormValues} from '@/database/types/Cave.type'
+import {CaveFormValues} from '@/database/types/Cave'
 
 /**
  * @version 1

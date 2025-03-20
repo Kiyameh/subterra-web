@@ -3,7 +3,7 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {promoteCoordinator} from '@/database/services/Instance/membership/promoteCoordinator'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 
 import {Button} from '@/components/ui/button'
 import {

@@ -1,6 +1,6 @@
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
-import {CaveFormValues} from '@/database/types/Cave.type'
+import {CaveFormValues} from '@/database/types/Cave'
 import {bigText} from '@/database/validation/validationDefaults'
 import {UseFormReturn} from 'react-hook-form'
 

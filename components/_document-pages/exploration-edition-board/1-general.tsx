@@ -6,7 +6,7 @@ import TextField from '@/components/_Atoms/fields/text-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import {CaveIndex} from '@/database/services/cave.actions'
 import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {ExplorationFormValues} from '@/database/types/Exploration.type'
+import {ExplorationFormValues} from '@/database/types/Exploration'
 import {hugeText, mediumText} from '@/database/validation/validationDefaults'
 
 import {UseFormReturn} from 'react-hook-form'

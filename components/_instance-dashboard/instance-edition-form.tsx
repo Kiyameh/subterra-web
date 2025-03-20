@@ -9,7 +9,7 @@ import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
 import {InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
 import {updateInstance} from '@/database/services/Instance/updateInstance'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import TextField from '@/components/_Atoms/fields/text-field'

@@ -8,7 +8,7 @@ import {contactMaxCharacters} from '@/database/validation/platform.schemas'
 import {contactFormSchema} from '@/database/validation/platform.schemas'
 import {ContactFormValues} from '@/database/validation/platform.schemas'
 import {contactSubjects} from '@/database/models/Platform.model'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {addContactMessage} from '@/database/services/Platform/addContactMessage'
 
 import {Form} from '@/components/ui/form'

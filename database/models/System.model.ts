@@ -1,6 +1,6 @@
 import {model, models, Schema} from 'mongoose'
-import {SystemDocument} from '../types/System.type'
-import {anchorTypes, anchorPurposes} from '../types/Installation.type'
+import {SystemDocument} from '../types/System'
+import {anchorTypes, anchorPurposes} from '../types/Installation'
 
 //* ESQUEMA:
 const systemSchema = new Schema<SystemDocument>({

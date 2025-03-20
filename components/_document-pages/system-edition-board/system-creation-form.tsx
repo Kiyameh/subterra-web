@@ -3,8 +3,8 @@ import React, {MouseEvent} from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/Answer.type'
-import {SystemFormValues, SystemSchema} from '@/database/types/System.type'
+import {Answer} from '@/database/types/Answer'
+import {SystemFormValues, SystemSchema} from '@/database/types/System'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 
 import {Form} from '@/components/ui/form'

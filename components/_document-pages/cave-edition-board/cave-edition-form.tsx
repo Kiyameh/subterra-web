@@ -4,7 +4,7 @@ import {useParams, useSearchParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -28,7 +28,7 @@ import {
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
-import {CaveFormValues, CaveSchema} from '@/database/types/Cave.type'
+import {CaveFormValues, CaveSchema} from '@/database/types/Cave'
 
 /**
  * @version 2

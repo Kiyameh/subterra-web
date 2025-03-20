@@ -1,6 +1,6 @@
 import {UseFormReturn} from 'react-hook-form'
 import {PictureUploader} from '../file-uploader/picture-uploader'
-import {SystemFormValues} from '@/database/types/System.type'
+import {SystemFormValues} from '@/database/types/System'
 
 /**
  * @version 1

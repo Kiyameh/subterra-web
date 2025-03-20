@@ -1,5 +1,5 @@
 import {Badge} from '@/components/ui/badge'
-import {Topography} from '@/database/types/Topography.type'
+import {Topography} from '@/database/types/Topography'
 
 export default function TopographyTypeBadge({
   type,

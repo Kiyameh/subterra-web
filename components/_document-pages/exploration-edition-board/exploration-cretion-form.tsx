@@ -3,11 +3,11 @@ import React, {MouseEvent} from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {
   ExplorationFormValues,
   ExplorationSchema,
-} from '@/database/types/Exploration.type'
+} from '@/database/types/Exploration'
 import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 import {Form} from '@/components/ui/form'

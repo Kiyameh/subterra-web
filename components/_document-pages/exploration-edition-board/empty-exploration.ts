@@ -1,4 +1,4 @@
-import {ExplorationFormValues} from '@/database/types/Exploration.type'
+import {ExplorationFormValues} from '@/database/types/Exploration'
 
 export const EMPTY_EXPLORATION: ExplorationFormValues = {
   instances: [],

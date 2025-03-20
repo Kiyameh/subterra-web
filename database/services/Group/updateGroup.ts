@@ -1,6 +1,6 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {checkIsAdmin} from '@/database/services/Group/membership/checkIsAdmin'
 
 import Group from '@/database/models/Group.model'

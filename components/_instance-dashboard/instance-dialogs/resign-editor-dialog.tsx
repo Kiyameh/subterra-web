@@ -2,7 +2,7 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {removeEditor} from '@/database/services/Instance/membership/removeEditor'
 
 import InfoBox from '@/components/_Atoms/boxes/info-box'

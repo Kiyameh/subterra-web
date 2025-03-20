@@ -9,7 +9,7 @@ import {
 } from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {groupCategories} from '@/database/models/Group.enums'
 import {createGroup} from '@/database/services/Group/createGroup'
 

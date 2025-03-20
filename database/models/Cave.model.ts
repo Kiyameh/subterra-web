@@ -1,8 +1,8 @@
 import {model, models, Schema} from 'mongoose'
-import {CaveDocument, caveShapes} from '@/database/types/Cave.type'
-import {coordProyections, utmZones} from '@/database/types/UtmCoordinate.type'
-import {anchorTypes, anchorPurposes} from '@/database/types/Installation.type'
-import {topographyTypes} from '@/database/types/Topography.type'
+import {CaveDocument, caveShapes} from '@/database/types/Cave'
+import {coordProyections, utmZones} from '@/database/types/UtmCoordinate'
+import {anchorTypes, anchorPurposes} from '@/database/types/Installation'
+import {topographyTypes} from '@/database/types/Topography'
 
 //* ESQUEMA:
 

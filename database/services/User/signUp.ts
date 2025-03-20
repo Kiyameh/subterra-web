@@ -1,7 +1,7 @@
 'use server'
 import User from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
 
 /**

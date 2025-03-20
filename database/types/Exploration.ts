@@ -1,6 +1,6 @@
 import {z} from 'zod'
 import {Document, Types} from 'mongoose'
-import {PictureSchema} from '@/database/types/Picture.type'
+import {PictureSchema} from '@/database/types/Picture'
 import {
   OIDRegex,
   OIDMsg,

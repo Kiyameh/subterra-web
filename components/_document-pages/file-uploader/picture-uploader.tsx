@@ -2,7 +2,7 @@
 'use client'
 import React from 'react'
 
-import {Picture} from '@/database/types/Picture.type'
+import {Picture} from '@/database/types/Picture'
 import {
   FieldValues,
   Path,

@@ -3,7 +3,7 @@ import {
   ResetPassSchema,
   ResetPassValues,
 } from '@/database/validation/auth.schemas'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {connectToMongoDB} from '@/database/databaseConection'
 import User from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'

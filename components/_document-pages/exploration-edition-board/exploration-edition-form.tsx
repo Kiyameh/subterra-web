@@ -5,11 +5,11 @@ import {useParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import {
   ExplorationFormValues,
   ExplorationSchema,
-} from '@/database/types/Exploration.type'
+} from '@/database/types/Exploration'
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'

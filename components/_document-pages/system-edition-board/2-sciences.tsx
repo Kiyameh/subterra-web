@@ -1,6 +1,6 @@
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
-import {SystemFormValues} from '@/database/types/System.type'
+import {SystemFormValues} from '@/database/types/System'
 import {bigText} from '@/database/validation/validationDefaults'
 import {UseFormReturn} from 'react-hook-form'
 

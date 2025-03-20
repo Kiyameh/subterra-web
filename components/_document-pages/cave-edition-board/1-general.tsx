@@ -6,7 +6,7 @@ import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
 import {SystemIndex} from '@/database/services/system.actions'
-import {CaveFormValues, caveShapes} from '@/database/types/Cave.type'
+import {CaveFormValues, caveShapes} from '@/database/types/Cave'
 import {
   bigText,
   hugeText,

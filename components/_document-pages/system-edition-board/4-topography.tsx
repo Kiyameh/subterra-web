@@ -1,4 +1,4 @@
-import {SystemFormValues} from '@/database/types/System.type'
+import {SystemFormValues} from '@/database/types/System'
 import {UseFormReturn} from 'react-hook-form'
 import {TopographyUploader} from '../file-uploader/topography-uploader'
 

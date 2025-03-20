@@ -18,7 +18,7 @@ import {Button} from '@/components/ui/button'
 import {PlusIcon, TrashIcon} from 'lucide-react'
 import UploadedFilesBoard from './uploaded-files-board'
 import TopographyUploadingForm from './topography-uploading-form'
-import {Topography} from '@/database/types/Topography.type'
+import {Topography} from '@/database/types/Topography'
 
 /**
  * @version 1

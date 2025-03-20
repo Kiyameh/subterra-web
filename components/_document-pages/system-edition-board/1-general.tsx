@@ -3,7 +3,7 @@ import DistanceField from '@/components/_Atoms/fields/distance-field'
 import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
-import {SystemFormValues} from '@/database/types/System.type'
+import {SystemFormValues} from '@/database/types/System'
 import {
   tinyText,
   smallText,

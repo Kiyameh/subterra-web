@@ -1,10 +1,10 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 
 import Cave from '@/database/models/Cave.model'
-import {CaveDocument} from '@/database/types/Cave.type'
+import {CaveDocument} from '@/database/types/Cave'
 
 import System from '@/database/models/System.model'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
@@ -12,11 +12,7 @@ import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEdit
 import Instance from '@/database/models/Instance.model'
 import {PlainCave} from './cave.actions'
 import {redirect, RedirectType} from 'next/navigation'
-import {
-  SystemDocument,
-  SystemFormValues,
-  SystemSchema,
-} from '../types/System.type'
+import {SystemDocument, SystemFormValues, SystemSchema} from '../types/System'
 
 //* 1. Funciones de escritura */
 

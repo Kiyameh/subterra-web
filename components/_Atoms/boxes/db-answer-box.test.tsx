@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
-import {Answer} from '@/database/types/Answer.type'
+import {Answer} from '@/database/types/Answer'
 import DbAwnserBox from './db-answer-box'
 
 const mockAnswers: Answer[] = [
