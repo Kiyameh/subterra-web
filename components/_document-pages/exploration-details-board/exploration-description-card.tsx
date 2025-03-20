@@ -1,13 +1,16 @@
-import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import React from 'react'
-import {TextSlot} from '../../_Atoms/slots/text-slots'
-import CardTitle from '@/components/_Atoms/boxes/card-title'
-import {BsCardText} from 'react-icons/bs'
+
 import {
   getPlainExploration,
   PlainExploration,
 } from '@/database/services/exploration.actions'
+
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
+
+import {BsCardText} from 'react-icons/bs'
 
 /**
  * @version 1

@@ -1,15 +1,18 @@
 'use client'
 import React from 'react'
-import {SidebarGroup, useSidebar} from '@/components/ui/sidebar'
-import {AdminBadge, EditorBadge} from '../../_Atoms/slots/user-slots'
+
 import ResignMemberDialog from '../group-dialogs/resign-member-dialog'
 import ResignAdminDialog from '../group-dialogs/resign-admin-dialog'
+
+import {SidebarGroup, useSidebar} from '@/components/ui/sidebar'
+import {AdminBadge, EditorBadge} from '@/components/_Atoms/slots/user-slots'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+
 import {IoClose} from 'react-icons/io5'
 import {FaGear} from 'react-icons/fa6'
 

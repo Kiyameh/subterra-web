@@ -1,13 +1,13 @@
 import {z} from 'zod'
-import {PictureSchema} from './Picture.type'
 import {Document, Types} from 'mongoose'
+import {PictureSchema} from '@/database/types/Picture.type'
 import {
   OIDRegex,
   OIDMsg,
   maxCharMsg,
   mediumText,
   hugeText,
-} from '../validation/validationDefaults'
+} from '@/database/validation/validationDefaults'
 
 export const ExplorationSchema = z.object({
   // Manejo de relaciones

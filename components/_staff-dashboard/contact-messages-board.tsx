@@ -9,7 +9,7 @@ import {Button} from '@/components/ui/button'
 
 import {MdDelete} from 'react-icons/md'
 import {BiMessageDots} from 'react-icons/bi'
-import CardWithHeader from '../_Atoms/boxes/card-with-header'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 
 /**
  * @version 2

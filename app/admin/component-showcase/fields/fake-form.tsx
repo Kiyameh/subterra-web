@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
-import {Answer} from '@/database/types/Answer.type'
+import {z} from 'zod'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {z} from 'zod'
+import {Answer} from '@/database/types/Answer.type'
+import {PictureSchema} from '@/database/types/Picture.type'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import {Form} from '@/components/ui/form'
@@ -21,7 +22,6 @@ import CountryField from '@/components/_Atoms/fields/country-field'
 import TimeField from '@/components/_Atoms/fields/time-field'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-import {PictureSchema} from '@/database/types/Picture.type'
 
 const FakeFormSchema = z.object({
   text: z.string().max(120).optional(),

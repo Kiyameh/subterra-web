@@ -1,5 +1,7 @@
 'use client'
 import * as React from 'react'
+import Link from 'next/link'
+import {InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
 
 import {
   SidebarMenu,
@@ -15,17 +17,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import {LuChevronsUpDown} from 'react-icons/lu'
-import {LuBox} from 'react-icons/lu'
-import {InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
-
-import Link from 'next/link'
+import {Button} from '@/components/ui/button'
 import OnlineIndicator from '@/components/_Atoms/badges/online-indicator'
-import {Button} from '../../ui/button'
-import {MdNavigateNext} from 'react-icons/md'
-
-import {GrLock} from 'react-icons/gr'
 import ResponsiveTooltip from '@/components/_Atoms/badges/responsive-tooltip'
+
+import {LuBox} from 'react-icons/lu'
+import {LuChevronsUpDown} from 'react-icons/lu'
+import {MdNavigateNext} from 'react-icons/md'
+import {GrLock} from 'react-icons/gr'
 
 /**
  * @version 1

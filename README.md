@@ -14,3 +14,4 @@ Subterra es un proyecto de código abierto desarrollado por Andoni Abarzuza ([@k
 | V.1.1 Gandara     | Nomviembre 2024      |
 | V.1.2 Coventosa   | Febrero 2025         |
 | V.1.3 Ormazarreta | Marzo 2025           |
+| V.1.4 Atazabal    | ..InProgress..       |

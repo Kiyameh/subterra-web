@@ -7,8 +7,8 @@ import {Button} from '../ui/button'
 
 import {BiMessageAltAdd} from 'react-icons/bi'
 import {MdDelete} from 'react-icons/md'
-import CardWithHeader from '../_Atoms/boxes/card-with-header'
-import {BooleanSlot} from '../_Atoms/slots/chip-slots'
+import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
+import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'
 
 /**
  * @version 2

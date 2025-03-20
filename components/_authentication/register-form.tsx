@@ -12,7 +12,7 @@ import TextField from '@/components/_Atoms/fields/text-field'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import {User} from 'next-auth'
-import {UserProfileCard} from '../_Atoms/slots/user-slots'
+import {UserProfileCard} from '@/components/_Atoms/slots/user-slots'
 import {signIn, signOut} from 'next-auth/react'
 import {Button} from '../ui/button'
 

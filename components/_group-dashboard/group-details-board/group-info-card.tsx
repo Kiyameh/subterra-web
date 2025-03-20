@@ -1,15 +1,17 @@
-import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import React from 'react'
-import {TextSlot} from '../../_Atoms/slots/text-slots'
-import {MultiChipSlot} from '../../_Atoms/slots/chip-slots'
-import {IoMdInformationCircle} from 'react-icons/io'
-import CardTitle from '@/components/_Atoms/boxes/card-title'
-
-import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 import {
   getOneGroup,
   GroupWithUsers,
 } from '@/database/services/Group/getOneGroup'
+
+import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import {MultiChipSlot} from '@/components/_Atoms/slots/chip-slots'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
+import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
+
+import {IoMdInformationCircle} from 'react-icons/io'
+
 /**
  * @version 1
  * @description Muestra la información de un grupo

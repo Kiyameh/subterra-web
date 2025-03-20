@@ -18,7 +18,7 @@ import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import BooleanField from '@/components/_Atoms/fields/boolean-field'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 import {Button} from '@/components/ui/button'
-import Divider from '../_Atoms/boxes/divider'
+import Divider from '@/components/_Atoms/boxes/divider'
 import {createInstance} from '@/database/services/Instance/createInstance'
 
 const EMPTY_INSTANCE: InstanceFormValues = {

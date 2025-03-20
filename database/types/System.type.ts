@@ -1,8 +1,9 @@
 import {z} from 'zod'
-import {InstallationSchema} from './Installation.type'
-import {PictureSchema} from './Picture.type'
-import {TopographySchema} from './Topography.type'
 import {Document, Types} from 'mongoose'
+import {InstallationSchema} from '@/database/types/Installation.type'
+import {PictureSchema} from '@/database/types/Picture.type'
+import {TopographySchema} from '@/database/types/Topography.type'
+import {HistoricalExplorationSchema} from '@/database/types/HistoricalExploration.type'
 import {
   OIDRegex,
   OIDMsg,
@@ -14,8 +15,7 @@ import {
   maxLenght,
   maxDepth,
   mediumText,
-} from '../validation/validationDefaults'
-import {HistoricalExplorationSchema} from './HistoricalExploration.type'
+} from '@/database/validation/validationDefaults'
 
 export const SystemSchema = z.object({
   // MongoDB

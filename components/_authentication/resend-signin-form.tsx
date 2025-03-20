@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import SubmitButton from '../_Atoms/buttons/submit-button'
+import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import {Input} from '../ui/input'
 import {signIn} from 'next-auth/react'
-import DbAwnserBox from '../_Atoms/boxes/db-answer-box'
+import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Answer} from '@/database/types/Answer.type'
 
 export default function ResendSigninForm({

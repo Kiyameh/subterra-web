@@ -1,11 +1,11 @@
 import {z} from 'zod'
 import {Document, Types} from 'mongoose'
-import {InstallationSchema} from './Installation.type'
-import {PictureSchema} from './Picture.type'
-import {TopographySchema} from './Topography.type'
-import {UtmCoordinateSchema} from './UtmCoordinate.type'
-import {GeolocationSchema} from './Geolocation.type'
-import {HistoricalExplorationSchema} from './HistoricalExploration.type'
+import {InstallationSchema} from '@/database/types/Installation.type'
+import {PictureSchema} from '@/database/types/Picture.type'
+import {TopographySchema} from '@/database/types/Topography.type'
+import {UtmCoordinateSchema} from '@/database/types/UtmCoordinate.type'
+import {GeolocationSchema} from '@/database/types/Geolocation.type'
+import {HistoricalExplorationSchema} from '@/database/types/HistoricalExploration.type'
 import {
   bigText,
   hugeText,
@@ -17,7 +17,7 @@ import {
   OIDRegex,
   smallText,
   tinyText,
-} from '../validation/validationDefaults'
+} from '@/database/validation/validationDefaults'
 
 export const caveShapes = [
   'Abrigo',

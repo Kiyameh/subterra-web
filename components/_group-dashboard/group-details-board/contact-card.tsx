@@ -1,15 +1,17 @@
 import React from 'react'
-import BasicCard from '@/components/_Atoms/boxes/basic-card'
-import {LinkSlot} from '../../_Atoms/slots/link-slots'
-import {TextSlot} from '../../_Atoms/slots/text-slots'
-import CardTitle from '@/components/_Atoms/boxes/card-title'
-import {MdAlternateEmail} from 'react-icons/md'
+
 import {
   getOneGroup,
   GroupWithUsers,
 } from '@/database/services/Group/getOneGroup'
 
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
+import BasicCard from '@/components/_Atoms/boxes/basic-card'
+import {LinkSlot} from '@/components/_Atoms/slots/link-slots'
+import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import CardTitle from '@/components/_Atoms/boxes/card-title'
+
+import {MdAlternateEmail} from 'react-icons/md'
 
 /**
  * @version 1

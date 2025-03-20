@@ -9,7 +9,7 @@ import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 import {PlatformObject} from '@/database/models/Platform.model'
-import LinkButton from '../_Atoms/buttons/link-button'
+import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {
   getPopulatedUser,
   PopulatedUser,

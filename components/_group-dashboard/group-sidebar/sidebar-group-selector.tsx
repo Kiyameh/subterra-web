@@ -1,7 +1,9 @@
 'use client'
 import * as React from 'react'
 import Link from 'next/link'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
+import {Button} from '@/components/ui/button'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -19,9 +21,6 @@ import {
 import {LuChevronsUpDown} from 'react-icons/lu'
 import {FaUserGroup} from 'react-icons/fa6'
 import {MdNavigateNext} from 'react-icons/md'
-
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {Button} from '../../ui/button'
 
 /**
  * @version 1
