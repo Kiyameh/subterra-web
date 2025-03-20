@@ -1,5 +1,5 @@
 import React from 'react'
-import {getPlainCave, PlainCave} from '@/database/services/cave.actions'
+import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import {FaRegCircle} from 'react-icons/fa'
 import CaveToolBar from '../_toolbars/cave-toolbar'

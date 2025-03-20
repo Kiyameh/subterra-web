@@ -1,14 +1,14 @@
 import React from 'react'
-import {
-  getPlainExploration,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
+import {auth} from '@/auth'
+
+import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 
 import {IoCompassOutline} from 'react-icons/io5'
-import {auth} from '@/auth'
-import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
 import MainPictureCard from '../_shared-cards/main-picture-card'
 import ExplorationToolBar from '../_toolbars/exploration-toolbar'
 

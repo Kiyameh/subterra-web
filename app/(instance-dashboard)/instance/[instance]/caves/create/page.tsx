@@ -7,7 +7,9 @@ import NotFoundCard from '@/components/cards/404-not-found'
 
 import PageContainer from '@/components/theming/page-container'
 import {getInstanceId} from '@/database/services/Instance/getInstanceId'
-import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {getSystemIndex} from '@/database/services/System/getSystemIndex'
+
 import {LuPlusCircle} from 'react-icons/lu'
 
 interface PageProps {

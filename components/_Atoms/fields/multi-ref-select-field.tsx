@@ -20,9 +20,9 @@ import {
 import InfoBadge from '@/components/_Atoms/badges/info-badge'
 
 import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {CaveIndex} from '@/database/services/cave.actions'
-import {ExplorationIndex} from '@/database/services/exploration.actions'
-import {SystemIndex} from '@/database/services/system.actions'
+import {CaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
 
 /**
  * @version 1

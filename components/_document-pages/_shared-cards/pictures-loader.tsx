@@ -1,10 +1,10 @@
-import {getPlainCave, PlainCave} from '@/database/services/cave.actions'
+import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
+import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
+
 import PicturesCard from './pictures-card'
-import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
-import {
-  getPlainExploration,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
 
 /**
  * @version 1

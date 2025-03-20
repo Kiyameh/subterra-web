@@ -1,8 +1,6 @@
 import {ExplorationSlot} from '@/components/_Atoms/slots/documents-slots'
-import {
-  ExplorationIndex,
-  getExplorationsIndex,
-} from '@/database/services/exploration.actions'
+import {getExplorationsIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
 
 export default async function ExplorationSearchResults({
   query,

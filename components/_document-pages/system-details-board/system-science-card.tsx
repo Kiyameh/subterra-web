@@ -1,6 +1,7 @@
 import React from 'react'
 
-import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'

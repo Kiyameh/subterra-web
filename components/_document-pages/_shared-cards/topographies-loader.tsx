@@ -1,6 +1,7 @@
-import {getPlainCave, PlainCave} from '@/database/services/cave.actions'
+import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
 import TopographiesCard from './topographies-card'
-import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 
 /**
  * @version 1

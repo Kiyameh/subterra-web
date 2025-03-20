@@ -1,5 +1,6 @@
 import {SystemSlot} from '@/components/_Atoms/slots/documents-slots'
-import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {getSystemIndex} from '@/database/services/System/getSystemIndex'
 
 export default async function SystemSearchResult({
   query,

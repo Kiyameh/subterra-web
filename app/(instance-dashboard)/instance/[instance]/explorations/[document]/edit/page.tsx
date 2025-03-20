@@ -1,17 +1,19 @@
 import {auth} from '@/auth'
+
+import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {getCaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {CaveIndex} from '@/database/services/Cave/getCaveIndex'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import NotFoundCard from '@/components/cards/404-not-found'
 import ExplorationEditionForm from '@/components/_document-pages/exploration-edition-board/exploration-edition-form'
 import PageContainer from '@/components/theming/page-container'
-import {
-  getPlainExploration,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
+
 import {LuPlusCircle} from 'react-icons/lu'
-import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
-import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>

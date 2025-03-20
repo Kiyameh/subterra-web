@@ -1,13 +1,16 @@
 import {auth} from '@/auth'
+
+import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {getSystemIndex} from '@/database/services/System/getSystemIndex'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import CaveEditionForm from '@/components/_document-pages/cave-edition-board/cave-edition-form'
 import NotFoundCard from '@/components/cards/404-not-found'
 import PageContainer from '@/components/theming/page-container'
-import {getPlainCave} from '@/database/services/cave.actions'
-import {PlainCave} from '@/database/services/cave.actions'
+
 import {LuPlusCircle} from 'react-icons/lu'
-import {getSystemIndex, SystemIndex} from '@/database/services/system.actions'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>

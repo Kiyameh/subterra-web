@@ -1,5 +1,6 @@
 import React from 'react'
-import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 import HeaderBox from '@/components/_Atoms/boxes/header-box'
 import {PiCirclesThreeBold} from 'react-icons/pi'
 import {auth} from '@/auth'

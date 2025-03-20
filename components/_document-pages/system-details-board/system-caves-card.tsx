@@ -3,10 +3,8 @@ import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {FaRegCircle} from 'react-icons/fa'
 import {CaveSlot} from '@/components/_Atoms/slots/documents-slots'
-import {
-  getPopulatedSystem,
-  PopulatedSystem,
-} from '@/database/services/system.actions'
+import {getPopulatedSystem} from '@/database/services/System/getPopulatedSystem'
+import {PopulatedSystem} from '@/database/services/System/getPopulatedSystem'
 
 /**
  * @version 1

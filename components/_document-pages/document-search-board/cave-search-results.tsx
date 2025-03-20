@@ -1,5 +1,5 @@
 import {CaveSlot} from '@/components/_Atoms/slots/documents-slots'
-import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
+import {CaveIndex, getCaveIndex} from '@/database/services/Cave/getCaveIndex'
 
 export default async function CaveSearchResults({
   query,

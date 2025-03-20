@@ -6,7 +6,10 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/Answer'
-import {SystemFormValues, SystemSchema} from '@/database/types/System'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {SystemSchema} from '@/database/types/System'
+import {SystemFormValues} from '@/database/types/System'
+import {updateSystem} from '@/database/services/System/updateSystem'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
@@ -14,18 +17,20 @@ import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
-import {PlainSystem, updateSystem} from '@/database/services/system.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+
 import {
   PiNumberCircleFourFill,
   PiNumberCircleOneFill,
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
+
 import SystemGeneralFormFragment from './1-general'
 import SystemScienceFormFragment from './2-sciences'
 import SystemTopographyFormFragment from './4-topography'
 import SystemPicturesFormFragment from './3-pictures'
+
 /**
  * @version 1
  * @description Formulario para editar un sistema

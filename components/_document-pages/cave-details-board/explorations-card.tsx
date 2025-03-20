@@ -1,6 +1,7 @@
 import React from 'react'
 
-import {getPopulatedCave, PopulatedCave} from '@/database/services/cave.actions'
+import {PopulatedCave} from '@/database/services/Cave/getPopulatedCave'
+import {getPopulatedCave} from '@/database/services/Cave/getPopulatedCave'
 
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'

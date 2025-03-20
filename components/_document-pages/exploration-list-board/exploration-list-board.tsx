@@ -1,10 +1,10 @@
 import React from 'react'
 import {auth} from '@/auth'
-import {
-  ExplorationIndex,
-  getExplorationsIndex,
-} from '@/database/services/exploration.actions'
+
+import {getExplorationsIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
 import NotFoundCard from '@/components/cards/404-not-found'
 import AllExplorationsTable from '@/components/_document-pages/exploration-list-board/all-explorations-table'
 

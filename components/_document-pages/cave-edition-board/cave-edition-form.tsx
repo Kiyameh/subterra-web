@@ -1,26 +1,30 @@
 'use client'
-import React, {MouseEvent} from 'react'
+import React from 'react'
 import {useParams, useSearchParams} from 'next/navigation'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/Answer'
+import {CaveFormValues} from '@/database/types/Cave'
+import {CaveSchema} from '@/database/types/Cave'
+import {PlainCave} from '@/database/services/Cave/getPlainCave'
+import {updateCave} from '@/database/services/Cave/updateCave'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
 
+import {Button} from '@/components/ui/button'
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
-
-import {SystemIndex} from '@/database/services/system.actions'
-import {Button} from '@/components/ui/button'
-import {PlainCave, updateCave} from '@/database/services/cave.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
+
 import CaveGeneralFormFragment from './1-general'
 import CaveLocationFormFragment from './2-location'
 import CaveScienceFormFragment from './3-sciences'
 import CavePicturesFormFragment from './4-pictures'
 import CaveTopographyFormFragment from './5-topography'
+
 import {
   PiNumberCircleFiveFill,
   PiNumberCircleFourFill,
@@ -28,7 +32,6 @@ import {
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
-import {CaveFormValues, CaveSchema} from '@/database/types/Cave'
 
 /**
  * @version 2
@@ -68,7 +71,7 @@ export default function CaveEditionForm({
     })
   }
 
-  function handleReset(e: MouseEvent<HTMLButtonElement>) {
+  function handleReset(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     form.reset(cave)
     window.scrollTo(0, 0)

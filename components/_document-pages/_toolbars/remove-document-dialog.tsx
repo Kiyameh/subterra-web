@@ -1,7 +1,14 @@
 'use client'
 import React from 'react'
 import {useParams, useRouter} from 'next/navigation'
+
 import {Answer} from '@/database/types/Answer'
+
+import {deleteCave} from '@/database/services/Cave/deleteCave'
+import {deleteExploration} from '@/database/services/Exploration/deleteExploration'
+import {deleteSystem} from '@/database/services/System/deleteSystem'
+
+import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import InfoBox from '@/components/_Atoms/boxes/info-box'
 import {Button} from '@/components/ui/button'
 import {
@@ -11,14 +18,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
 import {IoIosWarning} from 'react-icons/io'
 import {MdDelete} from 'react-icons/md'
-import {deleteCave} from '@/database/services/cave.actions'
-import {deleteExploration} from '@/database/services/exploration.actions'
-import {deleteSystem} from '@/database/services/system.actions'
 
 /**
  * @version 1

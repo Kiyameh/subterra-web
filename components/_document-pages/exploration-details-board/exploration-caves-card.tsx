@@ -1,13 +1,13 @@
 import React from 'react'
+
+import {getPopulatedExploration} from '@/database/services/Exploration/getPopulatedExploration'
+import {PopulatedExploration} from '@/database/services/Exploration/getPopulatedExploration'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
-import {FaRegCircle} from 'react-icons/fa'
 import {CaveSlot} from '@/components/_Atoms/slots/documents-slots'
-import {
-  getPopulatedExploration,
-  PopulatedExploration,
-} from '@/database/services/exploration.actions'
 
+import {FaRegCircle} from 'react-icons/fa'
 /**
  * @version 1
  * @description Muestra las cavidades de una exploración

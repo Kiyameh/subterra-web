@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import {SystemIndex} from '@/database/services/system.actions'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
 
 import {ColumnDef} from '@tanstack/react-table'
 import {DataTable} from '@/components/ui/data-table'

@@ -1,7 +1,7 @@
 import {auth} from '@/auth'
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import NotFoundCard from '@/components/cards/404-not-found'
-import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
+import {CaveIndex, getCaveIndex} from '@/database/services/Cave/getCaveIndex'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 import {CavesTableLayout} from './caves-table-layout'
 import {FaRegCircle} from 'react-icons/fa6'

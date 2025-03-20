@@ -1,9 +1,7 @@
 import React from 'react'
 
-import {
-  getPlainExploration,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
+import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
 
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'

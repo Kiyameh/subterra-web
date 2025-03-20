@@ -1,3 +1,9 @@
+import {UseFormReturn} from 'react-hook-form'
+
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {CaveFormValues} from '@/database/types/Cave'
+import {caveShapes} from '@/database/types/Cave'
+
 import BooleanField from '@/components/_Atoms/fields/boolean-field'
 import DistanceField from '@/components/_Atoms/fields/distance-field'
 import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
@@ -5,16 +11,13 @@ import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
 import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
 import TextAreaField from '@/components/_Atoms/fields/text-area-field'
 import TextField from '@/components/_Atoms/fields/text-field'
-import {SystemIndex} from '@/database/services/system.actions'
-import {CaveFormValues, caveShapes} from '@/database/types/Cave'
+
 import {
   bigText,
   hugeText,
   smallText,
   tinyText,
 } from '@/database/validation/validationDefaults'
-
-import {UseFormReturn} from 'react-hook-form'
 
 /**
  * @version 1

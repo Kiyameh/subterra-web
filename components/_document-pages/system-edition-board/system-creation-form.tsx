@@ -5,22 +5,25 @@ import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/Answer'
 import {SystemFormValues, SystemSchema} from '@/database/types/System'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
+import {createSystem} from '@/database/services/System/createSystem'
 
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
-import {createSystem} from '@/database/services/system.actions'
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+
 import {EMPTY_SYSTEM} from './empty-system'
+
 import {
   PiNumberCircleFourFill,
   PiNumberCircleOneFill,
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
+
 import SystemGeneralFormFragment from './1-general'
 import SystemScienceFormFragment from './2-sciences'
 import SystemTopographyFormFragment from './4-topography'

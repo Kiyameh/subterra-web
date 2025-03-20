@@ -6,7 +6,8 @@ import {MultiTextSlot} from '@/components/_Atoms/slots/text-slots'
 import {BooleanSlot} from '@/components/_Atoms/slots/chip-slots'
 import {DistanceSlot} from '@/components/_Atoms/slots/number-slots'
 import {IoMdInformationCircle} from 'react-icons/io'
-import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
 /**

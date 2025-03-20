@@ -6,25 +6,25 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {Answer} from '@/database/types/Answer'
-import {
-  ExplorationFormValues,
-  ExplorationSchema,
-} from '@/database/types/Exploration'
+import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {CaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {ExplorationSchema} from '@/database/types/Exploration'
+import {ExplorationFormValues} from '@/database/types/Exploration'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {updateExploration} from '@/database/services/Exploration/updateExploration'
+
 import {Form} from '@/components/ui/form'
 import SubmitButton from '@/components/_Atoms/buttons/submit-button'
 import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
-
 import LinkButton from '@/components/_Atoms/buttons/link-button'
 import {Button} from '@/components/ui/button'
-import {PlainExploration} from '@/database/services/exploration.actions'
-import {updateExploration} from '@/database/services/exploration.actions'
 import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
+
 import {PiNumberCircleOneFill, PiNumberCircleTwoFill} from 'react-icons/pi'
+
 import ExplorationGeneralFormFragment from './1-general'
 import ExplorationPicturesFormFragment from './2-pictures'
-import {CaveIndex} from '@/database/services/cave.actions'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 /**
  * @version 1

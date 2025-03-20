@@ -6,9 +6,9 @@ import NotFoundCard from '@/components/cards/404-not-found'
 import ExplorationCreationForm from '@/components/_document-pages/exploration-edition-board/exploration-cretion-form'
 import PageContainer from '@/components/theming/page-container'
 import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {CaveIndex, getCaveIndex} from '@/database/services/cave.actions'
 import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
 import {getInstanceId} from '@/database/services/Instance/getInstanceId'
+import {CaveIndex, getCaveIndex} from '@/database/services/Cave/getCaveIndex'
 
 import {GrChapterAdd} from 'react-icons/gr'
 

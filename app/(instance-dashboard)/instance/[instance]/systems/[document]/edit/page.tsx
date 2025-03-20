@@ -4,8 +4,10 @@ import CardTitle from '@/components/_Atoms/boxes/card-title'
 import NotFoundCard from '@/components/cards/404-not-found'
 import SystemEditionForm from '@/components/_document-pages/system-edition-board/system-edition-form'
 import PageContainer from '@/components/theming/page-container'
-import {getPlainSystem, PlainSystem} from '@/database/services/system.actions'
+
 import {LuPlusCircle} from 'react-icons/lu'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>

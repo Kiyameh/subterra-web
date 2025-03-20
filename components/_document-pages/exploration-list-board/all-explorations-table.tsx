@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import {ExplorationIndex} from '@/database/services/exploration.actions'
+import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
 
 import {ColumnDef} from '@tanstack/react-table'
 import {DataTableColumnHeader} from '@/components/ui/data-table-column-header'

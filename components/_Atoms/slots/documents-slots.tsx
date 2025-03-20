@@ -1,19 +1,22 @@
 'use client'
-import DateBadge from '../badges/date-badge'
-import {IoDocumentTextOutline} from 'react-icons/io5'
 import Link from 'next/link'
 import {useParams} from 'next/navigation'
+import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainSystem} from '@/database/services/System/getPlainSystem'
+
+import {CaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {PlainCave} from '@/database/services/Cave/getPlainCave'
+
+import DateBadge from '@/components/_Atoms/badges/date-badge'
 import DistanceBadge from '@/components/_Atoms/badges/distance-badge'
 import {Button} from '@/components/ui/button'
+
 import {FaAnchor} from 'react-icons/fa'
 import {FaRegCircle} from 'react-icons/fa6'
 import {PiCirclesThreeBold} from 'react-icons/pi'
-import {CaveIndex, PlainCave} from '@/database/services/cave.actions'
-import {
-  ExplorationIndex,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
-import {PlainSystem, SystemIndex} from '@/database/services/system.actions'
+import {IoDocumentTextOutline} from 'react-icons/io5'
 
 /**
  * @version 1

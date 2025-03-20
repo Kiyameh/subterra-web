@@ -1,18 +1,19 @@
 import React from 'react'
+
+import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+
 import BasicCard from '@/components/_Atoms/boxes/basic-card'
 import CardTitle from '@/components/_Atoms/boxes/card-title'
 import {TextSlot} from '@/components/_Atoms/slots/text-slots'
+import {TimeSlot} from '@/components/_Atoms/slots/number-slots'
+import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 import {
   MultiChipSlot,
   MultiDateSlot,
 } from '@/components/_Atoms/slots/chip-slots'
-import {TimeSlot} from '@/components/_Atoms/slots/number-slots'
+
 import {IoMdInformationCircle} from 'react-icons/io'
-import {
-  getPlainExploration,
-  PlainExploration,
-} from '@/database/services/exploration.actions'
-import FetchingErrorButton from '@/components/_Atoms/buttons/fetching-error-button'
 
 /**
  * @version 1
