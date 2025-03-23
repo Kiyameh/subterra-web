@@ -36,10 +36,17 @@ export type CaveShape = (typeof caveShapes)[number]
 export const CaveSchema = z.object({
   // MongoDB
   _id: z.string().regex(OIDRegex, OIDMsg).optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
   __v: z.number().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-
+  versions: z.array(
+    z
+      .object({
+        __v: z.number(), // Validación obligatoria de la propiedad __v
+        updatedAt: z.coerce.date(), // Validación obligatoria
+      })
+      .catchall(z.any()) // Permitir otras propiedades no definidas
+  ),
   // Manejo de relaciones
   datatype: z.literal('cave').default('cave'),
   instances: z.array(z.string().regex(OIDRegex, OIDMsg)),
@@ -107,10 +114,8 @@ export const CaveSchema = z.object({
 
 export type CaveODT = z.infer<typeof CaveSchema>
 
-export type CaveFormValues = Omit<
-  CaveODT,
-  '_id' | '__v' | 'createdAt' | 'updatedAt'
->
+//TODO: Eliminar este tipo porque no sera necesario:
+export type CaveFormValues = Omit<CaveODT, '_id'>
 
 type CaveDocumentBase = Omit<
   CaveODT,

@@ -46,4 +46,6 @@ export const EMPTY_CAVE: CaveFormValues = {
   pictures: [],
   topographies: [],
   installations: [],
+
+  versions: [],
 }

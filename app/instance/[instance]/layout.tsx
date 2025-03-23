@@ -65,7 +65,9 @@ export default async function InstanceDashboardLayout({
             </ShortcutTooltip>
             <NavigationBreadcrumb />
           </div>
-          <SubterraDropdown />
+          <div className="fixed right-5 top-2">
+            <SubterraDropdown />
+          </div>
         </header>
         {/* Contenido de la página */}
         <main className="pt-10">

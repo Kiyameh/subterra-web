@@ -23,7 +23,7 @@ export default async function CaveTableLoader({
 
   if (masterInstanceId) {
     console.log(instanceId)
-    // TODO: OBTENER CUEVA FETCHEADA
+    // TODO: REFORMULAR ESTA PARTE (MasterInstance eliminado)
   } else {
     cavesIndex = (await getCaveIndex(instanceName)).content as
       | CaveIndex[]

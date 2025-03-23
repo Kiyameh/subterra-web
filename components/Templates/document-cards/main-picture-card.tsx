@@ -12,7 +12,7 @@ export default function MainPictureCard({
   src,
   alt,
 }: {
-  src: string | null | undefined
+  src?: string | null | undefined
   alt?: string
 }) {
   if (!src) {

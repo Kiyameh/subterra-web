@@ -1,26 +1,23 @@
 import React from 'react'
 
-import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
+import {PlainCave} from '@/database/services/Cave/getPlainCave'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
 
 import {BsCardText} from 'react-icons/bs'
 
 /**
- * @version 1
+ * @version 2
  * @description Muestra la descripción de una cavidad
- * @param caveId Id de la cavidad
+ * @param document documento de la cavidad
  */
 
-export default async function CaveDescriptionCard({caveId}: {caveId: string}) {
-  // Obtener la cavidad
-  const cave = (await getPlainCave(caveId)).content as PlainCave | null
-
+export default function CaveDescriptionCard({document}: {document: PlainCave}) {
   return (
     <BasicCard
+      className="w-full"
       key="description_card"
       cardHeader={
         <CardTitle
@@ -29,16 +26,12 @@ export default async function CaveDescriptionCard({caveId}: {caveId: string}) {
         />
       }
     >
-      {!cave ? (
-        <FetchingErrorButton />
-      ) : (
-        <>
-          <TextSlot
-            label="Descripción general"
-            value={cave.description}
-          />
-        </>
-      )}
+      <>
+        <TextSlot
+          label="Descripción general"
+          value={document.description}
+        />
+      </>
     </BasicCard>
   )
 }

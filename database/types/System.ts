@@ -20,9 +20,18 @@ import {
 export const SystemSchema = z.object({
   // MongoDB
   _id: z.string().regex(OIDRegex, OIDMsg).optional(),
-  __v: z.number().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+  __v: z.number().optional(),
+  versions: z
+    .array(
+      z
+        .object({
+          __v: z.number(), // Validación obligatoria de la propiedad __v
+        })
+        .catchall(z.any()) // Permitir otras propiedades no definidas
+    )
+    .optional(),
 
   // Manejo de relaciones
   datatype: z.literal('system').default('system'),

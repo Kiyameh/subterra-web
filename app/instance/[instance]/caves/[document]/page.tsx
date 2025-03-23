@@ -1,15 +1,11 @@
 import {Suspense} from 'react'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import CaveInfoCard from '@/components/Templates/caves/details/cave-info-card'
-import CaveLocationCard from '@/components/Templates/caves/details/cave-location-card'
-import ExplorationsCards from '@/components/Templates/caves/details/explorations-card'
-import CaveHeader from '@/components/Templates/caves/details/cave-header'
-import SkeletonHeader from '@/components/Organisms/containers/skelenton-header'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
-import CaveDescriptionCard from '@/components/Templates/caves/details/cave-description-card'
-import CaveScienceCard from '@/components/Templates/caves/details/cave-science-card'
-import PicturesLoader from '@/components/Templates/document-cards/pictures-loader'
-import TopographiesLoader from '@/components/Templates/document-cards/topographies-loader'
+import CaveDetailsBoard from '@/components/Templates/caves/details/cave-details-board'
+import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
+import {auth} from '@/auth'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>
@@ -19,48 +15,36 @@ export default async function CaveDetailPage({params}: PageProps) {
   // Obtener el id del documento
   const {instance, document} = await params
 
+  // Obtener la cueva
+  const cave = (await getPlainCave(document)).content as PlainCave | null
+
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
+
+  // Validar roles de usuario
+  const isEditor = await checkIsEditor(userId, instance)
+
+  if (!cave) {
+    return (
+      <NotFoundCard
+        title="Error al cargar los datos"
+        text="
+      No se ha podido cargar la información de la cueva seleccionada. Por favor, intente nuevamente más tarde
+    "
+      />
+    )
+  }
+
   return (
-    <PageContainer className="justify-start">
-      {/* Header */}
-      <div className="flex flex-col items-center w-full">
-        <Suspense fallback={<SkeletonHeader />}>
-          <CaveHeader
-            caveId={document}
-            instanceName={instance}
-          />
-        </Suspense>
-      </div>
-
-      {/* Content */}
-      <div className="flex gap-4 flex-wrap justify-center">
-        <Suspense fallback={<SkeletonCard />}>
-          <CaveInfoCard caveId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <CaveLocationCard caveId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <CaveDescriptionCard caveId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <CaveScienceCard caveId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <ExplorationsCards caveId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <PicturesLoader caveId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <TopographiesLoader caveId={document} />
-        </Suspense>
-      </div>
+    <PageContainer className="justify-start max-w-full">
+      <Suspense fallback={<SkeletonCard />}>
+        <CaveDetailsBoard
+          caveId={document}
+          isEditor={isEditor}
+          commanderId={userId}
+          cave={cave}
+        />
+      </Suspense>
     </PageContainer>
   )
 }

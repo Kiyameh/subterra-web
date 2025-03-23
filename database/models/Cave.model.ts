@@ -8,6 +8,8 @@ import {topographyTypes} from '@/database/types/Topography'
 
 const caveSchema = new Schema<CaveDocument>(
   {
+    //* Versiones:
+    versions: [Schema.Types.Mixed],
     //* Manejo de relaciones:
     datatype: {type: String, required: true, default: 'cave'},
     instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},

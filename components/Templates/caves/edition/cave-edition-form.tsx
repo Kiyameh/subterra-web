@@ -66,7 +66,12 @@ export default function CaveEditionForm({
   function onSubmit(values: CaveFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
-      const answer = await updateCave(values, cave._id, commanderId)
+      const answer = await updateCave(
+        values, // Valores del formulario
+        Object.keys(form.formState.dirtyFields) as Array<keyof CaveFormValues>, // Array con los campos que se han actualizado
+        cave._id, // ID de la cavidad a modificar
+        commanderId // Usuario que lo ordena
+      )
       setDbAnswer(answer)
     })
   }

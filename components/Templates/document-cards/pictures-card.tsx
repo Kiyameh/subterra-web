@@ -10,6 +10,7 @@ import {Picture} from '@/database/types/Picture'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import {FaImage} from 'react-icons/fa'
+import {es} from 'date-fns/locale'
 
 export default function PicturesCard({pictures}: {pictures: Picture[]}) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
@@ -38,6 +39,7 @@ export default function PicturesCard({pictures}: {pictures: Picture[]}) {
   return (
     <>
       <BasicCard
+        className="w-full"
         key="cave_pictures_card"
         cardHeader={
           <CardTitle
@@ -107,11 +109,12 @@ export default function PicturesCard({pictures}: {pictures: Picture[]}) {
           {selectedPicture && (
             <div className="p-4 bg-background">
               {selectedPicture.author && (
-                <p className="font-medium">By: {selectedPicture.author}</p>
+                <p className="font-medium">Por: {selectedPicture.author}</p>
               )}
               {selectedPicture.date && (
                 <p className="text-sm text-muted-foreground">
-                  Date: {format(selectedPicture.date, 'MMMM d, yyyy')}
+                  Fecha:{' '}
+                  {format(selectedPicture.date, 'dd MMMM yyyy', {locale: es})}
                 </p>
               )}
               {selectedPicture.description && (

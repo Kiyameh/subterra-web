@@ -43,7 +43,9 @@ export default async function GroupDashboardLayout({
             </ShortcutTooltip>
             <NavigationBreadcrumb />
           </div>
-          <SubterraDropdown />
+          <div className="fixed right-5 top-2">
+            <SubterraDropdown />
+          </div>
         </header>
         {/* Contenido de la página */}
         <main className="flex h-full items-center justify-center pt-10">

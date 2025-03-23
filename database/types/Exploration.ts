@@ -10,6 +10,21 @@ import {
 } from '@/database/validation/validationDefaults'
 
 export const ExplorationSchema = z.object({
+  // MongoDB
+  _id: z.string().regex(OIDRegex, OIDMsg).optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  __v: z.number().optional(),
+  versions: z
+    .array(
+      z
+        .object({
+          __v: z.number(), // Validación obligatoria de la propiedad __v
+        })
+        .catchall(z.any()) // Permitir otras propiedades no definidas
+    )
+    .optional(),
+
   // Manejo de relaciones
   datatype: z.literal('exploration').default('exploration'),
   instances: z.array(z.string().regex(OIDRegex, OIDMsg)),

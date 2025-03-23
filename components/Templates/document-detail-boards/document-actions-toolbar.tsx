@@ -3,7 +3,6 @@ import React from 'react'
 import Link from 'next/link'
 import {useParams} from 'next/navigation'
 
-import RemoveDocumentDialog from './remove-document-dialog'
 import {
   Menubar,
   MenubarContent,
@@ -12,6 +11,7 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from '@/components/Atoms/menubar'
+import RemoveDocumentDialog from '../toolbars/remove-document-dialog'
 
 import {MdModeEdit} from 'react-icons/md'
 import {AiOutlineDelete} from 'react-icons/ai'
@@ -27,19 +27,21 @@ import {toast} from 'sonner'
  * @param commanderId Id del editor
  */
 
-export default function CaveToolBar({
+export default function DocumentActionsToolbar({
   isEditor,
   commanderId,
+  documentType,
 }: {
   isEditor: boolean
   commanderId: string | null
+  documentType: 'cave' | 'system' | 'exploration'
 }) {
   const {document} = useParams()
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
     <>
-      <Menubar className="bg-card w-7xl h-10">
+      <Menubar className="bg-card h-10 border-none">
         <MenubarMenu>
           <MenubarTrigger
             className="space-x-1 cursor-pointer"
@@ -52,7 +54,7 @@ export default function CaveToolBar({
             }
           >
             <FaRegStar />
-            <span>Favorito</span>
+            <span className="hidden md:block">Favorito</span>
           </MenubarTrigger>
         </MenubarMenu>
         <MenubarMenu>
@@ -67,7 +69,7 @@ export default function CaveToolBar({
             }
           >
             <FaDownload />
-            <span>Descargar</span>
+            <span className="hidden md:block">Descargar</span>
           </MenubarTrigger>
         </MenubarMenu>
         <MenubarMenu>
@@ -82,14 +84,14 @@ export default function CaveToolBar({
             }
           >
             <IoMdPrint />
-            <span>Imprimir</span>
+            <span className="hidden md:block">Imprimir</span>
           </MenubarTrigger>
         </MenubarMenu>
         {isEditor && (
           <MenubarMenu>
             <MenubarTrigger className="space-x-1">
               <MdModeEdit className="text-editor" />
-              <span>Editar</span>
+              <span className="hidden md:block">Editar</span>
             </MenubarTrigger>
             <MenubarContent>
               <Link href={`${document}/edit?section=general`}>
@@ -97,19 +99,25 @@ export default function CaveToolBar({
                   Datos generales
                 </MenubarItem>
               </Link>
-              <Link href={`${document}/edit?section=location`}>
-                <MenubarItem className="cursor-pointer">
-                  Datos localización
-                </MenubarItem>
-              </Link>
-              <Link href={`${document}/edit?section=science`}>
-                <MenubarItem className="cursor-pointer">
-                  Datos científicos
-                </MenubarItem>
-              </Link>
-              <Link href={`${document}/edit?section=topography`}>
-                <MenubarItem className="cursor-pointer">Topografía</MenubarItem>
-              </Link>
+              {(documentType === 'cave' || 'system') && (
+                <>
+                  <Link href={`${document}/edit?section=location`}>
+                    <MenubarItem className="cursor-pointer">
+                      Datos localización
+                    </MenubarItem>
+                  </Link>
+                  <Link href={`${document}/edit?section=science`}>
+                    <MenubarItem className="cursor-pointer">
+                      Datos científicos
+                    </MenubarItem>
+                  </Link>
+                  <Link href={`${document}/edit?section=topography`}>
+                    <MenubarItem className="cursor-pointer">
+                      Topografía
+                    </MenubarItem>
+                  </Link>
+                </>
+              )}
               <Link href={`${document}/edit?section=pictures`}>
                 <MenubarItem className="cursor-pointer">Imagenes</MenubarItem>
               </Link>
@@ -119,7 +127,7 @@ export default function CaveToolBar({
                 className="text-destructive-foreground cursor-pointer"
               >
                 <AiOutlineDelete />
-                Eliminar cavidad
+                Eliminar documento
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
@@ -130,7 +138,7 @@ export default function CaveToolBar({
           commanderId={commanderId}
           isOpen={isOpen}
           onOpenChange={setIsOpen}
-          type="cave"
+          type={documentType}
         />
       )}
     </>

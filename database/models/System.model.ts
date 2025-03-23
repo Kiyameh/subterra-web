@@ -4,6 +4,16 @@ import {anchorTypes, anchorPurposes} from '@/database/types/Installation'
 
 //* ESQUEMA:
 const systemSchema = new Schema<SystemDocument>({
+  //* Versiones:
+  versions: [
+    new Schema(
+      {
+        __v: {type: Number, required: true}, // Validación obligatoria
+        updatedAt: {type: Date, required: true}, // Validación obligatoria
+      },
+      {strict: false} // Permitir otras propiedades sin validarlas
+    ),
+  ],
   //* Manejo de relaciones:
   datatype: {type: String, required: true, default: 'system'},
   instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},

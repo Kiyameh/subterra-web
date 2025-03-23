@@ -18,6 +18,7 @@ import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import {FaRegMap} from 'react-icons/fa'
 import TopographyTypeBadge from '@/components/Molecules/badges/topography-type-badge'
+import {es} from 'date-fns/locale'
 
 // Función auxiliar para obtener el tipo de archivo basado en la URL
 function getFileType(url: string): 'image' | 'pdf' | 'ai' | 'unknown' {
@@ -87,6 +88,7 @@ export default function TopographiesCard({
   return (
     <>
       <BasicCard
+        className="w-full"
         key="cave_pictures_card"
         cardHeader={
           <CardTitle
@@ -235,7 +237,10 @@ export default function TopographiesCard({
 
               {selectedTopography.date && (
                 <p className="text-sm text-muted-foreground">
-                  Fecha: {format(selectedTopography.date, 'MMMM d, yyyy')}
+                  Fecha:{' '}
+                  {format(selectedTopography.date, 'dd MMMM yyyy', {
+                    locale: es,
+                  })}
                 </p>
               )}
 
