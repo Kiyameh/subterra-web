@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
@@ -10,6 +10,8 @@ import {DistanceSlot} from '@/components/Molecules/slots/number-slots'
 
 import {IoMdInformationCircle} from 'react-icons/io'
 import {PlainCave} from '@/database/services/Cave/getPlainCave'
+import SystemWidget from './system-widget'
+import Divider from '@/components/Molecules/boxes/divider'
 
 /**
  * @version 1
@@ -71,8 +73,12 @@ export default function CaveInfoCard({document}: {document: PlainCave}) {
         label="Profundidad"
         valueInMeters={document.depth}
       />
-
-      <p>AQUÍ IRA EL CARD DE SISTEMA</p>
+      {document.system && (
+        <Suspense>
+          <Divider text="Pertenece al sistema" />
+          <SystemWidget systemId={document.system} />
+        </Suspense>
+      )}
     </BasicCard>
   )
 }

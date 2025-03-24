@@ -19,6 +19,7 @@ import CaveInfoCard from './cave-info-card'
 import CaveScienceCard from './cave-science-card'
 
 import {FaRegCircle} from 'react-icons/fa'
+import CaveExplorationsCard from './cave-explorations-card'
 
 export default function CaveDetailsBoard({
   caveId,
@@ -74,6 +75,7 @@ export default function CaveDetailsBoard({
           <CaveScienceCard document={documentData} />
           <PicturesCard pictures={documentData.pictures || []} />
           <TopographiesCard topographies={documentData.topographies || []} />
+          <CaveExplorationsCard documentId={documentData._id} />
         </div>
       </div>
     </>

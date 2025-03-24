@@ -85,6 +85,8 @@ export default function TopographiesCard({
     ? getFileType(selectedTopography.file_src)
     : 'unknown'
 
+  if (topographies.length === 0) return null
+
   return (
     <>
       <BasicCard

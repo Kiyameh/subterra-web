@@ -36,6 +36,8 @@ export default function PicturesCard({pictures}: {pictures: Picture[]}) {
   const selectedPicture =
     selectedIndex !== null ? pictures[selectedIndex] : null
 
+  if (pictures.length === 0) return null
+
   return (
     <>
       <BasicCard
