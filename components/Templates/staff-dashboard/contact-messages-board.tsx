@@ -1,15 +1,15 @@
 'use client'
 import React from 'react'
-import {PlatformObject} from '@/database/models/Platform.model'
+import {type PlatformObject} from '@/database/models/Platform.model'
 import {deleteContactMessage} from '@/database/services/Platform/deleteContactMessage'
 
+import {Button} from '@/components/Atoms/button'
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
 import {LinkSlot} from '@/components/Molecules/slots/link-slots'
-import {Button} from '@/components/Atoms/button'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 
 import {MdDelete} from 'react-icons/md'
 import {BiMessageDots} from 'react-icons/bi'
-import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 
 /**
  * @version 2

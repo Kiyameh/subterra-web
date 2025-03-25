@@ -9,11 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/Atoms/dropdown-menu'
+import ResignAdminDialog from '@/components/Templates/groups/group-dialogs/resign-admin-dialog'
+import ResignMemberDialog from '@/components/Templates/groups/group-dialogs/resign-member-dialog'
 
 import {IoClose} from 'react-icons/io5'
 import {FaGear} from 'react-icons/fa6'
-import ResignAdminDialog from '@/components/Templates/groups/group-dialogs/resign-admin-dialog'
-import ResignMemberDialog from '@/components/Templates/groups/group-dialogs/resign-member-dialog'
 
 /**
  * @version 1

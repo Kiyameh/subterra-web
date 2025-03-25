@@ -1,12 +1,12 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Cave from '@/database/models/Cave.model'
 
-import {CaveFormValues, CaveSchema} from '@/database/types/Cave'
+import {type CaveFormValues, CaveSchema} from '@/database/types/Cave'
 
 //* 1. Funciones de escritura */
 

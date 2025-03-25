@@ -1,11 +1,14 @@
 import {Suspense} from 'react'
-import PageContainer from '@/components/Organisms/theme/page-container'
-import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
-import CaveDetailsBoard from '@/components/Templates/caves/details/cave-details-board'
-import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
 import {auth} from '@/auth'
+
+import {getPlainCave} from '@/database/services/Cave/getPlainCave'
+import {type PlainCave} from '@/database/services/Cave/getPlainCave'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
+import PageContainer from '@/components/Organisms/theme/page-container'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
+import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
+import CaveDetailsBoard from '@/components/Templates/documents/details-boards/board-cave'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>

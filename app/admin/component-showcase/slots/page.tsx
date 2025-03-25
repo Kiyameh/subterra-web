@@ -13,7 +13,6 @@ import {UserProfileCard} from '@/components/Molecules/slots/user-slots'
 import {AdminBadge} from '@/components/Molecules/slots/user-slots'
 import {EditorBadge} from '@/components/Molecules/slots/user-slots'
 import {GroupProfileCard} from '@/components/Molecules/slots/group-slots'
-
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import Divider from '@/components/Molecules/boxes/divider'

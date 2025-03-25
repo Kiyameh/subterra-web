@@ -1,14 +1,14 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import User from '@/database/models/User.model'
 import Platform from '@/database/models/Platform.model'
-import {PlatformDocument} from '@/database/models/Platform.model'
+import {type PlatformDocument} from '@/database/models/Platform.model'
 
 import Instance from '@/database/models/Instance.model'
 
-import {InstanceFormValues} from '@/database/validation/instance.schemas'
+import {type InstanceFormValues} from '@/database/validation/instance.schemas'
 import {InstanceFormSchema} from '@/database/validation/instance.schemas'
 
 /**

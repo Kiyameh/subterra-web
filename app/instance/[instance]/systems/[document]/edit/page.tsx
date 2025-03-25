@@ -1,13 +1,15 @@
 import {auth} from '@/auth'
+
+import {getPlainSystem} from '@/database/services/System/getPlainSystem'
+import {type PlainSystem} from '@/database/services/System/getPlainSystem'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import SystemEditionForm from '@/components/Templates/systems/edition/system-edition-form'
 import PageContainer from '@/components/Organisms/theme/page-container'
+import SystemEditionForm from '@/components/Templates/documents/edition-forms/system-edition-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
-import {PlainSystem} from '@/database/services/System/getPlainSystem'
-import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>

@@ -1,9 +1,10 @@
-import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
-import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
-import AllInstancesPanel from '@/components/Templates/instances/all-instances-panel'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import {Suspense} from 'react'
 import {connection} from 'next/server'
+
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
+import PageContainer from '@/components/Organisms/theme/page-container'
+import AllInstancesPanel from '@/components/Templates/instances/all-instances-panel'
 
 export default async function InstanceListPage() {
   // Forzar renderizado dinámico:

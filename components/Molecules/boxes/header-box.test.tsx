@@ -1,8 +1,9 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
-import {Star} from 'lucide-react'
+
 import HeaderBox from './header-box'
+import {Star} from 'lucide-react'
 
 describe('HeaderBox', () => {
   it('renders without icon and with text', () => {

@@ -8,8 +8,8 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/Atoms/form'
-import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {PhoneInput} from '@/components/Atoms/phone-input'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 
 /**
  * @version 1

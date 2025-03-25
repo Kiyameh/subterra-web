@@ -2,13 +2,13 @@
 import React from 'react'
 import {useSearchParams} from 'next/navigation'
 
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
+import {loginUser} from '@/database/services/User/loginUser'
 
+import {Input} from '@/components/Atoms/input'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
-import {Input} from '@/components/Atoms/input'
 import LinkButton from '@/components/Molecules/buttons/link-button'
-import {loginUser} from '@/database/services/User/loginUser'
 
 /**
  * @version 1

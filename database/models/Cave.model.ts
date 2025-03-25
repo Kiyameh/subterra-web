@@ -1,5 +1,5 @@
 import {model, models, Schema} from 'mongoose'
-import {CaveDocument, caveShapes} from '@/database/types/Cave'
+import {type CaveDocument, caveShapes} from '@/database/types/Cave'
 import {coordProyections, utmZones} from '@/database/types/UtmCoordinate'
 import {anchorTypes, anchorPurposes} from '@/database/types/Installation'
 import {topographyTypes} from '@/database/types/Topography'

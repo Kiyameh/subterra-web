@@ -1,11 +1,18 @@
 'use client'
-
 import React from 'react'
-import SubmitButton from '@/components/Molecules/buttons/submit-button'
-import {Input} from '@/components/Atoms/input'
 import {signIn} from 'next-auth/react'
+
+import {type Answer} from '@/database/types/Answer'
+
+import {Input} from '@/components/Atoms/input'
+import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
-import {Answer} from '@/database/types/Answer'
+
+/**
+ * @version 1
+ * @description Formulario para reenviar el email de inicio de sesión
+ * @param emailCallbackUrl  URL a la que se redirige al usuario al hacer clic en el enlace del email
+ */
 
 export default function ResendSigninForm({
   emailCallbackUrl,

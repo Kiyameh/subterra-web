@@ -114,7 +114,6 @@ export const CaveSchema = z.object({
 
 export type CaveODT = z.infer<typeof CaveSchema>
 
-//TODO: Eliminar este tipo porque no sera necesario:
 export type CaveFormValues = Omit<CaveODT, '_id'>
 
 type CaveDocumentBase = Omit<

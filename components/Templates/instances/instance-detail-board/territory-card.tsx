@@ -1,8 +1,7 @@
 import React from 'react'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
+
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'

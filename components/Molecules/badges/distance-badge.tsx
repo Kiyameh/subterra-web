@@ -1,6 +1,8 @@
 'use client'
 import React from 'react'
+
 import {Badge} from '@/components/Atoms/badge'
+
 import {LuRuler} from 'react-icons/lu'
 
 /**

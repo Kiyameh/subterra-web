@@ -2,10 +2,8 @@ import * as React from 'react'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
 
-import {
-  getAllInstances,
-  InstanceWithOwner,
-} from '@/database/services/Instance/getAllInstances'
+import {getAllInstances} from '@/database/services/Instance/getAllInstances'
+import {type InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
 import {checkIsCoordinator} from '@/database/services/Instance/membership/checkIsCoordinator'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 

@@ -1,12 +1,13 @@
 'use client'
 import React from 'react'
 
-import PendingRequestDialog from '@/components/Templates/groups/group-dialogs/pending-request-dialog'
+import {type GroupWithUsers} from '@/database/services/Group/getOneGroup'
 
 import {Button} from '@/components/Atoms/button'
+import PendingRequestDialog from '@/components/Templates/groups/group-dialogs/pending-request-dialog'
+
 import {TiUserAdd} from 'react-icons/ti'
 import {IoCloseSharp} from 'react-icons/io5'
-import {GroupWithUsers} from '@/database/services/Group/getOneGroup'
 
 /**
  * @version 1

@@ -1,8 +1,9 @@
 'use client'
 import React from 'react'
+import {type Session} from 'next-auth'
+
 import FloatingContactButton from './floating-contact-button'
 import FloatingContactDialog from './floating-contact-dialog'
-import {Session} from 'next-auth'
 
 export default function FloatingContactForm({
   commander,

@@ -1,13 +1,14 @@
 'use client'
 import React from 'react'
-
 import {ColumnDef} from '@tanstack/react-table'
-import BasicCard from '@/components/Molecules/boxes/basic-card'
-import {DataTable} from '@/components/Atoms/data-table'
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
-import {Button} from '@/components/Atoms/button'
 
+import {DataTable} from '@/components/Atoms/data-table'
+import {Button} from '@/components/Atoms/button'
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
 import {AdminBadge, EditorBadge} from '@/components/Molecules/slots/user-slots'
+import CardTitle from '@/components/Molecules/boxes/card-title'
+import LinkBadge from '@/components/Molecules/badges/link-badge'
 import PromoteAdminDialog from '@/components/Templates/groups/group-dialogs/promote-admin-dialog'
 import RemoveMemberDialog from '@/components/Templates/groups/group-dialogs/remove-member-dialog'
 
@@ -15,9 +16,6 @@ import {FaUser} from 'react-icons/fa'
 import {RiArrowUpDoubleLine} from 'react-icons/ri'
 import {MdOutlineAdminPanelSettings} from 'react-icons/md'
 import {IoClose} from 'react-icons/io5'
-
-import CardTitle from '@/components/Molecules/boxes/card-title'
-import LinkBadge from '@/components/Molecules/badges/link-badge'
 
 // Interfaz de las filas de la tabla
 export interface GroupMembersTableRow {

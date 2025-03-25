@@ -1,10 +1,10 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import System from '@/database/models/System.model'
-import {SystemDocument} from '@/database/types/System'
-import {PlainCave} from '@/database/services/Cave/getPlainCave'
+import {type SystemDocument} from '@/database/types/System'
+import {type PlainCave} from '@/database/services/Cave/getPlainCave'
 
 /*
  * @type Interface de retorno de la función getPlainSystem

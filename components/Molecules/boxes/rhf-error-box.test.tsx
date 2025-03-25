@@ -1,7 +1,8 @@
+import React from 'react'
 import {describe, it, expect} from 'vitest'
 import {render} from '@testing-library/react'
-import React from 'react'
-import {FieldErrors} from 'react-hook-form'
+
+import {type FieldErrors} from 'react-hook-form'
 import ReactHookFormErrorBox from './rhf-error-box'
 
 const mockErrors: FieldErrors = {

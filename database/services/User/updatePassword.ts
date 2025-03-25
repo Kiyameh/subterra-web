@@ -1,10 +1,8 @@
 'use server'
-import {
-  ResetPassSchema,
-  ResetPassValues,
-} from '@/database/validation/auth.schemas'
-import {Answer} from '@/database/types/Answer'
 import {connectToMongoDB} from '@/database/databaseConection'
+import {type ResetPassValues} from '@/database/validation/auth.schemas'
+import {ResetPassSchema} from '@/database/validation/auth.schemas'
+import {type Answer} from '@/database/types/Answer'
 import User from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 

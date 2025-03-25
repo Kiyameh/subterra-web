@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
-import SquareButton from './square-button'
 import {describe, it, expect} from 'vitest'
+
+import SquareButton from './square-button'
 
 describe('SquareButton', () => {
   it('renders the button with the correct text', () => {

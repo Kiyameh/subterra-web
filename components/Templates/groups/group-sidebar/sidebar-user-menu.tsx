@@ -1,4 +1,6 @@
 'use client'
+import {type Session} from 'next-auth'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +15,6 @@ import {
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
 import UserDropdownMenuContent from '@/components/Organisms/authentication/floating-user-control/user-dropdown-menu-content'
 import {LuChevronsUpDown} from 'react-icons/lu'
-import {Session} from 'next-auth'
 
 /**
  * @version 1

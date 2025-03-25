@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import {type Session} from 'next-auth'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +8,6 @@ import {
 } from '@/components/Atoms/dropdown-menu'
 import AvatarButton from './avatar-button'
 import UserDropdownMenuContent from '@/components/Organisms/authentication/floating-user-control/user-dropdown-menu-content'
-import {Session} from 'next-auth'
 
 /**
  * @version 1

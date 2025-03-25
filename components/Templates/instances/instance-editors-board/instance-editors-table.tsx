@@ -1,24 +1,23 @@
 'use client'
 import React from 'react'
 
-import {ColumnDef} from '@tanstack/react-table'
-import BasicCard from '@/components/Molecules/boxes/basic-card'
-import {DataTable} from '@/components/Atoms/data-table'
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
-import {Button} from '@/components/Atoms/button'
+import {type ColumnDef} from '@tanstack/react-table'
 
+import {DataTable} from '@/components/Atoms/data-table'
+import {Button} from '@/components/Atoms/button'
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
 import {AdminBadge, EditorBadge} from '@/components/Molecules/slots/user-slots'
+import CardTitle from '@/components/Molecules/boxes/card-title'
+import LinkBadge from '@/components/Molecules/badges/link-badge'
+import PromoteCoordinatorDialog from '@/components/Templates/instances/instance-dialogs/promote-coordinator-dialog'
+import RemoveEditorDialog from '@/components/Templates/instances/instance-dialogs/remove-editor-dialog'
+import PromoteEditorDialog from '@/components/Templates/instances/instance-dialogs/promote-editor-dialog'
 
 import {FaUserEdit} from 'react-icons/fa'
 import {RiArrowUpDoubleLine} from 'react-icons/ri'
 import {IoClose, IoPersonAdd} from 'react-icons/io5'
 import {MdOutlineAdminPanelSettings} from 'react-icons/md'
-
-import CardTitle from '@/components/Molecules/boxes/card-title'
-import PromoteCoordinatorDialog from '@/components/Templates/instances/instance-dialogs/promote-coordinator-dialog'
-import RemoveEditorDialog from '@/components/Templates/instances/instance-dialogs/remove-editor-dialog'
-import LinkBadge from '@/components/Molecules/badges/link-badge'
-import PromoteEditorDialog from '@/components/Templates/instances/instance-dialogs/promote-editor-dialog'
 
 // Interfaz de las filas de la tabla
 export interface InstanceEditorsTableRow {

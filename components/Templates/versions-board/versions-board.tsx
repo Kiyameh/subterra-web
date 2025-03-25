@@ -1,17 +1,18 @@
 'use client'
-
-import {useState, useEffect} from 'react'
-import {Calendar, ExternalLink, FileText} from 'lucide-react'
+import React from 'react'
 import {format} from 'date-fns'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import {type Version} from '@/database/data/versions'
+import {type Feature} from '@/database/data/features'
+
 import {Card} from '@/components/Atoms/card'
 import {Button} from '@/components/Atoms/button'
 import {Badge} from '@/components/Atoms/badge'
-import {Version} from './versions'
-import {Feature} from './features'
 import {HorizontalScrollArea} from '@/components/Atoms/horizontal-scroll-area'
+
+import {Calendar, ExternalLink, FileText} from 'lucide-react'
 
 /**
  * @version 1
@@ -27,10 +28,12 @@ export default function VersionsBoard({
   versions: Version[]
   features: Feature[]
 }) {
-  const [selectedVersion, setSelectedVersion] = useState<string | null>(null)
+  const [selectedVersion, setSelectedVersion] = React.useState<string | null>(
+    null
+  )
 
   // Asigna la version actual:
-  useEffect(() => {
+  React.useEffect(() => {
     setSelectedVersion(versions[0].version)
   }, [versions])
 

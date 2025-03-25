@@ -1,8 +1,10 @@
 import React from 'react'
-import {Badge} from '@/components/Atoms/badge'
 import Link from 'next/link'
+
+import {Badge} from '@/components/Atoms/badge'
+import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
+
 import {FaAnchor} from 'react-icons/fa'
-import ResponsiveTooltip from './responsive-tooltip'
 
 /**
  * @version 1

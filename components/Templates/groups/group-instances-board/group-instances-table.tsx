@@ -1,14 +1,14 @@
 'use client'
 import React from 'react'
+import {type ColumnDef} from '@tanstack/react-table'
 
-import {ColumnDef} from '@tanstack/react-table'
-import BasicCard from '@/components/Molecules/boxes/basic-card'
 import {DataTable} from '@/components/Atoms/data-table'
-
 import {Badge} from '@/components/Atoms/badge'
-import {FiBox} from 'react-icons/fi'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import LinkBadge from '@/components/Molecules/badges/link-badge'
+
+import {FiBox} from 'react-icons/fi'
 
 // Interfaz de las filas de la tabla
 export interface GroupInstancesTableRow {

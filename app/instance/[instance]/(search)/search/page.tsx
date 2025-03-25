@@ -1,12 +1,14 @@
 import React, {Suspense} from 'react'
-import BasicCard from '@/components/Molecules/boxes/basic-card'
-import PageContainer from '@/components/Organisms/theme/page-container'
+
 import {Skeleton} from '@/components/Atoms/skeleton'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-import {FaSearch} from 'react-icons/fa'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
+import PageContainer from '@/components/Organisms/theme/page-container'
 import CaveSearchResults from '@/components/Templates/search-board/cave-search-results'
 import ExplorationSearchResults from '@/components/Templates/search-board/exploration-search-result'
 import SystemSearchResult from '@/components/Templates/search-board/system-search-result'
+
+import {FaSearch} from 'react-icons/fa'
 
 export default async function DocumentSearchPage({
   params,

@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
-import NumberBadge from './number-badge'
 import {describe, it, expect} from 'vitest'
+
+import NumberBadge from './number-badge'
 
 describe('NumberBadge', () => {
   it('renders the badge with the correct number and units', () => {

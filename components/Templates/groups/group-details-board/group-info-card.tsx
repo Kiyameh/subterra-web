@@ -1,8 +1,7 @@
 import React from 'react'
-import {
-  getOneGroup,
-  GroupWithUsers,
-} from '@/database/services/Group/getOneGroup'
+
+import {getOneGroup} from '@/database/services/Group/getOneGroup'
+import {type GroupWithUsers} from '@/database/services/Group/getOneGroup'
 
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
 import BasicCard from '@/components/Molecules/boxes/basic-card'

@@ -1,8 +1,9 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
-import {Star} from 'lucide-react'
+
 import InfoBox from './info-box'
+import {Star} from 'lucide-react'
 
 describe('InfoBox', () => {
   it('renders with default props', () => {

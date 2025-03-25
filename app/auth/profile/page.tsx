@@ -1,11 +1,12 @@
 import React, {Suspense} from 'react'
+import {redirect} from 'next/navigation'
+import {auth, signOut} from '@/auth'
+
+import {Button} from '@/components/Atoms/button'
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import LinkButton from '@/components/Molecules/buttons/link-button'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import ProfilePanel from '@/components/Organisms/authentication/profile-panel'
-import LinkButton from '@/components/Molecules/buttons/link-button'
-import {auth, signOut} from '@/auth'
-import {redirect} from 'next/navigation'
-import {Button} from '@/components/Atoms/button'
 
 export default async function ProfilePage() {
   const user = (await auth())?.user

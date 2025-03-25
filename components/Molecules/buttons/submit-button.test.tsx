@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
-import SubmitButton from './submit-button'
 import {describe, it, expect} from 'vitest'
+
+import SubmitButton from './submit-button'
 
 describe('SubmitButton', () => {
   it('renders the button with the default label', () => {

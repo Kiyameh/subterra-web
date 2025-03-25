@@ -1,9 +1,9 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Instance from '@/database/models/Instance.model'
-import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
+import {type UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
 import {UpdateInstanceFormSchema} from '@/database/validation/instance.schemas'
 import {checkIsCoordinator} from '@/database/services/Instance/membership/checkIsCoordinator'
 

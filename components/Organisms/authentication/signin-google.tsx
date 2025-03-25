@@ -1,9 +1,11 @@
 'use client'
 import React from 'react'
-import {FcGoogle} from 'react-icons/fc'
-import {Button} from '@/components/Atoms/button'
-import {signIn} from 'next-auth/react'
 import {useSearchParams} from 'next/navigation'
+import {signIn} from 'next-auth/react'
+
+import {Button} from '@/components/Atoms/button'
+
+import {FcGoogle} from 'react-icons/fc'
 
 /**
  * @version 1

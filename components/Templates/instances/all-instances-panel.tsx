@@ -1,11 +1,9 @@
 import React from 'react'
-import InstanceCard from '@/components/Organisms/containers/instance-card'
-import {
-  getAllInstances,
-  InstanceWithOwner,
-} from '@/database/services/Instance/getAllInstances'
+import {getAllInstances} from '@/database/services/Instance/getAllInstances'
+import {type InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
 
 import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
+import InstanceCard from '@/components/Organisms/containers/instance-card'
 
 /**
  * @version 1

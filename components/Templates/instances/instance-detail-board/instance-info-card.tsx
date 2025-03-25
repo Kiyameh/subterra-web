@@ -1,16 +1,16 @@
 import React from 'react'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
+
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import {BooleanSlot} from '@/components/Molecules/slots/chip-slots'
 import {LinkSlot} from '@/components/Molecules/slots/link-slots'
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {IoMdInformationCircle} from 'react-icons/io'
 import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
+
+import {IoMdInformationCircle} from 'react-icons/io'
 
 /**
  * @version 1

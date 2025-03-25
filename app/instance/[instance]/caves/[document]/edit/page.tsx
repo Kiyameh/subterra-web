@@ -1,17 +1,17 @@
 import {auth} from '@/auth'
 
-import {getPlainCave, PlainCave} from '@/database/services/Cave/getPlainCave'
-import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {getPlainCave} from '@/database/services/Cave/getPlainCave'
+import {type PlainCave} from '@/database/services/Cave/getPlainCave'
 import {getSystemIndex} from '@/database/services/System/getSystemIndex'
+import {type SystemIndex} from '@/database/services/System/getSystemIndex'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 import PageContainer from '@/components/Organisms/theme/page-container'
+import CaveEditionForm from '@/components/Templates/documents/edition-forms/cave-edition-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
-import CaveEditionForm from '@/components/Templates/caves/edition/cave-edition-form'
 
 interface PageProps {
   params: Promise<{instance: string; document: string}>

@@ -1,15 +1,16 @@
 'use client'
 import React from 'react'
 import {Control, FieldValues, Path} from 'react-hook-form'
+
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
 } from '@/components/Atoms/form'
+import LabeledSwitch from '@/components/Atoms/labeled-switch'
 
 import InfoBadge from '@/components/Molecules/badges/info-badge'
-import LabeledSwitch from '@/components/Atoms/labeled-switch'
 
 /**
  * @version 1

@@ -1,10 +1,10 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import Platform from '@/database/models/Platform.model'
 
-import {ContactMessage} from '@/database/models/Platform.model'
-import {PlatformDocument} from '@/database/models/Platform.model'
+import {type ContactMessage} from '@/database/models/Platform.model'
+import {type PlatformDocument} from '@/database/models/Platform.model'
 
 import {contactFormSchema} from '@/database/validation/platform.schemas'
 import {ContactFormValues} from '@/database/validation/platform.schemas'

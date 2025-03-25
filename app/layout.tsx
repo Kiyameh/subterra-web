@@ -1,9 +1,11 @@
 import type {Metadata} from 'next'
 import './globals.css'
-import {ThemeProvider} from '@/components/Organisms/theme/theme-provider'
+
+import {versions} from '@/database/data/versions'
+import {features} from '@/database/data/features'
+
 import {Toaster} from '@/components/Atoms/sonner'
-import {versions} from '@/components/Templates/versions-board/versions'
-import {features} from '@/components/Templates/versions-board/features'
+import {ThemeProvider} from '@/components/Organisms/theme/theme-provider'
 import {UpdatesModal} from '@/components/Templates/versions-board/updates-modal'
 
 export const metadata: Metadata = {

@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react'
-import OnlineIndicator from './online-indicator'
 import {describe, it, expect} from 'vitest'
 import userEvent from '@testing-library/user-event'
+
+import OnlineIndicator from './online-indicator'
 
 describe('OnlineIndicator', () => {
   it('renders the indicator with the correct online state', () => {

@@ -2,6 +2,12 @@
 import {connectToMongoDB} from '@/database/databaseConection'
 import User from '@/database/models/User.model'
 
+/**
+ * @version 1
+ * @description Función para obtener los usuarios de una instancia
+ * @param instanceId
+ */
+
 export async function getInstanceUsers(instanceId: string) {
   try {
     await connectToMongoDB()

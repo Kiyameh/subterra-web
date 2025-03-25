@@ -8,9 +8,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Atoms/form'
+import {Button} from '@/components/Atoms/button'
 import {Input} from '@/components/Atoms/input'
 import InfoBadge from '@/components/Molecules/badges/info-badge'
-import {Button} from '@/components/Atoms/button'
 import {LuRuler} from 'react-icons/lu'
 
 /**

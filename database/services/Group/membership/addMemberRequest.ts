@@ -1,11 +1,11 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Group from '@/database/models/Group.model'
-import {GroupDocument} from '@/database/models/Group.model'
+import {type GroupDocument} from '@/database/models/Group.model'
 
-import {MemberRequestValues} from '@/components/Templates/groups/group-dialogs/membership-request-dialog'
+import {type MemberRequestValues} from '@/components/Templates/groups/group-dialogs/membership-request-dialog'
 
 //* 4. Funciones de peticiones de miembro */
 

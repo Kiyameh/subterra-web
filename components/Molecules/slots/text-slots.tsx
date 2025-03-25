@@ -1,6 +1,6 @@
-import {ScrollArea} from '@/components/Atoms/scroll-area'
-import {cn} from '@/lib/utils'
 import React from 'react'
+import {cn} from '@/lib/utils'
+import {ScrollArea} from '@/components/Atoms/scroll-area'
 
 /**
  * @version 1

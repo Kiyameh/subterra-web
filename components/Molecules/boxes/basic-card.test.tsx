@@ -1,7 +1,8 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import BasicCard from './basic-card'
+
 import unauthorizedImage from '@/public/401.webp'
+import BasicCard from './basic-card'
 
 describe('BasicCard component', () => {
   it('renders the BasicCard component with children', () => {

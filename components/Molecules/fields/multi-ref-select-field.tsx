@@ -19,10 +19,10 @@ import {
 } from '@/components/Atoms/multi-select'
 import InfoBadge from '@/components/Molecules/badges/info-badge'
 
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {CaveIndex} from '@/database/services/Cave/getCaveIndex'
-import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
-import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {type ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {type SystemIndex} from '@/database/services/System/getSystemIndex'
 
 /**
  * @version 1

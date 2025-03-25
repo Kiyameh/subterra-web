@@ -1,15 +1,14 @@
 import React from 'react'
 import {auth} from '@/auth'
 
-import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import InstanceEditorsTable, {
-  InstanceEditorsTableRow,
-} from '@/components/Templates/instances/instance-editors-board/instance-editors-table'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
+import {InstanceEditorsTableRow} from '@/components/Templates/instances/instance-editors-board/instance-editors-table'
+import InstanceEditorsTable from '@/components/Templates/instances/instance-editors-board/instance-editors-table'
+
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
 import {checkIsCoordinator} from '@/database/services/Instance/membership/checkIsCoordinator'
+
+import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 
 /**
  * @version 1

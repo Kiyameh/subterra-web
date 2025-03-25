@@ -1,8 +1,9 @@
 import React, {Suspense} from 'react'
-import FloatingUserNavigation from './floating-user-navigation'
-import FloatingLoginButton from './floating-login-button'
 import {auth} from '@/auth'
 import {Session} from 'next-auth'
+
+import FloatingUserNavigation from './floating-user-navigation'
+import FloatingLoginButton from './floating-login-button'
 
 /**
  * @version 1

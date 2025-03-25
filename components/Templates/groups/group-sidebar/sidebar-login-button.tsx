@@ -1,11 +1,12 @@
 'use client'
-import LoginWrapper from '@/components/Organisms/authentication/login-wrapper'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from '@/components/Atoms/sidebar'
+import LoginWrapper from '@/components/Organisms/authentication/login-wrapper'
+
 import {BiLogIn} from 'react-icons/bi'
 
 /**

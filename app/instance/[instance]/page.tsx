@@ -1,11 +1,12 @@
+import {Suspense} from 'react'
+
+import SkeletonHeader from '@/components/Organisms/containers/skelenton-header'
+import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
+import PageContainer from '@/components/Organisms/theme/page-container'
 import InstanceHeader from '@/components/Templates/instances/instance-detail-board/instance-header'
 import InstanceInfoCard from '@/components/Templates/instances/instance-detail-board/instance-info-card'
 import InstanceStatsCard from '@/components/Templates/instances/instance-detail-board/instance-stats-card'
-import SkeletonHeader from '@/components/Organisms/containers/skelenton-header'
-import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import TerritoryCard from '@/components/Templates/instances/instance-detail-board/territory-card'
-import PageContainer from '@/components/Organisms/theme/page-container'
-import {Suspense} from 'react'
 
 interface PageProps {
   params: Promise<{instance: string}>

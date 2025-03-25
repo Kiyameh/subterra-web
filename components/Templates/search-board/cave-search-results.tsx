@@ -1,5 +1,13 @@
+import {getCaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
 import {CaveSlot} from '@/components/Molecules/slots/documents-slots'
-import {CaveIndex, getCaveIndex} from '@/database/services/Cave/getCaveIndex'
+
+/**
+ * @version 1
+ * @description Muestra los resultados de la búsqueda de cuevas
+ * @param query texto de búsqueda
+ * @param instanceName Nombre de la instancia
+ */
 
 export default async function CaveSearchResults({
   query,

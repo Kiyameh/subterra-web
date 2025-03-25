@@ -2,7 +2,7 @@
 import {redirect, RedirectType} from 'next/navigation'
 
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Exploration from '@/database/models/Exploration.model'

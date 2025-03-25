@@ -2,22 +2,20 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-
-import {updateUser} from '@/database/services/User/updateUser'
-import {Answer} from '@/database/types/Answer'
 import {signIn} from 'next-auth/react'
 
+import {type User} from 'next-auth'
+import {type Answer} from '@/database/types/Answer'
+import {updateUser} from '@/database/services/User/updateUser'
+import {ProfileEditValues} from '@/database/validation/auth.schemas'
+import {ProfileEditSchema} from '@/database/validation/auth.schemas'
+
 import {Form} from '@/components/Atoms/form'
+import {Button} from '@/components/Atoms/button'
 import TextField from '@/components/Molecules/fields/text-field'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import BackButton from '@/components/Molecules/buttons/back-button'
-import {User} from 'next-auth'
-import {
-  ProfileEditSchema,
-  ProfileEditValues,
-} from '@/database/validation/auth.schemas'
-import {Button} from '@/components/Atoms/button'
 import DeleteUserDialog from './delete-user-dialog'
 
 interface UserWithFullname extends User {

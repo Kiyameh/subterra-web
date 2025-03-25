@@ -1,8 +1,9 @@
 import * as React from 'react'
 import {auth} from '@/auth'
-import {Session} from 'next-auth'
+import {type Session} from 'next-auth'
+
 import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {checkIsAdmin} from '@/database/services/Group/membership/checkIsAdmin'
 import {checkIsMember} from '@/database/services/Group/membership/checkIsMember'
 

@@ -1,8 +1,10 @@
 import React from 'react'
+
 import {Badge} from '@/components/Atoms/badge'
+import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
+
 import {format} from 'date-fns'
 import {es} from 'date-fns/locale'
-import ResponsiveTooltip from './responsive-tooltip'
 
 /**
  * @version 1

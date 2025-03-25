@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
 import {useRouter} from 'next/navigation'
-import {Button, ButtonProps} from '@/components/Atoms/button'
+
+import {Button, type ButtonProps} from '@/components/Atoms/button'
 import {TiBackspaceOutline} from 'react-icons/ti'
 import {cn} from '@/lib/utils'
 

@@ -1,19 +1,21 @@
 import {auth} from '@/auth'
-import {AdminBadge, EditorBadge} from '@/components/Molecules/slots/user-slots'
+
+import {getPopulatedUser} from '@/database/services/User/getPopulatedUser'
+import {type PopulatedUser} from '@/database/services/User/getPopulatedUser'
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
+import {type PlatformObject} from '@/database/models/Platform.model'
+
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
+import {AdminBadge} from '@/components/Molecules/slots/user-slots'
+import {EditorBadge} from '@/components/Molecules/slots/user-slots'
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {FaCheck} from 'react-icons/fa'
+import {LinkSlot} from '@/components/Molecules/slots/link-slots'
 import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
 import Divider from '@/components/Molecules/boxes/divider'
-import {LinkSlot} from '@/components/Molecules/slots/link-slots'
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
 import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
-import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
-import {PlatformObject} from '@/database/models/Platform.model'
 import LinkButton from '@/components/Molecules/buttons/link-button'
-import {
-  getPopulatedUser,
-  PopulatedUser,
-} from '@/database/services/User/getPopulatedUser'
+
+import {FaCheck} from 'react-icons/fa'
 
 /**
  * @version 1

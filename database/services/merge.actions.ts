@@ -3,6 +3,7 @@ interface Document {
   master_id?: string
   [key: string]: unknown
 }
+//TODO: ELIMINAR SI NO NECESRIO
 
 export function mergeDocumentArrays(
   masterArray: Document[],

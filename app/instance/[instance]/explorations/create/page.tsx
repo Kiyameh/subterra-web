@@ -1,14 +1,17 @@
 import {auth} from '@/auth'
+
+import {getInstanceId} from '@/database/services/Instance/getInstanceId'
+import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {getCaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import ExplorationCreationForm from '@/components/Templates/explorations/edition/exploration-cretion-form'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
-import {getInstanceId} from '@/database/services/Instance/getInstanceId'
-import {CaveIndex, getCaveIndex} from '@/database/services/Cave/getCaveIndex'
+import ExplorationCreationForm from '@/components/Templates/documents/edition-forms/exploration-creation-form'
 
 import {GrChapterAdd} from 'react-icons/gr'
 

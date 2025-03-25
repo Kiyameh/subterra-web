@@ -1,17 +1,17 @@
 import {auth} from '@/auth'
-import InstanceRequestForm from '@/components/Templates/groups/instance-request-form'
+
+import {getOneGroupIndex} from '@/database/services/Group/getOneGrupoIndex'
+import {type GroupIndex} from '@/database/services/Group/getOneGrupoIndex'
+import {getInstancesIndex} from '@/database/services/Instance/getInstancesIndex'
+import {type InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
+
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
 import PageContainer from '@/components/Organisms/theme/page-container'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
+import InstanceRequestForm from '@/components/Templates/groups/instance-request-form'
 
 import {BiSolidMessage} from 'react-icons/bi'
-import {GroupIndex} from '@/database/services/Group/getOneGrupoIndex'
-import {getOneGroupIndex} from '@/database/services/Group/getOneGrupoIndex'
-import {
-  getInstancesIndex,
-  InstanceIndex,
-} from '@/database/services/Instance/getInstancesIndex'
 
 interface PageProps {
   params: Promise<{group: string}>

@@ -3,9 +3,8 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {demoteCoordinator} from '@/database/services/Instance/membership/demoteCoordinator'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
-import InfoBox from '@/components/Molecules/boxes/info-box'
 import {Button} from '@/components/Atoms/button'
 import {
   Dialog,
@@ -14,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/Atoms/dialog'
+import InfoBox from '@/components/Molecules/boxes/info-box'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'

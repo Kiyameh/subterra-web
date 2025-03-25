@@ -5,15 +5,14 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import Link from 'next/link'
-import {InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
-import {RiCheckboxMultipleBlankFill} from 'react-icons/ri'
 
 import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
 import {instanceRequestMaxCharacters} from '@/database/validation/platform.schemas'
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 import {addInstanceRequest} from '@/database/services/Platform/addInstanceRequest'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {Answer} from '@/database/types/Answer'
+import {type InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {type Answer} from '@/database/types/Answer'
 
 import {Form} from '@/components/Atoms/form'
 import {GroupProfileCard} from '@/components/Molecules/slots/group-slots'
@@ -26,6 +25,7 @@ import {UserProfileCard} from '@/components/Molecules/slots/user-slots'
 import RefSelectField from '@/components/Molecules/fields/ref-select-field'
 import BooleanField from '@/components/Molecules/fields/boolean-field'
 
+import {RiCheckboxMultipleBlankFill} from 'react-icons/ri'
 import {FaInfoCircle} from 'react-icons/fa'
 
 /**

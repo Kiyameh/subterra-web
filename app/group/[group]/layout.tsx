@@ -1,16 +1,16 @@
 import React from 'react'
-import ShortcutTooltip from '@/components/Molecules/badges/shortcut-tooltip'
-import NavigationBreadcrumb from '@/components/Organisms/navigation/dashboard-breadcrumb'
-import GroupSidebar from '@/components/Templates/groups/group-sidebar/group-sidebar'
+import {auth} from '@/auth'
 
 import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
 } from '@/components/Atoms/sidebar'
+import ShortcutTooltip from '@/components/Molecules/badges/shortcut-tooltip'
+import NavigationBreadcrumb from '@/components/Organisms/navigation/dashboard-breadcrumb'
 import SubterraDropdown from '@/components/Organisms/navigation/subterra-dropdown'
+import GroupSidebar from '@/components/Templates/groups/group-sidebar/group-sidebar'
 import FloatingContactForm from '@/components/Templates/staff-dashboard/floating-contact-form/floating-contact'
-import {auth} from '@/auth'
 
 interface GroupDashboardLayoutProps {
   params: Promise<{group: string}>

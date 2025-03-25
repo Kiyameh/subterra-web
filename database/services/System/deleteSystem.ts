@@ -1,11 +1,10 @@
 'use server'
+import {redirect, RedirectType} from 'next/navigation'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import System from '@/database/models/System.model'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
-
-import {redirect, RedirectType} from 'next/navigation'
 
 /**
  * @version 1

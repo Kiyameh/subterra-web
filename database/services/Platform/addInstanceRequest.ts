@@ -1,12 +1,12 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import Platform from '@/database/models/Platform.model'
 
-import {InstanceRequest} from '@/database/models/Platform.model'
-import {PlatformDocument} from '@/database/models/Platform.model'
+import {type InstanceRequest} from '@/database/models/Platform.model'
+import {type PlatformDocument} from '@/database/models/Platform.model'
 
-import {InstanceRequestFormValues} from '@/database/validation/platform.schemas'
+import {type InstanceRequestFormValues} from '@/database/validation/platform.schemas'
 import {instanceRequestFormSchema} from '@/database/validation/platform.schemas'
 /**
  * @description Función para añadir una nueva solicitud de creación de instancia

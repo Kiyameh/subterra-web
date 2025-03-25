@@ -7,8 +7,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Atoms/form'
-import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {Textarea} from '@/components/Atoms/textarea'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 
 /**
  * @version 1

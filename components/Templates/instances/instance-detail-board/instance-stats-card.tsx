@@ -1,14 +1,14 @@
+import React from 'react'
+
+import {getInstanceStats} from '@/database/services/Instance/getInstanceStats'
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {getInstanceStats} from '@/database/services/Instance/getInstanceStats'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
 
-import React from 'react'
 import {ImStatsBars} from 'react-icons/im'
 
 /**

@@ -1,7 +1,8 @@
-import {SubterraLogoLg} from '@/components/Organisms/theme/subterra-logo'
+import React from 'react'
+
 import SimpleBox from '@/components/Molecules/boxes/simple-box'
 import DownAnchor from '@/components/Molecules/buttons/down-anchor'
-import React from 'react'
+import {SubterraLogoLg} from '@/components/Organisms/theme/subterra-logo'
 
 export default function WelcomeSection() {
   return (

@@ -1,17 +1,17 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Exploration from '@/database/models/Exploration.model'
 
 import Cave from '@/database/models/Cave.model'
-import {CaveDocument} from '@/database/types/Cave'
+import {type CaveDocument} from '@/database/types/Cave'
 
 import Group from '@/database/models/Group.model'
-import {GroupDocument} from '@/database/models/Group.model'
+import {type GroupDocument} from '@/database/models/Group.model'
 
 import Instance from '@/database/models/Instance.model'
-import {ExplorationDocument} from '@/database/types/Exploration'
+import {type ExplorationDocument} from '@/database/types/Exploration'
 
 /**
  * @type Interface de retorno de la función getExplorationsIndex

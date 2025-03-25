@@ -1,8 +1,10 @@
 import {auth} from '@/auth'
+
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
+import {type PlatformObject} from '@/database/models/Platform.model'
+
 import PageContainer from '@/components/Organisms/theme/page-container'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import {PlatformObject} from '@/database/models/Platform.model'
-import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 import StaffNavigation from '@/components/Templates/staff-dashboard/staff-nav'
 
 export default async function Layout({children}: {children: React.ReactNode}) {

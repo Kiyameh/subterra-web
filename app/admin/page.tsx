@@ -1,9 +1,12 @@
-import BasicCard from '@/components/Molecules/boxes/basic-card'
 import React from 'react'
-import {PiAvocadoFill} from 'react-icons/pi'
+
 import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
-import {PlatformObject} from '@/database/models/Platform.model'
+import {type PlatformObject} from '@/database/models/Platform.model'
+
+import BasicCard from '@/components/Molecules/boxes/basic-card'
 import {TextSlot} from '@/components/Molecules/slots/text-slots'
+
+import {PiAvocadoFill} from 'react-icons/pi'
 
 export default async function StaffDashboardLanding() {
   // Obtener la plataforma

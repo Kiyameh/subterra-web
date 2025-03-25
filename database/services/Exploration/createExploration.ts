@@ -1,14 +1,12 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Exploration from '@/database/models/Exploration.model'
-import {
-  ExplorationFormValues,
-  ExplorationSchema,
-} from '@/database/types/Exploration'
+import {ExplorationSchema} from '@/database/types/Exploration'
+import {type ExplorationFormValues} from '@/database/types/Exploration'
 
 /**
  * @version 1

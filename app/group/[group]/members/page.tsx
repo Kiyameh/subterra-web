@@ -1,4 +1,5 @@
 import {Suspense} from 'react'
+
 import PageContainer from '@/components/Organisms/theme/page-container'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import GroupMembersBoard from '@/components/Templates/groups/group-members-board/group-members-board'

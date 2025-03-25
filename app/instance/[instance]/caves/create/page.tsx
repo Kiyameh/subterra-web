@@ -1,14 +1,15 @@
 import {auth} from '@/auth'
+
+import {getInstanceId} from '@/database/services/Instance/getInstanceId'
+import {getSystemIndex} from '@/database/services/System/getSystemIndex'
+import {type SystemIndex} from '@/database/services/System/getSystemIndex'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-
 import PageContainer from '@/components/Organisms/theme/page-container'
-import CaveCreationForm from '@/components/Templates/caves/edition/cave-creation-form'
-import {getInstanceId} from '@/database/services/Instance/getInstanceId'
-import {SystemIndex} from '@/database/services/System/getSystemIndex'
-import {getSystemIndex} from '@/database/services/System/getSystemIndex'
+import CaveCreationForm from '@/components/Templates/documents/edition-forms/cave-creation-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
 

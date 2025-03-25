@@ -1,6 +1,6 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Cave from '@/database/models/Cave.model'

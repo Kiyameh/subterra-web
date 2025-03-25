@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react'
-import LinkBadge from './link-badge'
 import {describe, it, expect} from 'vitest'
 import userEvent from '@testing-library/user-event'
+
+import LinkBadge from './link-badge'
 
 describe('LinkBadge', () => {
   it('renders the badge with the correct email link and icon', () => {

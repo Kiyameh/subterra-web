@@ -1,14 +1,14 @@
 import React from 'react'
 import {auth} from '@/auth'
+
 import {checkIsAdmin} from '@/database/services/Group/membership/checkIsAdmin'
+import {getOneGroup} from '@/database/services/Group/getOneGroup'
+import {type GroupWithUsers} from '@/database/services/Group/getOneGroup'
 
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 
-import GroupMembersTable, {GroupMembersTableRow} from './group-members-table'
-import {
-  getOneGroup,
-  GroupWithUsers,
-} from '@/database/services/Group/getOneGroup'
+import {GroupMembersTableRow} from './group-members-table'
+import GroupMembersTable from './group-members-table'
 
 /**
  * @version 1

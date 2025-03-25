@@ -1,13 +1,14 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Group from '@/database/models/Group.model'
-import User, {UserIndex} from '@/database/models/User.model'
+import User from '@/database/models/User.model'
+import {type UserIndex} from '@/database/models/User.model'
 
 import Instance from '@/database/models/Instance.model'
-import {InstanceDocument} from '@/database/models/Instance.model'
-import {InstanceWithOwner} from './getAllInstances'
+import {type InstanceDocument} from '@/database/models/Instance.model'
+import {type InstanceWithOwner} from './getAllInstances'
 
 /**
  * @type Interface de retorno de la función getSomeInstances y getOneInstance

@@ -1,11 +1,11 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import User from '@/database/models/User.model'
 
 import Group from '@/database/models/Group.model'
-import {GroupDocument} from '@/database/models/Group.model'
+import {type GroupDocument} from '@/database/models/Group.model'
 
 /**
  * @version 2

@@ -12,18 +12,17 @@ import {
 export const ExplorationSchema = z.object({
   // MongoDB
   _id: z.string().regex(OIDRegex, OIDMsg).optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
   __v: z.number().optional(),
-  versions: z
-    .array(
-      z
-        .object({
-          __v: z.number(), // Validación obligatoria de la propiedad __v
-        })
-        .catchall(z.any()) // Permitir otras propiedades no definidas
-    )
-    .optional(),
+  versions: z.array(
+    z
+      .object({
+        __v: z.number(), // Validación obligatoria de la propiedad __v
+        updatedAt: z.coerce.date(), // Validación obligatoria
+      })
+      .catchall(z.any()) // Permitir otras propiedades no definidas
+  ),
 
   // Manejo de relaciones
   datatype: z.literal('exploration').default('exploration'),
@@ -63,10 +62,7 @@ type ExplorationDocumentBase = Omit<
   '_id' | '__v' | 'createdAt' | 'updatedAt' | 'instances' | 'caves' | 'groups'
 >
 
-export type ExplorationFormValues = Omit<
-  ExplorationODT,
-  '_id' | '__v' | 'createdAt' | 'updatedAt'
->
+export type ExplorationFormValues = Omit<ExplorationODT, '_id'>
 
 export interface ExplorationDocument extends ExplorationDocumentBase, Document {
   instances: Types.ObjectId[]

@@ -1,10 +1,12 @@
-import DownAnchor from '@/components/Molecules/buttons/down-anchor'
 import React from 'react'
-import {IoMdInformationCircleOutline} from 'react-icons/io'
+
+import DownAnchor from '@/components/Molecules/buttons/down-anchor'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
+import PageContainer from '@/components/Organisms/theme/page-container'
+
 import {LuBox} from 'react-icons/lu'
 import {MdStorage} from 'react-icons/md'
-import PageContainer from '@/components/Organisms/theme/page-container'
-import BasicCard from '@/components/Molecules/boxes/basic-card'
+import {IoMdInformationCircleOutline} from 'react-icons/io'
 
 export default function AboutSection() {
   return (

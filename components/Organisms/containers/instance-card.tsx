@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import {InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
 
+import {CardDescription, CardTitle} from '@/components/Atoms/card'
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import InfoBadge from '@/components/Molecules/badges/info-badge'
 import OnlineIndicator from '@/components/Molecules/badges/online-indicator'
@@ -13,7 +14,6 @@ import {MdVisibility} from 'react-icons/md'
 import {MdModeEdit} from 'react-icons/md'
 import {MdMoreTime} from 'react-icons/md'
 import {HiLink} from 'react-icons/hi'
-import {CardDescription, CardTitle} from '@/components/Atoms/card'
 import {LuBox} from 'react-icons/lu'
 
 /**

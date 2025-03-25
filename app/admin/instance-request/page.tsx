@@ -1,7 +1,7 @@
 import {auth} from '@/auth'
 
-import {PlatformObject} from '@/database/models/Platform.model'
 import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
+import {type PlatformObject} from '@/database/models/Platform.model'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import InstanceCreationForm from '@/components/Templates/staff-dashboard/instance-creation-form'

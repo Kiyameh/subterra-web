@@ -3,13 +3,11 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {
-  GroupFormValues,
-  groupMaxCharacters,
-} from '@/database/validation/group.schema'
+import {groupMaxCharacters} from '@/database/validation/group.schema'
+import {type GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
 
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {groupCategories} from '@/database/models/Group.enums'
 import {createGroup} from '@/database/services/Group/createGroup'
 

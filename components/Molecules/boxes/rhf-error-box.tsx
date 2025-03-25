@@ -1,6 +1,7 @@
 import React from 'react'
-import {FieldErrors} from 'react-hook-form'
-import {FieldValues} from 'react-hook-form'
+
+import {type FieldErrors} from 'react-hook-form'
+import {type FieldValues} from 'react-hook-form'
 
 /**
  * @version 1

@@ -1,5 +1,6 @@
 import React from 'react'
 import {auth} from '@/auth'
+
 import {checkIsMember} from '@/database/services/Group/membership/checkIsMember'
 
 import UnauthorizedCard from '@/components/Organisms/containers/401-unauthorized'

@@ -1,7 +1,9 @@
 import React from 'react'
-import {Badge} from '@/components/Atoms/badge'
-import ResponsiveTooltip from './responsive-tooltip'
 import Link from 'next/link'
+
+import {Badge} from '@/components/Atoms/badge'
+import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
+
 import {MdEmail, MdPhone, MdLink, MdOpenInNew} from 'react-icons/md'
 
 /**

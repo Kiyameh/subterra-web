@@ -1,4 +1,5 @@
 import React from 'react'
+
 import InDevelopmentCard from '@/components/Organisms/containers/501-not-implemented'
 
 export default function SettingsPage() {

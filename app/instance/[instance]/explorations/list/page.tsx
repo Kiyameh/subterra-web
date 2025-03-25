@@ -1,7 +1,8 @@
 import {Suspense} from 'react'
+
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import ExplorationListBoard from '@/components/Templates/explorations/index/exploration-list-board'
+import ExplorationListBoard from '@/components/Templates/documents/list-view/exploration-list-board'
 
 interface PageProps {
   params: Promise<{instance: string}>

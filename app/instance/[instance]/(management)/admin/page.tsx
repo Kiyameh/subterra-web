@@ -1,13 +1,14 @@
 import {auth} from '@/auth'
+
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import InstanceEditionForm from '@/components/Templates/instances/instance-edition-form'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
+import InstanceEditionForm from '@/components/Templates/instances/instance-edition-form'
+
 import {MdModeEdit} from 'react-icons/md'
 
 interface PageProps {

@@ -1,7 +1,8 @@
 import {render, screen, fireEvent} from '@testing-library/react'
-import ResponsiveTooltip from './responsive-tooltip'
 import {describe, it, expect} from 'vitest'
 import userEvent from '@testing-library/user-event'
+
+import ResponsiveTooltip from './responsive-tooltip'
 
 describe('ResponsiveTooltip', () => {
   it('renders the tooltip content on hover', async () => {

@@ -1,6 +1,10 @@
 'use client'
+import React from 'react'
+import Link from 'next/link'
 
-import {useEffect, useState} from 'react'
+import {type Version} from '@/database/data/versions'
+import {type Feature} from '@/database/data/features'
+
 import {
   Dialog,
   DialogContent,
@@ -11,12 +15,10 @@ import {
 } from '@/components/Atoms/dialog'
 import {Button} from '@/components/Atoms/button'
 import {Checkbox} from '@/components/Atoms/checkbox'
-import {ExternalLink} from 'lucide-react'
-import type {Version} from './versions'
-import {SubterraLogoMd} from '@/components/Organisms/theme/subterra-logo'
 import {ScrollArea} from '@/components/Atoms/scroll-area'
-import {Feature} from './features'
-import Link from 'next/link'
+import {SubterraLogoMd} from '@/components/Organisms/theme/subterra-logo'
+
+import {ExternalLink} from 'lucide-react'
 
 // Claves de almacenamiento local
 const STORAGE_VERSION_KEY = 'app_version'
@@ -38,15 +40,15 @@ export function UpdatesModal({
   features: Feature[]
   onClose?: () => void
 }) {
-  const [open, setOpen] = useState(false)
-  const [dontShowAgain, setDontShowAgain] = useState(false)
+  const [open, setOpen] = React.useState(false)
+  const [dontShowAgain, setDontShowAgain] = React.useState(false)
 
   const currentVersion = versions[0]
   const currentFeatures = features.filter(
     (feature) => feature.version === currentVersion.version
   )
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Comprobar si debemos mostrar el modal
     const storedVersion = localStorage.getItem(STORAGE_VERSION_KEY)
     const hideModal = localStorage.getItem(STORAGE_HIDE_MODAL_KEY) === 'true'

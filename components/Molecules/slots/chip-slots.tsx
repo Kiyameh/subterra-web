@@ -1,5 +1,5 @@
-import {Badge, BadgeProps} from '@/components/Atoms/badge'
 import {cn} from '@/lib/utils'
+import {Badge, type BadgeProps} from '@/components/Atoms/badge'
 import DateBadge from '@/components/Molecules/badges/date-badge'
 
 /**

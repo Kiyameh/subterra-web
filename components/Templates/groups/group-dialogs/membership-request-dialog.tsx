@@ -1,14 +1,14 @@
 'use client'
 import React from 'react'
 import {useRouter} from 'next/navigation'
-
-import {Form} from '@/components/Atoms/form'
+import {z} from 'zod'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {z} from 'zod'
-import {Answer} from '@/database/types/Answer'
+
+import {type Answer} from '@/database/types/Answer'
 import {addMemberRequest} from '@/database/services/Group/membership/addMemberRequest'
 
+import {Form} from '@/components/Atoms/form'
 import {Button} from '@/components/Atoms/button'
 import {
   Dialog,

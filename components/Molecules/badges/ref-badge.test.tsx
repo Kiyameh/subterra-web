@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react'
-import RefBadge from './ref-badge'
 import {describe, it, expect} from 'vitest'
 import userEvent from '@testing-library/user-event'
+
+import RefBadge from './ref-badge'
 
 describe('RefBadge', () => {
   it('renders the badge with the correct link and text', () => {

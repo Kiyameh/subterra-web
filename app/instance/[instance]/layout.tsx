@@ -1,23 +1,22 @@
 import React from 'react'
-import ShortcutTooltip from '@/components/Molecules/badges/shortcut-tooltip'
-import NavigationBreadcrumb from '@/components/Organisms/navigation/dashboard-breadcrumb'
-import InstanceSidebar from '@/components/Templates/instances/instace-sidebar/instance-sidebar'
+import {auth} from '@/auth'
+
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/Atoms/sidebar'
+import ShortcutTooltip from '@/components/Molecules/badges/shortcut-tooltip'
+import NavigationBreadcrumb from '@/components/Organisms/navigation/dashboard-breadcrumb'
 import SubterraDropdown from '@/components/Organisms/navigation/subterra-dropdown'
-import FloatingContactForm from '@/components/Templates/staff-dashboard/floating-contact-form/floating-contact'
-import {auth} from '@/auth'
 import UnauthorizedCard from '@/components/Organisms/containers/401-unauthorized'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
-import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+import FloatingContactForm from '@/components/Templates/staff-dashboard/floating-contact-form/floating-contact'
+import InstanceSidebar from '@/components/Templates/instances/instace-sidebar/instance-sidebar'
 
 interface InstanceDashboardLayoutProps {
   params: Promise<{instance: string}>

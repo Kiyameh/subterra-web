@@ -1,6 +1,6 @@
-import {cn} from '@/lib/utils'
-import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
 import {Badge} from '@/components/Atoms/badge'
+import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
+import {cn} from '@/lib/utils'
 import {MdInfo} from 'react-icons/md'
 
 /**

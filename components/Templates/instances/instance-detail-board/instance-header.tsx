@@ -1,9 +1,9 @@
 import React from 'react'
+
+import {getOneInstance} from '@/database/services/Instance/getOneInstance'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+
 import HeaderBox from '@/components/Molecules/boxes/header-box'
-import {
-  getOneInstance,
-  InstanceWithUsers,
-} from '@/database/services/Instance/getOneInstance'
 
 import {FiBox} from 'react-icons/fi'
 

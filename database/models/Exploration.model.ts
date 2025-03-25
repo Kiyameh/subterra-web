@@ -1,19 +1,11 @@
 import {model, models, Schema} from 'mongoose'
-import {ExplorationDocument} from '@/database/types/Exploration'
+import {type ExplorationDocument} from '@/database/types/Exploration'
 
 //* ESQUEMA:
 const ExplorationSchema = new Schema<ExplorationDocument>(
   {
     //* Versiones:
-    versions: [
-      new Schema(
-        {
-          __v: {type: Number, required: true}, // Validación obligatoria
-          updatedAt: {type: Date, required: true}, // Validación obligatoria
-        },
-        {strict: false} // Permitir otras propiedades sin validarlas
-      ),
-    ],
+    versions: [Schema.Types.Mixed],
     //* Manejo de relaciones:
     datatype: {type: String, required: true, default: 'exploration'},
     instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},

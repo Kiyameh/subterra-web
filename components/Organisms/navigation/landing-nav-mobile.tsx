@@ -1,8 +1,9 @@
 'use client'
 import React from 'react'
+import Link from 'next/link'
+
 import useCurrentSection from '@/hooks/use-current-section'
 import useScrollingVisibility from '@/hooks/use-scrolling-visibility'
-import Link from 'next/link'
 
 /**
  * @version 1

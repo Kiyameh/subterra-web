@@ -6,9 +6,9 @@ import {zodResolver} from '@hookform/resolvers/zod'
 
 import {contactMaxCharacters} from '@/database/validation/platform.schemas'
 import {contactFormSchema} from '@/database/validation/platform.schemas'
-import {ContactFormValues} from '@/database/validation/platform.schemas'
+import {type ContactFormValues} from '@/database/validation/platform.schemas'
 import {contactSubjects} from '@/database/models/Platform.model'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {addContactMessage} from '@/database/services/Platform/addContactMessage'
 
 import {Form} from '@/components/Atoms/form'

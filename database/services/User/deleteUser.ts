@@ -1,5 +1,5 @@
 'use server'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {connectToMongoDB} from '@/database/databaseConection'
 import User from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'

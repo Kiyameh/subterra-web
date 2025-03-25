@@ -1,14 +1,16 @@
 'use client'
 import React from 'react'
-import {PlatformObject} from '@/database/models/Platform.model'
-import {deleteInstanceRequest} from '@/database/services/Platform/deleteInstanceRequest'
-import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {Button} from '@/components/Atoms/button'
 
-import {BiMessageAltAdd} from 'react-icons/bi'
-import {MdDelete} from 'react-icons/md'
+import {type PlatformObject} from '@/database/models/Platform.model'
+import {deleteInstanceRequest} from '@/database/services/Platform/deleteInstanceRequest'
+
+import {Button} from '@/components/Atoms/button'
+import {TextSlot} from '@/components/Molecules/slots/text-slots'
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 import {BooleanSlot} from '@/components/Molecules/slots/chip-slots'
+
+import {MdDelete} from 'react-icons/md'
+import {BiMessageAltAdd} from 'react-icons/bi'
 
 /**
  * @version 2

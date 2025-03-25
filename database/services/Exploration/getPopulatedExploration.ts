@@ -1,16 +1,14 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Exploration from '@/database/models/Exploration.model'
-
 import Cave from '@/database/models/Cave.model'
-
 import Group from '@/database/models/Group.model'
-import {GroupObject} from '@/database/services/Group/getOneGroup'
 
-import {ExplorationDocument} from '@/database/types/Exploration'
-import {PlainCave} from '@/database/services/Cave/getPlainCave'
+import {type GroupObject} from '@/database/services/Group/getOneGroup'
+import {type ExplorationDocument} from '@/database/types/Exploration'
+import {type PlainCave} from '@/database/services/Cave/getPlainCave'
 
 /**
  * @typo Interfaz de retorno de la función getPopulatedExploration

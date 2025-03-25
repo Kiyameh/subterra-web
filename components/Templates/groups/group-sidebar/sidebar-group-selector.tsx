@@ -1,7 +1,8 @@
 'use client'
-import * as React from 'react'
+import React from 'react'
 import Link from 'next/link'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
+
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 import {Button} from '@/components/Atoms/button'
 import {

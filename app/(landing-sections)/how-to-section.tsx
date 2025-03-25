@@ -1,11 +1,11 @@
-import DownAnchor from '@/components/Molecules/buttons/down-anchor'
 import React from 'react'
 
-import {FaPersonHiking} from 'react-icons/fa6'
-import {MdGroup} from 'react-icons/md'
-
+import DownAnchor from '@/components/Molecules/buttons/down-anchor'
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
+
+import {MdGroup} from 'react-icons/md'
+import {FaPersonHiking} from 'react-icons/fa6'
 
 export default function HowToSection() {
   return (

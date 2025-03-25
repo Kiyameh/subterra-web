@@ -1,7 +1,9 @@
 import React from 'react'
 import {auth} from '@/auth'
-import UnauthorizedCard from '@/components/Organisms/containers/401-unauthorized'
+
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
+import UnauthorizedCard from '@/components/Organisms/containers/401-unauthorized'
 
 interface LayoutProps {
   params: Promise<{instance: string}>

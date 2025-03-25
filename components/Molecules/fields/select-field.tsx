@@ -7,7 +7,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Atoms/form'
-import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {
   Select,
   SelectContent,
@@ -15,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/Atoms/select'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 
 /**
  * @version 1

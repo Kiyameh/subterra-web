@@ -1,8 +1,10 @@
 'use client'
 import * as React from 'react'
 import Link from 'next/link'
-import {InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
 
+import {type InstanceWithOwner} from '@/database/services/Instance/getAllInstances'
+
+import {Button} from '@/components/Atoms/button'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -16,8 +18,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/Atoms/dropdown-menu'
-
-import {Button} from '@/components/Atoms/button'
 import OnlineIndicator from '@/components/Molecules/badges/online-indicator'
 import ResponsiveTooltip from '@/components/Molecules/badges/responsive-tooltip'
 

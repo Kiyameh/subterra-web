@@ -1,11 +1,11 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {checkIsAdmin} from '@/database/services/Group/membership/checkIsAdmin'
 
 import Group from '@/database/models/Group.model'
 
-import {GroupFormValues} from '@/database/validation/group.schema'
+import {type GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
 
 /**

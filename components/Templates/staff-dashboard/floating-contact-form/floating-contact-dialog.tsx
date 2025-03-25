@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import {type Session} from 'next-auth'
 import {
   Dialog,
   DialogContent,
@@ -9,7 +10,6 @@ import {
 
 import {BiMessageDetail} from 'react-icons/bi'
 import ContactForm from './contact-form'
-import {Session} from 'next-auth'
 
 /**
  * @version 1

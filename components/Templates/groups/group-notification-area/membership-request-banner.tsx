@@ -2,9 +2,10 @@
 import React from 'react'
 
 import {Button} from '@/components/Atoms/button'
-import MembershipRequestDialog from '@/components/Templates/groups/group-dialogs/membership-request-dialog'
-import {IoCloseSharp} from 'react-icons/io5'
 import LoginWrapper from '@/components/Organisms/authentication/login-wrapper'
+import MembershipRequestDialog from '@/components/Templates/groups/group-dialogs/membership-request-dialog'
+
+import {IoCloseSharp} from 'react-icons/io5'
 
 /**
  * @version 1

@@ -1,6 +1,6 @@
+import React from 'react'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-import React from 'react'
 import {FaRegImage} from 'react-icons/fa'
 
 /**

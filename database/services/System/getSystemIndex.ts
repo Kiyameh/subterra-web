@@ -1,13 +1,13 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Cave from '@/database/models/Cave.model'
 import System from '@/database/models/System.model'
 import Instance from '@/database/models/Instance.model'
-import {CaveDocument} from '@/database/types/Cave'
-import {SystemDocument} from '@/database/types/System'
+import {type CaveDocument} from '@/database/types/Cave'
+import {type SystemDocument} from '@/database/types/System'
 
 /**
  * @type Interface de retorno de la función getSystemIndex

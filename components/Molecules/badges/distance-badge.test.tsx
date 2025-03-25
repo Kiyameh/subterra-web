@@ -1,7 +1,8 @@
+import React from 'react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
+
 import DistanceBadge from './distance-badge'
-import React from 'react'
 
 describe('DistanceBadge', () => {
   it('should display the distance in meters by default', () => {

@@ -1,17 +1,17 @@
 import {auth} from '@/auth'
 
 import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
-import {PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {type PlainExploration} from '@/database/services/Exploration/getPlainExploration'
 import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
 import {getCaveIndex} from '@/database/services/Cave/getCaveIndex'
-import {CaveIndex} from '@/database/services/Cave/getCaveIndex'
+import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import ExplorationEditionForm from '@/components/Templates/explorations/edition/exploration-edition-form'
 import PageContainer from '@/components/Organisms/theme/page-container'
+import ExplorationEditionForm from '@/components/Templates/documents/edition-forms/exploration-edition-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
 

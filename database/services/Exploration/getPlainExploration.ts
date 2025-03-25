@@ -1,10 +1,10 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Exploration from '@/database/models/Exploration.model'
 
-import {ExplorationDocument} from '@/database/types/Exploration'
+import {type ExplorationDocument} from '@/database/types/Exploration'
 
 /**
  * @type Interface de retorno de la función getPlainExploration

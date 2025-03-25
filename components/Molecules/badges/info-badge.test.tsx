@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react'
-import InfoBadge from './info-badge'
 import {describe, it, expect} from 'vitest'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+
+import InfoBadge from './info-badge'
 
 describe('InfoBadge', () => {
   it('renders the badge with the correct label and icon', () => {

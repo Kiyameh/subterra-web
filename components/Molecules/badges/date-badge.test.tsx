@@ -1,9 +1,11 @@
 import {render, screen} from '@testing-library/react'
-import DateBadge from './date-badge'
 import {describe, it, expect} from 'vitest'
+import userEvent from '@testing-library/user-event'
+
 import {format} from 'date-fns'
 import {es} from 'date-fns/locale'
-import userEvent from '@testing-library/user-event'
+
+import DateBadge from './date-badge'
 
 describe('DateBadge', () => {
   it('renders the badge with the correct formatted date', () => {

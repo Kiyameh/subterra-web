@@ -1,5 +1,5 @@
 //* Dependencias:
-import Link, {LinkProps} from 'next/link'
+import Link, {type LinkProps} from 'next/link'
 import {MdAnchor} from 'react-icons/md'
 
 /**

@@ -1,6 +1,7 @@
 import {render, screen, fireEvent} from '@testing-library/react'
-import TimeBadge from './time-badge'
 import {describe, it, expect} from 'vitest'
+
+import TimeBadge from './time-badge'
 
 describe('TimeBadge', () => {
   it('renders the badge with initial time in minutes', () => {

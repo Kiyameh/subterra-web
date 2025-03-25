@@ -2,7 +2,8 @@
 import {connectToMongoDB} from '@/database/databaseConection'
 import Group from '@/database/models/Group.model'
 import Instance from '@/database/models/Instance.model'
-import User, {UserDocument} from '@/database/models/User.model'
+import User from '@/database/models/User.model'
+import {type UserDocument} from '@/database/models/User.model'
 
 /**
  * @version 1

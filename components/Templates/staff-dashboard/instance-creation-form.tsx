@@ -3,23 +3,21 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {Answer} from '@/database/types/Answer'
-import {
-  InstanceFormValues,
-  instanceMaxCharacters,
-} from '@/database/validation/instance.schemas'
+import {type Answer} from '@/database/types/Answer'
+import {instanceMaxCharacters} from '@/database/validation/instance.schemas'
+import {type InstanceFormValues} from '@/database/validation/instance.schemas'
 import {InstanceFormSchema} from '@/database/validation/instance.schemas'
+import {createInstance} from '@/database/services/Instance/createInstance'
 
 import {Form} from '@/components/Atoms/form'
+import {Button} from '@/components/Atoms/button'
 import TextField from '@/components/Molecules/fields/text-field'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import TextAreaField from '@/components/Molecules/fields/text-area-field'
 import BooleanField from '@/components/Molecules/fields/boolean-field'
 import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
-import {Button} from '@/components/Atoms/button'
 import Divider from '@/components/Molecules/boxes/divider'
-import {createInstance} from '@/database/services/Instance/createInstance'
 
 const EMPTY_INSTANCE: InstanceFormValues = {
   name: '',

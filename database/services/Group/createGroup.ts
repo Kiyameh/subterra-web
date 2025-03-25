@@ -1,13 +1,13 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
 
 import User from '@/database/models/User.model'
 
 import Group from '@/database/models/Group.model'
 
-import {GroupFormValues} from '@/database/validation/group.schema'
+import {type GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
 
 //* 1. Funciones de escritura */

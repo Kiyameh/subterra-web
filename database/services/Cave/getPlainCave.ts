@@ -1,10 +1,10 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Cave from '@/database/models/Cave.model'
 
-import {CaveDocument} from '@/database/types/Cave'
+import {type CaveDocument} from '@/database/types/Cave'
 
 /**
  * @version 2

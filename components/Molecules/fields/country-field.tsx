@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import {FieldValues, Path, PathValue, UseFormReturn} from 'react-hook-form'
-import InfoBadge from '@/components/Molecules/badges/info-badge'
+
 import {
   FormField,
   FormItem,
@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/Atoms/select'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 
 //? Actualizar con otros países y provincias si necesario:
 import EU_countries from '@/database/data/EU_countries.json'

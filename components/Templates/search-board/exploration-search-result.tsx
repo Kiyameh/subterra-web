@@ -1,6 +1,13 @@
-import {ExplorationSlot} from '@/components/Molecules/slots/documents-slots'
 import {getExplorationsIndex} from '@/database/services/Exploration/getExplorationIndex'
-import {ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {type ExplorationIndex} from '@/database/services/Exploration/getExplorationIndex'
+import {ExplorationSlot} from '@/components/Molecules/slots/documents-slots'
+
+/**
+ * @version 1
+ * @description Muestra los resultados de la búsqueda de exploraciones
+ * @param query texto de búsqueda
+ * @param instanceName Nombre de la instancia
+ */
 
 export default async function ExplorationSearchResults({
   query,

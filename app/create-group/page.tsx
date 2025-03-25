@@ -1,12 +1,14 @@
 import {auth} from '@/auth'
+
+import {Button} from '@/components/Atoms/button'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import BackButton from '@/components/Molecules/buttons/back-button'
-import {FiAlertTriangle} from 'react-icons/fi'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
-import GroupCreationForm from '@/components/Templates/groups/group-creation-form'
+import PageContainer from '@/components/Organisms/theme/page-container'
 import LoginWrapper from '@/components/Organisms/authentication/login-wrapper'
-import {Button} from '@/components/Atoms/button'
+import GroupCreationForm from '@/components/Templates/groups/group-creation-form'
+
+import {FiAlertTriangle} from 'react-icons/fi'
 
 export default async function GroupCreationPage() {
   const session = await auth()

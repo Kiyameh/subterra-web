@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/Atoms/accordion'
+
 import {BsQuestionCircleFill} from 'react-icons/bs'
 
 /**

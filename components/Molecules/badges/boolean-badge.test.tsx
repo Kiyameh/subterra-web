@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
-import BooleanBadge from './boolean-badge'
 import {describe, it, expect} from 'vitest'
+
+import BooleanBadge from './boolean-badge'
 
 describe('BooleanBadge', () => {
   it('renders the badge with "Si" when value is true', () => {

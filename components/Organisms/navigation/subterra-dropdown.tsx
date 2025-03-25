@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import {versions} from '@/database/data/versions'
+
 import {Button} from '@/components/Atoms/button'
 import {
   DropdownMenu,
@@ -9,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/Atoms/dropdown-menu'
 import {SubterraLogoIcon} from '@/components/Organisms/theme/subterra-logo'
-import {versions} from '@/components/Templates/versions-board/versions'
 
 import {GrContact} from 'react-icons/gr'
 import {GrHelpBook} from 'react-icons/gr'

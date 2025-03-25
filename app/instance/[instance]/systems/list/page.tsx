@@ -1,7 +1,8 @@
 import {Suspense} from 'react'
+
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import SystemListBoard from '@/components/Templates/systems/index/system-list-board'
+import SystemListBoard from '@/components/Templates/documents/list-view/system-list-board'
 
 interface PageProps {
   params: Promise<{instance: string}>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import {Button, ButtonProps} from '@/components/Atoms/button'
+
+import {Button, type ButtonProps} from '@/components/Atoms/button'
 
 /**
  * @version 1

@@ -1,7 +1,7 @@
 import {Document, Schema, models, model, Types} from 'mongoose'
 import bcrypt from 'bcryptjs'
-import {GroupObject} from '@/database/services/Group/getOneGroup'
-import {InstanceObject} from '@/database/services/Instance/getAllInstances'
+import {type GroupObject} from '@/database/services/Group/getOneGroup'
+import {type InstanceObject} from '@/database/services/Instance/getAllInstances'
 
 //* INTERFACES:
 

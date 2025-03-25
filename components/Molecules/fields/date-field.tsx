@@ -5,7 +5,6 @@ import {format} from 'date-fns'
 import {es} from 'date-fns/locale'
 import {cn} from '@/lib/utils'
 
-import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {Calendar} from '@/components/Atoms/calendar'
 import {Button} from '@/components/Atoms/button'
 import {
@@ -20,6 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Atoms/form'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 
 import {CalendarIcon} from 'lucide-react'
 

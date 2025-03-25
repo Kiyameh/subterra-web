@@ -1,10 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 
+import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
+import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
+
 import {GroupProfileCard} from '@/components/Molecules/slots/group-slots'
 import FetchingErrorButton from '@/components/Molecules/buttons/fetching-error-button'
-import {getGroupsIndex} from '@/database/services/Group/getGroupsIndex'
-import {GroupIndex} from '@/database/services/Group/getGroupsIndex'
 
 /**
  * @version 1

@@ -1,6 +1,6 @@
+import React from 'react'
 import {describe, it, expect, vi, beforeEach} from 'vitest'
 import {render, fireEvent} from '@testing-library/react'
-import React from 'react'
 import FetchingErrorButton from './fetching-error-button'
 
 // Mock useRouter

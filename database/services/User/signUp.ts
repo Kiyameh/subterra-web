@@ -1,8 +1,9 @@
 'use server'
 import User from '@/database/models/User.model'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer'
-import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
+import {type Answer} from '@/database/types/Answer'
+import {SignUpSchema} from '@/database/validation/auth.schemas'
+import {type SignUpValues} from '@/database/validation/auth.schemas'
 
 /**
  * @version 1

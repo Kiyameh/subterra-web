@@ -1,8 +1,9 @@
 import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
-import {Star} from 'lucide-react'
+
 import CollapsibleBox from './collapsible-box'
+import {Star} from 'lucide-react'
 
 describe('CollapsibleBox', () => {
   it('renders correctly with default props', () => {

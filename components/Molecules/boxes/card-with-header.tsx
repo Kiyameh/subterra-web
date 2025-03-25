@@ -6,8 +6,8 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/Atoms/card'
-import {SubterraLogoMd} from '@/components/Organisms/theme/subterra-logo'
 import BackButton from '@/components/Molecules/buttons/back-button'
+import {SubterraLogoMd} from '@/components/Organisms/theme/subterra-logo'
 
 /**
  * @version 1

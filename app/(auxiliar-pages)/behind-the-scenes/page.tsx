@@ -1,7 +1,8 @@
+import Link from 'next/link'
+import {Victor_Mono} from 'next/font/google'
+
 import SimpleBox from '@/components/Molecules/boxes/simple-box'
 import PageContainer from '@/components/Organisms/theme/page-container'
-import {Victor_Mono} from 'next/font/google'
-import Link from 'next/link'
 
 const mono = Victor_Mono({
   subsets: ['latin'],

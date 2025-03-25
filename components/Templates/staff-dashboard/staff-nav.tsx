@@ -23,6 +23,11 @@ import {BsAppIndicator} from 'react-icons/bs'
 import {CgPlayButtonR} from 'react-icons/cg'
 import {IoMdClose} from 'react-icons/io'
 
+/**
+ * @version 1
+ * @description Navegación de la interfaz de administrador
+ */
+
 export default function StaffNavigation() {
   return (
     <div className="w-fit bg-card px-4 p-2 rounded-lg">

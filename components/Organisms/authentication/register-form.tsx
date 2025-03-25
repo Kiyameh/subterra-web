@@ -2,19 +2,19 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
+import {signIn, signOut} from 'next-auth/react'
 
 import {SignUpSchema, SignUpValues} from '@/database/validation/auth.schemas'
 import {signUp} from '@/database/services/User/signUp'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
+import {type User} from 'next-auth'
 
+import {Form} from '@/components/Atoms/form'
+import {Button} from '@/components/Atoms/button'
 import TextField from '@/components/Molecules/fields/text-field'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
-import {User} from 'next-auth'
 import {UserProfileCard} from '@/components/Molecules/slots/user-slots'
-import {signIn, signOut} from 'next-auth/react'
-import {Form} from '@/components/Atoms/form'
-import {Button} from '@/components/Atoms/button'
 
 /**
  * @version 1

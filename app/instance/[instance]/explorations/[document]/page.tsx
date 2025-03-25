@@ -1,12 +1,14 @@
 import {Suspense} from 'react'
+import {auth} from '@/auth'
+
+import {getPlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {type PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+
 import PageContainer from '@/components/Organisms/theme/page-container'
-import ExplorationInfoCard from '@/components/Templates/explorations/details/exploration-info-card'
-import ExplorationDescriptionCard from '@/components/Templates/explorations/details/exploration-description-card'
-import ExplorationHeader from '@/components/Templates/explorations/details/exploration-header'
-import SkeletonHeader from '@/components/Organisms/containers/skelenton-header'
-import ExplorationCavesCard from '@/components/Templates/explorations/details/exploration-caves-card'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
-import PicturesLoader from '@/components/Templates/document-cards/pictures-loader'
+import NotFoundCard from '@/components/Organisms/containers/404-not-found'
+import ExplorationDetailsBoard from '@/components/Templates/documents/details-boards/board-exploration'
 
 interface PageProps {
   params: Promise<{document: string; instance: string}>
@@ -16,35 +18,36 @@ export default async function ExplorationDetailPage({params}: PageProps) {
   // Obtener el id del documento
   const {instance, document} = await params
 
+  // Obtener la exploración:
+  const exploration = (await getPlainExploration(document))
+    .content as PlainExploration | null
+
+  // Obtener el id del usuario
+  const userId = (await auth())?.user?._id as string | null
+
+  // Validar roles de usuario
+  const isEditor = await checkIsEditor(userId, instance)
+
+  if (!exploration) {
+    return (
+      <NotFoundCard
+        title="Error al cargar los datos"
+        text="
+          No se ha podido cargar la información de la cueva seleccionada. Por favor, intente nuevamente más tarde
+        "
+      />
+    )
+  }
   return (
-    <PageContainer className="justify-start">
-      {/* Header */}
-      <div className="flex flex-col items-center w-full">
-        <Suspense fallback={<SkeletonHeader />}>
-          <ExplorationHeader
-            explorationId={document}
-            instanceName={instance}
-          />
-        </Suspense>
-      </div>
-
-      <div className="flex gap-4 flex-wrap justify-center">
-        <Suspense fallback={<SkeletonCard />}>
-          <ExplorationInfoCard explorationId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <ExplorationDescriptionCard explorationId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <ExplorationCavesCard explorationId={document} />
-        </Suspense>
-
-        <Suspense fallback={<SkeletonCard />}>
-          <PicturesLoader explorationId={document} />
-        </Suspense>
-      </div>
+    <PageContainer className="justify-start max-w-full">
+      <Suspense fallback={<SkeletonCard />}>
+        <ExplorationDetailsBoard
+          explorationId={document}
+          isEditor={isEditor}
+          commanderId={userId}
+          exploration={exploration}
+        />
+      </Suspense>
     </PageContainer>
   )
 }

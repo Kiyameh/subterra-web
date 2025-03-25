@@ -1,6 +1,6 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import Exploration from '@/database/models/Exploration.model'
 
@@ -8,7 +8,6 @@ import Exploration from '@/database/models/Exploration.model'
  * @version 1
  * @description Obtiene todas las exploraciones de una cueva
  * @param caveId id de la cueva
- * @returns content: Datos de la exploración planos
  */
 
 export async function getExplorationsOfCave(caveId: string): Promise<Answer> {

@@ -20,18 +20,17 @@ import {
 export const SystemSchema = z.object({
   // MongoDB
   _id: z.string().regex(OIDRegex, OIDMsg).optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
   __v: z.number().optional(),
-  versions: z
-    .array(
-      z
-        .object({
-          __v: z.number(), // Validación obligatoria de la propiedad __v
-        })
-        .catchall(z.any()) // Permitir otras propiedades no definidas
-    )
-    .optional(),
+  versions: z.array(
+    z
+      .object({
+        __v: z.number(), // Validación obligatoria de la propiedad __v
+        updatedAt: z.coerce.date(), // Validación obligatoria
+      })
+      .catchall(z.any()) // Permitir otras propiedades no definidas
+  ),
 
   // Manejo de relaciones
   datatype: z.literal('system').default('system'),
@@ -95,10 +94,7 @@ type SystemDocumentBase = Omit<
   '_id' | '__v' | 'createdAt' | 'updatedAt' | 'instances'
 >
 
-export type SystemFormValues = Omit<
-  SystemODT,
-  '_id' | '__v' | 'createdAt' | 'updatedAt'
->
+export type SystemFormValues = Omit<SystemODT, '_id'>
 
 export interface SystemDocument extends SystemDocumentBase, Document {
   instances: Types.ObjectId[]

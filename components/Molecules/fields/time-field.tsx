@@ -9,8 +9,8 @@ import {
   FormMessage,
 } from '@/components/Atoms/form'
 import {Input} from '@/components/Atoms/input'
-import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {Button} from '@/components/Atoms/button'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {FaClockRotateLeft} from 'react-icons/fa6'
 
 /**

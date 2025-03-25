@@ -2,8 +2,8 @@
 import React from 'react'
 import {useRouter} from 'next/navigation'
 
+import {type Answer} from '@/database/types/Answer'
 import {promoteCoordinator} from '@/database/services/Instance/membership/promoteCoordinator'
-import {Answer} from '@/database/types/Answer'
 
 import {Button} from '@/components/Atoms/button'
 import {
@@ -13,12 +13,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/Atoms/dialog'
+import InfoBox from '@/components/Molecules/boxes/info-box'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 
 import {Loader2} from 'lucide-react'
 import {FaUserLock} from 'react-icons/fa6'
-
-import InfoBox from '@/components/Molecules/boxes/info-box'
 
 /**
  * @version 1

@@ -8,8 +8,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Atoms/form'
-import InfoBadge from '@/components/Molecules/badges/info-badge'
 import {TagsInput} from '@/components/Atoms/tags-input'
+import InfoBadge from '@/components/Molecules/badges/info-badge'
 
 /**
  * @version 1

@@ -3,13 +3,13 @@ import React from 'react'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import {
-  GroupFormValues,
-  groupMaxCharacters,
-} from '@/database/validation/group.schema'
+import {groupMaxCharacters} from '@/database/validation/group.schema'
+import {type GroupFormValues} from '@/database/validation/group.schema'
 import {GroupFormSchema} from '@/database/validation/group.schema'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {groupCategories} from '@/database/models/Group.enums'
+import {type GroupWithUsers} from '@/database/services/Group/getOneGroup'
+import {updateGroup} from '@/database/services/Group/updateGroup'
 
 import {Form} from '@/components/Atoms/form'
 import LinkButton from '@/components/Molecules/buttons/link-button'
@@ -23,8 +23,6 @@ import SubmitButton from '@/components/Molecules/buttons/submit-button'
 
 import {TbWorld} from 'react-icons/tb'
 import {MdOutlineAlternateEmail} from 'react-icons/md'
-import {GroupWithUsers} from '@/database/services/Group/getOneGroup'
-import {updateGroup} from '@/database/services/Group/updateGroup'
 
 /**
  * @version 1

@@ -1,5 +1,7 @@
+import {type Session} from 'next-auth'
+
 import {SidebarGroup, SidebarGroupLabel} from '@/components/Atoms/sidebar'
-import {Session} from 'next-auth'
+
 import {FaInfo} from 'react-icons/fa'
 
 /**

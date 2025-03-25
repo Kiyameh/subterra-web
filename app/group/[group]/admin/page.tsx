@@ -1,27 +1,27 @@
 import React from 'react'
 import Link from 'next/link'
 import {auth} from '@/auth'
-import {
-  getOneGroup,
-  GroupWithUsers,
-} from '@/database/services/Group/getOneGroup'
 
-import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import PendingRequestBanner from '@/components/Templates/groups/group-notification-area/pending-request-banner'
-import PageContainer from '@/components/Organisms/theme/page-container'
+import {getOneGroup} from '@/database/services/Group/getOneGroup'
+import {type GroupWithUsers} from '@/database/services/Group/getOneGroup'
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
+import {type PlatformObject} from '@/database/models/Platform.model'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
-import GroupEditionForm from '@/components/Templates/groups/group-edition-form'
 import SquareButton from '@/components/Molecules/buttons/square-button'
 import InfoBox from '@/components/Molecules/boxes/info-box'
 import CardTitle from '@/components/Molecules/boxes/card-title'
+import NotFoundCard from '@/components/Organisms/containers/404-not-found'
+import PageContainer from '@/components/Organisms/theme/page-container'
+import PendingRequestBanner from '@/components/Templates/groups/group-notification-area/pending-request-banner'
+import GroupEditionForm from '@/components/Templates/groups/group-edition-form'
+
 import {RiAddBoxLine} from 'react-icons/ri'
 import {FiBox} from 'react-icons/fi'
 import {MdModeEdit, MdPendingActions} from 'react-icons/md'
 import {BiMessageDetail} from 'react-icons/bi'
 import {FaInfoCircle} from 'react-icons/fa'
-import {PlatformObject} from '@/database/models/Platform.model'
 import {PiWarningBold} from 'react-icons/pi'
-import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
 
 interface PageProps {
   params: Promise<{group: string}>

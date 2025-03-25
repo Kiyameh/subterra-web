@@ -1,14 +1,14 @@
 'use client'
 import React from 'react'
+
 import {SidebarGroup, useSidebar} from '@/components/Atoms/sidebar'
-import {AdminBadge, EditorBadge} from '@/components/Molecules/slots/user-slots'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/Atoms/dropdown-menu'
-
+import {AdminBadge, EditorBadge} from '@/components/Molecules/slots/user-slots'
 import ResignEditorDialog from '@/components/Templates/instances/instance-dialogs/resign-editor-dialog'
 import ResignCoordinatorDialog from '@/components/Templates/instances/instance-dialogs/resign-coordinator-dialog'
 

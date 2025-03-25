@@ -1,12 +1,14 @@
 import React from 'react'
-import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
-import RegisterForm from '@/components/Organisms/authentication/register-form'
 import {auth} from '@/auth'
-import ResendSigninForm from '@/components/Organisms/authentication/resend-signin-form'
-import CardTitle from '@/components/Molecules/boxes/card-title'
-import BasicCard from '@/components/Molecules/boxes/basic-card'
 import {redirect} from 'next/navigation'
+
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import BasicCard from '@/components/Molecules/boxes/basic-card'
 import InfoBox from '@/components/Molecules/boxes/info-box'
+import CardTitle from '@/components/Molecules/boxes/card-title'
+import RegisterForm from '@/components/Organisms/authentication/register-form'
+import ResendSigninForm from '@/components/Organisms/authentication/resend-signin-form'
+
 import {FaUserPlus} from 'react-icons/fa'
 
 export default async function RegisterPage() {

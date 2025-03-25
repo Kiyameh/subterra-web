@@ -1,6 +1,13 @@
-import {SystemSlot} from '@/components/Molecules/slots/documents-slots'
-import {SystemIndex} from '@/database/services/System/getSystemIndex'
+import {type SystemIndex} from '@/database/services/System/getSystemIndex'
 import {getSystemIndex} from '@/database/services/System/getSystemIndex'
+import {SystemSlot} from '@/components/Molecules/slots/documents-slots'
+
+/**
+ * @version 1
+ * @description Muestra los resultados de la búsqueda de sistemas
+ * @param query texto de búsqueda
+ * @param instanceName Nombre de la instancia
+ */
 
 export default async function SystemSearchResult({
   query,

@@ -1,4 +1,8 @@
 'use client'
+import {useRouter} from 'next/navigation'
+import {signOut} from 'next-auth/react'
+import {type Session} from 'next-auth'
+
 import {
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -8,10 +12,6 @@ import {
 import {MdSettings} from 'react-icons/md'
 import {BsFilePersonFill} from 'react-icons/bs'
 import {RiEyeCloseLine} from 'react-icons/ri'
-
-import {useRouter} from 'next/navigation'
-import {signOut} from 'next-auth/react'
-import {Session} from 'next-auth'
 
 /**
  * @version 1

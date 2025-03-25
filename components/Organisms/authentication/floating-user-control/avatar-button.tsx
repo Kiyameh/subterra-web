@@ -1,6 +1,6 @@
 'use client'
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/Atoms/avatar'
-import {Session} from 'next-auth'
+import {type Session} from 'next-auth'
 
 /**
  * @version 1

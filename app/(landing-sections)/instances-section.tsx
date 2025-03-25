@@ -1,10 +1,12 @@
-import AllInstancesPanel from '@/components/Templates/instances/all-instances-panel'
 import React, {Suspense} from 'react'
-import {LuBox} from 'react-icons/lu'
-import PageContainer from '@/components/Organisms/theme/page-container'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import DownAnchor from '@/components/Molecules/buttons/down-anchor'
+import PageContainer from '@/components/Organisms/theme/page-container'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
+import AllInstancesPanel from '@/components/Templates/instances/all-instances-panel'
+
+import {LuBox} from 'react-icons/lu'
 
 export default function InstancesSection() {
   return (

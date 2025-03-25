@@ -3,12 +3,11 @@ import React from 'react'
 import {useRouter} from 'next/navigation'
 
 import {z} from 'zod'
-import {Form} from '@/components/Atoms/form'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import {addEditor} from '@/database/services/Instance/membership/addEditor'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import {
   Dialog,
@@ -16,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/Atoms/dialog'
+import {Form} from '@/components/Atoms/form'
 import {Button} from '@/components/Atoms/button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'

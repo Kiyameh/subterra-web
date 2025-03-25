@@ -1,11 +1,11 @@
 import React from 'react'
-import {
-  getOneGroup,
-  GroupWithUsers,
-} from '@/database/services/Group/getOneGroup'
-import InstanceCard from '@/components/Organisms/containers/instance-card'
-import {InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+
+import {getOneGroup} from '@/database/services/Group/getOneGroup'
+import {type GroupWithUsers} from '@/database/services/Group/getOneGroup'
 import {getSomeInstances} from '@/database/services/Instance/getSomeInstances'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+
+import InstanceCard from '@/components/Organisms/containers/instance-card'
 
 /**
  * @version 1

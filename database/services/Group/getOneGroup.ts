@@ -1,13 +1,13 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import User, {UserIndex, UserObject} from '@/database/models/User.model'
 
 import Group from '@/database/models/Group.model'
-import {GroupDocument} from '@/database/models/Group.model'
+import {type GroupDocument} from '@/database/models/Group.model'
 import Instance from '@/database/models/Instance.model'
-import {InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
+import {type InstanceIndex} from '@/database/services/Instance/getInstancesIndex'
 
 /**
  * @version 2

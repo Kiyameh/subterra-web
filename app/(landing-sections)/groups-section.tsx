@@ -1,8 +1,10 @@
 import React, {Suspense} from 'react'
+
 import BasicCard from '@/components/Molecules/boxes/basic-card'
-import {FaUserGroup} from 'react-icons/fa6'
-import AllGroupsPanel from '@/components/Templates/groups/all-groups-panel'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
+import AllGroupsPanel from '@/components/Templates/groups/all-groups-panel'
+
+import {FaUserGroup} from 'react-icons/fa6'
 
 export default function GroupsSection() {
   return (

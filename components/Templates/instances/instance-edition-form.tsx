@@ -5,11 +5,10 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {Form} from '@/components/Atoms/form'
 
 import {UpdateInstanceFormSchema} from '@/database/validation/instance.schemas'
-import {UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
-import {InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
+import {type UpdateInstanceFormValues} from '@/database/validation/instance.schemas'
+import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstance'
 import {updateInstance} from '@/database/services/Instance/updateInstance'
-
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import TextField from '@/components/Molecules/fields/text-field'

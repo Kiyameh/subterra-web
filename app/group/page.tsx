@@ -1,10 +1,12 @@
 import React, {Suspense} from 'react'
+import {connection} from 'next/server'
+
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
-import AllGroupsPanel from '@/components/Templates/groups/all-groups-panel'
 import PageContainer from '@/components/Organisms/theme/page-container'
+import AllGroupsPanel from '@/components/Templates/groups/all-groups-panel'
+
 import {FaUserGroup} from 'react-icons/fa6'
-import {connection} from 'next/server'
 
 export default async function GroupListPage() {
   // Forzar renderizado dinámico:

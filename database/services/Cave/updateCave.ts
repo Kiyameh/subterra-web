@@ -1,15 +1,15 @@
 'use server'
 import {connectToMongoDB} from '@/database/databaseConection'
 import {decodeMongoError} from '@/database/tools/decodeMongoError'
-import {Answer} from '@/database/types/Answer'
+import {type Answer} from '@/database/types/Answer'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
 import Cave from '@/database/models/Cave.model'
 
-import {CaveFormValues, CaveSchema} from '@/database/types/Cave'
+import {type CaveFormValues, CaveSchema} from '@/database/types/Cave'
 
 /**
- * @version 2
+ * @version 3
  * @description Actualiza los datos de una cueva en la base de datos
  * @param values datos del formulario
  * @param updatedKeys claves de los valores que han cambiado en el formulario
