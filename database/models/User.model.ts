@@ -61,9 +61,6 @@ export const userSchema = new Schema<UserDocument>(
   {timestamps: true}
 )
 
-//* ÍNDICES:
-userSchema.index({email: 1}, {unique: true})
-
 //* MIDDLEWARES:
 /** Middelware que hashea la password si ha sido introducida o modificada antes de guardar el usuario */
 userSchema.pre('save', async function (this: UserDocument, next) {
