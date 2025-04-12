@@ -10,7 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/Atoms/dropdown-menu'
-import {SubterraLogoIcon} from '@/components/Organisms/theme/subterra-logo'
 
 import {GrContact} from 'react-icons/gr'
 import {GrHelpBook} from 'react-icons/gr'
@@ -18,9 +17,10 @@ import {MdOutlineTextSnippet} from 'react-icons/md'
 import {MdOutlineCookie} from 'react-icons/md'
 import {PiAvocadoFill} from 'react-icons/pi'
 import {MdOutlinePrivacyTip} from 'react-icons/md'
+import {Menu} from 'lucide-react'
 
 /**
- * @version 1
+ * @version 2
  * @description Dropdown de navegación principal de la plataforma con icono de apertura
  */
 
@@ -28,13 +28,14 @@ export default function SubterraDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div
-          className={
-            'flex items-center hover:bg-primary hover:bg-opacity-10 transition-colors ease-linear p-1 px-2 rounded-md cursor-pointer'
-          }
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8"
         >
-          <SubterraLogoIcon />
-        </div>
+          <Menu className="scale-125" />
+          <span className="sr-only">Abrir menú principal</span>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
@@ -56,7 +57,7 @@ export default function SubterraDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href="/user-guide">
+          <Link href="/guide">
             <DropdownMenuItem className="justify-between px-2 cursor-pointer">
               Guía de uso
               <GrHelpBook className="text-muted-foreground" />

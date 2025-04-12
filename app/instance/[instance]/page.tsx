@@ -2,7 +2,6 @@ import {Suspense} from 'react'
 
 import SkeletonHeader from '@/components/Organisms/containers/skelenton-header'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import InstanceHeader from '@/components/Templates/instances/instance-detail-board/instance-header'
 import InstanceInfoCard from '@/components/Templates/instances/instance-detail-board/instance-info-card'
 import InstanceStatsCard from '@/components/Templates/instances/instance-detail-board/instance-stats-card'
@@ -17,7 +16,7 @@ export default async function InstanceLandingPage({params}: PageProps) {
   const instanceName: string = (await params).instance
 
   return (
-    <PageContainer>
+    <>
       <div className="flex gap-4 flex-wrap justify-center">
         <Suspense fallback={<SkeletonHeader />}>
           <InstanceHeader instanceName={instanceName} />
@@ -32,6 +31,6 @@ export default async function InstanceLandingPage({params}: PageProps) {
           <TerritoryCard instanceName={instanceName} />
         </Suspense>
       </div>
-    </PageContainer>
+    </>
   )
 }

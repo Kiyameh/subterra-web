@@ -16,8 +16,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar,
-} from '@/components/Atoms/sidebar'
+  useDualSidebar,
+} from '@/components/Atoms/dual-sidebar'
 
 import {ChevronRight} from 'lucide-react'
 import {PiCircleBold} from 'react-icons/pi'
@@ -29,23 +29,40 @@ import {LuPlusCircle} from 'react-icons/lu'
 import {GrChapterAdd} from 'react-icons/gr'
 import {FaUserEdit} from 'react-icons/fa'
 import {IoMdInformationCircleOutline} from 'react-icons/io'
+import {useSession} from 'next-auth/react'
+import React from 'react'
+import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
+import {checkIsCoordinator} from '@/database/services/Instance/membership/checkIsCoordinator'
 
 /**
- * @version 1
+ * @version 2
  * @description Panel de navegación principal de instancias para colocar en un sidebar
- * @param isEditor Si el usuario es editor
- * @param isCoordinator Si el usuario es administrador
  */
-export default function SidebarInstanceNavigation({
-  isEditor,
-  isCoordinator,
-}: {
-  isEditor: boolean
-  isCoordinator: boolean
-}) {
-  const {instance} = useParams()
+
+export default function SidebarInstanceNavigation() {
+  // Obtener el usuario
+  const {data: session} = useSession()
+  const userId = session?.user?._id
+  // Obtener nombre de la instancia
+  const params = useParams()
+  const instanceName = params.instance as string
+
+  // Fetch de la instancia y de los roles
+  const [isEditor, setIsEditor] = React.useState<boolean>(false)
+  const [isCoordinator, setIsCoordinator] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    const fetchInstance = async () => {
+      const isEditor = await checkIsEditor(userId, instanceName)
+      const isCoordinator = await checkIsCoordinator(userId, instanceName)
+      setIsEditor(isEditor)
+      setIsCoordinator(isCoordinator)
+    }
+    fetchInstance()
+  }, [userId, instanceName])
+
   const pathName = usePathname()
-  const {isMobile, toggleSidebar} = useSidebar()
+  const {isMobile, toggleLeftSidebar} = useDualSidebar()
 
   return (
     <>
@@ -54,7 +71,7 @@ export default function SidebarInstanceNavigation({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href={`/instance/${instance}`}>
+              <Link href={`/instance/${instanceName}`}>
                 <IoMdInformationCircleOutline />
                 <span>Página de presentación</span>
               </Link>
@@ -79,10 +96,10 @@ export default function SidebarInstanceNavigation({
                       asChild
                       isActive={pathName.includes('/caves/list')}
                       onClick={() => {
-                        if (isMobile) toggleSidebar()
+                        if (isMobile) toggleLeftSidebar()
                       }}
                     >
-                      <Link href={`/instance/${instance}/caves/list`}>
+                      <Link href={`/instance/${instanceName}/caves/list`}>
                         <span>Listado completo</span>
                       </Link>
                     </SidebarMenuSubButton>
@@ -93,10 +110,10 @@ export default function SidebarInstanceNavigation({
                         asChild
                         isActive={pathName.includes('/caves/create')}
                         onClick={() => {
-                          if (isMobile) toggleSidebar()
+                          if (isMobile) toggleLeftSidebar()
                         }}
                       >
-                        <Link href={`/instance/${instance}/caves/create`}>
+                        <Link href={`/instance/${instanceName}/caves/create`}>
                           <span className="text-editor">
                             <LuPlusCircle />
                           </span>
@@ -128,10 +145,10 @@ export default function SidebarInstanceNavigation({
                       asChild
                       isActive={pathName.includes('/systems/list')}
                       onClick={() => {
-                        if (isMobile) toggleSidebar()
+                        if (isMobile) toggleLeftSidebar()
                       }}
                     >
-                      <Link href={`/instance/${instance}/systems/list`}>
+                      <Link href={`/instance/${instanceName}/systems/list`}>
                         <span>Listado completo</span>
                       </Link>
                     </SidebarMenuSubButton>
@@ -143,10 +160,10 @@ export default function SidebarInstanceNavigation({
                         asChild
                         isActive={pathName.includes('/systems/create')}
                         onClick={() => {
-                          if (isMobile) toggleSidebar()
+                          if (isMobile) toggleLeftSidebar()
                         }}
                       >
-                        <Link href={`/instance/${instance}/systems/create`}>
+                        <Link href={`/instance/${instanceName}/systems/create`}>
                           <span className="text-editor">
                             <RiApps2AddLine />
                           </span>
@@ -179,10 +196,12 @@ export default function SidebarInstanceNavigation({
                       asChild
                       isActive={pathName.includes('/explorations/list')}
                       onClick={() => {
-                        if (isMobile) toggleSidebar()
+                        if (isMobile) toggleLeftSidebar()
                       }}
                     >
-                      <Link href={`/instance/${instance}/explorations/list`}>
+                      <Link
+                        href={`/instance/${instanceName}/explorations/list`}
+                      >
                         <span>Últimas exploraciones</span>
                       </Link>
                     </SidebarMenuSubButton>
@@ -193,11 +212,11 @@ export default function SidebarInstanceNavigation({
                         asChild
                         isActive={pathName.includes('/explorations/create')}
                         onClick={() => {
-                          if (isMobile) toggleSidebar()
+                          if (isMobile) toggleLeftSidebar()
                         }}
                       >
                         <Link
-                          href={`/instance/${instance}/explorations/create`}
+                          href={`/instance/${instanceName}/explorations/create`}
                         >
                           <span className="text-editor">
                             <GrChapterAdd />
@@ -223,10 +242,10 @@ export default function SidebarInstanceNavigation({
                 asChild
                 tooltip="Lista de editores"
                 onClick={() => {
-                  if (isMobile) toggleSidebar()
+                  if (isMobile) toggleLeftSidebar()
                 }}
               >
-                <Link href={`/instance/${instance}/editors`}>
+                <Link href={`/instance/${instanceName}/editors`}>
                   <span className="text-editor">
                     <FaUserEdit />
                   </span>
@@ -240,10 +259,10 @@ export default function SidebarInstanceNavigation({
                   asChild
                   tooltip="Editar instancia"
                   onClick={() => {
-                    if (isMobile) toggleSidebar()
+                    if (isMobile) toggleLeftSidebar()
                   }}
                 >
-                  <Link href={`/instance/${instance}/admin`}>
+                  <Link href={`/instance/${instanceName}/admin`}>
                     <span className="text-admin">
                       <FaGear />
                     </span>

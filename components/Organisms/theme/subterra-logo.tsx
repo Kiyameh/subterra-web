@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 /**
  * @version 1
- * @description Logo de Subterra en 20x20px
+ * @description Logo de Subterra en 32x32px
  */
 
 export function SubterraLogoIcon({...props}) {
@@ -12,8 +12,8 @@ export function SubterraLogoIcon({...props}) {
     <Image
       src="/logos/logo_small_dark.svg"
       alt="Subterra Logo"
-      width="20"
-      height="20"
+      width="32"
+      height="32"
       {...props}
     />
   )

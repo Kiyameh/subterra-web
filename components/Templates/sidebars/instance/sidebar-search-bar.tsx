@@ -1,33 +1,34 @@
 'use client'
 import React from 'react'
-import {useRouter} from 'next/navigation'
+import {useParams, useRouter} from 'next/navigation'
 
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuItem,
-  useSidebar,
-} from '@/components/Atoms/sidebar'
+  useDualSidebar,
+} from '@/components/Atoms/dual-sidebar'
 import {Input} from '@/components/Atoms/input'
 
 import {ArrowRight, Search} from 'lucide-react'
 
 /**
- * @version 1
+ * @version 2
  * @description Barra de búsqueda para el sidebar
  * @param placeholder - Placeholder del input
- * @param baseUrl - URL base para la búsqueda
  * Redirige a la url --> ${baseUrl}/search?query=:query
  */
 
 export default function SidebarSearchBar({
   placeholder = 'Buscar...',
-  baseUrl,
 }: {
   placeholder?: string
-  baseUrl: string
 }) {
-  const isOpen = useSidebar().open
+  const params = useParams()
+  const instanceName = params.instance as string
+  const baseUrl = `/instance/${instanceName}`
+
+  const isOpen = useDualSidebar().leftOpen
   const router = useRouter()
   const [query, setQuery] = React.useState('')
 

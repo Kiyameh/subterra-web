@@ -2,7 +2,6 @@ import {Suspense} from 'react'
 
 import HeaderBox from '@/components/Molecules/boxes/header-box'
 import ImageCard from '@/components/Organisms/containers/image-card'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import SkeletonHeader from '@/components/Organisms/containers/skelenton-header'
 import ContactCard from '@/components/Templates/groups/group-details-board/contact-card'
@@ -23,7 +22,7 @@ export default async function GroupLandingPage({params}: PageProps) {
   const groupName: string = (await params).group
 
   return (
-    <PageContainer className="justify-start">
+    <>
       <Suspense fallback={<div></div>}>
         <GroupNotificationArea groupName={groupName} />
       </Suspense>
@@ -56,6 +55,6 @@ export default async function GroupLandingPage({params}: PageProps) {
           <GroupInstancesBox groupName={groupName} />
         </Suspense>
       </div>
-    </PageContainer>
+    </>
   )
 }

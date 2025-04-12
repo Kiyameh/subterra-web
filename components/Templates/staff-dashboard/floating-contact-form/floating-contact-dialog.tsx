@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from '@/components/Atoms/dialog'
 
-import {BiMessageDetail} from 'react-icons/bi'
 import ContactForm from './contact-form'
+import {MessageCircle} from 'lucide-react'
 
 /**
  * @version 1
@@ -33,7 +33,7 @@ export default function FloatingContactDialog({
       <DialogContent className="bg-card w-[460px] max-w-[90%]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
-            <BiMessageDetail />
+            <MessageCircle />
             Habla con Subterra
           </DialogTitle>
         </DialogHeader>
