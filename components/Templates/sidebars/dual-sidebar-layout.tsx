@@ -1,18 +1,22 @@
 'use client'
 import {SessionProvider} from 'next-auth/react'
+
 import {
   DualSidebarProvider,
   LeftSidebar,
   LeftSidebarTrigger,
   RightSidebar,
-  RightSidebarTrigger,
   SidebarInset,
 } from '@/components/Atoms/dual-sidebar'
-
 import SubterraDropdown from '@/components/Organisms/navigation/subterra-dropdown'
 import NavigationBreadcrumb from '@/components/Organisms/navigation/dashboard-breadcrumb'
 import {SubterraLogoIcon} from '@/components/Organisms/theme/subterra-logo'
-import IconContactButton from '../staff-dashboard/floating-contact-form/icon-contact-button'
+import IconContactButton from '@/components/Templates/staff-dashboard/floating-contact-form/icon-contact-button'
+import {usePathname} from 'next/navigation'
+import {useRouter} from 'next/navigation'
+import {useSearchParams} from 'next/navigation'
+import {Button} from '@/components/Atoms/button'
+import {HelpCircle} from 'lucide-react'
 
 /**
  * @version 1
@@ -31,6 +35,23 @@ export default function DualSidebarLayout({
   leftSlot: React.ReactNode
   rightSlot: React.ReactNode
 }) {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  function toggleHelpParams() {
+    const params = new URLSearchParams(searchParams.toString())
+    if (params.get('help')) {
+      params.delete('help')
+    } else {
+      params.set('help', 'index')
+    }
+    const newUrl = params.toString()
+      ? `${pathname}?${params.toString()}`
+      : pathname
+    router.push(newUrl)
+  }
+
   return (
     <SessionProvider>
       <DualSidebarProvider>
@@ -51,7 +72,15 @@ export default function DualSidebarLayout({
             <div className="flex items-center gap-2">
               <SubterraDropdown />
               <IconContactButton />
-              <RightSidebarTrigger />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={toggleHelpParams}
+              >
+                <HelpCircle className="scale-125" />
+                <span className="sr-only">Abrir menú ayuda</span>
+              </Button>
             </div>
           </header>
           {children}

@@ -12,6 +12,7 @@ import {
 import {RiDoorLockBoxLine} from 'react-icons/ri'
 import {TbCircles} from 'react-icons/tb'
 import {PiNotebook} from 'react-icons/pi'
+import {History} from 'lucide-react'
 
 export interface Feature {
   name: string
@@ -86,12 +87,22 @@ export const features: Feature[] = [
   {
     name: 'Guía de usuario',
     description:
-      'Consulta facilmente el funcionamiento de la plataforma en la nueva Guía de uso.',
+      'Consulta facilmente el funcionamiento de la plataforma en la nueva Guía de uso. Accede a la ayuda en cualquier lugar de la plataforma.',
     icon: <LuBookMarked />,
     image_src: null,
     docs: null,
     url: '/docs',
-    version: '',
+    version: '1.4.0',
+  },
+  {
+    name: 'Historial de versiones',
+    description:
+      'Cada cambio en un documento queda registrado en el historial de versiones. Comprueba facilmente los datos anteriores.',
+    icon: <History />,
+    image_src: null,
+    docs: null,
+    url: null,
+    version: '1.4.0',
   },
   {
     name: 'Instancias privadas',

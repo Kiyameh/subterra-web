@@ -8,14 +8,19 @@ export interface Version {
 // Datos de versiones
 export const versions: Version[] = [
   {
+    name: 'Atazabal',
+    version: '1.4.0',
+    date: new Date('2025-04-14'),
+  },
+  {
     name: 'Ormazarreta',
     version: '1.3.0',
-    date: new Date('2024-03-11'),
+    date: new Date('2025-03-11'),
   },
   {
     name: 'Coventosa',
     version: '1.2.0',
-    date: new Date('2024-02-02'),
+    date: new Date('2025-02-02'),
   },
   {
     name: 'Gandara',

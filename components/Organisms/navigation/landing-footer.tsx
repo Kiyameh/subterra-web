@@ -25,7 +25,7 @@ export default function LandingFooter() {
         <div className="order-3">
           <ul className="flex flex-col items-center md:items-start text-center">
             <li>
-              <Link href="/user-guide">Guía de uso</Link>
+              <Link href="/guide">Guía de uso</Link>
             </li>
             <li>
               <Link href="/versions">Versiones y novedades</Link>

@@ -4,6 +4,7 @@ import React from 'react'
 import {Slot} from '@radix-ui/react-slot'
 import {cn} from '@/lib/utils'
 import {type VariantProps, cva} from 'class-variance-authority'
+import {useSearchParams, useRouter} from 'next/navigation'
 
 import {useIsMobile} from '@/hooks/use-mobile'
 import {Button} from '@/components/Atoms/button'
@@ -29,6 +30,8 @@ const RIGHT_SIDEBAR_COOKIE_NAME = 'sidebar:right:state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = '16rem'
 const SIDEBAR_WIDTH_MOBILE = '18rem'
+const SIDEBAR_WIDTH_RIGHT = '28rem'
+const SIDEBAR_WIDTH_RIGHT_MOBILE = '100svw'
 const SIDEBAR_WIDTH_ICON = '3rem'
 const LEFT_SIDEBAR_KEYBOARD_SHORTCUT = 'b'
 const RIGHT_SIDEBAR_KEYBOARD_SHORTCUT = 'y'
@@ -87,6 +90,8 @@ const DualSidebarProvider = React.forwardRef<
     ref
   ) => {
     const isMobile = useIsMobile()
+    const router = useRouter()
+    const searchParams = useSearchParams()
     const [leftOpenMobile, setLeftOpenMobile] = React.useState(false)
     const [rightOpenMobile, setRightOpenMobile] = React.useState(false)
 
@@ -122,8 +127,15 @@ const DualSidebarProvider = React.forwardRef<
 
         // Set cookie to keep the sidebar state
         document.cookie = `${RIGHT_SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+
+        // Update URL when closing the right sidebar
+        if (!openState) {
+          const params = new URLSearchParams(searchParams.toString())
+          params.delete('help')
+          router.replace(`?${params.toString()}`)
+        }
       },
-      [setRightOpenProp, rightOpen]
+      [setRightOpenProp, rightOpen, searchParams, router]
     )
 
     // Helper to toggle the left sidebar
@@ -178,6 +190,31 @@ const DualSidebarProvider = React.forwardRef<
       return () => window.removeEventListener('keydown', handleKeyDown)
     }, [toggleLeftSidebar, toggleRightSidebar])
 
+    // Check for help parameter in URL and open/close right sidebar accordingly
+    React.useEffect(() => {
+      const hasHelpParam = searchParams.has('help')
+      if (hasHelpParam) {
+        if (isMobile && !rightOpenMobile) {
+          setRightOpenMobile(true)
+        } else if (!isMobile && !rightOpen) {
+          setRightOpen(true)
+        }
+      } else {
+        if (isMobile && rightOpenMobile) {
+          setRightOpenMobile(false)
+        } else if (!isMobile && rightOpen) {
+          setRightOpen(false)
+        }
+      }
+    }, [
+      searchParams,
+      rightOpen,
+      setRightOpen,
+      rightOpenMobile,
+      setRightOpenMobile,
+      isMobile,
+    ])
+
     // States for data-state attributes
     const leftState = leftOpen ? 'expanded' : 'collapsed'
     const rightState = rightOpen ? 'expanded' : 'collapsed'
@@ -222,6 +259,9 @@ const DualSidebarProvider = React.forwardRef<
             style={
               {
                 '--sidebar-width': SIDEBAR_WIDTH,
+                '--sidebar-width-mobile': SIDEBAR_WIDTH_MOBILE,
+                '--sidebar-width-right': SIDEBAR_WIDTH_RIGHT,
+                '--sidebar-width-right-mobile': SIDEBAR_WIDTH_RIGHT_MOBILE,
                 '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
                 ...style,
               } as React.CSSProperties
@@ -277,7 +317,10 @@ const BaseSidebar = React.forwardRef<
       return (
         <div
           className={cn(
-            'flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground',
+            'flex h-full flex-col bg-sidebar text-sidebar-foreground',
+            side === 'left'
+              ? 'w-[--sidebar-width]'
+              : 'w-[--sidebar-width-right]',
             className
           )}
           ref={ref}
@@ -298,10 +341,13 @@ const BaseSidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+            className="bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
             style={
               {
-                '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
+                width:
+                  side === 'left'
+                    ? SIDEBAR_WIDTH_MOBILE
+                    : SIDEBAR_WIDTH_RIGHT_MOBILE,
               } as React.CSSProperties
             }
             side={side}
@@ -330,7 +376,10 @@ const BaseSidebar = React.forwardRef<
         {/* This is what handles the sidebar gap on desktop */}
         <div
           className={cn(
-            'duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear',
+            'duration-200 relative h-svh bg-transparent transition-[width] ease-linear',
+            side === 'left'
+              ? 'w-[--sidebar-width]'
+              : 'w-[--sidebar-width-right]',
             'group-data-[collapsible=offcanvas]:w-0',
             'group-data-[side=right]:rotate-180',
             variant === 'floating' || variant === 'inset'
@@ -340,10 +389,13 @@ const BaseSidebar = React.forwardRef<
         />
         <div
           className={cn(
-            'duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex',
+            'duration-200 fixed inset-y-0 z-10 hidden h-svh transition-[left,right,width] ease-linear md:flex',
+            side === 'left'
+              ? 'w-[--sidebar-width]'
+              : 'w-[--sidebar-width-right]',
             side === 'left'
               ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
-              : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
+              : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width-right)*-1)]',
             // Adjust the padding for floating and inset variants.
             variant === 'floating' || variant === 'inset'
               ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]'
