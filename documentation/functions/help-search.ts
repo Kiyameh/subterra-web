@@ -3,14 +3,7 @@ import {
   helpCategories,
   helpSections,
 } from '@/documentation/content/help-content'
-
-export interface SearchResult {
-  id: string
-  title: string
-  description: string
-  type: 'topic' | 'category' | 'section'
-  path: {title: string; id: string}[]
-}
+import {SearchResult} from '@/documentation/types'
 
 export function searchContent(query: string): SearchResult[] {
   const searchTerm = query.toLowerCase()
@@ -33,7 +26,7 @@ export function searchContent(query: string): SearchResult[] {
     }
   }
 
-  // Search categories
+  // Buscar categorías
   for (const categoryId in helpCategories) {
     const category = helpCategories[categoryId]
     if (
@@ -50,7 +43,7 @@ export function searchContent(query: string): SearchResult[] {
     }
   }
 
-  // Search sections
+  // Buscar secciones
   for (const sectionId in helpSections) {
     const section = helpSections[sectionId]
     if (
@@ -70,6 +63,12 @@ export function searchContent(query: string): SearchResult[] {
   return results
 }
 
+/**
+ * Obtiene el camino para la búsqueda
+ * @param id ID del tema, categoría o sección
+ * @param type Tipo de resultado ('topic', 'category' o 'section')
+ * @returns Array de objetos con título y ID
+ */
 function getPathForSearch(
   id: string,
   type: 'topic' | 'category' | 'section'

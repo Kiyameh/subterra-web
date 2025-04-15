@@ -3,10 +3,8 @@ import type React from 'react'
 import {useState, useEffect, useRef, useCallback} from 'react'
 import {useRouter, usePathname, useSearchParams} from 'next/navigation'
 
-import {
-  searchContent,
-  type SearchResult,
-} from '@/documentation/functions/help-search'
+import {SearchResult} from '@/documentation/types'
+import {searchContent} from '@/documentation/functions/help-search'
 import {debounce} from '@/documentation/functions/debounce'
 
 import {Input} from '@/components/Atoms/input'
@@ -16,17 +14,23 @@ import {ScrollArea} from '@/components/Atoms/scroll-area'
 
 import {Search, ChevronRight} from 'lucide-react'
 
-interface HelpSearchProps {
-  placeholder?: string
-  onSelect?: (result: {id: string; type: string}) => void
-  inSidebar?: boolean
-}
+/**
+ * @version 1
+ * @description Componente de búsqueda de ayuda
+ * @param placeholder Texto de placeholder
+ * @param onSelect Función de callback para seleccionar un resultado
+ * @param inSidebar Indica si se encuentra en el sidebar
+ */
 
 export default function HelpSearchInput({
   placeholder = 'Buscar...',
   onSelect,
   inSidebar = false,
-}: HelpSearchProps) {
+}: {
+  placeholder?: string
+  onSelect?: (result: {id: string; type: string}) => void
+  inSidebar?: boolean
+}) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -36,7 +40,7 @@ export default function HelpSearchInput({
   const [isSearching, setIsSearching] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
 
-  // Initialize query from URL if in guide page
+  // Inicializa la consulta desde la URL si está en la página de ayuda
   useEffect(() => {
     if (pathname?.startsWith('/guide') && !inSidebar) {
       const urlQuery = searchParams.get('q')
@@ -47,7 +51,7 @@ export default function HelpSearchInput({
     }
   }, [pathname, searchParams, inSidebar])
 
-  // Debounced search function
+  // Función de búsqueda debounceada
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((searchQuery: string) => {
@@ -61,18 +65,18 @@ export default function HelpSearchInput({
     []
   )
 
-  // Update search results when query changes
+  // Actualiza los resultados de la búsqueda cuando cambia la consulta
   useEffect(() => {
     debouncedSearch(query)
   }, [query, debouncedSearch])
 
-  // Handle search input change
+  // Maneja el cambio de la consulta de búsqueda
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setQuery(value)
 
     if (!inSidebar && pathname?.startsWith('/guide')) {
-      // Update URL with search query
+      // Actualiza la URL con la consulta de búsqueda
       const params = new URLSearchParams(searchParams.toString())
       if (value.trim()) {
         params.set('q', value)
@@ -84,23 +88,23 @@ export default function HelpSearchInput({
     }
   }
 
-  // Handle search form submission
+  // Maneja el envío del formulario de búsqueda
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSearching(true)
 
     if (inSidebar) {
-      // Focus stays on input in sidebar
+      // El foco se queda en el input en el sidebar
       inputRef.current?.focus()
     }
   }
 
-  // Handle result selection
+  // Maneja la selección de un resultado
   const handleResultClick = (result: SearchResult) => {
     if (onSelect) {
       onSelect(result)
     } else if (pathname?.startsWith('/guide')) {
-      // Navigate to the result page
+      // Navega a la página del resultado
       let targetPath = ''
 
       if (result.type === 'topic') {
@@ -115,7 +119,7 @@ export default function HelpSearchInput({
         router.push(targetPath)
       }
     } else {
-      // Set help parameter in URL
+      // Establece el parámetro de ayuda en la URL
       const params = new URLSearchParams(searchParams.toString())
       const helpId =
         result.type === 'section'
@@ -128,21 +132,21 @@ export default function HelpSearchInput({
       router.push(`${pathname}?${params.toString()}`)
     }
 
-    // Clear search if in sidebar
+    // Limpia la búsqueda si está en el sidebar
     if (inSidebar) {
       setQuery('')
       setResults([])
     }
   }
 
-  // Clear search
+  // Limpia la búsqueda
   const clearSearch = () => {
     setQuery('')
     setResults([])
     setIsSearching(false)
 
     if (!inSidebar && pathname?.startsWith('/guide')) {
-      // Remove search query from URL
+      // Elimina la consulta de búsqueda de la URL
       const params = new URLSearchParams(searchParams.toString())
       params.delete('q')
       router.push(`${pathname}?${params.toString()}`)
@@ -169,7 +173,7 @@ export default function HelpSearchInput({
         </div>
       </form>
 
-      {/* Results dropdown for sidebar */}
+      {/* Dropdown de resultados para el sidebar */}
       {inSidebar && query.trim().length > 1 && isFocused && (
         <Card className="absolute z-50 mt-1 max-w-[90%] max-h-[70vh] overflow-hidden">
           <CardContent className="p-0">
@@ -214,7 +218,7 @@ export default function HelpSearchInput({
         </Card>
       )}
 
-      {/* Results for guide page */}
+      {/* Resultados para la página de ayuda */}
       {!inSidebar && isSearching && query.trim().length > 1 && (
         <div className="mt-6">
           <div className="flex items-center justify-between mb-4">

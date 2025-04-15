@@ -6,12 +6,12 @@ import {type SystemIndex} from '@/database/services/System/getSystemIndex'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 import PageContainer from '@/components/Organisms/theme/page-container'
 import CaveCreationForm from '@/components/Templates/documents/edition-forms/cave-creation-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
+import HelpButton from '@/documentation/components/help-button'
 
 interface PageProps {
   params: Promise<{instance: string}>
@@ -52,23 +52,10 @@ export default async function CaveCreationPage({params}: PageProps) {
           />
         }
       >
-        <CollapsibleBox
-          title={`Cavidades`}
-          color="info"
-        >
-          <p>
-            ● Las cavidades representan una unica entrada a una cueva o sistema
-            de cuevas.
-          </p>
-          <p>
-            ● Cada cavidad puede pertenecer a un solo sistema, pero un sistema
-            puede tener varias cavidades.
-          </p>
-          <p>
-            ● Revisa los datos con atención antes de enviar el formulario. La
-            cavidad se añadira a la instancia actual.
-          </p>
-        </CollapsibleBox>
+        <HelpButton
+          text="Cavidades"
+          topicSlug="caves"
+        />
         <CaveCreationForm
           instanceId={instanceId}
           commanderId={userId}

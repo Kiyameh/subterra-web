@@ -91,7 +91,7 @@ export const features: Feature[] = [
     icon: <LuBookMarked />,
     image_src: null,
     docs: null,
-    url: '/docs',
+    url: '/guide',
     version: '1.4.0',
   },
   {

@@ -1,9 +1,9 @@
 /**
  * @version 1
- * @description Debounce function
- * @param func Function to debounce
- * @param wait Time to wait
- * @returns Debounced function
+ * @description Función para debounce
+ * @param func Función a debouncear
+ * @param wait Tiempo a esperar
+ * @returns Función debounceada
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => any>(

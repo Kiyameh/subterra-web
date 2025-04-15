@@ -1,38 +1,7 @@
 import type React from 'react'
 import Image from 'next/image'
-
-// Define the structure of a help topic
-export interface HelpTopic {
-  id: string
-  title: string
-  description: string
-  content: React.ReactNode
-  parentId?: string
-  sectionId?: string
-  relatedTopics?: Array<{
-    id: string
-    title: string
-  }>
-}
-
-// Define the structure of a category
-export interface HelpCategory {
-  id: string
-  title: string
-  description: string
-  content: React.ReactNode
-  parentId?: string
-  topics: string[] // IDs of topics in this category
-}
-
-// Define the structure of a section
-export interface HelpSection {
-  id: string
-  title: string
-  description: string
-  content: React.ReactNode
-  categories: string[] // IDs of categories in this section
-}
+import Link from 'next/link'
+import {HelpTopic, HelpCategory, HelpSection} from '@/documentation/types'
 
 // Create a map of all help sections
 export const helpSections: Record<string, HelpSection> = {
@@ -89,14 +58,11 @@ export const helpCategories: Record<string, HelpCategory> = {
     description: 'Gestión de cuentas y perfiles de usuario',
     parentId: 'main',
     content: (
-      <>
-        <h3>Ayuda sobre Cuentas de Usuario</h3>
-        <p>
-          Bienvenido a la sección de ayuda sobre cuentas de usuario. Aquí
-          encontrarás información detallada sobre cómo gestionar tu cuenta en la
-          aplicación.
-        </p>
-      </>
+      <p>
+        Bienvenido a la sección de ayuda sobre cuentas de usuario. Aquí
+        encontrarás información detallada sobre cómo gestionar tu cuenta en la
+        aplicación.
+      </p>
     ),
     topics: [
       'account-creation',
@@ -113,14 +79,11 @@ export const helpCategories: Record<string, HelpCategory> = {
     description: 'Gestión y participación en grupos de espeleólogos',
     parentId: 'main',
     content: (
-      <>
-        <h3>Ayuda sobre los Grupos</h3>
-        <p>
-          Los grupos en la aplicación representan equipos de espeleólogos que
-          trabajan juntos. Aquí encontrarás información sobre cómo crear,
-          gestionar y participar en un grupo.
-        </p>
-      </>
+      <p>
+        Los grupos en la aplicación representan equipos de espeleólogos que
+        trabajan juntos. Aquí encontrarás información sobre cómo crear,
+        gestionar y participar en un grupo.
+      </p>
     ),
     topics: [
       'group-creation',
@@ -136,22 +99,11 @@ export const helpCategories: Record<string, HelpCategory> = {
     description: 'Gestión de instancias para territorios específicos',
     parentId: 'main',
     content: (
-      <>
-        <h3>Ayuda sobre Instancias</h3>
-        <p>
-          Las instancias en Subterra agrupan los datos de un territorio
-          específico y son administradas por un único grupo. Este grupo decide
-          la extensión territorial que abarcará la instancia.
-        </p>
-        <div className="bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-400 p-4 my-4">
-          <p className="text-sm">
-            <strong>TIP:</strong> Se recomienda que una instancia represente una
-            unidad territorial existente, como una provincia, un macizo
-            montañoso o una zona de exploración definida. No hay límite en la
-            cantidad de documentos que una instancia puede contener.
-          </p>
-        </div>
-      </>
+      <p>
+        Las instancias en Subterra sirven para agrupar los datos de un
+        territorio específico y son administradas por un único grupo. Este grupo
+        es el responsable de su mantenimiento y actualización.
+      </p>
     ),
     topics: [
       'instance-creation',
@@ -167,15 +119,12 @@ export const helpCategories: Record<string, HelpCategory> = {
     description: 'Gestión de documentos dentro de las instancias',
     parentId: 'main',
     content: (
-      <>
-        <h3>Ayuda sobre Documentos</h3>
-        <p>
-          En Subterra, la información dentro de cada instancia se organiza en
-          documentos. Cada documento representa una pieza clave de información
-          sobre el territorio explorado y facilita la colaboración entre
-          espeleólogos.
-        </p>
-      </>
+      <p>
+        En Subterra, la información dentro de cada instancia se organiza en
+        documentos. Cada documento representa una pieza clave de información
+        sobre el territorio explorado y facilita la colaboración entre
+        espeleólogos.
+      </p>
     ),
     topics: ['document-types', 'document-management', 'document-versions'],
   },
@@ -214,12 +163,12 @@ export const helpTopics: Record<string, HelpTopic> = {
           <h3 className="text-lg font-medium mb-2">Documentación Completa</h3>
           <p>
             Para una documentación más completa, visita nuestra{' '}
-            <a
+            <Link
               href="/guide"
               className="text-primary hover:underline"
             >
               guía de ayuda completa
-            </a>
+            </Link>
             .
           </p>
         </div>
