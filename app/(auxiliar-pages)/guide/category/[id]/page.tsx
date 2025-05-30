@@ -1,11 +1,7 @@
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {Suspense} from 'react'
-import {
-  helpCategories,
-  helpTopics,
-  helpSections,
-} from '@/documentation/content/help-content'
+import {helpCategories, helpTopics} from '@/documentation/content/help-content'
 import HelpSearch from '@/documentation/components/help-search-input'
 import {
   Card,
@@ -30,9 +26,6 @@ export default async function CategoryPage({params}: CategoryPageProps) {
     notFound()
   }
 
-  // Get the parent section if it exists
-  const section = category.parentId ? helpSections[category.parentId] : null
-
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-5xl mx-auto">
@@ -45,17 +38,6 @@ export default async function CategoryPage({params}: CategoryPageProps) {
             <Home className="h-4 w-4 mr-1" />
             Índice de Guía
           </Link>
-          {section && (
-            <>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              <Link
-                href={`/guide/section/${section.id}`}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                {section.title}
-              </Link>
-            </>
-          )}
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
           <span>{category.title}</span>
         </div>

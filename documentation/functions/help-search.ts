@@ -1,8 +1,4 @@
-import {
-  helpTopics,
-  helpCategories,
-  helpSections,
-} from '@/documentation/content/help-content'
+import {helpTopics, helpCategories} from '@/documentation/content/help-content'
 import {SearchResult} from '@/documentation/types'
 
 export function searchContent(query: string): SearchResult[] {
@@ -43,35 +39,18 @@ export function searchContent(query: string): SearchResult[] {
     }
   }
 
-  // Buscar secciones
-  for (const sectionId in helpSections) {
-    const section = helpSections[sectionId]
-    if (
-      section.title.toLowerCase().includes(searchTerm) ||
-      section.description.toLowerCase().includes(searchTerm)
-    ) {
-      results.push({
-        id: section.id,
-        title: section.title,
-        description: section.description,
-        type: 'section',
-        path: getPathForSearch(section.id, 'section'),
-      })
-    }
-  }
-
   return results
 }
 
 /**
  * Obtiene el camino para la búsqueda
- * @param id ID del tema, categoría o sección
- * @param type Tipo de resultado ('topic', 'category' o 'section')
+ * @param id ID del tema o categoría
+ * @param type Tipo de resultado ('topic' o 'category')
  * @returns Array de objetos con título y ID
  */
 function getPathForSearch(
   id: string,
-  type: 'topic' | 'category' | 'section'
+  type: 'topic' | 'category'
 ): {title: string; id: string}[] {
   if (type === 'topic') {
     const topic = helpTopics[id]
@@ -85,13 +64,6 @@ function getPathForSearch(
       const category = helpCategories[topic.parentId]
       if (category) {
         path.unshift({title: category.title, id: `category-${category.id}`})
-
-        if (category.parentId) {
-          const section = helpSections[category.parentId]
-          if (section) {
-            path.unshift({title: section.title, id: `section-${section.id}`})
-          }
-        }
       }
     }
     return path
@@ -99,21 +71,7 @@ function getPathForSearch(
     const category = helpCategories[id]
     if (!category) return []
 
-    const path: {title: string; id: string}[] = [
-      {title: category.title, id: `category-${category.id}`},
-    ]
-
-    if (category.parentId) {
-      const section = helpSections[category.parentId]
-      if (section) {
-        path.unshift({title: section.title, id: `section-${section.id}`})
-      }
-    }
-    return path
-  } else if (type === 'section') {
-    const section = helpSections[id]
-    if (!section) return []
-    return [{title: section.title, id: `section-${section.id}`}]
+    return [{title: category.title, id: `category-${category.id}`}]
   }
   return []
 }

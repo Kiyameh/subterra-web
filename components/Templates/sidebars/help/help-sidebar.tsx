@@ -11,7 +11,6 @@ import HelpSearchInput from '@/documentation/components/help-search-input'
 import {
   helpTopics,
   helpCategories,
-  helpSections,
   getTopicPath,
 } from '@/documentation/content/help-content'
 import {
@@ -23,7 +22,7 @@ import {
 import {Button} from '@/components/Atoms/button'
 import {ScrollArea} from '@/components/Atoms/scroll-area'
 
-import {BookOpen, CornerDownRight, X} from 'lucide-react'
+import {BookOpen, CornerDownRight, Home, X} from 'lucide-react'
 import Divider from '@/components/Molecules/boxes/divider'
 
 export default function HelpSidebar() {
@@ -48,41 +47,18 @@ export default function HelpSidebar() {
     description: string
     content: React.ReactNode
     id: string
-    type: 'topic' | 'category' | 'section'
+    type: 'topic' | 'category'
     path: {title: string; id: string}[]
   } | null>(null)
 
   // Parse the help parameter to determine what to show
   useEffect(() => {
-    // Check if it's a section
-    if (helpParam?.startsWith('section-')) {
-      const sectionId = helpParam.replace('section-', '')
-      const section = helpSections[sectionId]
-      if (section) {
-        setContent({
-          title: section.title,
-          description: section.description,
-          content: section.content,
-          id: section.id,
-          type: 'section',
-          path: [{title: section.title, id: `section-${section.id}`}],
-        })
-        return
-      }
-    }
-
     // Check if it's a category
     if (helpParam?.startsWith('category-')) {
       const categoryId = helpParam.replace('category-', '')
       const category = helpCategories[categoryId]
       if (category) {
         const path = [{title: category.title, id: `category-${category.id}`}]
-        if (category.parentId) {
-          const section = helpSections[category.parentId]
-          if (section) {
-            path.unshift({title: section.title, id: `section-${section.id}`})
-          }
-        }
         setContent({
           title: category.title,
           description: category.description,
@@ -130,11 +106,7 @@ export default function HelpSidebar() {
   // Handle search result selection
   const handleSearchSelect = (result: {id: string; type: string}) => {
     const helpId =
-      result.type === 'section'
-        ? `section-${result.id}`
-        : result.type === 'category'
-          ? `category-${result.id}`
-          : result.id
+      result.type === 'category' ? `category-${result.id}` : result.id
 
     navigateToTopic(helpId)
   }
@@ -190,14 +162,27 @@ export default function HelpSidebar() {
           {/* Breadcrumb navigation */}
           {content.path.length > 1 && (
             <div className="px-4 py-2 flex items-start flex-col whitespace-nowrap text-sm">
+              <div className="flex items-center">
+                <Home className="h-4 w-4 mx-1 text-muted-foreground" />
+                <Button
+                  variant="link"
+                  className="p-0 h-auto text-sm"
+                  onClick={() => {
+                    const params = new URLSearchParams(searchParams.toString())
+                    params.set('help', 'index')
+                    router.push(`${pathname}?${params.toString()}`)
+                  }}
+                >
+                  Inicio
+                </Button>
+              </div>
               {content.path.map((item, index) => (
                 <div
                   key={item.id}
                   className="flex items-center"
                 >
-                  {index > 0 && (
-                    <CornerDownRight className="h-4 w-4 mx-1 text-muted-foreground" />
-                  )}
+                  {index > 0 && <div className="mx-2" />}
+                  <CornerDownRight className="h-4 w-4 mx-1 text-muted-foreground" />
                   <Button
                     variant="link"
                     className="p-0 h-auto text-sm"
@@ -222,31 +207,6 @@ export default function HelpSidebar() {
           <div className="prose max-w-none dark:prose-invert bg-muted rounded-lg px-2 py-4 text-sm">
             {content.content}
           </div>
-
-          {/* Show subcategories if viewing a section */}
-          {content.type === 'section' && (
-            <div className="mt-6">
-              <h4 className="text-lg font-medium mb-3">Categorías</h4>
-              <ul className="space-y-2">
-                {helpSections[content.id]?.categories.map((categoryId) => {
-                  const category = helpCategories[categoryId]
-                  return category ? (
-                    <li key={category.id}>
-                      <Button
-                        variant="link"
-                        className="p-0 h-auto"
-                        onClick={() =>
-                          navigateToTopic(`category-${category.id}`)
-                        }
-                      >
-                        {category.title}
-                      </Button>
-                    </li>
-                  ) : null
-                })}
-              </ul>
-            </div>
-          )}
 
           {/* Show topics if viewing a category */}
           {content.type === 'category' && (

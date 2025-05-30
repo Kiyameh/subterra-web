@@ -1,37 +1,9 @@
 import type React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import {HelpTopic, HelpCategory, HelpSection} from '@/documentation/types'
-
-// Create a map of all help sections
-export const helpSections: Record<string, HelpSection> = {
-  main: {
-    id: 'main',
-    title: 'Ayuda Principal',
-    description: 'Centro de ayuda principal de nuestra aplicación',
-    content: (
-      <>
-        <h3>Bienvenido al Centro de Ayuda</h3>
-        <p>
-          Aquí encontrarás toda la información que necesitas para sacar el
-          máximo provecho de nuestra aplicación. Explora las diferentes
-          secciones para encontrar respuestas a tus preguntas.
-        </p>
-        <p>
-          Si no encuentras lo que buscas, no dudes en contactar a nuestro equipo
-          de soporte.
-        </p>
-      </>
-    ),
-    categories: [
-      'getting-started',
-      'accounts',
-      'grupos',
-      'instancias',
-      'documentos',
-    ],
-  },
-}
+import {HelpTopic, HelpCategory} from '@/documentation/types'
+import FloatingContactButton from '@/components/Templates/staff-dashboard/floating-contact-form/floating-contact-button'
+import {Button} from '@/components/Atoms/button'
 
 // Create a map of all help categories
 export const helpCategories: Record<string, HelpCategory> = {
@@ -39,7 +11,6 @@ export const helpCategories: Record<string, HelpCategory> = {
     id: 'getting-started',
     title: 'Primeros Pasos',
     description: 'Todo lo que necesitas para comenzar',
-    parentId: 'main',
     content: (
       <>
         <h3>Primeros Pasos con Nuestra Aplicación</h3>
@@ -56,7 +27,6 @@ export const helpCategories: Record<string, HelpCategory> = {
     id: 'accounts',
     title: 'Ayuda sobre Cuentas de Usuario',
     description: 'Gestión de cuentas y perfiles de usuario',
-    parentId: 'main',
     content: (
       <p>
         Bienvenido a la sección de ayuda sobre cuentas de usuario. Aquí
@@ -77,7 +47,6 @@ export const helpCategories: Record<string, HelpCategory> = {
     id: 'grupos',
     title: 'Ayuda de los Grupos',
     description: 'Gestión y participación en grupos de espeleólogos',
-    parentId: 'main',
     content: (
       <p>
         Los grupos en la aplicación representan equipos de espeleólogos que
@@ -97,7 +66,6 @@ export const helpCategories: Record<string, HelpCategory> = {
     id: 'instancias',
     title: 'Ayuda sobre las Instancias',
     description: 'Gestión de instancias para territorios específicos',
-    parentId: 'main',
     content: (
       <p>
         Las instancias en Subterra sirven para agrupar los datos de un
@@ -110,14 +78,12 @@ export const helpCategories: Record<string, HelpCategory> = {
       'instance-edit',
       'instance-visibility',
       'instance-roles',
-      'instance-subsidiary',
     ],
   },
   documentos: {
     id: 'documentos',
     title: 'Ayuda sobre los Documentos',
     description: 'Gestión de documentos dentro de las instancias',
-    parentId: 'main',
     content: (
       <p>
         En Subterra, la información dentro de cada instancia se organiza en
@@ -132,28 +98,29 @@ export const helpCategories: Record<string, HelpCategory> = {
 
 // Create a map of all help topics
 export const helpTopics: Record<string, HelpTopic> = {
-  // Index topic - shows a list of all available sections
+  // Index topic - shows a list of all available categories
   index: {
     id: 'index',
     title: 'Índice de Ayuda',
-    description: 'Explora todas las secciones de ayuda disponibles',
+    description: 'Explora todas las categorías de ayuda disponibles',
     content: (
       <>
         <p>
-          Selecciona una sección para explorar los temas de ayuda disponibles.
+          Selecciona una categoría para explorar los temas de ayuda disponibles.
         </p>
 
         <div className="mt-4">
-          <h3 className="text-lg font-medium mb-2">Secciones Principales</h3>
+          <h3 className="text-lg font-medium mb-2">Categorías Principales</h3>
           <ul className="space-y-1 list-disc pl-5">
-            {Object.values(helpSections).map((section) => (
-              <li key={section.id}>
-                <a
-                  href={`/?help=section-${section.id}`}
-                  className="text-primary hover:underline"
+            {Object.values(helpCategories).map((category, index) => (
+              <li key={category.id}>
+                <span className="text-muted-foreground mr-2">{index + 1}.</span>
+                <Link
+                  href={`?help=category-${category.id}`}
+                  className="text-emphasis hover:underline"
                 >
-                  {section.title}
-                </a>
+                  {category.title}
+                </Link>
               </li>
             ))}
           </ul>
@@ -165,7 +132,7 @@ export const helpTopics: Record<string, HelpTopic> = {
             Para una documentación más completa, visita nuestra{' '}
             <Link
               href="/guide"
-              className="text-primary hover:underline"
+              className="text-emphasis hover:underline"
             >
               guía de ayuda completa
             </Link>
@@ -176,31 +143,65 @@ export const helpTopics: Record<string, HelpTopic> = {
     ),
     relatedTopics: [
       {id: 'intro', title: 'Introducción'},
-      {id: 'account-creation', title: 'Crear una Cuenta'},
+      {id: 'navigation', title: 'Navegación por la Aplicación'},
     ],
+    parentId: 'getting-started',
   },
 
   // Default topic shown when no specific topic is found
   default: {
     id: 'default',
     title: 'Centro de Ayuda',
-    description: 'Encuentra respuestas a preguntas frecuentes',
+    description: 'Explora todas las categorías de ayuda disponibles',
     content: (
       <>
         <p>
-          Bienvenido al Centro de Ayuda. Por favor, selecciona un tema desde la
-          URL o navega usando los temas relacionados a continuación.
+          No encontramos lo que buscas. Puedes explorar las categorías de ayuda
+          disponibles o escribirnos si crees que falta algo.
         </p>
-        <p>
-          Si no encuentras lo que buscas, por favor contacta a nuestro equipo de
-          soporte.
-        </p>
+
+        <div className="mt-4 flex justify-center items-center gap-2">
+          <FloatingContactButton />
+          <span className="text-lg">Contacto</span>
+        </div>
+
+        <div className="mt-4">
+          <h3 className="text-lg font-medium mb-2">Categorías Principales</h3>
+          <ul className="space-y-1 list-disc pl-5">
+            {Object.values(helpCategories).map((category, index) => (
+              <li key={category.id}>
+                <span className="text-muted-foreground mr-2">{index + 1}.</span>
+                <Link
+                  href={`?help=category-${category.id}`}
+                  className="text-emphasis hover:underline"
+                >
+                  {category.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-6 pt-4 border-t">
+          <h3 className="text-lg font-medium mb-2">Documentación Completa</h3>
+          <p>
+            Para una documentación más completa, visita nuestra{' '}
+            <Link
+              href="/guide"
+              className="text-emphasis hover:underline"
+            >
+              guía de ayuda completa
+            </Link>
+            .
+          </p>
+        </div>
       </>
     ),
     relatedTopics: [
       {id: 'intro', title: 'Introducción'},
-      {id: 'account-creation', title: 'Crear una Cuenta'},
+      {id: 'navigation', title: 'Navegación por la Aplicación'},
     ],
+    parentId: 'getting-started',
   },
 
   // Introduction topic
@@ -209,39 +210,33 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Introducción',
     description: 'Introducción a nuestra aplicación',
     parentId: 'getting-started',
-    sectionId: 'main',
     content: (
-      <>
-        <h3>Bienvenido a Nuestra Aplicación</h3>
+      <div className="prose space-y-2">
+        <h3 className="text-xl my-4">Bienvenid@ a Subterra</h3>
         <p>
           Esta guía te ayudará a familiarizarte con nuestra aplicación y sus
           características principales.
         </p>
-
-        <h4>¿Qué puedes hacer con nuestra aplicación?</h4>
         <p>
-          Nuestra aplicación te permite gestionar tus tareas, colaborar con tu
-          equipo y hacer seguimiento de tu progreso.
+          Subterra es una aplicación pensada para el almacenamiento de datos
+          espeleológicos.
+        </p>
+        <p>
+          Esto significa que puedes usar Subterra para almacenar datos de tus
+          exploraciones, documentar las cavidades y compartir la información con
+          tus compañeros.
         </p>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/overview.png"
             alt="Vista general de la aplicación"
             width={400}
             height={200}
             className="w-full"
           />
         </div>
-
-        <h4>Características Principales</h4>
-        <ul className="list-disc pl-5 space-y-1">
-          <li>Gestión de tareas y proyectos</li>
-          <li>Colaboración en tiempo real</li>
-          <li>Informes y análisis</li>
-          <li>Integración con otras herramientas</li>
-        </ul>
-      </>
+      </div>
     ),
     relatedTopics: [
       {id: 'navigation', title: 'Navegación por la Aplicación'},
@@ -255,41 +250,49 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Navegación por la Aplicación',
     description: 'Aprende a navegar por la interfaz',
     parentId: 'getting-started',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Navegación por la Aplicación</h3>
+        <h3 className="text-xl my-4">Navegación por la Aplicación</h3>
         <p>
-          Aprende a navegar por las diferentes secciones de nuestra aplicación.
+          Subterra tiene dos navegaciones principales: La barra superior y el
+          menú lateral.
         </p>
 
-        <h4>Barra de Navegación Principal</h4>
+        <h4 className="text-xl text-muted-foreground my-4">
+          A. Barra superior
+        </h4>
         <p>
-          La barra de navegación principal se encuentra en la parte superior de
-          la aplicación y te permite acceder a las secciones principales.
+          En la barra superior puedes encontrar el logo de Subterra, el
+          principal, el formulario de contacto y la ayuda.
         </p>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Barra de navegación principal"
+            src="/help/upper_menu.png"
+            alt="Barra de navegación superior"
             width={400}
             height={200}
             className="w-full"
           />
         </div>
 
-        <h4>Menú Lateral</h4>
+        <h4 className="text-xl text-muted-foreground my-4">B. Menú Lateral</h4>
         <p>
-          El menú lateral te permite acceder a funciones específicas dentro de
-          cada sección.
+          El menú lateral tiene elementos de la instancia activa o del grupo
+          seleccionado (En función de la navegación que estés realizando).
+          Puedes cambiar de elemento en cualquier momento con el desplegable
+          superior.
         </p>
 
-        <h4>Atajos de Teclado</h4>
-        <p>
-          Utiliza atajos de teclado para navegar más rápidamente por la
-          aplicación.
-        </p>
+        <div className="my-4 rounded-md overflow-hidden border">
+          <Image
+            src="/help/lateral_menu.png"
+            alt="Menú lateral"
+            width={400}
+            height={200}
+            className="w-full"
+          />
+        </div>
       </>
     ),
     relatedTopics: [
@@ -304,15 +307,16 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Crear una Cuenta',
     description: 'Cómo crear una nueva cuenta en la aplicación',
     parentId: 'accounts',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Crear una Cuenta</h3>
+        <h3 className="text-xl my-4">Crear una Cuenta</h3>
         <p>Existen dos formas de crear una cuenta:</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
           <div className="border rounded-lg p-4 bg-blue-50 dark:bg-blue-950">
-            <h4 className="font-medium mb-2">Correo Electrónico</h4>
+            <h4 className="text-xl text-muted-foreground">
+              Correo Electrónico
+            </h4>
             <p>
               Introduce tu email y recibirás un correo para completar los datos
               de tu cuenta.
@@ -320,17 +324,14 @@ export const helpTopics: Record<string, HelpTopic> = {
           </div>
 
           <div className="border rounded-lg p-4 bg-green-50 dark:bg-green-950">
-            <h4 className="font-medium mb-2">Cuenta de Google</h4>
-            <p>
-              Inicia sesión con tu cuenta de Google para un acceso rápido y
-              seguro.
-            </p>
+            <h4 className="text-xl text-muted-foreground">Cuenta de Google</h4>
+            <p>Inicia sesión con tu cuenta de Google.</p>
           </div>
         </div>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/register.png"
             alt="Opciones de registro de cuenta"
             width={400}
             height={200}
@@ -351,10 +352,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Modificar Perfil',
     description: 'Cómo actualizar la información de tu perfil',
     parentId: 'accounts',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Modificar Perfil</h3>
+        <h3 className="text-xl my-4">Modificar Perfil</h3>
         <p>Desde la página de perfil puedes:</p>
 
         <ul className="list-disc pl-5 space-y-2">
@@ -362,18 +362,21 @@ export const helpTopics: Record<string, HelpTopic> = {
           <li>
             Consultar y gestionar los roles asignados dentro de la aplicación.
           </li>
-          <li>Cambiar tu foto de perfil (si la aplicación lo permite).</li>
         </ul>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/profile_edit.png"
             alt="Página de edición de perfil"
             width={400}
             height={200}
             className="w-full"
           />
         </div>
+
+        <Button variant="link">
+          <Link href="/auth/profile/edit">Editar perfil</Link>
+        </Button>
 
         <div className="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-400 p-4 my-4">
           <p className="text-sm">
@@ -396,34 +399,26 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Eliminar Cuenta',
     description: 'Cómo eliminar permanentemente tu cuenta',
     parentId: 'accounts',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Eliminar Cuenta</h3>
-        <p>Si deseas eliminar tu cuenta:</p>
+        <h3 className="text-xl my-4">Eliminar Cuenta</h3>
+        <p>
+          Para eliminar la cuenta ponte en contacto con los administradores de
+          la plataforma
+        </p>
 
-        <ol className="list-decimal pl-5 space-y-2">
-          <li>Accede a la configuración de tu perfil.</li>
-          <li>Busca la opción &quot;Eliminar cuenta&quot;.</li>
-          <li>Sigue las instrucciones para confirmar la eliminación.</li>
-        </ol>
+        <Button variant="link">
+          <Link href="/auth/contact">Contactar con los administradores</Link>
+        </Button>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Proceso de eliminación de cuenta"
+            src="/help/contact.png"
+            alt="Contacto con los administradores"
             width={400}
             height={200}
             className="w-full"
           />
-        </div>
-
-        <div className="bg-red-50 dark:bg-red-950 border-l-4 border-red-400 p-4 my-4">
-          <p className="text-sm">
-            <strong>Advertencia:</strong> Ten en cuenta que esta acción es
-            irreversible. Todos tus datos y contenido asociado serán eliminados
-            permanentemente.
-          </p>
         </div>
       </>
     ),
@@ -439,10 +434,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Problemas Frecuentes',
     description: 'Soluciones a problemas comunes con las cuentas',
     parentId: 'accounts',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Problemas Frecuentes</h3>
+        <h3 className="text-xl my-4">Problemas Frecuentes</h3>
         <p>
           Si experimentas dificultades con tu cuenta, aquí hay soluciones a
           problemas comunes:
@@ -463,7 +457,7 @@ export const helpTopics: Record<string, HelpTopic> = {
             <h4 className="font-medium mb-2">
               No puedo iniciar sesión con Google
             </h4>
-            <p>Revisa que tu cuenta esté activa y los permisos de acceso.</p>
+            <p>Revisa que tu cuenta de Google esté activa.</p>
           </div>
 
           <div className="border rounded-lg p-4">
@@ -472,6 +466,10 @@ export const helpTopics: Record<string, HelpTopic> = {
               Usa la opción de recuperación de contraseña en la página de inicio
               de sesión.
             </p>
+
+            <Button variant="link">
+              <Link href="/auth/forgot-password">Recuperar contraseña</Link>
+            </Button>
           </div>
         </div>
 
@@ -481,6 +479,9 @@ export const helpTopics: Record<string, HelpTopic> = {
             contacta con nuestro equipo de soporte para recibir asistencia
             personalizada.
           </p>
+          <Button variant="link">
+            <Link href="/auth/contact">Contactar con los administradores</Link>
+          </Button>
         </div>
       </>
     ),
@@ -496,10 +497,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Seguridad y Privacidad',
     description: 'Cómo mantener tu cuenta segura',
     parentId: 'accounts',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Seguridad y Privacidad</h3>
+        <h3 className="text-xl my-4">Seguridad y Privacidad</h3>
         <ul className="list-disc pl-5 space-y-2">
           <li>Protege tu cuenta con una contraseña segura.</li>
           <li>No compartas tu información de inicio de sesión.</li>
@@ -509,17 +509,7 @@ export const helpTopics: Record<string, HelpTopic> = {
           </li>
         </ul>
 
-        <div className="my-4 rounded-md overflow-hidden border">
-          <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Consejos de seguridad para cuentas"
-            width={400}
-            height={200}
-            className="w-full"
-          />
-        </div>
-
-        <h4 className="font-medium mt-4 mb-2">
+        <h4 className="text-xl text-muted-foreground my-4">
           Recomendaciones para una contraseña segura:
         </h4>
         <ul className="list-disc pl-5 space-y-1">
@@ -542,10 +532,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Recuperación de Cuenta',
     description: 'Opciones para recuperar el acceso a tu cuenta',
     parentId: 'accounts',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Recuperación de Cuenta</h3>
+        <h3 className="text-xl my-4">Recuperación de Cuenta</h3>
         <p>Si tienes problemas para acceder a tu cuenta, puedes:</p>
 
         <ul className="list-disc pl-5 space-y-2">
@@ -553,16 +542,9 @@ export const helpTopics: Record<string, HelpTopic> = {
           <li>Contactar con soporte si necesitas ayuda adicional.</li>
         </ul>
 
-        <div className="my-4 rounded-md overflow-hidden border">
-          <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Proceso de recuperación de cuenta"
-            width={400}
-            height={200}
-            className="w-full"
-          />
-        </div>
-
+        <Button variant="link">
+          <Link href="/auth/forgot-password">Recuperar contraseña</Link>
+        </Button>
         <div className="bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-400 p-4 my-4">
           <p className="text-sm">
             <strong>Importante:</strong> Para recuperar tu cuenta, necesitarás
@@ -584,17 +566,18 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Creación y Gestión de un Grupo',
     description: 'Cómo crear y configurar un nuevo grupo',
     parentId: 'grupos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Creación y Gestión de un Grupo</h3>
+        <h3 className="text-xl my-4">Creación y Gestión de un Grupo</h3>
         <p>
           Los grupos son asociaciones de usuarios que colaboran en una
           instancia. Pueden representar un club o agrupación real, pero no es un
           requisito obligatorio.
         </p>
 
-        <h4>Crear un Nuevo Grupo</h4>
+        <h4 className="text-xl text-muted-foreground my-4">
+          Crear un Nuevo Grupo
+        </h4>
         <p>
           Una vez hayas iniciado sesión, podrás crear un grupo desde el
           formulario de Creación de grupo. Se te pedirá cierta información que
@@ -602,9 +585,13 @@ export const helpTopics: Record<string, HelpTopic> = {
           datos que no quieres que sean públicos.
         </p>
 
+        <Button variant="link">
+          <Link href="/auth/create-group">Crear un nuevo grupo</Link>
+        </Button>
+
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/create_group.png"
             alt="Formulario de creación de grupo"
             width={400}
             height={200}
@@ -612,7 +599,9 @@ export const helpTopics: Record<string, HelpTopic> = {
           />
         </div>
 
-        <h4>Capacidades de los Administradores</h4>
+        <h4 className="text-xl text-muted-foreground my-4">
+          Capacidades de los Administradores
+        </h4>
         <ul className="list-disc pl-5 space-y-1">
           <li>
             Editar la información del grupo (nombre, descripción, ubicación,
@@ -642,16 +631,17 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Acceder a un Grupo',
     description: 'Cómo unirse a un grupo existente',
     parentId: 'grupos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Acceder a un Grupo</h3>
+        <h3 className="text-xl my-4">Acceder a un Grupo</h3>
         <p>
           Si deseas colaborar con un grupo, puedes enviar una solicitud de
           acceso desde la página pública del grupo.
         </p>
 
-        <h4>Pasos para Unirse a un Grupo</h4>
+        <h4 className="text-xl text-muted-foreground my-4">
+          Pasos para Unirse a un Grupo
+        </h4>
         <ul className="list-disc pl-5 space-y-1">
           <li>Dirígete a la página principal del grupo.</li>
           <li>Envía la solicitud desde el banner superior.</li>
@@ -660,16 +650,6 @@ export const helpTopics: Record<string, HelpTopic> = {
             aprobar tu solicitud.
           </li>
         </ul>
-
-        <div className="my-4 rounded-md overflow-hidden border">
-          <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Solicitud de acceso a un grupo"
-            width={400}
-            height={200}
-            className="w-full"
-          />
-        </div>
 
         <p className="text-muted-foreground italic">
           Es necesario tener la sesión iniciada para ver esta opción.
@@ -688,15 +668,14 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Roles dentro del Grupo',
     description: 'Diferentes roles y sus permisos',
     parentId: 'grupos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Roles dentro del Grupo</h3>
+        <h3 className="text-xl my-4">Roles dentro del Grupo</h3>
         <p>Una vez dentro del grupo, puedes tener uno de estos dos roles:</p>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/group_roles.png"
             alt="Roles de usuario en un grupo"
             width={400}
             height={200}
@@ -704,7 +683,7 @@ export const helpTopics: Record<string, HelpTopic> = {
           />
         </div>
 
-        <h4>Tipos de Roles</h4>
+        <h4 className="text-xl text-muted-foreground my-4">Tipos de Roles</h4>
         <ul className="list-disc pl-5 space-y-2">
           <li>
             <strong>Administrador:</strong> Tiene permisos para editar la
@@ -736,16 +715,19 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Modificación y Administración del Grupo',
     description: 'Gestión avanzada de grupos',
     parentId: 'grupos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Modificación y Administración del Grupo</h3>
+        <h3 className="text-xl my-4">
+          Modificación y Administración del Grupo
+        </h3>
         <p>
           Como administrador de un grupo, tienes acceso a funciones avanzadas
           para gestionar todos los aspectos del grupo.
         </p>
 
-        <h4>Capacidades de los Administradores</h4>
+        <h4 className="text-xl text-muted-foreground my-4">
+          Capacidades de los Administradores
+        </h4>
         <ul className="list-disc pl-5 space-y-1">
           <li>Editar los datos generales del grupo.</li>
           <li>Gestionar las solicitudes de acceso.</li>
@@ -755,16 +737,6 @@ export const helpTopics: Record<string, HelpTopic> = {
             Modificar la información pública mostrada en la página del grupo.
           </li>
         </ul>
-
-        <div className="my-4 rounded-md overflow-hidden border">
-          <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Panel de administración de grupo"
-            width={400}
-            height={200}
-            className="w-full"
-          />
-        </div>
 
         <p className="mt-4">
           Recuerda que como administrador tienes la responsabilidad de mantener
@@ -785,10 +757,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Renuncia al Grupo o Cambio de Rol',
     description: 'Cómo dejar un grupo o cambiar tu rol',
     parentId: 'grupos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Renuncia al Grupo o Cambio de Rol</h3>
+        <h3 className="text-xl my-4">Renuncia al Grupo o Cambio de Rol</h3>
         <p>
           Cualquier miembro o administrador puede renunciar a su rol en
           cualquier momento.
@@ -798,24 +769,22 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <ul className="list-disc pl-5 space-y-1">
           <li>Los administradores pueden decidir volver a ser miembros.</li>
+          <li>
+            Antes de renunciar el ultimo administrador, se le pedirá que designe
+            un nuevo administrador.
+          </li>
           <li>Los miembros pueden dejar el grupo si así lo desean.</li>
         </ul>
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/group_roles_quit.png"
             alt="Opciones para dejar un grupo o cambiar rol"
             width={400}
             height={200}
             className="w-full"
           />
         </div>
-
-        <p className="mt-4">
-          Si tienes dudas adicionales, no dudes en consultar la sección de
-          soporte dentro de la aplicación. ¡Esperamos que disfrutes la
-          colaboración dentro de los grupos!
-        </p>
       </>
     ),
     relatedTopics: [
@@ -830,10 +799,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Crear una Instancia',
     description: 'Cómo solicitar y configurar una nueva instancia',
     parentId: 'instancias',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Crear una Instancia</h3>
+        <h3 className="text-xl my-4">Crear una Instancia</h3>
         <p>Para solicitar una instancia, sigue estos pasos:</p>
 
         <ul className="list-disc pl-5 space-y-1">
@@ -847,8 +815,8 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Formulario de creación de instancia"
+            src="/help/instance_request.png"
+            alt="Solicitud de creación de instancia"
             width={400}
             height={200}
             className="w-full"
@@ -884,10 +852,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Editar una Instancia',
     description: 'Cómo modificar la configuración de una instancia existente',
     parentId: 'instancias',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Editar una Instancia</h3>
+        <h3 className="text-xl my-4">Editar una Instancia</h3>
         <p>
           Una vez creada la instancia, el coordinador de la instancia puede:
         </p>
@@ -899,7 +866,7 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/instance_edit.png"
             alt="Panel de edición de instancia"
             width={400}
             height={200}
@@ -935,15 +902,16 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Visibilidad y Edición',
     description: 'Opciones de privacidad y permisos de edición para instancias',
     parentId: 'instancias',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Visibilidad y Edición</h3>
+        <h3 className="text-xl my-4">Visibilidad y Edición</h3>
         <p>Las instancias pueden ser públicas o privadas:</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
           <div className="border rounded-lg p-4 bg-green-50 dark:bg-green-950">
-            <h4 className="font-medium mb-2">Instancias Públicas</h4>
+            <h4 className="text-xl text-muted-foreground my-4">
+              Instancias Públicas
+            </h4>
             <ul className="list-disc pl-5 space-y-1">
               <li>Son gratuitas</li>
               <li>
@@ -954,7 +922,9 @@ export const helpTopics: Record<string, HelpTopic> = {
           </div>
 
           <div className="border rounded-lg p-4 bg-purple-50 dark:bg-purple-950">
-            <h4 className="font-medium mb-2">Instancias Privadas</h4>
+            <h4 className="text-xl text-muted-foreground my-4">
+              Instancias Privadas
+            </h4>
             <ul className="list-disc pl-5 space-y-1">
               <li>
                 Solo pueden ser vistas y editadas por los miembros con acceso
@@ -963,16 +933,6 @@ export const helpTopics: Record<string, HelpTopic> = {
               <li>Detalles disponibles en la sección de precios</li>
             </ul>
           </div>
-        </div>
-
-        <div className="my-4 rounded-md overflow-hidden border">
-          <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Configuración de visibilidad de instancia"
-            width={400}
-            height={200}
-            className="w-full"
-          />
         </div>
 
         <p>
@@ -1001,10 +961,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Roles dentro de la Instancia',
     description: 'Diferentes roles y sus permisos en una instancia',
     parentId: 'instancias',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Roles dentro de la Instancia</h3>
+        <h3 className="text-xl my-4">Roles dentro de la Instancia</h3>
         <p>
           Los miembros del grupo pueden tener los siguientes roles en una
           instancia:
@@ -1012,7 +971,7 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/instance_roles.png"
             alt="Roles de usuario en una instancia"
             width={400}
             height={200}
@@ -1020,7 +979,7 @@ export const helpTopics: Record<string, HelpTopic> = {
           />
         </div>
 
-        <h4>Tipos de Roles</h4>
+        <h4 className="text-xl text-muted-foreground my-4">Tipos de Roles</h4>
         <ul className="list-disc pl-5 space-y-2">
           <li>
             <strong>Coordinador:</strong> Puede editar la información general de
@@ -1054,99 +1013,20 @@ export const helpTopics: Record<string, HelpTopic> = {
     ],
   },
 
-  // Tema 5: Instancias subsidiarias
-  'instance-subsidiary': {
-    id: 'instance-subsidiary',
-    title: 'Instancias Subsidiarias',
-    description:
-      'Cómo crear y gestionar instancias vinculadas a una instancia maestra',
-    parentId: 'instancias',
-    sectionId: 'main',
-    content: (
-      <>
-        <h3>Instancias Subsidiarias</h3>
-        <p>
-          Las instancias pueden tener instancias subsidiarias vinculadas a una
-          instancia maestra. Estas permiten:
-        </p>
-
-        <ul className="list-disc pl-5 space-y-1">
-          <li>
-            Visualizar todos los documentos de la instancia maestra dentro de la
-            instancia subsidiaria.
-          </li>
-          <li>
-            Ampliar la información de los documentos sin modificar la instancia
-            maestra.
-          </li>
-          <li>
-            Crear documentos independientes dentro de la instancia subsidiaria.
-          </li>
-        </ul>
-
-        <div className="my-4 rounded-md overflow-hidden border">
-          <Image
-            src="/placeholder.svg?height=200&width=400"
-            alt="Diagrama de instancias subsidiarias"
-            width={400}
-            height={200}
-            className="w-full"
-          />
-        </div>
-
-        <p>
-          Cualquier información añadida en una instancia subsidiaria no será
-          visible en la instancia maestra, garantizando independencia en la
-          gestión de datos.
-        </p>
-
-        <h4>Casos de Uso Comunes</h4>
-        <ul className="list-disc pl-5 space-y-1">
-          <li>
-            Un grupo local que quiere añadir información específica a un
-            catálogo regional.
-          </li>
-          <li>
-            Proyectos de investigación que necesitan acceso a datos generales
-            pero con anotaciones propias.
-          </li>
-          <li>
-            Colaboraciones entre grupos donde cada uno mantiene su propia
-            información adicional.
-          </li>
-        </ul>
-
-        <div className="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-400 p-4 my-4">
-          <p className="text-sm">
-            <strong>Consejo:</strong> Si tienes dudas adicionales sobre la
-            administración de instancias, puedes consultar la sección de soporte
-            dentro de la aplicación.
-          </p>
-        </div>
-      </>
-    ),
-    relatedTopics: [
-      {id: 'instance-creation', title: 'Crear una Instancia'},
-      {id: 'instance-edit', title: 'Editar una Instancia'},
-      {id: 'document-types', title: 'Tipos de Documentos'},
-    ],
-  },
-
   // Tema 1: Tipos de documentos
   'document-types': {
     id: 'document-types',
     title: 'Tipos de Documentos',
     description: 'Diferentes tipos de documentos disponibles en Subterra',
     parentId: 'documentos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Tipos de Documentos</h3>
+        <h3 className="text-xl my-4">Tipos de Documentos</h3>
         <p>Actualmente, existen tres tipos de documentos en Subterra:</p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
           <div className="border rounded-lg p-4 bg-blue-50 dark:bg-blue-950">
-            <h4 className="font-medium mb-2">Cavidad</h4>
+            <h4 className="text-xl text-muted-foreground my-4">Cavidad</h4>
             <p>Representa una única cavidad o boca de acceso a un sistema.</p>
             <p className="text-sm text-muted-foreground mt-2">
               Ejemplo: Cueva de Coventosa.
@@ -1154,7 +1034,7 @@ export const helpTopics: Record<string, HelpTopic> = {
           </div>
 
           <div className="border rounded-lg p-4 bg-green-50 dark:bg-green-950">
-            <h4 className="font-medium mb-2">Sistema</h4>
+            <h4 className="text-xl text-muted-foreground my-4">Sistema</h4>
             <p>Representa la unión de varias cavidades interconectadas.</p>
             <p className="text-sm text-muted-foreground mt-2">
               Ejemplo: Sistema de la Gandara.
@@ -1162,7 +1042,7 @@ export const helpTopics: Record<string, HelpTopic> = {
           </div>
 
           <div className="border rounded-lg p-4 bg-purple-50 dark:bg-purple-950">
-            <h4 className="font-medium mb-2">Exploración</h4>
+            <h4 className="text-xl text-muted-foreground my-4">Exploración</h4>
             <p>Registra un evento realizado por un grupo de personas.</p>
             <p className="text-sm text-muted-foreground mt-2">
               Ejemplo: Una jornada de exploración.
@@ -1172,7 +1052,7 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/document_types.png"
             alt="Tipos de documentos en Subterra"
             width={400}
             height={200}
@@ -1207,10 +1087,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Creación y Edición de Documentos',
     description: 'Cómo crear y gestionar documentos en una instancia',
     parentId: 'documentos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Creación y Edición de Documentos</h3>
+        <h3 className="text-xl my-4">Creación y Edición de Documentos</h3>
         <p>Los usuarios con permisos de editor pueden:</p>
 
         <ul className="list-disc pl-5 space-y-2">
@@ -1225,25 +1104,13 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/document_creation.png"
             alt="Interfaz de creación de documentos"
             width={400}
             height={200}
             className="w-full"
           />
         </div>
-
-        <h4 className="font-medium mt-4 mb-2">
-          Proceso de Creación de un Documento
-        </h4>
-        <ol className="list-decimal pl-5 space-y-1">
-          <li>Accede a la instancia donde deseas crear el documento.</li>
-          <li>Selecciona el tipo de documento que deseas crear.</li>
-          <li>
-            Completa los campos requeridos y opcionales según corresponda.
-          </li>
-          <li>Guarda el documento para que esté disponible en la instancia.</li>
-        </ol>
 
         <div className="bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-400 p-4 my-4">
           <p className="text-sm">
@@ -1268,10 +1135,9 @@ export const helpTopics: Record<string, HelpTopic> = {
     title: 'Control de Versiones',
     description: 'Sistema de control de versiones para documentos',
     parentId: 'documentos',
-    sectionId: 'main',
     content: (
       <>
-        <h3>Control de Versiones</h3>
+        <h3 className="text-xl my-4">Control de Versiones</h3>
         <p>
           Cada documento cuenta con un control de versiones, lo que permite:
         </p>
@@ -1287,7 +1153,7 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="my-4 rounded-md overflow-hidden border">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="/help/document_versions.png"
             alt="Historial de versiones de un documento"
             width={400}
             height={200}
@@ -1295,14 +1161,13 @@ export const helpTopics: Record<string, HelpTopic> = {
           />
         </div>
 
-        <h4 className="font-medium mt-4 mb-2">
+        <h4 className="text-xl text-muted-foreground my-4">
           Beneficios del Control de Versiones
         </h4>
         <ul className="list-disc pl-5 space-y-1">
           <li>
             Trazabilidad completa de los cambios realizados en cada documento.
           </li>
-          <li>Identificación del usuario que realizó cada modificación.</li>
           <li>
             Capacidad de comparar diferentes versiones para ver qué ha cambiado.
           </li>
@@ -1314,10 +1179,9 @@ export const helpTopics: Record<string, HelpTopic> = {
 
         <div className="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-400 p-4 my-4">
           <p className="text-sm">
-            <strong>Consejo:</strong> Si tienes dudas sobre cómo gestionar
-            documentos dentro de Subterra, puedes consultar la sección de
-            soporte. ¡Esperamos que esta funcionalidad facilite tu trabajo de
-            exploración y documentación!
+            <strong>Consejo:</strong> Si tienes varios cambios por hacer procura
+            agruparlos en una sola transacción, para no saturar el historial de
+            versiones.
           </p>
         </div>
       </>
@@ -1342,13 +1206,6 @@ export function getTopicPath(topicId: string): {title: string; id: string}[] {
     const category = helpCategories[topic.parentId]
     if (category) {
       path.unshift({title: category.title, id: `category-${category.id}`})
-
-      if (category.parentId) {
-        const section = helpSections[category.parentId]
-        if (section) {
-          path.unshift({title: section.title, id: `section-${section.id}`})
-        }
-      }
     }
   }
 
@@ -1361,16 +1218,6 @@ export function getTopicsByCategory(categoryId: string): HelpTopic[] {
   if (!category) return []
 
   return category.topics.map((topicId) => helpTopics[topicId]).filter(Boolean)
-}
-
-// Helper function to get categories by section
-export function getCategoriesBySection(sectionId: string): HelpCategory[] {
-  const section = helpSections[sectionId]
-  if (!section) return []
-
-  return section.categories
-    .map((categoryId) => helpCategories[categoryId])
-    .filter(Boolean)
 }
 
 if (helpTopics.intro && helpTopics.intro.relatedTopics) {
