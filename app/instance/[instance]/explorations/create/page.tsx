@@ -10,7 +10,6 @@ import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import ExplorationCreationForm from '@/components/Templates/documents/edition-forms/exploration-creation-form'
 
 import {GrChapterAdd} from 'react-icons/gr'
@@ -40,53 +39,49 @@ export default async function ExplorationCreationPage({params}: PageProps) {
 
   if (!instanceId || !userId)
     return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal al cargar los datos"
-          text="Intentalo de nuevo mas tarde"
-        />
-      </PageContainer>
+      <NotFoundCard
+        title="Algo ha ido mal al cargar los datos"
+        text="Intentalo de nuevo mas tarde"
+      />
     )
 
   return (
-    <PageContainer className="justify-start">
-      <BasicCard
-        defaultWidth="xl"
-        cardHeader={
-          <CardTitle
-            title={`Nuevo informe de exploración en ${instanceName}`}
-            icon={<GrChapterAdd />}
-          />
-        }
-      >
-        <CollapsibleBox
-          title={`Informes de exploración`}
-          color="info"
-        >
-          <p>
-            ● Los informes de exploración representan una o más jornadas de
-            exploración.
-          </p>
-          <p>
-            ● Pertenecen a un grupo, y sirven para llevar un registro de las
-            actividades realizadas por sus miembros.
-          </p>
-          <p>
-            ● Se pueden relacionar con una o con varias cavidades para
-            localizarlas con facilidad.
-          </p>
-          <p>
-            ● Revisa los datos con atención antes de enviar el formulario. El
-            informe se añadira a la instancia actual.
-          </p>
-        </CollapsibleBox>
-        <ExplorationCreationForm
-          instanceId={instanceId}
-          commanderId={userId}
-          groupIndex={groupIndex}
-          caveIndex={caveIndex}
+    <BasicCard
+      defaultWidth="xl"
+      cardHeader={
+        <CardTitle
+          title={`Nuevo informe de exploración en ${instanceName}`}
+          icon={<GrChapterAdd />}
         />
-      </BasicCard>
-    </PageContainer>
+      }
+    >
+      <CollapsibleBox
+        title={`Informes de exploración`}
+        color="info"
+      >
+        <p>
+          ● Los informes de exploración representan una o más jornadas de
+          exploración.
+        </p>
+        <p>
+          ● Pertenecen a un grupo, y sirven para llevar un registro de las
+          actividades realizadas por sus miembros.
+        </p>
+        <p>
+          ● Se pueden relacionar con una o con varias cavidades para
+          localizarlas con facilidad.
+        </p>
+        <p>
+          ● Revisa los datos con atención antes de enviar el formulario. El
+          informe se añadira a la instancia actual.
+        </p>
+      </CollapsibleBox>
+      <ExplorationCreationForm
+        instanceId={instanceId}
+        commanderId={userId}
+        groupIndex={groupIndex}
+        caveIndex={caveIndex}
+      />
+    </BasicCard>
   )
 }

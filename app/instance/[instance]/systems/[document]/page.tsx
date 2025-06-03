@@ -5,7 +5,6 @@ import {getPlainSystem} from '@/database/services/System/getPlainSystem'
 import {type PlainSystem} from '@/database/services/System/getPlainSystem'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
-import PageContainer from '@/components/Organisms/theme/page-container'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 import SystemDetailsBoard from '@/components/Templates/documents/details-boards/board-system'
@@ -39,15 +38,13 @@ export default async function SystemDetailPage({params}: PageProps) {
   }
 
   return (
-    <PageContainer className="justify-start max-w-full">
-      <Suspense fallback={<SkeletonCard />}>
-        <SystemDetailsBoard
-          systemId={document}
-          isEditor={isEditor}
-          commanderId={userId}
-          system={system}
-        />
-      </Suspense>
-    </PageContainer>
+    <Suspense fallback={<SkeletonCard />}>
+      <SystemDetailsBoard
+        systemId={document}
+        isEditor={isEditor}
+        commanderId={userId}
+        system={system}
+      />
+    </Suspense>
   )
 }

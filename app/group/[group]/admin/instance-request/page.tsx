@@ -7,7 +7,6 @@ import {type InstanceIndex} from '@/database/services/Instance/getInstancesIndex
 
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 import InstanceRequestForm from '@/components/Templates/groups/instance-request-form'
 
@@ -35,7 +34,7 @@ export default async function InstanceRequestPage({params}: PageProps) {
   const user = (await auth())?.user
 
   return (
-    <PageContainer>
+    <>
       {user && groupIndex ? (
         <CardWithHeader
           defaultWidth="xl"
@@ -72,6 +71,6 @@ export default async function InstanceRequestPage({params}: PageProps) {
           text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
         />
       )}
-    </PageContainer>
+    </>
   )
 }

@@ -12,7 +12,6 @@ import SquareButton from '@/components/Molecules/buttons/square-button'
 import InfoBox from '@/components/Molecules/boxes/info-box'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import PendingRequestBanner from '@/components/Templates/groups/group-notification-area/pending-request-banner'
 import GroupEditionForm from '@/components/Templates/groups/group-edition-form'
 
@@ -54,17 +53,15 @@ export default async function GroupAdminPage({params}: PageProps) {
 
   if (!group) {
     return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal"
-          text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
-        />
-      </PageContainer>
+      <NotFoundCard
+        title="Algo ha ido mal"
+        text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
+      />
     )
   }
 
   return (
-    <PageContainer>
+    <>
       {request && request.length > 0 && (
         <PendingRequestBanner
           requests={request}
@@ -158,6 +155,6 @@ export default async function GroupAdminPage({params}: PageProps) {
           />
         )}
       </BasicCard>
-    </PageContainer>
+    </>
   )
 }

@@ -5,7 +5,6 @@ import {getPlainCave} from '@/database/services/Cave/getPlainCave'
 import {type PlainCave} from '@/database/services/Cave/getPlainCave'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
-import PageContainer from '@/components/Organisms/theme/page-container'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import CaveDetailsBoard from '@/components/Templates/documents/details-boards/board-cave'
@@ -39,15 +38,13 @@ export default async function CaveDetailPage({params}: PageProps) {
   }
 
   return (
-    <PageContainer className="justify-start max-w-full">
-      <Suspense fallback={<SkeletonCard />}>
-        <CaveDetailsBoard
-          caveId={document}
-          isEditor={isEditor}
-          commanderId={userId}
-          cave={cave}
-        />
-      </Suspense>
-    </PageContainer>
+    <Suspense fallback={<SkeletonCard />}>
+      <CaveDetailsBoard
+        caveId={document}
+        isEditor={isEditor}
+        commanderId={userId}
+        cave={cave}
+      />
+    </Suspense>
   )
 }

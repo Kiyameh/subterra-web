@@ -6,7 +6,6 @@ import {type InstanceWithUsers} from '@/database/services/Instance/getOneInstanc
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import InstanceEditionForm from '@/components/Templates/instances/instance-edition-form'
 
 import {MdModeEdit} from 'react-icons/md'
@@ -28,32 +27,28 @@ export default async function InstanceAdminPage({params}: PageProps) {
 
   if (!instance) {
     return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal"
-          text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
-        />
-      </PageContainer>
+      <NotFoundCard
+        title="Algo ha ido mal"
+        text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
+      />
     )
   }
   return (
-    <PageContainer>
-      <BasicCard
-        defaultWidth="xl"
-        cardHeader={
-          <CardTitle
-            title="Editar información de la instancia"
-            icon={<MdModeEdit />}
-          />
-        }
-      >
-        {userId && (
-          <InstanceEditionForm
-            initialData={instance}
-            commanderId={userId}
-          />
-        )}
-      </BasicCard>
-    </PageContainer>
+    <BasicCard
+      defaultWidth="xl"
+      cardHeader={
+        <CardTitle
+          title="Editar información de la instancia"
+          icon={<MdModeEdit />}
+        />
+      }
+    >
+      {userId && (
+        <InstanceEditionForm
+          initialData={instance}
+          commanderId={userId}
+        />
+      )}
+    </BasicCard>
   )
 }

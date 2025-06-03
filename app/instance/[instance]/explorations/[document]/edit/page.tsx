@@ -10,7 +10,6 @@ import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import ExplorationEditionForm from '@/components/Templates/documents/edition-forms/exploration-edition-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
@@ -42,17 +41,15 @@ export default async function ExplorationEditionPage({params}: PageProps) {
 
   if (!exploration) {
     return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal al cargar los datos"
-          text="Intentalo de nuevo más tarde"
-        />
-      </PageContainer>
+      <NotFoundCard
+        title="Algo ha ido mal al cargar los datos"
+        text="Intentalo de nuevo más tarde"
+      />
     )
   }
 
   return (
-    <PageContainer className="justify-start">
+    <>
       {userId ? (
         <BasicCard
           defaultWidth="xl"
@@ -76,6 +73,6 @@ export default async function ExplorationEditionPage({params}: PageProps) {
           text="Ha habido un error al cargar los datos, intentalo de nuevo mas tarde"
         />
       )}
-    </PageContainer>
+    </>
   )
 }

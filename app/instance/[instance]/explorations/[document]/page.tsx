@@ -5,7 +5,6 @@ import {getPlainExploration} from '@/database/services/Exploration/getPlainExplo
 import {type PlainExploration} from '@/database/services/Exploration/getPlainExploration'
 import {checkIsEditor} from '@/database/services/Instance/membership/checkIsEditor'
 
-import PageContainer from '@/components/Organisms/theme/page-container'
 import SkeletonCard from '@/components/Organisms/containers/skeleton-card'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
 import ExplorationDetailsBoard from '@/components/Templates/documents/details-boards/board-exploration'
@@ -39,15 +38,13 @@ export default async function ExplorationDetailPage({params}: PageProps) {
     )
   }
   return (
-    <PageContainer className="justify-start max-w-full">
-      <Suspense fallback={<SkeletonCard />}>
-        <ExplorationDetailsBoard
-          explorationId={document}
-          isEditor={isEditor}
-          commanderId={userId}
-          exploration={exploration}
-        />
-      </Suspense>
-    </PageContainer>
+    <Suspense fallback={<SkeletonCard />}>
+      <ExplorationDetailsBoard
+        explorationId={document}
+        isEditor={isEditor}
+        commanderId={userId}
+        exploration={exploration}
+      />
+    </Suspense>
   )
 }

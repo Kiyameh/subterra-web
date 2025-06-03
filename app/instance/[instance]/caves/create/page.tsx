@@ -7,7 +7,6 @@ import {type SystemIndex} from '@/database/services/System/getSystemIndex'
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import NotFoundCard from '@/components/Organisms/containers/404-not-found'
-import PageContainer from '@/components/Organisms/theme/page-container'
 import CaveCreationForm from '@/components/Templates/documents/edition-forms/cave-creation-form'
 
 import {LuPlusCircle} from 'react-icons/lu'
@@ -33,35 +32,31 @@ export default async function CaveCreationPage({params}: PageProps) {
 
   if (!instanceId || !userId)
     return (
-      <PageContainer>
-        <NotFoundCard
-          title="Algo ha ido mal al cargar los datos"
-          text="Intentalo de nuevo mas tarde"
-        />
-      </PageContainer>
+      <NotFoundCard
+        title="Algo ha ido mal al cargar los datos"
+        text="Intentalo de nuevo mas tarde"
+      />
     )
 
   return (
-    <PageContainer className="justify-start">
-      <BasicCard
-        defaultWidth="xl"
-        cardHeader={
-          <CardTitle
-            title={`Crear cavidad en ${instanceName}`}
-            icon={<LuPlusCircle />}
-          />
-        }
-      >
-        <HelpButton
-          text="Cavidades"
-          topicSlug="caves"
+    <BasicCard
+      defaultWidth="xl"
+      cardHeader={
+        <CardTitle
+          title={`Crear cavidad en ${instanceName}`}
+          icon={<LuPlusCircle />}
         />
-        <CaveCreationForm
-          instanceId={instanceId}
-          commanderId={userId}
-          systemIndex={systemIndex}
-        />
-      </BasicCard>
-    </PageContainer>
+      }
+    >
+      <HelpButton
+        text="Cavidades"
+        topicSlug="caves"
+      />
+      <CaveCreationForm
+        instanceId={instanceId}
+        commanderId={userId}
+        systemIndex={systemIndex}
+      />
+    </BasicCard>
   )
 }
