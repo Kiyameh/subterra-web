@@ -1,0 +1,20 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and auth routes
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+
+# Disallow instance routes
+Disallow: /instance/
+
+# Disallow create group routes
+Disallow: /create-group/
+
+# Allow group routes but with caution
+Allow: /group/
+
+# Sitemap
+Sitemap: https://subterra.com/sitemap.xml 

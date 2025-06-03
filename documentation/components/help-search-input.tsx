@@ -122,11 +122,11 @@ export default function HelpSearchInput({
       // Establece el parámetro de ayuda en la URL
       const params = new URLSearchParams(searchParams.toString())
       const helpId =
-        result.type === 'section'
-          ? `section-${result.id}`
+        result.type === 'topic'
+          ? result.id
           : result.type === 'category'
             ? `category-${result.id}`
-            : result.id
+            : `section-${result.id}`
 
       params.set('help', helpId)
       router.push(`${pathname}?${params.toString()}`)
