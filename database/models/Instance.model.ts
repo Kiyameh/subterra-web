@@ -5,6 +5,7 @@ import {Document, Schema, models, model, Types} from 'mongoose'
 export interface InstanceDocument extends Document {
   // Relaciones:
   owner: Types.ObjectId
+  master_instance: Types.ObjectId
 
   // Datos generales:
   is_online: boolean
@@ -25,6 +26,7 @@ const instanceSchema = new Schema<InstanceDocument>(
   {
     // Relaciones:
     owner: {type: Schema.Types.ObjectId, ref: 'Group'},
+    master_instance: {type: Schema.Types.ObjectId, ref: 'Instance'},
 
     // Datos generales:
     is_online: {type: Boolean, default: true},

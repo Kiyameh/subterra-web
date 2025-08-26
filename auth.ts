@@ -6,21 +6,22 @@ import type {DefaultJWT} from 'next-auth/jwt'
 import Credentials from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
+import {findUserByCredentials} from '@/database/services/User/findUserByCredentials'
+import {findUserByEmail} from '@/database/services/User/findUserByEmail'
 
 import databaseClient from '@/database/databaseClient'
-import {findUserByCredentials} from '@/database/services/user.actions'
-import {findUserByEmail} from '@/database/services/user.actions'
 
 import {verifyMailTextTemplate} from '@/mail/account-verification'
 import {verifyMailHTMLTemplate} from '@/mail/account-verification'
 
-export const {auth, handlers, signIn, signOut} = NextAuth({
+export const {handlers, auth, signIn, signOut} = NextAuth({
   session: {strategy: 'jwt'},
   adapter: MongoDBAdapter(databaseClient, {databaseName: 'subterra'}),
   pages: {
     signIn: '/auth/login',
   },
   providers: [
+    Google,
     Credentials({
       credentials: {
         email: {},
@@ -34,7 +35,6 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
         )
       },
     }),
-    Google,
     Resend({
       from: 'info@mail.subterra.app',
       // Función para enviar el email de verificación (modelo en text y html):

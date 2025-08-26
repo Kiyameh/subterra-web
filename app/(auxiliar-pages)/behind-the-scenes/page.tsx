@@ -1,7 +1,8 @@
-import SimpleBox from '@/components/_Atoms/boxes/simple-box'
-import PageContainer from '@/components/theming/page-container'
-import {Victor_Mono} from 'next/font/google'
 import Link from 'next/link'
+import {Victor_Mono} from 'next/font/google'
+
+import SimpleBox from '@/components/Molecules/boxes/simple-box'
+import PageContainer from '@/components/Organisms/theme/page-container'
 
 const mono = Victor_Mono({
   subsets: ['latin'],
@@ -65,6 +66,15 @@ export default function HowWasCreatedPage() {
             <span className="text-purple-400 ml-2 mr-2">
               tanto mimo y esfuerzo.
             </span>
+          </p>
+          <a
+            className="text-blue-400"
+            href="https://www.kiyameh.com"
+          >
+            Aquí encontraras más sobre mi
+          </a>
+          <p>
+            Si tienes alguna duda, no dudes en contactarme.
           </p>
         </main>
       </SimpleBox>

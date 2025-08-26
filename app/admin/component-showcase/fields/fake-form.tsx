@@ -1,27 +1,29 @@
 'use client'
 import React from 'react'
-import {Answer} from '@/database/types/answer.type'
+import {z} from 'zod'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {z} from 'zod'
-import DbAwnserBox from '@/components/_Atoms/boxes/db-answer-box'
-import SubmitButton from '@/components/_Atoms/buttons/submit-button'
-import {Form} from '@/components/ui/form'
-import TextField from '@/components/_Atoms/fields/text-field'
-import TextAreaField from '@/components/_Atoms/fields/text-area-field'
-import MultiTextField from '@/components/_Atoms/fields/multi-text-field'
-import SelectField from '@/components/_Atoms/fields/select-field'
-import MultiSelectField from '@/components/_Atoms/fields/multi-select-field'
-import RefSelectField from '@/components/_Atoms/fields/ref-select-field'
-import MultiRefSelectField from '@/components/_Atoms/fields/multi-ref-select-field'
-import DateField from '@/components/_Atoms/fields/date-field'
-import PhoneField from '@/components/_Atoms/fields/phone-field'
-import MultiDateField from '@/components/_Atoms/fields/multi-date-field'
-import CountryField from '@/components/_Atoms/fields/country-field'
-import TimeField from '@/components/_Atoms/fields/time-field'
-import DistanceField from '@/components/_Atoms/fields/distance-field'
-import ReactHookFormErrorBox from '@/components/_Atoms/boxes/rhf-error-box'
-import {PictureSchema} from '@/database/types/picture.type'
+
+import {type Answer} from '@/database/types/Answer'
+import {PictureSchema} from '@/database/types/Picture'
+
+import {Form} from '@/components/Atoms/form'
+import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
+import SubmitButton from '@/components/Molecules/buttons/submit-button'
+import TextField from '@/components/Molecules/fields/text-field'
+import TextAreaField from '@/components/Molecules/fields/text-area-field'
+import MultiTextField from '@/components/Molecules/fields/multi-text-field'
+import SelectField from '@/components/Molecules/fields/select-field'
+import MultiSelectField from '@/components/Molecules/fields/multi-select-field'
+import RefSelectField from '@/components/Molecules/fields/ref-select-field'
+import MultiRefSelectField from '@/components/Molecules/fields/multi-ref-select-field'
+import DateField from '@/components/Molecules/fields/date-field'
+import PhoneField from '@/components/Molecules/fields/phone-field'
+import MultiDateField from '@/components/Molecules/fields/multi-date-field'
+import CountryField from '@/components/Molecules/fields/country-field'
+import TimeField from '@/components/Molecules/fields/time-field'
+import DistanceField from '@/components/Molecules/fields/distance-field'
+import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
 
 const FakeFormSchema = z.object({
   text: z.string().max(120).optional(),
@@ -194,10 +196,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           label="Referencia"
           description="Referencia"
           placeholder="Selecciona una referencia"
-          index={[
-            {_id: '21', name: 'Referencia 21'},
-            {_id: '22', name: 'Referencia 22'},
-          ]}
+          index={[]}
         />
         <MultiRefSelectField
           control={form.control}
@@ -205,10 +204,7 @@ export default function FakeForm({empty}: {empty?: boolean}) {
           label="Referencia múltiple"
           description="Referencia múltiple"
           placeholder="Selecciona varias referencias"
-          index={[
-            {_id: '21', name: 'Ejemplo1'},
-            {_id: '22', name: 'Ejemplo2'},
-          ]}
+          index={[]}
         />
         <PhoneField
           control={form.control}

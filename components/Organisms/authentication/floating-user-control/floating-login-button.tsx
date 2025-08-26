@@ -1,0 +1,20 @@
+'use client'
+import React from 'react'
+import {Button} from '@/components/Atoms/button'
+import LoginWrapper from '@/components/Organisms/authentication/login-wrapper'
+import {MdOutlineAdd} from 'react-icons/md'
+
+/**
+ * @version 1
+ * @description Componente que renderiza un botón flotante que redirige a la página de login
+ */
+
+export default function FloatingLoginButton() {
+  return (
+    <LoginWrapper>
+      <Button className="rounded-full h-10 w-10 flex items-center justify-center">
+        <MdOutlineAdd className="scale-150" />
+      </Button>
+    </LoginWrapper>
+  )
+}

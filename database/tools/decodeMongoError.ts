@@ -1,6 +1,6 @@
 import {MongoServerError} from 'mongodb'
 import {MongooseError} from 'mongoose'
-import {Answer} from '../types/answer.type'
+import {type Answer} from '@/database/types/Answer'
 
 /** Función que interpreta un error de Mongo o Mongoose y devuelve un Answer apropiado para cliente
  * Incluye un console.error con el error original en el servidor

@@ -1,7 +1,7 @@
 import {Document, Schema, models, model, Types} from 'mongoose'
 import bcrypt from 'bcryptjs'
-import {InstanceObject} from '../services/instance.actions'
-import {GroupObject} from '../services/group.actions'
+import {type GroupObject} from '@/database/services/Group/getOneGroup'
+import {type InstanceObject} from '@/database/services/Instance/getAllInstances'
 
 //* INTERFACES:
 
@@ -60,9 +60,6 @@ export const userSchema = new Schema<UserDocument>(
   },
   {timestamps: true}
 )
-
-//* ÍNDICES:
-userSchema.index({email: 1}, {unique: true})
 
 //* MIDDLEWARES:
 /** Middelware que hashea la password si ha sido introducida o modificada antes de guardar el usuario */

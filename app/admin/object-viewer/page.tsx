@@ -1,7 +1,8 @@
 'use client'
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import React from 'react'
-import {Button} from '@/components/ui/button'
+
+import {Button} from '@/components/Atoms/button'
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 
 const JsonViewer = ({data}: {data: object}) => {
   const handleCopy = () => {

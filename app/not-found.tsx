@@ -1,5 +1,5 @@
-import NotFoundCard from '@/components/cards/404-not-found'
-import PageContainer from '@/components/theming/page-container'
+import NotFoundCard from '@/components/Organisms/containers/404-not-found'
+import PageContainer from '@/components/Organisms/theme/page-container'
 
 export default function NotFound() {
   return (

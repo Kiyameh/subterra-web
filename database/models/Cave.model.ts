@@ -1,85 +1,15 @@
-import {model, models, Schema, Types, Document} from 'mongoose'
-import {utmZones} from '@/database/models/Cave.enums'
-import {caveShapes} from '@/database/models/Cave.enums'
-import {coordProyections} from '@/database/models/Cave.enums'
-import {UtmCoordinate} from '@/database/types/coordinates.type'
-import {Picture} from '@/database/types/picture.type'
-import {Installation} from '../types/installation.type'
-import {Topography} from '../types/topography.type'
-
-//* INTERFACES:
-
-export interface Geolocation {
-  date: Date
-  author?: string
-}
-
-export interface HistoricalExploration {
-  date: Date
-  author?: string
-  publication?: string
-  description?: string
-}
-
-export interface CaveDocument extends Document {
-  //* Añadidos por Mongo:
-  //  _id: Types.ObjectId
-  //  __v: number
-  //  createdAt: Date
-  //  updataedAt: Date
-
-  //* Manejo de relaciones:
-  datatype: 'cave'
-  instances: Types.ObjectId[]
-  system?: Types.ObjectId
-
-  //* Datos generales:
-  name: string
-  catalog?: string
-  initials?: string[]
-  alt_names?: string[]
-
-  //* Datos descriptivos:
-  cave_shapes?: (typeof caveShapes)[number][]
-  description?: string
-  regulations?: boolean
-  regulation_description?: string
-  length?: number
-  depth?: number
-
-  //* Datos localización:
-  coordinates?: UtmCoordinate
-  municipality?: string
-  locality?: string
-  toponymy?: string[]
-  massif?: string
-  location_description?: string
-  geolocations?: Geolocation[]
-
-  //* Datos exploración:
-  historical_explorations?: HistoricalExploration[]
-
-  //* Datos científicos:
-  geolog_age?: string
-  geolog_litology?: string
-  arqueolog?: string
-  paleontolog?: string
-  mineralog?: string
-  contamination?: string
-  biolog?: string
-  hidrolog_system?: string
-  hidrolog_subsystem?: string
-
-  //* Adjuntos:
-  topographies?: Topography[]
-  pictures?: Picture[]
-  installations?: Installation[]
-}
+import {model, models, Schema} from 'mongoose'
+import {type CaveDocument, caveShapes} from '@/database/types/Cave'
+import {coordProyections, utmZones} from '@/database/types/UtmCoordinate'
+import {anchorTypes, anchorPurposes} from '@/database/types/Installation'
+import {topographyTypes} from '@/database/types/Topography'
 
 //* ESQUEMA:
 
 const caveSchema = new Schema<CaveDocument>(
   {
+    //* Versiones:
+    versions: [Schema.Types.Mixed],
     //* Manejo de relaciones:
     datatype: {type: String, required: true, default: 'cave'},
     instances: {type: [Schema.Types.ObjectId], ref: 'Instance', required: true},
@@ -88,7 +18,7 @@ const caveSchema = new Schema<CaveDocument>(
     //* Datos troncales:
     catalog: {type: String},
     initials: {type: [String]},
-    name: {type: String, required: true},
+    name: {type: String},
     alt_names: {type: [String]},
 
     //* Datos descriptivos:
@@ -170,13 +100,43 @@ const caveSchema = new Schema<CaveDocument>(
           publicId: {type: String},
           type: {
             type: String,
-            enum: ['plan', 'proyected', 'developed', '3D', 'other'],
+            enum: topographyTypes,
           },
         },
       ],
     },
-
-    // TODO: Añadir instalaciones
+    installations: {
+      type: [
+        {
+          metadata: {
+            cave: {type: String},
+            name: {type: String},
+            description: {type: String},
+            date: {type: Date},
+          },
+          obstacles: [
+            {
+              obstacle: {type: String},
+              obstacle_annotation: {type: String},
+              ropes: [
+                {
+                  length: {type: Number},
+                  rope_annotation: {type: String},
+                  anchors: [
+                    {
+                      amount: {type: Number},
+                      type: {type: String, enum: anchorTypes},
+                      purpose: {type: String, enum: anchorPurposes},
+                      anchor_annotation: {type: String},
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   },
   {timestamps: true}
 )

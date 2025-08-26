@@ -1,7 +1,5 @@
-//* INTERFACES:
-
 import {model, models, Schema, Types} from 'mongoose'
-import {Picture} from '../types/picture.type'
+import {type Picture} from '@/database/types/Picture'
 
 export interface PublicationDocument extends Document {
   //* Añadidos por Mongo:

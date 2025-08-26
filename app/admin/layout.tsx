@@ -1,13 +1,17 @@
 import {auth} from '@/auth'
-import PageContainer from '@/components/theming/page-container'
-import NotFoundCard from '@/components/cards/404-not-found'
-import {PlatformObject} from '@/database/models/Platform.model'
-import {getOnePlatform} from '@/database/services/platform.services'
-import StaffNavigation from '@/components/_staff-dashboard/staff-nav'
+
+import {getOnePlatform} from '@/database/services/Platform/getOnePlatform'
+import {type PlatformObject} from '@/database/models/Platform.model'
+
+import PageContainer from '@/components/Organisms/theme/page-container'
+import NotFoundCard from '@/components/Organisms/containers/404-not-found'
+import StaffNavigation from '@/components/Templates/staff-dashboard/staff-nav'
 
 export default async function Layout({children}: {children: React.ReactNode}) {
-  const subterra = (await getOnePlatform('subterra'))
-    .content as PlatformObject | null
+  // Obtener la plataforma
+  const subterra = (await getOnePlatform()).content as
+    | PlatformObject
+    | undefined
 
   const session = await auth()
   const userId = session?.user._id

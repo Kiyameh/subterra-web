@@ -1,13 +1,16 @@
 import React from 'react'
-import CardWithHeader from '@/components/_Atoms/boxes/card-with-header'
 import {auth} from '@/auth'
-import ProfileEditForm from '@/components/_authentication/profile-edit-form'
-import {FullUser, getFullUser} from '@/database/services/user.actions'
-import UnauthorizedCard from '@/components/cards/401-unauthorized'
+
+import {getPopulatedUser} from '@/database/services/User/getPopulatedUser'
+import {type PopulatedUser} from '@/database/services/User/getPopulatedUser'
+
+import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
+import ProfileEditForm from '@/components/Organisms/authentication/profile-edit-form'
+import UnauthorizedCard from '@/components/Organisms/containers/401-unauthorized'
 
 export default async function EditProfilePage() {
   const userId = (await auth())?.user._id
-  const user: FullUser | undefined = await getFullUser(userId)
+  const user: PopulatedUser | undefined = await getPopulatedUser(userId)
 
   if (!user)
     return (
