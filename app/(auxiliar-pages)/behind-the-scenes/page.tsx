@@ -67,6 +67,15 @@ export default function HowWasCreatedPage() {
               tanto mimo y esfuerzo.
             </span>
           </p>
+          <a
+            className="text-blue-400"
+            href="https://www.kiyameh.com"
+          >
+            Aquí encontraras más sobre mi
+          </a>
+          <p>
+            Si tienes alguna duda, no dudes en contactarme.
+          </p>
         </main>
       </SimpleBox>
     </PageContainer>
