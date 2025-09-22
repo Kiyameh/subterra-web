@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-import {cn} from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
-import {uploadToCloudinary} from '@/upload/actions'
-import {type Picture} from '@/database/types/Picture'
-import {toast} from 'sonner'
+import { uploadToCloudinary } from '@/upload/actions'
+import { type Picture } from '@/database/types/Picture'
+import { toast } from 'sonner'
 
-import {Button} from '@/components/Atoms/button'
-import {Input} from '@/components/Atoms/input'
-import {Label} from '@/components/Atoms/label'
-import {Textarea} from '@/components/Atoms/textarea'
-import {Calendar} from '@/components/Atoms/calendar'
+import { Button } from '@/components/Atoms/button'
+import { Input } from '@/components/Atoms/input'
+import { Label } from '@/components/Atoms/label'
+import { Textarea } from '@/components/Atoms/textarea'
 import {
   Card,
   CardContent,
@@ -32,6 +31,8 @@ import {
   UploadIcon,
   XIcon,
 } from 'lucide-react'
+import { DayPicker } from 'react-day-picker'
+import { es } from 'date-fns/locale'
 
 /**
  * @version 1
@@ -271,12 +272,20 @@ export default function PictureUploadingForm({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
-                  <Calendar
+                  <DayPicker
+                    className="p-3"
+                    locale={es}
+                    captionLayout='dropdown'
                     mode="single"
+                    classNames={{
+                      nav: 'hidden',
+                      caption_label: 'hidden',
+                      dropdown: 'p-1 bg-card',
+                      day_button: 'rounded-full flex-inline items-center justify-center p-1 w-8 h-8 m-[2px] bg-background',
+                      selected: 'bg-primary text-primary-foreground rounded-full',
+                    }}
                     selected={date}
                     onSelect={setDate}
-                    lang="es-ES"
-                    initialFocus
                   />
                 </PopoverContent>
               </Popover>

@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
-import {Control, FieldValues, Path} from 'react-hook-form'
-import {format} from 'date-fns'
-import {es} from 'date-fns/locale'
-import {cn} from '@/lib/utils'
+import { Control, FieldValues, Path } from 'react-hook-form'
+import { format } from 'date-fns'
+import { es } from 'date-fns/locale'
+import { cn } from '@/lib/utils'
 
-import {Calendar} from '@/components/Atoms/calendar'
-import {Button} from '@/components/Atoms/button'
+import { DayPicker } from 'react-day-picker'
+import { Button } from '@/components/Atoms/button'
 import {
   Popover,
   PopoverContent,
@@ -20,8 +20,8 @@ import {
   FormMessage,
 } from '@/components/Atoms/form'
 import InfoBadge from '@/components/Molecules/badges/info-badge'
+import { CalendarIcon } from 'lucide-react'
 
-import {CalendarIcon} from 'lucide-react'
 
 /**
  * @version 1
@@ -47,7 +47,7 @@ export default function DateField<T extends FieldValues>({
     <FormField
       control={control}
       name={name}
-      render={({field, fieldState}) => (
+      render={({ field, fieldState }) => (
         <>
           <FormItem className="space-y-1">
             <div className="flex gap-2">
@@ -63,12 +63,12 @@ export default function DateField<T extends FieldValues>({
                       'w-full bg-card h-10 pl-3 text-left font-normal',
                       !field.value && 'text-muted-foreground',
                       fieldState.isDirty &&
-                        !fieldState.error &&
-                        'border-emphasis'
+                      !fieldState.error &&
+                      'border-emphasis'
                     )}
                   >
                     {field.value ? (
-                      format(field.value, 'PPP', {locale: es})
+                      format(field.value, 'PPP', { locale: es })
                     ) : (
                       <span>Selecciona una fecha</span>
                     )}
@@ -79,12 +79,22 @@ export default function DateField<T extends FieldValues>({
                   className="w-auto p-0"
                   align="start"
                 >
-                  <Calendar
+                  <DayPicker
+                    className="p-3"
+                    locale={es}
+                    captionLayout='dropdown'
                     mode="single"
+                    classNames={{
+                      nav: 'hidden',
+                      caption_label: 'hidden',
+                      dropdown: 'p-1 bg-card',
+                      day_button: 'rounded-full flex-inline items-center justify-center p-1 w-8 h-8 m-[2px] bg-background',
+                      selected: 'bg-primary text-primary-foreground rounded-full',
+                    }}
                     selected={field.value}
                     onSelect={field.onChange}
-                    initialFocus
                   />
+
                 </PopoverContent>
               </Popover>
             </FormControl>

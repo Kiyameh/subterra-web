@@ -1,13 +1,12 @@
 'use client'
 import React from 'react'
-import {Control, FieldValues, Path} from 'react-hook-form'
-import {format} from 'date-fns'
-import {es} from 'date-fns/locale'
-import {cn} from '@/lib/utils'
+import { Control, FieldValues, Path } from 'react-hook-form'
+import { format } from 'date-fns'
+import { es } from 'date-fns/locale'
+import { cn } from '@/lib/utils'
 
-import {Calendar} from '@/components/Atoms/calendar'
-import {Button} from '@/components/Atoms/button'
-import {Badge} from '@/components/Atoms/badge'
+import { Button } from '@/components/Atoms/button'
+import { Badge } from '@/components/Atoms/badge'
 import {
   Popover,
   PopoverContent,
@@ -22,8 +21,9 @@ import {
 } from '@/components/Atoms/form'
 import InfoBadge from '@/components/Molecules/badges/info-badge'
 
-import {X as RemoveIcon} from 'lucide-react'
-import {CalendarIcon} from 'lucide-react'
+import { X as RemoveIcon } from 'lucide-react'
+import { CalendarIcon } from 'lucide-react'
+import { DayPicker } from 'react-day-picker'
 /**
  * @version 1
  * @description Input de fecha multiple controlado por RHF. Coloreado en [emphasis] si ha sido modificado y no tiene errores.
@@ -48,7 +48,7 @@ export default function MultiDateField<T extends FieldValues>({
     <FormField
       control={control}
       name={name}
-      render={({field, fieldState}) => (
+      render={({ field, fieldState }) => (
         <>
           <FormItem className="space-y-1">
             <div className="flex gap-2">
@@ -84,13 +84,12 @@ function MultiDateInput({
 }) {
   const [selectedDates, setSelectedDates] = React.useState<Date[]>(value || [])
 
-  function handleSelect(date: Date) {
-    if (selectedDates.includes(date)) {
-      setSelectedDates(selectedDates.filter((d) => d !== date))
-    } else {
-      setSelectedDates([...selectedDates, date])
-      onChange([...selectedDates, date])
-    }
+  function handleSelect(dates: Date[] | undefined) {
+    console.log(dates)
+    console.log(selectedDates)
+
+    setSelectedDates(dates || [])
+    onChange(dates || [])
   }
 
   function handleDelete(date: Date) {
@@ -123,13 +122,21 @@ function MultiDateInput({
         className="w-auto p-0 flex flex-row "
         align="start"
       >
-        <Calendar
-          mode="single"
-          selected={selectedDates[selectedDates.length - 1]}
-          onSelect={(date) => date && handleSelect(date)}
-          initialFocus
+        <DayPicker
+          className="p-3"
+          locale={es}
+          captionLayout='dropdown'
+          classNames={{
+            nav: 'hidden',
+            caption_label: 'hidden',
+            dropdown: 'p-1 bg-card',
+            day_button: 'rounded-full flex-inline items-center justify-center p-1 w-8 h-8 m-[2px] bg-background',
+            selected: 'bg-primary text-primary-foreground rounded-full',
+          }}
+          mode='multiple'
+          selected={selectedDates}
+          onSelect={(dates) => handleSelect(dates)}
         />
-
         <div className="flex flex-col max-h-80 flex-wrap gap-1 mt-2 p-2">
           {selectedDates.map((date, index) => (
             <Badge
@@ -141,7 +148,7 @@ function MultiDateInput({
                 className="ml-1 h-4 w-4 cursor-pointer"
                 onClick={() => handleDelete(date)}
               />
-              {format(date, 'dMMM', {locale: es})}
+              {format(date, 'dMMM', { locale: es })}
             </Badge>
           ))}
         </div>
