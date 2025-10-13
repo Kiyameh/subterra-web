@@ -1,6 +1,6 @@
 {
-  "name": "subterra_web",
-  "version": "1.4.2",
+  "name": "subterra-web",
+  "version": "1.4.3",
   "private": false,
   "scripts": {
     "dev": "next dev",
