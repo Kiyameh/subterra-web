@@ -81,7 +81,7 @@ export function MultiChipSlot({
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-muted/50 px-2 py-[2px] md:px-4 min-h-7">
       <span className="text-muted-foreground text-sm">{label}</span>
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-1 flex-wrap items-center">
         {values?.map((value, index) => (
           <Badge
             key={index}

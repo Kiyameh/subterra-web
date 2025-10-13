@@ -18,7 +18,7 @@ import {type ExplorationDocument} from '@/database/types/Exploration'
  */
 
 export interface ExplorationIndex
-  extends Pick<ExplorationDocument, '_id' | 'name' | 'dates' | 'cave_time'> {
+  extends Pick<ExplorationDocument, '_id' | 'name' | 'dates' | 'cave_time' > {
   caves?: Pick<CaveDocument, '_id' | 'name'>[]
   groups?: Pick<GroupDocument, '_id' | 'name'>[]
 }
@@ -42,7 +42,7 @@ export async function getExplorationsIndex(
     // Obtener índice de exploraciones:
     const explorations = await Exploration.find({
       instances: {$in: [instance?._id]},
-    })
+    }).sort({ createdAt: -1 })
       .select('_id name dates caves groups cave_time')
       .populate({
         path: 'caves',

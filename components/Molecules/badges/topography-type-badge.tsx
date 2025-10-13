@@ -14,8 +14,14 @@ export default function TopographyTypeBadge({
     case 'proyected':
       text = 'Alzado proyectado'
       break
+    case 'plan&proyected':
+      text = 'Planta y proyectado'
+      break
     case 'developed':
       text = 'Alzado desarrollado'
+      break
+    case 'plan&developed':
+      text = 'Planta y alzado desarrollado'
       break
     case '3D':
       text = '3D'

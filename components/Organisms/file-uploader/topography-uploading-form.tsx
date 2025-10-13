@@ -294,6 +294,8 @@ export default function TopographyUploadingForm({
                   <SelectItem value="plan">Planta</SelectItem>
                   <SelectItem value="proyected">Alzado Proyectado</SelectItem>
                   <SelectItem value="developed">Alzado Desarrollado</SelectItem>
+                  <SelectItem value="plan&proyected">Planta y Proyectado</SelectItem>
+                  <SelectItem value="plan&developed">Planta y Desarrollado</SelectItem>
                   <SelectItem value="3D">3D</SelectItem>
                   <SelectItem value="other">Otro</SelectItem>
                 </SelectContent>

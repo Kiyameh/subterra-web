@@ -9,6 +9,8 @@ export const topographyTypes = [
   'plan',
   'proyected',
   'developed',
+  'plan&proyected',
+  'plan&developed',
   '3D',
   'other',
 ] as const
