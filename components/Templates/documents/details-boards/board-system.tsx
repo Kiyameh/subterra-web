@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 
-import {type PlainSystem} from '@/database/services/System/getPlainSystem'
+import { type PlainSystem } from '@/database/services/System/getPlainSystem'
 
 import HeaderBox from '@/components/Molecules/boxes/header-box'
-import {getOldVersion} from './get-old-version'
+import { getOldVersion } from './get-old-version'
 import MainPictureCard from './card-main-picture'
 import DocumentActionsToolbar from './toolbar-document-actions'
 import VersionControlToolbar from './toolbar-version-control'
@@ -15,7 +15,7 @@ import SystemCavesCard from './card-caves-of-system'
 import DescriptionCard from './card-description'
 import ScienceCard from './card-science'
 
-import {PiCirclesThreeBold} from 'react-icons/pi'
+import { PiCirclesThreeBold } from 'react-icons/pi'
 
 /**
  * @version 1
@@ -39,21 +39,23 @@ export default function SystemDetailsBoard({
 }) {
   const [documentData, setDocumentData] = React.useState<PlainSystem>(system)
 
-  const avaibleVersions: number = system.versions?.length + 1 || 1
+  const originalSystem = React.useMemo(() => system, [system])
+
+  const avaibleVersions: number = originalSystem.versions?.length + 1 || 1
 
   function handleVersionChange(v: number) {
-    setDocumentData(getOldVersion(system, v))
+    setDocumentData(getOldVersion(originalSystem, v))
   }
 
   return (
     <div className="w-full">
       <header className="w-full">
         <MainPictureCard
-          src={system.pictures?.[0]?.file_src || null}
-          alt={system.pictures?.[0]?.description}
+          src={documentData.pictures?.[0]?.file_src || null}
+          alt={documentData.pictures?.[0]?.description}
         />
         <HeaderBox
-          text={system.name || systemId}
+          text={documentData.name || systemId}
           icon={<PiCirclesThreeBold />}
         />
 

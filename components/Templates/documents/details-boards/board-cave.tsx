@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 
-import {type PlainCave} from '@/database/services/Cave/getPlainCave'
+import { type PlainCave } from '@/database/services/Cave/getPlainCave'
 
 import HeaderBox from '@/components/Molecules/boxes/header-box'
 
-import {getOldVersion} from '@/components/Templates/documents/details-boards/get-old-version'
+import { getOldVersion } from '@/components/Templates/documents/details-boards/get-old-version'
 import MainPictureCard from '@/components/Templates/documents/details-boards/card-main-picture'
 import VersionControlToolbar from '@/components/Templates/documents/details-boards/toolbar-version-control'
 import DocumentActionsToolbar from '@/components/Templates/documents/details-boards/toolbar-document-actions'
@@ -18,7 +18,7 @@ import CaveExplorationsCard from './card-explorations-of-cave'
 import DescriptionCard from './card-description'
 import ScienceCard from './card-science'
 
-import {FaRegCircle} from 'react-icons/fa'
+import { FaRegCircle } from 'react-icons/fa'
 
 /**
  * @version 1
@@ -42,21 +42,23 @@ export default function CaveDetailsBoard({
 }) {
   const [documentData, setDocumentData] = React.useState<PlainCave>(cave)
 
-  const avaibleVersions: number = cave.versions?.length + 1 || 1
+  const originalCave = React.useMemo(() => cave, [cave])
+
+  const avaibleVersions: number = originalCave.versions?.length + 1 || 1
 
   function handleVersionChange(v: number) {
-    setDocumentData(getOldVersion(cave, v))
+    setDocumentData(getOldVersion(originalCave, v))
   }
 
   return (
     <div className="w-full">
       <header className="w-full">
         <MainPictureCard
-          src={cave.pictures?.[0]?.file_src || null}
-          alt={cave.pictures?.[0]?.description}
+          src={documentData.pictures?.[0]?.file_src || null}
+          alt={documentData.pictures?.[0]?.description}
         />
         <HeaderBox
-          text={cave.name || caveId}
+          text={documentData.name || caveId}
           icon={<FaRegCircle />}
         />
 
