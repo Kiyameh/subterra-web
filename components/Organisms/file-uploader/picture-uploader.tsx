@@ -88,6 +88,7 @@ export function PictureUploader<T extends FieldValues>({
       const newPictures = [...pictures]
       newPictures.splice(index, 1)
       field.onChange(newPictures)
+      fieldState.isDirty = true
     } catch (error) {
       console.error('Error deleting image:', error)
       toast.error('Error al eliminar la imagen', {
@@ -119,6 +120,7 @@ export function PictureUploader<T extends FieldValues>({
       }
 
       field.onChange([])
+      fieldState.isDirty = true
     }
   }
 

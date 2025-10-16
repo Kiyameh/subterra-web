@@ -87,6 +87,7 @@ export function TopographyUploader<T extends FieldValues>({
       const newTopographies = [...topographies]
       newTopographies.splice(index, 1)
       field.onChange(newTopographies)
+      fieldState.isDirty = true
     } catch (error) {
       console.error('Error deleting topography:', error)
       toast.error('Error al eliminar la topografía', {
@@ -122,6 +123,7 @@ export function TopographyUploader<T extends FieldValues>({
       }
 
       field.onChange([])
+      fieldState.isDirty = true
     }
   }
 
