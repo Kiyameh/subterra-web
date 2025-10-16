@@ -10,13 +10,13 @@ import {
   type Control,
 } from 'react-hook-form'
 
-import {type Topography} from '@/database/types/Topography'
-import {deleteFromCloudinary} from '@/upload/actions'
-import {extractPublicIdFromUrl} from '@/upload/utils'
+import { type Topography } from '@/database/types/Topography'
+import { deleteFromCloudinary } from '@/upload/actions'
+import { extractPublicIdFromUrl } from '@/upload/utils'
 
-import {toast} from 'sonner'
-import {Button} from '@/components/Atoms/button'
-import {PlusIcon, TrashIcon} from 'lucide-react'
+import { toast } from 'sonner'
+import { Button } from '@/components/Atoms/button'
+import { PlusIcon, TrashIcon } from 'lucide-react'
 import UploadedFilesBoard from './uploaded-files-board'
 import TopographyUploadingForm from './topography-uploading-form'
 
@@ -42,7 +42,7 @@ export function TopographyUploader<T extends FieldValues>({
   const [deletingIndex, setDeletingIndex] = React.useState<number | null>(null)
 
   // Conectar componente con el formulario superior
-  const {field} = useController({
+  const { field } = useController({
     name,
     control,
     defaultValue: [] as unknown as PathValue<T, Path<T>>,
@@ -63,7 +63,7 @@ export function TopographyUploader<T extends FieldValues>({
     }
 
     // Actualizad campo de formulario con la topografía:
-    field.onChange([...topographies, newTopography], {shouldDirty: true})
+    field.onChange([...topographies, newTopography])
   }
 
   const handleRemoveTopography = async (index: number) => {

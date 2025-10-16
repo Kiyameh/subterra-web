@@ -2,7 +2,7 @@
 'use client'
 import React from 'react'
 
-import {type Picture} from '@/database/types/Picture'
+import { type Picture } from '@/database/types/Picture'
 import {
   FieldValues,
   Path,
@@ -11,15 +11,15 @@ import {
   type Control,
 } from 'react-hook-form'
 
-import {deleteFromCloudinary} from '@/upload/actions'
-import {extractPublicIdFromUrl} from '@/upload/utils'
+import { deleteFromCloudinary } from '@/upload/actions'
+import { extractPublicIdFromUrl } from '@/upload/utils'
 
-import {toast} from 'sonner'
-import {Button} from '@/components/Atoms/button'
+import { toast } from 'sonner'
+import { Button } from '@/components/Atoms/button'
 import UploadedFilesBoard from './uploaded-files-board'
 import PictureUploadingForm from './picture-uploading-form'
 
-import {PlusIcon, TrashIcon} from 'lucide-react'
+import { PlusIcon, TrashIcon } from 'lucide-react'
 
 /**
  * @version 1
@@ -43,7 +43,7 @@ export function PictureUploader<T extends FieldValues>({
   const [deletingIndex, setDeletingIndex] = React.useState<number | null>(null)
 
   // Conectar componente con el formulario superior
-  const {field} = useController({
+  const { field } = useController({
     name,
     control,
     defaultValue: [] as unknown as PathValue<T, Path<T>>,
@@ -64,7 +64,7 @@ export function PictureUploader<T extends FieldValues>({
     }
 
     // Actualizad campo de formulario con la imagen:
-    field.onChange([...pictures, newPicture], {shouldDirty: true})
+    field.onChange([...pictures, newPicture], { shouldDirty: true })
   }
 
   const handleRemoveImage = async (index: number) => {
