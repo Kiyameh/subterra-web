@@ -63,7 +63,7 @@ export function TopographyUploader<T extends FieldValues>({
     }
 
     // Actualizad campo de formulario con la topografía:
-    field.onChange([...topographies, newTopography])
+    field.onChange([...topographies, newTopography], {shouldDirty: true})
   }
 
   const handleRemoveTopography = async (index: number) => {

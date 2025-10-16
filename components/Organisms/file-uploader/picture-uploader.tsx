@@ -64,7 +64,7 @@ export function PictureUploader<T extends FieldValues>({
     }
 
     // Actualizad campo de formulario con la imagen:
-    field.onChange([...pictures, newPicture])
+    field.onChange([...pictures, newPicture], {shouldDirty: true})
   }
 
   const handleRemoveImage = async (index: number) => {
