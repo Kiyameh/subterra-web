@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 
-import {type PlainExploration} from '@/database/services/Exploration/getPlainExploration'
+import { type PlainExploration } from '@/database/services/Exploration/getPlainExploration'
 
 import HeaderBox from '@/components/Molecules/boxes/header-box'
-import {getOldVersion} from '@/components/Templates/documents/details-boards/get-old-version'
+import { getOldVersion } from '@/components/Templates/documents/details-boards/get-old-version'
 import MainPictureCard from '@/components/Templates/documents/details-boards/card-main-picture'
 import VersionControlToolbar from '@/components/Templates/documents/details-boards/toolbar-version-control'
 import DocumentActionsToolbar from '@/components/Templates/documents/details-boards/toolbar-document-actions'
@@ -14,7 +14,7 @@ import ExplorationInfoCard from './card-info-of-exploration'
 import ExplorationCavesCard from './card-caves-of-exploration'
 import ExplorationDescriptionCard from './card-description-of-exploration'
 
-import {FaRegCircle} from 'react-icons/fa'
+import { FaRegCircle } from 'react-icons/fa'
 
 /**
  * @version 1
@@ -39,21 +39,23 @@ export default function ExplorationDetailsBoard({
   const [documentData, setDocumentData] =
     React.useState<PlainExploration>(exploration)
 
-  const avaibleVersions: number = exploration.versions?.length + 1 || 1
+  const originalExploration = React.useMemo(() => exploration, [exploration])
+
+  const avaibleVersions: number = documentData.versions?.length + 1 || 1
 
   function handleVersionChange(v: number) {
-    setDocumentData(getOldVersion(exploration, v))
+    setDocumentData(getOldVersion(originalExploration, v))
   }
 
   return (
     <div className="w-full">
       <header className="w-full">
         <MainPictureCard
-          src={exploration.pictures?.[0]?.file_src || null}
-          alt={exploration.pictures?.[0]?.description}
+          src={documentData.pictures?.[0]?.file_src || null}
+          alt={documentData.pictures?.[0]?.description}
         />
         <HeaderBox
-          text={exploration.name || explorationId}
+          text={documentData.name || explorationId}
           icon={<FaRegCircle />}
         />
 
