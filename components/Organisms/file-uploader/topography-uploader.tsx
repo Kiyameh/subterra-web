@@ -42,7 +42,7 @@ export function TopographyUploader<T extends FieldValues>({
   const [deletingIndex, setDeletingIndex] = React.useState<number | null>(null)
 
   // Conectar componente con el formulario superior
-  const { field } = useController({
+  const { field, fieldState } = useController({
     name,
     control,
     defaultValue: [] as unknown as PathValue<T, Path<T>>,
@@ -63,7 +63,8 @@ export function TopographyUploader<T extends FieldValues>({
     }
 
     // Actualizad campo de formulario con la topografía:
-    field.onChange([...topographies, newTopography], { shouldDirty: true })
+    field.onChange([...topographies, newTopography])
+    fieldState.isDirty = true
   }
 
   const handleRemoveTopography = async (index: number) => {

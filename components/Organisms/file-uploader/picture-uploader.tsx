@@ -43,7 +43,7 @@ export function PictureUploader<T extends FieldValues>({
   const [deletingIndex, setDeletingIndex] = React.useState<number | null>(null)
 
   // Conectar componente con el formulario superior
-  const { field } = useController({
+  const { field, fieldState } = useController({
     name,
     control,
     defaultValue: [] as unknown as PathValue<T, Path<T>>,
@@ -64,7 +64,8 @@ export function PictureUploader<T extends FieldValues>({
     }
 
     // Actualizad campo de formulario con la imagen:
-    field.onChange([...pictures, newPicture], { shouldDirty: true })
+    field.onChange([...pictures, newPicture])
+    fieldState.isDirty = true
   }
 
   const handleRemoveImage = async (index: number) => {
