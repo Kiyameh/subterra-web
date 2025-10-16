@@ -41,7 +41,7 @@ export default function SystemDetailsBoard({
 
   const originalSystem = React.useMemo(() => system, [system])
 
-  const avaibleVersions: number = documentData.versions?.length + 1 || 1
+  const avaibleVersions: number = originalSystem.versions?.length + 1 || 1
 
   function handleVersionChange(v: number) {
     setDocumentData(getOldVersion(originalSystem, v))

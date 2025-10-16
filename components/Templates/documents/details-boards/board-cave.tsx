@@ -44,7 +44,7 @@ export default function CaveDetailsBoard({
 
   const originalCave = React.useMemo(() => cave, [cave])
 
-  const avaibleVersions: number = documentData.versions?.length + 1 || 1
+  const avaibleVersions: number = originalCave.versions?.length + 1 || 1
 
   function handleVersionChange(v: number) {
     setDocumentData(getOldVersion(originalCave, v))

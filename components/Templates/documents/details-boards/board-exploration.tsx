@@ -41,7 +41,7 @@ export default function ExplorationDetailsBoard({
 
   const originalExploration = React.useMemo(() => exploration, [exploration])
 
-  const avaibleVersions: number = documentData.versions?.length + 1 || 1
+  const avaibleVersions: number = originalExploration.versions?.length + 1 || 1
 
   function handleVersionChange(v: number) {
     setDocumentData(getOldVersion(originalExploration, v))
