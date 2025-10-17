@@ -90,7 +90,7 @@ export const CaveSchema = z.object({
   toponymy: z.array(z.string().max(mediumText, maxCharMsg)).optional(),
   massif: z.string().max(mediumText, maxCharMsg).optional(),
   location_description: z.string().max(bigText, maxCharMsg).optional(),
-  geolocations: z.array(GeolocationSchema).optional(),
+  location_confirmed: GeolocationSchema.optional(),
 
   // Datos exploración
   historical_explorations: z.array(HistoricalExplorationSchema).optional(),

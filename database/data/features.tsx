@@ -1,7 +1,7 @@
-import {FaUser, FaUserFriends, FaRegCircle, FaUserLock} from 'react-icons/fa'
-import {FiBox} from 'react-icons/fi'
-import {GrMap, GrDocumentDownload} from 'react-icons/gr'
-import {LuSheet, LuBookMarked, LuMap, LuImage} from 'react-icons/lu'
+import { FaUser, FaUserFriends, FaRegCircle, FaUserLock } from 'react-icons/fa'
+import { FiBox } from 'react-icons/fi'
+import { GrMap, GrDocumentDownload } from 'react-icons/gr'
+import { LuSheet, LuBookMarked, LuMap, LuImage } from 'react-icons/lu'
 import {
   MdOutlineExplore,
   MdSearch,
@@ -9,10 +9,10 @@ import {
   MdCompare,
   MdOutlineStarOutline,
 } from 'react-icons/md'
-import {RiDoorLockBoxLine} from 'react-icons/ri'
-import {TbCircles} from 'react-icons/tb'
-import {PiNotebook} from 'react-icons/pi'
-import {History} from 'lucide-react'
+import { RiDoorLockBoxLine } from 'react-icons/ri'
+import { TbCircles } from 'react-icons/tb'
+import { PiNotebook } from 'react-icons/pi'
+import { History, LocateFixed } from 'lucide-react'
 
 export interface Feature {
   name: string
@@ -92,6 +92,16 @@ export const features: Feature[] = [
     image_src: null,
     docs: null,
     url: '/guide',
+    version: '1.4.0',
+  },
+  {
+    name: 'Localización verificada',
+    description:
+      'Certifica que una cavidad a sido geolocalizada con certeza.',
+    icon: <LocateFixed />,
+    image_src: null,
+    docs: null,
+    url: null,
     version: '1.4.0',
   },
   {

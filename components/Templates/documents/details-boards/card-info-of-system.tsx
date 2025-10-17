@@ -1,15 +1,15 @@
 import React from 'react'
 
-import {type PlainSystem} from '@/database/services/System/getPlainSystem'
+import { type PlainSystem } from '@/database/services/System/getPlainSystem'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {MultiTextSlot} from '@/components/Molecules/slots/text-slots'
-import {BooleanSlot} from '@/components/Molecules/slots/chip-slots'
-import {DistanceSlot} from '@/components/Molecules/slots/number-slots'
+import { TextSlot } from '@/components/Molecules/slots/text-slots'
+import { MultiTextSlot } from '@/components/Molecules/slots/text-slots'
+import { BooleanSlot } from '@/components/Molecules/slots/chip-slots'
+import { DistanceSlot } from '@/components/Molecules/slots/number-slots'
 
-import {IoMdInformationCircle} from 'react-icons/io'
+import { IoMdInformationCircle } from 'react-icons/io'
 
 /**
  * @version 1
@@ -17,7 +17,7 @@ import {IoMdInformationCircle} from 'react-icons/io'
  * @param document documento
  */
 
-export default function SystemInfoCard({document}: {document: PlainSystem}) {
+export default function SystemInfoCard({ document }: { document: PlainSystem }) {
   return (
     <BasicCard
       className="w-full"
@@ -54,6 +54,7 @@ export default function SystemInfoCard({document}: {document: PlainSystem}) {
         value={document.massif}
       />
       <BooleanSlot
+        invertedColor
         label="Regulaciones"
         value={document.regulations}
       />

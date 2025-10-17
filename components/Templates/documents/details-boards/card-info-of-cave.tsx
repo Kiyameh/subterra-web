@@ -1,18 +1,18 @@
-import React, {Suspense} from 'react'
+import React, { Suspense } from 'react'
 
-import {type PlainCave} from '@/database/services/Cave/getPlainCave'
+import { type PlainCave } from '@/database/services/Cave/getPlainCave'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
-import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {MultiTextSlot} from '@/components/Molecules/slots/text-slots'
-import {BooleanSlot} from '@/components/Molecules/slots/chip-slots'
-import {MultiChipSlot} from '@/components/Molecules/slots/chip-slots'
-import {DistanceSlot} from '@/components/Molecules/slots/number-slots'
+import { TextSlot } from '@/components/Molecules/slots/text-slots'
+import { MultiTextSlot } from '@/components/Molecules/slots/text-slots'
+import { BooleanSlot } from '@/components/Molecules/slots/chip-slots'
+import { MultiChipSlot } from '@/components/Molecules/slots/chip-slots'
+import { DistanceSlot } from '@/components/Molecules/slots/number-slots'
 import Divider from '@/components/Molecules/boxes/divider'
 import SystemWidget from './widget-system'
 
-import {IoMdInformationCircle} from 'react-icons/io'
+import { IoMdInformationCircle } from 'react-icons/io'
 
 /**
  * @version 1
@@ -20,7 +20,7 @@ import {IoMdInformationCircle} from 'react-icons/io'
  * @param document documento de la cavidad
  */
 
-export default function CaveInfoCard({document}: {document: PlainCave}) {
+export default function CaveInfoCard({ document }: { document: PlainCave }) {
   return (
     <BasicCard
       className="w-full"
@@ -58,6 +58,7 @@ export default function CaveInfoCard({document}: {document: PlainCave}) {
         values={document.cave_shapes}
       />
       <BooleanSlot
+        invertedColor
         label="Regulaciones"
         value={document.regulations}
       />

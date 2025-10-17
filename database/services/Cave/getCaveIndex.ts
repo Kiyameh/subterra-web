@@ -24,7 +24,7 @@ export async function getCaveIndex(instanceName: string): Promise<Answer> {
       .exec()
     const caves = await Cave.find({instances: {$in: [instance?._id]}})
       .select(
-        '_id catalog initials name system length depth regulations massif'
+        '_id catalog initials name system length depth regulations massif location_confirmed'
       )
       .populate({
         path: 'system',
@@ -64,6 +64,7 @@ export interface CaveIndex
     | 'depth'
     | 'regulations'
     | 'massif'
+    | 'location_confirmed'
   > {
   system: Pick<SystemDocument, '_id' | 'name'>
 }

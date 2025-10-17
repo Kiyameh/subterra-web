@@ -49,12 +49,11 @@ const caveSchema = new Schema<CaveDocument>(
     toponymy: {type: [String]},
     massif: {type: String},
     location_description: {type: String},
-    geolocations: [
+    location_confirmed: 
       {
         date: {type: Date, required: true},
         author: {type: String},
       },
-    ],
 
     //* Datos exploración:
     historical_explorations: [

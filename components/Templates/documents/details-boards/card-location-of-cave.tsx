@@ -1,16 +1,17 @@
 import React from 'react'
 
-import {type PlainCave} from '@/database/services/Cave/getPlainCave'
+import { type PlainCave } from '@/database/services/Cave/getPlainCave'
 
 import BasicCard from '@/components/Molecules/boxes/basic-card'
 import CardTitle from '@/components/Molecules/boxes/card-title'
 import Divider from '@/components/Molecules/boxes/divider'
-import {MultiTextSlot} from '@/components/Molecules/slots/text-slots'
-import {TextSlot} from '@/components/Molecules/slots/text-slots'
-import {ChipSlot} from '@/components/Molecules/slots/chip-slots'
-import {DistanceSlot} from '@/components/Molecules/slots/number-slots'
+import { MultiTextSlot } from '@/components/Molecules/slots/text-slots'
+import { TextSlot } from '@/components/Molecules/slots/text-slots'
+import { ChipSlot, MultiDateSlot } from '@/components/Molecules/slots/chip-slots'
+import { DistanceSlot } from '@/components/Molecules/slots/number-slots'
 
-import {FaMapLocationDot} from 'react-icons/fa6'
+import { FaMapLocationDot } from 'react-icons/fa6'
+import { FaCheckCircle } from 'react-icons/fa'
 
 /**
  * @version 2
@@ -18,7 +19,7 @@ import {FaMapLocationDot} from 'react-icons/fa6'
  * @param document documento de la cavidad
  */
 
-export default function CaveLocationCard({document}: {document: PlainCave}) {
+export default function CaveLocationCard({ document }: { document: PlainCave }) {
   return (
     <BasicCard
       className="w-full"
@@ -58,6 +59,21 @@ export default function CaveLocationCard({document}: {document: PlainCave}) {
         fixedUnits
         valueInMeters={document.coordinates?.z_coord}
       />
+      {
+        document.location_confirmed && (
+          <div className="flex flex-col gap-2 border-green-500 border p-2 rounded-md">
+            <p className='font-medium text-foreground flex items-center gap-2'>Localización verificada <FaCheckCircle className='text-green-500' /></p>
+            <MultiDateSlot
+              label="Fecha de verificación"
+              values={[document.location_confirmed.date]}
+            />
+            <TextSlot
+              label="Autor de verificación"
+              value={document.location_confirmed.author}
+            />
+          </div>
+        )
+      }
       <Divider />
       <TextSlot
         label="Municipio"

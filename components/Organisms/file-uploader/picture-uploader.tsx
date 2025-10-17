@@ -45,7 +45,7 @@ export function PictureUploader<T extends FieldValues>({
   const [deletingIndex, setDeletingIndex] = React.useState<number | null>(null)
 
   // Conectar componente con el formulario superior
-  const { field, fieldState } = useController({
+  const { field } = useController({
     name,
     control,
     defaultValue: [] as unknown as PathValue<T, Path<T>>,

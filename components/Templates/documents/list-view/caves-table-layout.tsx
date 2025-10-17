@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
+import { type CaveIndex } from '@/database/services/Cave/getCaveIndex'
 
 import {
   type ColumnDef,
@@ -23,17 +23,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/Atoms/table'
-import {Input} from '@/components/Atoms/input'
-import {Button} from '@/components/Atoms/button'
-import {DataTableColumnHeader} from '@/components/Atoms/data-table-column-header'
+import { Input } from '@/components/Atoms/input'
+import { Button } from '@/components/Atoms/button'
+import { DataTableColumnHeader } from '@/components/Atoms/data-table-column-header'
 import BooleanBadge from '@/components/Molecules/badges/boolean-badge'
 import DistanceBadge from '@/components/Molecules/badges/distance-badge'
 import CollapsibleBox from '@/components/Molecules/boxes/collapsible-box'
 import RefBadge from '@/components/Molecules/badges/ref-badge'
 
-import {FaMagnifyingGlass} from 'react-icons/fa6'
-import {TbEditCircle} from 'react-icons/tb'
-import {IoFilter} from 'react-icons/io5'
+import { FaMagnifyingGlass } from 'react-icons/fa6'
+import { TbEditCircle } from 'react-icons/tb'
+import { IoFilter } from 'react-icons/io5'
 
 interface DataTableProps<CaveIndex> {
   instanceName: string
@@ -57,7 +57,7 @@ export function CavesTableLayout({
   const columns: ColumnDef<CaveIndex>[] = [
     {
       accessorKey: 'name',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Nombre"
@@ -66,7 +66,7 @@ export function CavesTableLayout({
     },
     {
       accessorKey: 'catalog',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Catálogo"
@@ -75,7 +75,7 @@ export function CavesTableLayout({
     },
     {
       accessorKey: 'initials',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Siglas"
@@ -94,17 +94,17 @@ export function CavesTableLayout({
     },
     {
       accessorKey: 'system',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Sistema kárstico"
         />
       ),
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return (
           <RefBadge
             baseUrl={`/instance/${instanceName}/systems/`}
-            value={row.original.system as {name: string; _id: string}}
+            value={row.original.system as { name: string; _id: string }}
             type="system"
           />
         )
@@ -112,41 +112,40 @@ export function CavesTableLayout({
     },
     {
       accessorKey: 'length',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Desarrollo"
         />
       ),
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return <DistanceBadge valueInMeters={row.original.length} />
       },
     },
     {
       accessorKey: 'depth',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Profundidad"
         />
       ),
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return <DistanceBadge valueInMeters={row.original.depth} />
       },
     },
     {
-      accessorKey: 'regulations',
-      header: ({column}) => (
+      accessorKey: 'location_confirmed',
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          title="Regulaciones"
+          title="Loc. verificada"
         />
       ),
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return (
           <BooleanBadge
-            invertedColor
-            value={row.original.regulations}
+            value={row.original.location_confirmed ? true : false}
           />
         )
       },
@@ -154,7 +153,7 @@ export function CavesTableLayout({
 
     {
       accessorKey: 'massif',
-      header: ({column}) => (
+      header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
           title="Macizo"
@@ -164,7 +163,7 @@ export function CavesTableLayout({
     {
       accessorKey: 'actions',
       header: 'Acciones',
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return (
           <div className="flex gap-2">
             <Link
@@ -278,9 +277,9 @@ export function CavesTableLayout({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   )
                 })}

@@ -1,8 +1,8 @@
-import {UseFormReturn} from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 
-import {type CaveFormValues} from '@/database/types/Cave'
-import {utmZones} from '@/database/types/UtmCoordinate'
-import {bigText, mediumText} from '@/database/validation/validationDefaults'
+import { type CaveFormValues } from '@/database/types/Cave'
+import { utmZones } from '@/database/types/UtmCoordinate'
+import { bigText, mediumText } from '@/database/validation/validationDefaults'
 
 import Divider from '@/components/Molecules/boxes/divider'
 import InfoBox from '@/components/Molecules/boxes/info-box'
@@ -12,7 +12,9 @@ import SelectField from '@/components/Molecules/fields/select-field'
 import TextAreaField from '@/components/Molecules/fields/text-area-field'
 import TextField from '@/components/Molecules/fields/text-field'
 
-import {BsExclamationTriangle} from 'react-icons/bs'
+import { BsExclamationTriangle } from 'react-icons/bs'
+import { LocateFixed } from 'lucide-react'
+import DateField from '@/components/Molecules/fields/date-field'
 
 /**
  * @version 1
@@ -65,6 +67,29 @@ export default function CaveLocationFormFragment({
           options={utmZones as unknown as string[]}
         />
       </div>
+      <Divider />
+      <InfoBox
+        color="success"
+        title="Localización verificada"
+        icon={<LocateFixed />}
+        className="mb-4"
+      >
+        Si la localización de la cueva ha sido verificada, incluye esta información:
+      </InfoBox>
+
+      <DateField
+        control={form.control}
+        name="location_confirmed.date"
+        label="Fecha de la verificación"
+      />
+      <TextField
+        control={form.control}
+        name="location_confirmed.author"
+        label="Autor de la verificación"
+        placeholder="Juan Pérez"
+        maxCharacters={mediumText}
+      />
+
       <Divider />
       <TextField
         control={form.control}
