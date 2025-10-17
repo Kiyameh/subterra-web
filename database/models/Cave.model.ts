@@ -51,7 +51,7 @@ const caveSchema = new Schema<CaveDocument>(
     location_description: {type: String},
     location_confirmed: 
       {
-        date: {type: Date, required: true},
+        date: {type: Date},
         author: {type: String},
       },
 
