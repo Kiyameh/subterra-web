@@ -1,12 +1,13 @@
-import React, {Suspense} from 'react'
-import {auth} from '@/auth'
-import {redirect} from 'next/navigation'
+import React, { Suspense } from 'react'
+import { auth } from '@/auth'
+import { redirect } from 'next/navigation'
 
 import Divider from '@/components/Molecules/boxes/divider'
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import CardWithHeader from '@/components/Molecules/boxes/card-with-header'
 import LoginForm from '@/components/Organisms/authentication/login-form'
 import SigninGoogle from '@/components/Organisms/authentication/signin-google'
+import CardTitle from '@/components/Molecules/boxes/card-title'
 
 export default async function LoginPage() {
   const user = (await auth())?.user
@@ -16,17 +17,20 @@ export default async function LoginPage() {
   if (user?.name) redirect('/auth/profile')
 
   return (
-    <CardWithHeader>
-      <Suspense>
+    <CardWithHeader cardSubHeader={<CardTitle title="Inicia sesión" subtitle='Inicia sesión con tu cuenta de Google. Si no tienes un perfil, se creará uno automáticamente.' />}>
+
+      {/* Login con pass y email deshabilitado temporalmente */}
+      {/* <Suspense>
         <LoginForm />
-      </Suspense>
+      </Suspense> 
       <LinkButton
         className="w-full"
         href="/auth/register"
         label="Crea una cuenta"
         variant="ghost"
       />
-      <Divider text="o" />
+      <Divider text="o" />*/}
+
       <Suspense>
         <SigninGoogle />
       </Suspense>
