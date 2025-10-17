@@ -63,9 +63,9 @@ export default function CaveLocationCard({ document }: { document: PlainCave }) 
         document.location_confirmed && (
           <div className="flex flex-col gap-2 border-green-500 border p-2 rounded-md">
             <p className='font-medium text-foreground flex items-center gap-2'>Localización verificada <FaCheckCircle className='text-green-500' /></p>
-            <MultiDateSlot
+            <ChipSlot
               label="Fecha de verificación"
-              values={[document.location_confirmed.date]}
+              value={document.location_confirmed.date.getFullYear()}
             />
             <TextSlot
               label="Autor de verificación"
