@@ -1,29 +1,29 @@
 'use client'
-import React, {MouseEvent} from 'react'
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
+import React, { MouseEvent } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import {type Answer} from '@/database/types/Answer'
-import {type CaveIndex} from '@/database/services/Cave/getCaveIndex'
-import {type GroupIndex} from '@/database/services/Group/getGroupsIndex'
-import {type ExplorationFormValues} from '@/database/types/Exploration'
-import {createExploration} from '@/database/services/Exploration/createExploration'
-import {ExplorationSchema} from '@/database/types/Exploration'
+import { type Answer } from '@/database/types/Answer'
+import { type CaveIndex } from '@/database/services/Cave/getCaveIndex'
+import { type GroupIndex } from '@/database/services/Group/getGroupsIndex'
+import { type ExplorationFormValues } from '@/database/types/Exploration'
+import { createExploration } from '@/database/services/Exploration/createExploration'
+import { ExplorationSchema } from '@/database/types/Exploration'
 
-import {Form} from '@/components/Atoms/form'
-import {Button} from '@/components/Atoms/button'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/Atoms/tabs'
+import { Form } from '@/components/Atoms/form'
+import { Button } from '@/components/Atoms/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Atoms/tabs'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
+import { PictureUploader } from '@/components/Organisms/file-uploader/picture-uploader'
 
-import {PiNumberCircleOneFill, PiNumberCircleTwoFill} from 'react-icons/pi'
+import { PiNumberCircleOneFill, PiNumberCircleTwoFill } from 'react-icons/pi'
 
 import ExplorationGeneralFormFragment from './explo-form-fragment-general'
-import ExplorationPicturesFormFragment from './explo-form-fragment-pictures'
 
-import {EMPTY_EXPLORATION} from './empty-exploration'
+import { EMPTY_EXPLORATION } from './empty-exploration'
 
 /**
  * @version 1
@@ -108,8 +108,11 @@ export default function ExplorationCreationForm({
             </TabsContent>
 
             <TabsContent value="pictures">
-              <ExplorationPicturesFormFragment form={form} />
-            </TabsContent>
+              <PictureUploader
+                control={form.control}
+                name="pictures"
+                maxImages={10}
+              />            </TabsContent>
           </Tabs>
         )}
         <ReactHookFormErrorBox errors={form.formState.errors} />

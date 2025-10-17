@@ -32,10 +32,12 @@ export function TopographyUploader<T extends FieldValues>({
   control,
   name,
   maxFiles = 10,
+  onUpload,
 }: {
   control: Control<T>
   name: Path<T>
   maxFiles?: number
+  onUpload?: () => void
 }) {
   // Estados del formulario:
   const [showForm, setShowForm] = React.useState<boolean>(false)
@@ -64,7 +66,8 @@ export function TopographyUploader<T extends FieldValues>({
 
     // Actualizad campo de formulario con la topografía:
     field.onChange([...topographies, newTopography])
-    fieldState.isDirty = true
+    if (onUpload) onUpload()
+
   }
 
   const handleRemoveTopography = async (index: number) => {
@@ -87,7 +90,7 @@ export function TopographyUploader<T extends FieldValues>({
       const newTopographies = [...topographies]
       newTopographies.splice(index, 1)
       field.onChange(newTopographies)
-      fieldState.isDirty = true
+
     } catch (error) {
       console.error('Error deleting topography:', error)
       toast.error('Error al eliminar la topografía', {
@@ -95,6 +98,7 @@ export function TopographyUploader<T extends FieldValues>({
       })
     } finally {
       setDeletingIndex(null)
+      if (onUpload) onUpload()
     }
   }
 
@@ -123,7 +127,8 @@ export function TopographyUploader<T extends FieldValues>({
       }
 
       field.onChange([])
-      fieldState.isDirty = true
+      if (onUpload) onUpload()
+
     }
   }
 

@@ -1,28 +1,28 @@
 'use client'
-import React, {MouseEvent} from 'react'
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
+import React, { MouseEvent } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import {type Answer} from '@/database/types/Answer'
-import {type SystemIndex} from '@/database/services/System/getSystemIndex'
-import {CaveSchema, type CaveFormValues} from '@/database/types/Cave'
-import {createCave} from '@/database/services/Cave/createCave'
+import { type Answer } from '@/database/types/Answer'
+import { type SystemIndex } from '@/database/services/System/getSystemIndex'
+import { CaveSchema, type CaveFormValues } from '@/database/types/Cave'
+import { createCave } from '@/database/services/Cave/createCave'
 
-import {Form} from '@/components/Atoms/form'
-import {Button} from '@/components/Atoms/button'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/Atoms/tabs'
+import { Form } from '@/components/Atoms/form'
+import { Button } from '@/components/Atoms/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Atoms/tabs'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
+import { PictureUploader } from '@/components/Organisms/file-uploader/picture-uploader'
+import { TopographyUploader } from '@/components/Organisms/file-uploader/topography-uploader'
 
-import {EMPTY_CAVE} from './empty-cave'
+import { EMPTY_CAVE } from './empty-cave'
 
 import CaveGeneralFormFragment from './cave-form-fragment-general'
 import CaveLocationFormFragment from './cave-form-fragment-location'
 import CaveScienceFormFragment from './cave-form-fragment-sciences'
-import CavePicturesFormFragment from './cave-form-fragment-pictures'
-import CaveTopographyFormFragment from './cave-form-fragment-topography'
 
 import {
   PiNumberCircleFiveFill,
@@ -135,11 +135,18 @@ export default function CaveCreationForm({
               <CaveScienceFormFragment form={form} />
             </TabsContent>
             <TabsContent value="topography">
-              <CaveTopographyFormFragment form={form} />
+              <TopographyUploader
+                control={form.control}
+                name="topographies"
+                maxFiles={10}
+              />
             </TabsContent>
             <TabsContent value="pictures">
-              <CavePicturesFormFragment form={form} />
-            </TabsContent>
+              <PictureUploader
+                control={form.control}
+                name="pictures"
+                maxImages={10}
+              />            </TabsContent>
           </Tabs>
         )}
 

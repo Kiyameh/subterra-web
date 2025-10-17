@@ -1,22 +1,22 @@
 'use client'
-import React, {MouseEvent} from 'react'
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
+import React, { MouseEvent } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import {type Answer} from '@/database/types/Answer'
-import {type SystemFormValues} from '@/database/types/System'
-import {SystemSchema} from '@/database/types/System'
-import {createSystem} from '@/database/services/System/createSystem'
+import { type Answer } from '@/database/types/Answer'
+import { type SystemFormValues } from '@/database/types/System'
+import { SystemSchema } from '@/database/types/System'
+import { createSystem } from '@/database/services/System/createSystem'
 
-import {Form} from '@/components/Atoms/form'
-import {Button} from '@/components/Atoms/button'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/Atoms/tabs'
+import { Form } from '@/components/Atoms/form'
+import { Button } from '@/components/Atoms/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Atoms/tabs'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import LinkButton from '@/components/Molecules/buttons/link-button'
 import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
 
-import {EMPTY_SYSTEM} from './empty-system'
+import { EMPTY_SYSTEM } from './empty-system'
 
 import {
   PiNumberCircleFourFill,
@@ -27,8 +27,8 @@ import {
 
 import SystemGeneralFormFragment from './system-form-fragment-general'
 import SystemScienceFormFragment from './system-form-fragment-sciences'
-import SystemTopographyFormFragment from './system-form-fragment-topography'
-import SystemPicturesFormFragment from './system-form-fragment-pictures'
+import { TopographyUploader } from '@/components/Organisms/file-uploader/topography-uploader'
+import { PictureUploader } from '@/components/Organisms/file-uploader/picture-uploader'
 
 /**
  * @version 2
@@ -120,10 +120,18 @@ export default function SystemCreationForm({
               <SystemScienceFormFragment form={form} />
             </TabsContent>
             <TabsContent value="topography">
-              <SystemTopographyFormFragment form={form} />
+              <TopographyUploader
+                control={form.control}
+                name="topographies"
+                maxFiles={10}
+              />
             </TabsContent>
             <TabsContent value="pictures">
-              <SystemPicturesFormFragment form={form} />
+              <PictureUploader
+                control={form.control}
+                name="pictures"
+                maxImages={10}
+              />
             </TabsContent>
           </Tabs>
         )}

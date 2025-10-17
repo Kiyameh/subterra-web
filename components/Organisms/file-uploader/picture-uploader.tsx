@@ -33,10 +33,12 @@ export function PictureUploader<T extends FieldValues>({
   control,
   name,
   maxImages = 10,
+  onUpload,
 }: {
   control: Control<T>
   name: Path<T>
   maxImages?: number
+  onUpload?: () => void
 }) {
   // Estados del formulario:
   const [showForm, setShowForm] = React.useState<boolean>(false)
@@ -65,7 +67,8 @@ export function PictureUploader<T extends FieldValues>({
 
     // Actualizad campo de formulario con la imagen:
     field.onChange([...pictures, newPicture])
-    fieldState.isDirty = true
+
+    if (onUpload) onUpload()
   }
 
   const handleRemoveImage = async (index: number) => {
@@ -88,7 +91,7 @@ export function PictureUploader<T extends FieldValues>({
       const newPictures = [...pictures]
       newPictures.splice(index, 1)
       field.onChange(newPictures)
-      fieldState.isDirty = true
+
     } catch (error) {
       console.error('Error deleting image:', error)
       toast.error('Error al eliminar la imagen', {
@@ -96,6 +99,7 @@ export function PictureUploader<T extends FieldValues>({
       })
     } finally {
       setDeletingIndex(null)
+      if (onUpload) onUpload()
     }
   }
 
@@ -120,7 +124,8 @@ export function PictureUploader<T extends FieldValues>({
       }
 
       field.onChange([])
-      fieldState.isDirty = true
+      if (onUpload) onUpload()
+
     }
   }
 

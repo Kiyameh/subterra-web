@@ -29,14 +29,7 @@ export async function updateCave(
     if (!validated || !commanderId || !values.instances[0])
       throw new Error('Datos no válidos')
     
-    // LOG:
-
-    console.log("Actualizando cavidad con los datos: ")
-    console.log("VALIDATED:"+ validated)
-    console.log("UPDATED KEYS:"+ updatedKeys)
-
-
-    // TODO: Si en un futuro habrá más de una instancia por cueva, cambiar el método de comprobación
+        // TODO: Si en un futuro habrá más de una instancia por cueva, cambiar el método de comprobación
     const isEditor = await checkIsEditor(commanderId, null, values.instances[0])
     if (!isEditor) throw new Error('Usuario no es editor')
 
@@ -57,10 +50,6 @@ export async function updateCave(
     currentCave.versions.push(oldValues)
     currentCave.markModified('versions') //? Indicar a mongoose que se ha modificado (https://mongoosejs.com/docs/schematypes.html#mixed)
     currentCave.updatedAt = new Date()
-
-    // LOG:
-    console.log("OLD VALUES:"+ oldValues)
-    console.log("NEW CAVE:"+ currentCave)
 
     // Guardar los cambios:
     const updatedCave = await currentCave.save()

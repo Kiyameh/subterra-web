@@ -1,29 +1,28 @@
 'use client'
 import React from 'react'
-import {useParams, useSearchParams} from 'next/navigation'
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod'
+import { useParams, useSearchParams } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import {type Answer} from '@/database/types/Answer'
-import {type CaveFormValues} from '@/database/types/Cave'
-import {type PlainCave} from '@/database/services/Cave/getPlainCave'
-import {type SystemIndex} from '@/database/services/System/getSystemIndex'
-import {CaveSchema} from '@/database/types/Cave'
-import {updateCave} from '@/database/services/Cave/updateCave'
+import { type Answer } from '@/database/types/Answer'
+import { type CaveFormValues } from '@/database/types/Cave'
+import { type PlainCave } from '@/database/services/Cave/getPlainCave'
+import { type SystemIndex } from '@/database/services/System/getSystemIndex'
+import { CaveSchema } from '@/database/types/Cave'
+import { updateCave } from '@/database/services/Cave/updateCave'
 
-import {Button} from '@/components/Atoms/button'
-import {Form} from '@/components/Atoms/form'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/Atoms/tabs'
+import { Button } from '@/components/Atoms/button'
+import { Form } from '@/components/Atoms/form'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/Atoms/tabs'
 import SubmitButton from '@/components/Molecules/buttons/submit-button'
 import DbAwnserBox from '@/components/Molecules/boxes/db-answer-box'
 import ReactHookFormErrorBox from '@/components/Molecules/boxes/rhf-error-box'
 import LinkButton from '@/components/Molecules/buttons/link-button'
+import { PictureUploader } from '@/components/Organisms/file-uploader/picture-uploader'
 
 import CaveGeneralFormFragment from './cave-form-fragment-general'
 import CaveLocationFormFragment from './cave-form-fragment-location'
 import CaveScienceFormFragment from './cave-form-fragment-sciences'
-import CavePicturesFormFragment from './cave-form-fragment-pictures'
-import CaveTopographyFormFragment from './cave-form-fragment-topography'
 
 import {
   PiNumberCircleFiveFill,
@@ -32,6 +31,7 @@ import {
   PiNumberCircleThreeFill,
   PiNumberCircleTwoFill,
 } from 'react-icons/pi'
+import { TopographyUploader } from '@/components/Organisms/file-uploader/topography-uploader'
 
 /**
  * @version 2
@@ -54,9 +54,11 @@ export default function CaveEditionForm({
   const searchParams = useSearchParams()
   const defaultTab = searchParams.get('section')
 
-  const params: {instance: string; document: string} = useParams()
+  const params: { instance: string; document: string } = useParams()
   const [dbAnswer, setDbAnswer] = React.useState<Answer | null>(null)
   const [isPending, startTransition] = React.useTransition()
+  const [picturesDirty, setPicturesDirty] = React.useState<boolean>(false)
+  const [topographiesDirty, setTopographiesDirty] = React.useState<boolean>(false)
 
   const form = useForm<CaveFormValues>({
     resolver: zodResolver(CaveSchema),
@@ -66,9 +68,15 @@ export default function CaveEditionForm({
   function onSubmit(values: CaveFormValues) {
     setDbAnswer(null)
     startTransition(async () => {
+      const updatesKeys = Object.keys(form.formState.dirtyFields) as Array<keyof CaveFormValues>
+
+      if (picturesDirty) updatesKeys.push('pictures')
+      if (topographiesDirty) updatesKeys.push('topographies')
+      if (updatesKeys.length === 0) setDbAnswer({ ok: false, message: 'Error desconocido' })
+
       const answer = await updateCave(
         values, // Valores del formulario
-        Object.keys(form.formState.dirtyFields) as Array<keyof CaveFormValues>, // Array con los campos que se han actualizado
+        updatesKeys, // Array con los campos que se han actualizado
         cave._id, // ID de la cavidad a modificar
         commanderId // Usuario que lo ordena
       )
@@ -161,10 +169,20 @@ export default function CaveEditionForm({
               <CaveScienceFormFragment form={form} />
             </TabsContent>
             <TabsContent value="topography">
-              <CaveTopographyFormFragment form={form} />
+              <TopographyUploader
+                control={form.control}
+                name="topographies"
+                maxFiles={10}
+                onUpload={() => setTopographiesDirty(true)}
+              />
             </TabsContent>
             <TabsContent value="pictures">
-              <CavePicturesFormFragment form={form} />
+              <PictureUploader
+                control={form.control}
+                name="pictures"
+                maxImages={10}
+                onUpload={() => setPicturesDirty(true)}
+              />
             </TabsContent>
           </Tabs>
         )}
