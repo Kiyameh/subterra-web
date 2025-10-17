@@ -7,7 +7,7 @@ import CardTitle from '@/components/Molecules/boxes/card-title'
 import Divider from '@/components/Molecules/boxes/divider'
 import { MultiTextSlot } from '@/components/Molecules/slots/text-slots'
 import { TextSlot } from '@/components/Molecules/slots/text-slots'
-import { ChipSlot, MultiDateSlot } from '@/components/Molecules/slots/chip-slots'
+import { ChipSlot } from '@/components/Molecules/slots/chip-slots'
 import { DistanceSlot } from '@/components/Molecules/slots/number-slots'
 
 import { FaMapLocationDot } from 'react-icons/fa6'
