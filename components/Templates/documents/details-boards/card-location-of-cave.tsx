@@ -20,6 +20,7 @@ import { FaCheckCircle } from 'react-icons/fa'
  */
 
 export default function CaveLocationCard({ document }: { document: PlainCave }) {
+  const locationDate = document.location_confirmed?.date ? new Date(document.location_confirmed.date) : null
   return (
     <BasicCard
       className="w-full"
@@ -65,7 +66,7 @@ export default function CaveLocationCard({ document }: { document: PlainCave }) 
             <p className='font-medium text-foreground flex items-center gap-2'>Localización verificada <FaCheckCircle className='text-green-500' /></p>
             <ChipSlot
               label="Fecha de verificación"
-              value={document.location_confirmed.date.getFullYear()}
+              value={locationDate?.getFullYear()}
             />
             <TextSlot
               label="Autor de verificación"
